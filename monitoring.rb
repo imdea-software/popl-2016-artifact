@@ -1,3 +1,5 @@
+require 'set'
+
 module ConcurrentObject
 
   class Operation
@@ -46,7 +48,7 @@ module ConcurrentObject
 
     def before!(op)
       updated = false
-      if @end_time && op.end_time && @end_time > op.end_time
+      if @end_time && op && op.end_time && @end_time > op.end_time
         @end_time = op.end_time
         updated = true
       end
@@ -122,7 +124,12 @@ module ConcurrentObject
       @operations.map do |op|
         i = op.start_time
         j = op.end_time
-        "#{" " * i}|#{"-" * ((j || time)-i)}#{j ? "|" : "-"} #{op}"
+        len = (j||time)-i
+        if len >= 0
+          "#{" " * i}|#{"-" * len}#{j ? "|" : "-"} #{op}"
+        else
+          "#{" " * i}X #{op}"
+        end
       end * "\n"
     end
   end
@@ -198,13 +205,13 @@ module AtomicStack
         worklist.delete(op)
 
         if op.empty?
-          @elements.each do |e|
+          @elements.each do |_,e|
             worklist << e.add << op if apply_empty!(e,op)
           end
 
         elsif op.value
           e1 = @elements[op.value]
-          @elements.each do |e2|
+          @elements.each do |_,e2|
             next if e1 == e2
             worklist << e1.add << e2.add if apply_stack_order!(e1,e2)
           end
@@ -224,13 +231,13 @@ module AtomicStack
 
     def apply_stack_order!(e1,e2)
       updated = false
-      if e1.add.before?(e2.add) && e1.remove.before?(e2.remove)
+      if e1.add.before?(e2.add) && e1.remove && e1.remove.before?(e2.remove)
         updated ||= e1.remove.before!(e2.add)
       end
-      if e1.add.before?(e2.add) && e2.add.before?(e1.remove)
+      if e1.add.before?(e2.add) && e2.add.before?(e1.remove) && e2.remove
         updated ||= e2.remove.before!(e1.remove)
       end
-      if e2.add.before?(e1.remove) && e1.remove.before?(e2.remove)
+      if e2.add.before?(e1.remove) && e1.remove && e1.remove.before?(e2.remove)
         updated ||= e2.add.before!(e1.add)
       end
       updated
@@ -272,6 +279,7 @@ module Tester
     obj = MyStack.new(mon)
     val = 0
     puts "Monitoring #{obj.class}..."
+    Thread.abort_on_exception=true
     stats = Thread.new do
       loop do
         puts "STATS | #{mon.stats.map{|k,v| "#{k}: #{v}"} * ", "}"
