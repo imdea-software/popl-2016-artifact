@@ -3,24 +3,28 @@ require 'set'
 module ConcurrentObject
 
   class Operation
+    @@unique_id = 0
+    attr_accessor :id
     attr_accessor :method_name, :arg_value, :return_value
     attr_accessor :start_time, :end_time
+    attr_accessor :min_time, :max_time
     attr_accessor :dependencies
 
     def initialize(method, val, time)
+      @id = (@@unique_id += 1)
       start!(method, val, time)
     end
 
     def start!(method, val, time)
       @method_name = method
       @arg_value = val
-      @start_time = time
+      @min_time = @start_time = time
     end
 
     def complete!(val, time, pending_ops)
       fail "#{self} already completed!" if completed?
       @return_value = val
-      @end_time = time
+      @max_time = @end_time = time
       @dependencies = pending_ops
     end
 
@@ -35,8 +39,11 @@ module ConcurrentObject
         when :unit; ""
         else " => #{@return_value}"
       end
-      "#{@method_name}#{arg}#{ret}" +
-      (obsolete? ? " (X)" : "")
+      str = ""
+      str << "#{@id}: "
+      str << "#{@method_name}#{arg}#{ret}"
+      # str << " (#{@start_time},#{@min_time},#{@max_time || "_"},#{@end_time || "_"})"
+      str
     end
 
     def pending?; @end_time.nil? end
@@ -48,12 +55,12 @@ module ConcurrentObject
 
     def before!(op)
       updated = false
-      if @end_time && op && op.end_time && @end_time > op.end_time
-        @end_time = op.end_time
+      if completed? && op && op.completed? && @max_time > op.max_time
+        @max_time = op.max_time
         updated = true
       end
-      if op && op.start_time < @start_time
-        op.start_time = @start_time
+      if op && op.min_time < @min_time
+        op.min_time = @min_time
         updated = true
       end
       updated
@@ -115,22 +122,78 @@ module ConcurrentObject
 
     def stats; {
       time: @time,
-      num_ops: @operations.count,
-      num_obsolete: @operations.select(&:obsolete?).count
+      num_ops: @operations.count
       }
     end
 
-    def to_s
-      @operations.map do |op|
-        i = op.start_time
-        j = op.end_time
-        len = (j||time)-i
-        if len >= 0
-          "#{" " * i}|#{"-" * len}#{j ? "|" : "-"} #{op}"
+    def interval_s(op, relative_time: 0)
+      bracket = {true => '|', false => ':'}
+      mark = {tick: '-', empty: ' ', pending: '*', invalid: 'X'}
+
+      i = op.start_time - relative_time
+      ii = op.min_time - relative_time
+      jj = op.max_time
+      j = op.end_time
+      jj -= relative_time if jj
+      j -= relative_time if j
+      k = @time - relative_time
+
+      str = ""
+      str << " " * i
+      if jj && ii > jj
+        str << mark[:invalid] * (j-i+1)
+        str << " " * (k-j)
+      else
+        str << mark[:empty] * (ii-i)
+        if j
+          str << mark[:tick] * (jj-ii+1)
+          str << mark[:empty] * (j-jj)
+          str << " " * (k-j)
         else
-          "#{" " * i}X #{op}"
+          str << mark[:tick] * (k-ii)
+          str << mark[:pending]
         end
-      end * "\n"
+      end
+      str[i] = bracket[i==ii]
+      str[j] = bracket[j==jj] if j
+      str
+    end
+
+    def interval_ss(ops: @operations, relative_time: ops.map(&:start_time).min)
+      ops.map {|op| interval_s(op, relative_time: relative_time) + "  #{op}"}
+    end
+
+    def debug_before_and_after(msg, focused_ops)
+      t0 = @operations.map(&:start_time).min
+      focused_before = interval_ss(ops: focused_ops.compact, relative_time: t0)
+      if yield then
+        intervals = interval_ss
+        focused_after = interval_ss(ops: focused_ops.compact, relative_time: t0)
+        info = stats.map{|k,v| "#{k}: #{v}"} * ", "
+        width = (intervals.map(&:length) + [info.length]).max
+        puts "-" * width
+        puts msg, info
+        puts "-" * width
+        puts intervals
+        puts "-" * width
+        puts "BEFORE", focused_before
+        puts "-" * width
+        puts "AFTER", focused_after
+        puts "-" * width
+      end
+    end
+
+    def to_s
+      intervals = interval_ss
+      title = "History | " + stats.map{|k,v| "#{k}: #{v}"} * ", "
+      width = (intervals.map(&:length) + [title.length]).max
+      str = ""
+      str << '-' * width << "\n"
+      str << title << "\n"
+      str << '-' * width << "\n"
+      str << intervals * "\n" << "\n"
+      str << '-' * width
+      str
     end
   end
 
@@ -154,6 +217,7 @@ module AtomicStack
   class Element
     attr_accessor :add, :remove
     def initialize(add) @add = add end
+    def value; add.value end
     def removed?; !@remove.nil? end
     def remove!(remove)
       warn "#{self} already removed!" if removed?
@@ -166,15 +230,26 @@ module AtomicStack
 
   class Monitor < ConcurrentObject::Monitor
     attr_accessor :elements, :empties
+    attr_accessor :napps_rem, :napps_empty, :napps_order
 
     def initialize
       super
       @elements = {}
       @empties = []
+      @napps_rem = @napps_empty = @napps_order = 0
     end
 
     def create_op(method, val)
       AtomicStack::Operation.new(method, val, @time)
+    end
+
+    alias :super_stats :stats
+    def stats
+      super_stats.merge({
+        napps_rem: @napps_rem,
+        napps_empty: @napps_empty,
+        napps_order: @napps_order
+      })
     end
 
     def on_start!(op)
@@ -211,6 +286,7 @@ module AtomicStack
 
         elsif op.value
           e1 = @elements[op.value]
+          worklist << e1.add << e1.remove if apply_remove!(e1)
           @elements.each do |_,e2|
             next if e1 == e2
             worklist << e1.add << e2.add if apply_stack_order!(e1,e2)
@@ -222,25 +298,47 @@ module AtomicStack
       end
     end
 
+    def apply_remove!(elem)
+      debug_before_and_after("APPLIED REMOVE RULE", [elem.add, elem.remove]) do
+        updated = false
+        updated ||= elem.add.before!(elem.remove) if elem.remove
+        @napps_rem += 1 if updated
+        updated
+      end
+    end
+
     def apply_empty!(elem, emp)
-      updated = false
-      updated ||= elem.remove.before!(emp) if elem.remove && elem.add.before?(emp)
-      updated ||= emp.before!(elem.add) if emp.before?(elem.remove)
-      updated
+      debug_before_and_after("APPLIED EMPTY RULE", [elem.add, elem.remove, emp]) do
+        updated = false
+        if elem.remove && elem.add.before?(emp)
+          updated ||= elem.remove.before!(emp)
+        end
+        if emp.before?(elem.remove) && (elem.remove || emp.dependencies.empty?)
+          updated ||= emp.before!(elem.add)
+        end
+        @napps_empty += 1 if updated
+        updated
+      end
     end
 
     def apply_stack_order!(e1,e2)
-      updated = false
-      if e1.add.before?(e2.add) && e1.remove && e1.remove.before?(e2.remove)
-        updated ||= e1.remove.before!(e2.add)
+      debug_before_and_after("APPLIED ORDER RULE", [e1.add, e1.remove, e2.add, e2.remove]) do
+        updated = false
+        if e1.add.before?(e2.add) && e1.remove && e1.remove.before?(e2.remove) &&
+          (e2.remove || e1.remove.dependencies.empty?)
+          updated ||= e1.remove.before!(e2.add)
+        end
+        if e1.add.before?(e2.add) && e2.add.before?(e1.remove) && e2.remove &&
+          (e1.remove || e2.add.dependencies.empty?)
+          updated ||= e2.remove.before!(e1.remove) # TODO WHAT IF !e1.remove
+        end
+        if e2.add.before?(e1.remove) && e1.remove && e1.remove.before?(e2.remove) &&
+          (e2.remove || e1.remove.dependencies.empty?)
+          updated ||= e2.add.before!(e1.add)
+        end
+        @napps_order += 1 if updated
+        updated
       end
-      if e1.add.before?(e2.add) && e2.add.before?(e1.remove) && e2.remove
-        updated ||= e2.remove.before!(e1.remove)
-      end
-      if e2.add.before?(e1.remove) && e1.remove && e1.remove.before?(e2.remove)
-        updated ||= e2.add.before!(e1.add)
-      end
-      updated
     end
   end
 
@@ -256,17 +354,17 @@ class MyStack
   end
   def add(val)
     op = @monitor.on_call(:add, val)
-    sleep @gen.rand(1.0)
+    sleep @gen.rand(0.2)
     ret = @mutex.synchronize { @contents.push val; :unit }
-    sleep @gen.rand(1.0)
+    sleep @gen.rand(0.1)
     @monitor.on_return(op,ret)
     ret
   end
   def remove
     op = @monitor.on_call(:remove, :unit)
-    sleep @gen.rand(1.0)
+    sleep @gen.rand(0.02)
     ret = @mutex.synchronize { @contents.pop || :empty }
-    sleep @gen.rand(1.0)
+    sleep @gen.rand(0.01)
     @monitor.on_return(op,ret)
     ret
   end
@@ -282,16 +380,13 @@ module Tester
     Thread.abort_on_exception=true
     stats = Thread.new do
       loop do
-        puts "STATS | #{mon.stats.map{|k,v| "#{k}: #{v}"} * ", "}"
-        puts "#{"-" * 80}"
-        puts mon
-        puts "#{"-" * 80}"
         sleep 1
       end
     end
     num_threads.times.map do
       Thread.new do
         loop do
+          sleep gen.rand(0.1)
           case gen.rand(3)
           when 0; obj.add(val += 1)
           else    obj.remove
@@ -304,5 +399,5 @@ module Tester
 end
 
 if __FILE__ == $0
-  Tester::main 6
+  Tester::main 7
 end
