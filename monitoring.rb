@@ -10,20 +10,20 @@ module ConcurrentObject
     attr_accessor :min_time, :max_time
     attr_accessor :dependencies
 
-    def initialize(method, val, time)
+    def initialize(method, *args, time)
       @id = (@@unique_id += 1)
-      start!(method, val, time)
+      start!(method, *args, time)
     end
 
-    def start!(method, val, time)
+    def start!(method, *args, time)
       @method_name = method
-      @arg_value = val
+      @arg_value = *args.compact
       @min_time = @start_time = time
     end
 
-    def complete!(val, time, pending_ops)
+    def complete!(*vals, time, pending_ops)
       fail "#{self} already completed!" if completed?
-      @return_value = val
+      @return_value = *vals.compact
       @max_time = @end_time = time
       @dependencies = pending_ops
     end
@@ -33,11 +33,11 @@ module ConcurrentObject
     end
 
     def to_s
-      arg = @arg_value == :unit ? "" : "(#{@arg_value})"
+      arg = @arg_value == [] ? "" : "(#{@arg_value * ", "})"
       ret = case @return_value
         when nil; "..."
-        when :unit; ""
-        else " => #{@return_value}"
+        when []; ""
+        else " => #{@return_value * ", "}"
       end
       str = ""
       str << "#{@id}: "
@@ -78,14 +78,14 @@ module ConcurrentObject
       @mutex = Mutex.new
     end
 
-    def create_op(method, val)
-      Operation.new(method, val, @time)
+    def create_op(method, *args)
+      Operation.new(method, *args, @time)
     end
 
-    def on_call(method, val)
+    def on_call(method, *args)
       op = nil
       @mutex.synchronize do
-        op = create_op(method, val)
+        op = create_op(method, *args)
         @operations << op
         @time += 1
         on_start! op
@@ -98,7 +98,7 @@ module ConcurrentObject
         op.complete!(val, @time, @operations.select(&:pending?))
         @time += 1
         on_completed! op
-        warn "Found a contradiction" if contradiction?
+        fail "Found a contradiction\n#{to_s}" if contradiction?
         cleanup!
       end
     end
@@ -197,6 +197,25 @@ module ConcurrentObject
     end
   end
 
+  class MonitoredObject
+    attr_accessor :object, :monitor
+    def initialize(object, monitor)
+      @object = object
+      @monitor = monitor
+      object.methods.each do |m|
+        next if Object.instance_methods.include? m
+        (class << self; self; end).class_eval do
+          define_method(m) do |*args|
+            op = @monitor.on_call(m, *args)
+            ret = @object.send(m, *args)
+            @monitor.on_return(op, ret)
+            ret
+          end
+        end
+      end
+    end
+  end
+
 end
 
 module AtomicStack
@@ -206,11 +225,11 @@ module AtomicStack
     alias :default_obsolete? :obsolete?
     def obsolete?
       default_obsolete? &&
-      (@match && @match.default_obsolete? || @return_value == :empty)
+      (@match && @match.default_obsolete? || @return_value.first == :empty)
     end
     def add?; @method_name == :add end
     def remove?; @method_name == :remove end
-    def value; add? ? @arg_value : @return_value end
+    def value; add? ? @arg_value.first : @return_value.first end
     def empty?; value == :empty end
   end
 
@@ -220,7 +239,7 @@ module AtomicStack
     def value; add.value end
     def removed?; !@remove.nil? end
     def remove!(remove)
-      warn "#{self} already removed!" if removed?
+      fail "#{self} already removed!" if removed?
       @remove = remove
       @remove.match = @add
       @add.match = @remove
@@ -239,8 +258,8 @@ module AtomicStack
       @napps_rem = @napps_empty = @napps_order = 0
     end
 
-    def create_op(method, val)
-      AtomicStack::Operation.new(method, val, @time)
+    def create_op(method, *args)
+      AtomicStack::Operation.new(method, *args, @time)
     end
 
     alias :super_stats :stats
@@ -265,7 +284,7 @@ module AtomicStack
 
       elsif op.remove?
         e = @elements[op.value]
-        warn "Element #{op.value} removed yet never added!" unless e
+        fail "Element #{op.value} removed yet never added!" unless e
         e.remove!(op)
       end
 
@@ -345,44 +364,33 @@ module AtomicStack
 end
 
 class MyStack
-  attr_accessor :contents, :monitor, :mutex, :gen
-  def initialize(monitor)
+  attr_accessor :contents, :mutex, :gen
+  def initialize
     @contents = []
-    @monitor = monitor
     @mutex = Mutex.new
     @gen = Random.new
   end
   def add(val)
-    op = @monitor.on_call(:add, val)
     sleep @gen.rand(0.2)
-    ret = @mutex.synchronize { @contents.push val; :unit }
+    @mutex.synchronize { @contents.push val }
     sleep @gen.rand(0.1)
-    @monitor.on_return(op,ret)
-    ret
+    nil
   end
   def remove
-    op = @monitor.on_call(:remove, :unit)
     sleep @gen.rand(0.02)
-    ret = @mutex.synchronize { @contents.pop || :empty }
+    val = @mutex.synchronize { @contents.pop }
     sleep @gen.rand(0.01)
-    @monitor.on_return(op,ret)
-    ret
+    val || :empty
   end
 end
 
 module Tester
   def self.main(num_threads)
     gen = Random.new
-    mon = AtomicStack::Monitor.new
-    obj = MyStack.new(mon)
+    obj = ConcurrentObject::MonitoredObject.new( MyStack.new, AtomicStack::Monitor.new )
     val = 0
     puts "Monitoring #{obj.class}..."
-    Thread.abort_on_exception=true
-    stats = Thread.new do
-      loop do
-        sleep 1
-      end
-    end
+    Thread.abort_on_exception = true
     num_threads.times.map do
       Thread.new do
         loop do
@@ -393,8 +401,7 @@ module Tester
           end
         end
       end
-    end
-    stats.join
+    end.each {|t| t.join}
   end
 end
 
