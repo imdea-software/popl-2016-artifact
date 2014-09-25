@@ -122,7 +122,8 @@ module ConcurrentObject
 
     def stats; {
       time: @time,
-      num_ops: @operations.count
+      ops: @operations.count,
+      pending: @operations.select(&:pending?).count
       }
     end
 
@@ -204,12 +205,25 @@ module ConcurrentObject
       @monitor = monitor
       object.methods.each do |m|
         next if Object.instance_methods.include? m
+        next if object.methods.include?("#{m.to_s.chomp('=')}=".to_sym)
         (class << self; self; end).class_eval do
-          define_method(m) do |*args|
-            op = @monitor.on_call(m, *args)
-            ret = @object.send(m, *args)
-            @monitor.on_return(op, ret)
-            ret
+          case object.method(m).arity
+          when 0
+            define_method(m) do
+              op = @monitor.on_call(m)
+              ret = @object.send(m)
+              @monitor.on_return(op, ret)
+              ret
+            end
+          when 1
+            define_method(m) do |a|
+              op = @monitor.on_call(m, a)
+              ret = @object.send(m, a)
+              @monitor.on_return(op, ret)
+              ret
+            end
+          else
+            fail "Unexpected number of arguments for method #{m}"
           end
         end
       end
@@ -384,27 +398,37 @@ class MyStack
   end
 end
 
-module Tester
-  def self.main(num_threads)
+class Tester
+  MAX_DELAY = 0.1
+  attr_accessor :unique_val
+
+  def initialize
+    @unique_val = 0
+  end
+
+  def randomized_thread(obj)
+    methods = obj.methods.
+      reject{|m| Object.instance_methods.include? m}.
+      reject{|m| obj.methods.include?("#{m.to_s.chomp('=')}=".to_sym)}
+
     gen = Random.new
-    obj = ConcurrentObject::MonitoredObject.new( MyStack.new, AtomicStack::Monitor.new )
-    val = 0
-    puts "Monitoring #{obj.class}..."
-    Thread.abort_on_exception = true
-    num_threads.times.map do
-      Thread.new do
-        loop do
-          sleep gen.rand(0.1)
-          case gen.rand(3)
-          when 0; obj.add(val += 1)
-          else    obj.remove
-          end
-        end
+    Thread.new do
+      loop do
+        sleep gen.rand(MAX_DELAY)
+        m = obj.method(methods[gen.rand(methods.count)])
+        fail "Unexpected number of arguments for method #{m.name}" if m.arity < 0
+        args = m.arity.times.map { @unique_val += 1 }
+        m.call(*args)
       end
-    end.each {|t| t.join}
+    end
+  end
+
+  def randomized_test(obj, mon, num_threads)
+    mon_obj = ConcurrentObject::MonitoredObject.new(obj, mon)
+    num_threads.times.map{ randomized_thread(mon_obj) }.each(&:join)
   end
 end
 
 if __FILE__ == $0
-  Tester::main 7
+  Tester.new.randomized_test MyStack.new, AtomicStack::Monitor.new, 7
 end
