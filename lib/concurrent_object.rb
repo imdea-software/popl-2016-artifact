@@ -69,6 +69,7 @@ module ConcurrentObject
     attr_accessor :operations
     attr_accessor :time
     attr_accessor :mutex
+    attr_accessor :ops_per_sec
 
     def initialize
       @operations = []
@@ -99,6 +100,13 @@ module ConcurrentObject
         fail "Found a contradiction\n#{to_s}" if contradiction?
         cleanup!
       end
+      if @last_time
+        d = Time.now - @last_time
+        d = (@ops_per_sec + 1/d) / 2 if @ops_per_sec
+        @ops_per_sec = d
+      else
+        @last_time = Time.now
+      end
     end
 
     def on_start!(op)
@@ -118,11 +126,12 @@ module ConcurrentObject
       @operations.reject!(&:obsolete?)
     end
 
-    def stats; {
+    def stats; [{
       time: @time,
       ops: @operations.count,
-      pending: @operations.select(&:pending?).count
-      }
+      pending: @operations.select(&:pending?).count,
+      ops_per_sec: @ops_per_sec
+      }]
     end
 
     def interval_s(op, relative_time: 0)
@@ -158,12 +167,19 @@ module ConcurrentObject
       str
     end
 
-    def interval_ss(ops: @operations, relative_time: ops.map(&:start_time).min)
-      intervals = ops.map{|op| interval_s(op, relative_time: relative_time) + "  #{op}"}
-      # TODO cut out the voids for better display?
-      # filled_positions = intervals.map{|i| i.length.times.select{|p| i[p] != ' '}}.reduce(:|)
-      # intervals.each{|i| (i.length-1).downto(0) {|p| i[p] = '' unless filled_positions.include?(p)}}
+    # TODO this method takes too much time as the space between time intervals
+    # gets huge
+    def compact_intervals(intervals, relative_time)
+      # k = @time - relative_time
+      # spinning = k.times.select{|p| intervals.all?{|i| i[p] == '-' || i[p] == ' '}}
+      # intervals.each{|i| (k-1).downto(0) {|p| i[p] = '' if spinning.include?(p)}}
       intervals
+    end
+
+    def interval_ss(ops: @operations, relative_time: ops.map(&:start_time).min)
+      compact_intervals(
+        ops.map{|op| interval_s(op, relative_time: relative_time) + "  #{op}"},
+        relative_time)
     end
 
     def debug_before_and_after(msg, focused_ops)
@@ -172,8 +188,8 @@ module ConcurrentObject
       if yield then
         intervals = interval_ss
         focused_after = interval_ss(ops: focused_ops.compact, relative_time: t0)
-        info = stats.map{|k,v| "#{k}: #{v}"} * ", "
-        width = (intervals.map(&:length) + [info.length]).max
+        info = stats.map{|ss| ss.map{|k,v| "#{k}: #{v}"} * ", "}
+        width = [intervals.map(&:length).max, info.map(&:length).max].max
         puts "-" * width
         puts msg, info
         puts "-" * width
@@ -188,11 +204,11 @@ module ConcurrentObject
 
     def to_s
       intervals = interval_ss
-      title = "History | " + stats.map{|k,v| "#{k}: #{v}"} * ", "
-      width = (intervals.map(&:length) + [title.length]).max
+      info = stats.map{|ss| map{|k,v| "#{k}: #{v}"} * ", "}
+      width = [intervals.map(&:length).max, info.map(&:length).max].max
       str = ""
       str << '-' * width << "\n"
-      str << title << "\n"
+      str << info << "\n"
       str << '-' * width << "\n"
       str << intervals * "\n" << "\n"
       str << '-' * width

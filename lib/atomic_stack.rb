@@ -47,11 +47,13 @@ module AtomicStack
 
     alias :super_stats :stats
     def stats
-      super_stats.merge({
-        napps_rem: @napps_rem,
-        napps_empty: @napps_empty,
-        napps_order: @napps_order
-      })
+      return super_stats + [{
+        elems: @elements.count,
+        empties: @empties.count,
+        apps_rem: @napps_rem,
+        apps_empty: @napps_empty,
+        apps_order: @napps_order
+      }]
     end
 
     def on_start!(op)
