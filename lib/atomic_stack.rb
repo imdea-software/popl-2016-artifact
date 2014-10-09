@@ -57,10 +57,12 @@ module AtomicStack
     end
 
     def on_start!(op)
+      puts "ON START: #{op}"
       @elements[op.value] = Element.new(op) if op.add?
     end
 
     def on_completed!(op)
+      puts "ON COMPLETED: #{op}"
       @elements.reject!{|_,e| e.obsolete?}
       @empties.reject!(&:obsolete?)
 

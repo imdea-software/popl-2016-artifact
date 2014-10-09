@@ -216,6 +216,45 @@ module ConcurrentObject
     end
   end
 
+  class LogWritingMonitor < Monitor
+    def initialize(filename)
+      super()
+      @file = File.open(filename, 'w')
+    end
+
+    def on_start!(op)
+      @file.write "#{op}\n"
+    end
+
+    def on_completed!(op)
+      @file.write "#{op}\n"
+    end
+  end
+
+  class LogReader
+    attr_accessor :monitor, :operations
+    def initialize(monitor)
+      @monitor = monitor
+      @operations = {}
+    end
+    def read(filename)
+      time = 0
+      File.open(filename, 'r').each do |str|
+        time += 1
+        str.chomp!
+        if m = str.match(/(\d+): (\w+)(\((\d+)\))?\.\.\./)
+          op = @monitor.create_op(m[2], m[4])
+          @operations[m[1]] = op
+          @monitor.on_call(op.method_name, *op.arg_value)
+        elsif m = str.match(/(\d+): \w+(\(\d+\))?( => (\d+))?/)
+          @monitor.on_return(@operations.delete(m[1]), m[4])
+        else
+          fail "Unexpected line in log file: #{str}"
+        end
+      end
+    end
+  end
+
   class MonitoredObject
     attr_accessor :object, :monitor
     def initialize(object, monitor)
