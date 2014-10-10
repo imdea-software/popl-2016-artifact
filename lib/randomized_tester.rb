@@ -4,7 +4,9 @@ class RandomizedTester
 
   def initialize
     @unique_val = 0
+    @end_time = nil
   end
+
 
   def randomized_thread(obj)
     methods = obj.methods.
@@ -14,6 +16,7 @@ class RandomizedTester
     gen = Random.new
     Thread.new do
       loop do
+        break if @end_time && Time.now > @end_time
         sleep gen.rand(MAX_DELAY)
         m = obj.method(methods[gen.rand(methods.count)])
         fail "Unexpected number of arguments for method #{m.name}" if m.arity < 0
@@ -23,8 +26,9 @@ class RandomizedTester
     end
   end
 
-  def run(obj, mon, num_threads)
+  def run(obj, mon, num_threads, time_limit = nil)
     mon_obj = ConcurrentObject::MonitoredObject.new(obj, mon)
+    @end_time = Time.now + time_limit if time_limit
     num_threads.times.map{ randomized_thread(mon_obj) }.each(&:join)
   end
 end

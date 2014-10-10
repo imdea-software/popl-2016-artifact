@@ -74,7 +74,6 @@ module ConcurrentObject
     def initialize
       @operations = []
       @time = 0
-      @mutex = Mutex.new
     end
 
     def create_op(method, *args)
@@ -82,24 +81,20 @@ module ConcurrentObject
     end
 
     def on_call(method, *args)
-      op = nil
-      @mutex.synchronize do
-        op = create_op(method, *args)
-        @operations << op
-        @time += 1
-        on_start! op
-      end
+      op = create_op(method, *args)
+      @operations << op
+      @time += 1
+      on_start! op
       return op
     end
 
-    def on_return(op, val)
-      @mutex.synchronize do
-        op.complete!(val, @time, @operations.select(&:pending?))
-        @time += 1
-        on_completed! op
-        fail "Found a contradiction\n#{to_s}" if contradiction?
-        cleanup!
-      end
+    def on_return(op, *vals)
+      op.complete!(*vals, @time, @operations.select(&:pending?))
+      @time += 1
+      on_completed! op
+      fail "Found a contradiction\n#{to_s}" if contradiction?
+      cleanup!
+
       if @last_time
         d = Time.now - @last_time
         d = (@ops_per_sec + 1/d) / 2 if @ops_per_sec
@@ -202,21 +197,37 @@ module ConcurrentObject
       end
     end
 
-    def to_s
-      intervals = interval_ss
-      info = stats.map{|ss| map{|k,v| "#{k}: #{v}"} * ", "}
-      width = [intervals.map(&:length).max, info.map(&:length).max].max
-      str = ""
-      str << '-' * width << "\n"
-      str << info << "\n"
-      str << '-' * width << "\n"
-      str << intervals * "\n" << "\n"
-      str << '-' * width
-      str
+    # def to_s
+    #   intervals = interval_ss
+    #   info = stats.map{|ss| map{|k,v| "#{k}: #{v}"} * ", "}
+    #   width = [intervals.map(&:length).max, info.map(&:length).max].max
+    #   str = ""
+    #   str << '-' * width << "\n"
+    #   str << info << "\n"
+    #   str << '-' * width << "\n"
+    #   str << intervals * "\n" << "\n"
+    #   str << '-' * width
+    #   str
+    # end
+  end
+
+  class SynchronizedMonitor < Monitor
+    attr_accessor :mutex
+    def initialize
+      super
+      @mutex = Mutex.new
+    end
+    alias_method :unsync_on_call, :on_call
+    alias_method :unsync_on_return, :on_return
+    def on_call(method, *args)
+      @mutex.synchronize { unsync_on_call(method,*args) }
+    end
+    def on_return(op, *vals)
+      @mutex.synchronize { unsync_on_return(op,*vals) }
     end
   end
 
-  class LogWritingMonitor < Monitor
+  class LogWritingMonitor < SynchronizedMonitor
     def initialize(filename)
       super()
       @file = File.open(filename, 'w')
@@ -242,12 +253,20 @@ module ConcurrentObject
       File.open(filename, 'r').each do |str|
         time += 1
         str.chomp!
+
         if m = str.match(/(\d+): (\w+)(\((\d+)\))?\.\.\./)
-          op = @monitor.create_op(m[2], m[4])
-          @operations[m[1]] = op
+          id = m[1].to_i
+          name = m[2].to_sym
+          args = (m[4].nil? ? [] : [m[4]]).map{|v| v.to_i}
+          op = @monitor.create_op(name, *args)
+          @operations[id] = op
           @monitor.on_call(op.method_name, *op.arg_value)
-        elsif m = str.match(/(\d+): \w+(\(\d+\))?( => (\d+))?/)
-          @monitor.on_return(@operations.delete(m[1]), m[4])
+
+        elsif m = str.match(/(\d+): \w+(\(\d+\))?( => (.+))?/)
+          id = m[1].to_i
+          vals = (m[4].nil? ? [] : [m[4]]).map{|v| v =~ /\d+/ ? v.to_i : v.to_sym}
+          @monitor.on_return(@operations.delete(id), *vals)
+
         else
           fail "Unexpected line in log file: #{str}"
         end
