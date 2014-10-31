@@ -6,7 +6,8 @@ List of tasks:
 
 - [ ] Generate lots of benchmark log files for the SCAL implementations.
 - [ ] Implement a linearization monitor.
-- [ ] Optimize our monitor -- intervals or graphs?
+- [ ] Implement saturation via SAT/SMT (?).
+- [ ] Optimize our monitor – intervals or graphs?
 
 List of things to demonstrate:
 
