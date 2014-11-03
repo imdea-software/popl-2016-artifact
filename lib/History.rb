@@ -35,12 +35,14 @@ class History
     end
   end
 
+  def include?(id)        !@method_names[id].nil? end
+  def pending?(id)        @returns[id].nil? end
   def before(id)          @before[id] end
   def after(id)           @after[id] end
   def minimals;           select {|id| before(id).empty? } end
   def maximals;           select {|id| after(id).empty? } end
 
-  def start(m,*args)      clone.start!(m,*args) end
+  def start(m,*args)      h = clone; id = h.start!(m,*args); [h,id] end
   def complete(id,*rets)  clone.complete!(id,*rets) end
   def remove(id)          clone.remove!(id) end
 
@@ -57,7 +59,7 @@ class History
   def intervals
     past = @before.values.map{|ops| ops.count}.uniq.sort.map.with_index{|c,i| [c,i]}.to_h
     future = @after.values.map{|ops| ops.count}.uniq.sort.reverse.map.with_index{|c,i| [c,i]}.to_h
-    fail "Uh oh..." unless n = past.count == future.count
+    fail "Uh oh..." unless (n = past.count) == future.count
     [n, each.map{|id| [id,[past[before(id).count], future[after(id).count]]]}.to_h]
   end
 
@@ -65,7 +67,7 @@ class History
     str = ""
     str << @method_names[id]
     str << "(#{@arguments[id] * ", "})" unless @arguments[id].empty?
-    if @returns[id].nil?
+    if pending?(id)
       str << "*"
     elsif !@returns[id].empty?
       str << " => #{@returns[id] * ", "}"
@@ -94,11 +96,12 @@ class History
     @before[id] = []
     @before[id].push *@completed
     @after[id] = []
-    [id, self]
+    id
   end
 
   def complete!(id,*rets)
-    fail "Operation #{id} already updated." if @returns[id]
+    fail "Operation #{id} not present."     unless include?(id)
+    fail "Operation #{id} already updated." unless pending?(id)
     @pending.delete id
     @completed << id
     @returns[id] = rets
@@ -106,7 +109,7 @@ class History
   end
 
   def remove!(id)
-    fail "Operation #{id} not present." unless @method_names[id]
+    fail "Operation #{id} not present." unless include?(id)
     @completed.delete id
     @pending.delete id
     @method_names.delete id
