@@ -66,12 +66,23 @@ module Z3
     def self.string(s, context: Z3::default_context)
       Z3::mk_string_symbol(context,s)
     end
+    def self.wrap(s, context: Z3::default_context)
+      case s
+      when Z3::Symbol; s
+      when ::Symbol;   self.string(s.to_s, context: context)
+      when ::String;   self.string(s, context: context)
+      else fail "Unexpected symbol type: #{s.class}"
+      end
+    end
   end
 
   class Sort < FFI::AutoPointer
     def self.release(pointer) end
-    def self.uninterpreted(symbol, context: Z3::default_context)
-      Z3::mk_uninterpreted_sort(context, symbol)
+    def self.uninterpreted(sym, context: Z3::default_context)
+      Z3::mk_uninterpreted_sort(context, sym.is_a?(Symbol) ? sym : Symbol::string(sym.to_s))
+    end
+    class << self
+      alias :ui :uninterpreted
     end
     def self.bool(context: Z3::default_context)
       Z3::mk_bool_sort(context)
@@ -90,7 +101,7 @@ module Z3
   class Function < FFI::AutoPointer
     def self.release(pointer) end
     def self.make(name, *params, ret, context: Z3::default_context)
-      Z3::mk_func_decl(context, name, params.count, params.to_ptr, ret)
+      Z3::mk_func_decl(context, Symbol::wrap(name), params.count, params.to_ptr, ret)
     end
     def app(*args)
       Expr::app(self,*args)
@@ -225,12 +236,19 @@ module Z3
       puts "[Z3] #{expr}" if debug
       Z3::solver_assert(@context,self,expr)
     end
-    def check
+    def check(debug:false)
       case Z3::solver_check(@context,self)
-      when :false; false
-      when :undef; :unknown
-      when :true;  true
-      else         fail "Unexpected solver result."
+      when :false
+        puts "[Z3] UNSAT" if debug
+        false
+      when :undef
+        puts "[Z3] UNKNOWN" if debug
+        :unknown
+      when :true
+        puts "[Z3] SAT" if debug
+        true
+      else
+        fail "Unexpected solver result."
       end
     end
     def get_help() Z3::solver_get_help(@context, self) end
@@ -242,6 +260,15 @@ module Z3
 
   class RealClosedField < FFI::AutoPointer
     def self.release(pointer) end
+  end
+
+  def self.parse(str, sorts, decls, context: Z3::default_context)
+    Z3::parse_smtlib2_string(context, str,
+      sorts.count, sorts.map{|n,_| Symbol::wrap(n)}.to_ptr, sorts.map{|_,s| s}.to_ptr,
+      decls.count, decls.map{|n,_| Symbol::wrap(n)}.to_ptr, decls.map{|_,d| d}.to_ptr)
+  end
+  def self.msg(context: Z3::default_context)
+    Z3::get_smtlib_error(context)
   end
 
   extend FFI::Library
@@ -441,6 +468,10 @@ module Z3
   # TODO many more...
 
   # TODO Parser interface
+  attach_function :Z3_parse_smtlib2_string, \
+    [Context, :string, :uint, :symbol_ary, :sort_ary, :uint, :symbol_ary, :func_decl_ary], \
+    Expr
+  attach_function :Z3_get_smtlib_error, [Context], :string
 
   # TODO Error Handling
 
