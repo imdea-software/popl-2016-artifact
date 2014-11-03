@@ -60,6 +60,10 @@ class History
 
   def to_s; to_interval_s end
 
+  def values
+    map {|id| arguments(id) + (returns(id) || [])}.compact.flatten.uniq
+  end
+
   def intervals
     past = @before.values.map{|ops| ops.count}.uniq.sort.map.with_index{|c,i| [c,i]}.to_h
     future = @after.values.map{|ops| ops.count}.uniq.sort.reverse.map.with_index{|c,i| [c,i]}.to_h
