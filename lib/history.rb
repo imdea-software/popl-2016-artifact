@@ -35,8 +35,12 @@ class History
     end
   end
 
+  def empty?;             count == 0 end
   def include?(id)        !@method_names[id].nil? end
   def pending?(id)        @returns[id].nil? end
+  def method_name(id)     @method_names[id] end
+  def arguments(id)       @arguments[id] end
+  def returns(id)         @returns[id] end
   def before(id)          @before[id] end
   def after(id)           @after[id] end
   def minimals;           select {|id| before(id).empty? } end
@@ -63,7 +67,7 @@ class History
     [n, each.map{|id| [id,[past[before(id).count], future[after(id).count]]]}.to_h]
   end
 
-  def op_to_s(id)
+  def label(id)
     str = ""
     str << @method_names[id]
     str << "(#{@arguments[id] * ", "})" unless @arguments[id].empty?
@@ -77,7 +81,7 @@ class History
 
   def to_interval_s(scale: 2)
     n, imap = intervals
-    ops = each.map{|id| [id,["[#{id}]",op_to_s(id)]]}.to_h
+    ops = each.map{|id| [id,["[#{id}]",label(id)]]}.to_h
     id_j = ops.values.map{|id,_| id.length}.max
     op_j = ops.values.map{|_,op| op.length}.max
     each.map do |id|
@@ -121,4 +125,23 @@ class History
     @after.each {|_,ops| ops.delete id}
     self
   end
+
+  def linearizations
+    Enumerator.new do |y|
+      partials = []
+      partials << [[], self]
+
+      while !partials.empty? do
+        seq, h = partials.shift
+        if h.empty?
+          y << seq
+        else
+          h.minimals.each do |id|
+            partials << [seq + [id], h.remove(id)]
+          end
+        end
+      end
+    end
+  end
+
 end

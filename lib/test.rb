@@ -1,5 +1,39 @@
+require_relative 'z3'
 require_relative 'history.rb'
+require_relative 'satisfaction_checker.rb'
 require 'test/unit'
+
+class TestZ3 < Test::Unit::TestCase
+  include Z3
+
+  def test_z3
+    solver = Solver.make
+    it = Sort::int
+    t = Expr::true
+    f = Expr::false
+    x = Expr::int(1)
+    y = Expr::int(2)
+    s = Z3::Symbol::int(1)
+    s2 = Z3::Symbol::string("before")
+    z = Expr::const(s,Z3::Sort::int)
+    f = Function.make(s,it,it,it)
+    f2 = Function.make(s2,it,it,it)
+    solver.push
+    solver.assert Expr::forall(
+      [s,Sort::int],
+      (f2.app(f.app(x,y),z) != z) & t === (-x + y * z == y - x + y)
+    )
+    assert solver.check
+    solver.push
+    solver.assert Expr::false
+    assert !solver.check
+    solver.pop 2
+    solver.assert (x == y)
+    assert !solver.check
+    solver.reset
+    assert solver.check
+  end
+end
 
 class TestHistory < Test::Unit::TestCase
   def test_history
@@ -56,5 +90,9 @@ class TestHistory < Test::Unit::TestCase
 
     assert h.before(id3).include?(id1)
     assert h.after(id1).include?(id3)
+
+    assert h.linearizations.count == 3
+
+    SatisfactionChecker::check(h)
   end
 end

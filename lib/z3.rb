@@ -70,8 +70,11 @@ module Z3
 
   class Sort < FFI::AutoPointer
     def self.release(pointer) end
+    def self.uninterpreted(symbol, context: Z3::default_context)
+      Z3::mk_uninterpreted_sort(context, symbol)
+    end
     def self.bool(context: Z3::default_context)
-       Z3::mk_bool_sort(context)
+      Z3::mk_bool_sort(context)
     end
     def self.int(context: Z3::default_context)
       Z3::mk_int_sort(context)
@@ -110,6 +113,14 @@ module Z3
       end
     end
 
+    [:eq, :iff, :implies, :and, :or, :xor,
+     :add, :sub, :mul, :div, :mod, :rem, :power,
+     :lt, :le, :gt, :ge].each do |f|
+       define_method(f) do |*args, context: Z3::default_context|
+         self.class.method(f).call(self, *args, context: context)
+       end
+    end
+
     [:distinct, :and, :or, :add, :mul, :sub].each do |f|
       (class << self; self; end).instance_eval do
         define_method(f) do |*args, context: Z3::default_context|
@@ -124,7 +135,9 @@ module Z3
     def self.const(sym, type, context: Z3::default_context)
       Z3::mk_const(context, sym, type)
     end
-
+    def self.symbol(str, type, context: Z3::default_context)
+      self.const(Symbol::string(str,context:context),type,context:context)
+    end
     def self.int(num, type: nil, context: Z3::default_context)
       Z3::mk_int(context, num, type || Z3::Sort.int(context: context))
     end
@@ -138,6 +151,10 @@ module Z3
             call(context,weight,patterns.count,patterns.to_ptr,vars.count,sorts,names,body)
         end
       end
+    end
+
+    def to_s(context: Z3::default_context)
+      Z3::ast_to_string(context, self)
     end
 
     def ==(e)  Expr::eq(self,e) end
@@ -204,12 +221,16 @@ module Z3
     def push()  Z3::solver_push(@context,self) end
     def pop(i)  Z3::solver_pop(@context,self,i) end
     def reset() Z3::solver_reset(@context,self) end
-    def assert(expr) Z3::solver_assert(@context,self,expr) end
+    def assert(expr, debug: false)
+      puts "[Z3] #{expr}" if debug
+      Z3::solver_assert(@context,self,expr)
+    end
     def check
       case Z3::solver_check(@context,self)
-      when -1; false
-      when  0; :unknown
-      else     true
+      when :false; false
+      when :undef; :unknown
+      when :true;  true
+      else         fail "Unexpected solver result."
       end
     end
     def get_help() Z3::solver_get_help(@context, self) end
@@ -414,6 +435,8 @@ module Z3
   attach_function :Z3_toggle_warning_messages, [:bool], :void
 
   # String conversion
+  attach_function :Z3_ast_to_string, [Context, Expr], :string
+  attach_function :Z3_sort_to_string, [Context, Sort], :string
   attach_function :Z3_model_to_string, [Context, Model], :string
   # TODO many more...
 
@@ -423,6 +446,8 @@ module Z3
 
   # Miscellaneous
   attach_function :Z3_get_version, [:pointer, :pointer, :pointer, :pointer], :void
+  attach_function :Z3_enable_trace, [:string], :void
+  attach_function :Z3_disable_trace, [:string], :void
   attach_function :Z3_reset_memory, [], :void
   # TODO a few more...
 
@@ -473,27 +498,3 @@ module Z3
   # TODO Real Closed Fields API
 
 end
-
-# def test
-#   include Z3
-#   solver = Solver.make
-#   it = Sort::int
-#   t = Expr::true
-#   f = Expr::false
-#   x = Expr::int(1)
-#   y = Expr::int(2)
-#   s = Z3::Symbol::int(1)
-#   s2 = Z3::Symbol::string("before")
-#   z = Expr::const(s,Z3::Sort::int)
-#   f = Function.make(s,it,it,it)
-#   f2 = Function.make(s2,it,it,it)
-#   solver.push
-#   solver.assert Expr::forall(
-#     [s,Sort::int],
-#     (f2.app(f.app(x,y),z) != z) & t === (-x + y * z == y - x + y)
-#   )
-#   puts "check: #{solver.check}"
-#   solver.pop 1
-#   solver.reset
-#   puts "check: #{solver.check}"
-# end
