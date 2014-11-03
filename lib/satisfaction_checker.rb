@@ -53,7 +53,16 @@ module SatisfactionChecker
       "(forall ((x id) (y id)) (or (lbefore x y) (lbefore y x)))",
 
       # matching
-      "(forall ((x id) (y id)) (= (match x y) (and (= (meth x) push) (= (meth y) pop) (= (arg x) (ret y)))))"
+      "(forall ((x id) (y id)) (= (match x y) (and (= (meth x) push) (= (meth y) pop) (= (arg x) (ret y)))))",
+
+      # adds before matched removes
+      "(forall ((x id) (y id)) (=> (match x y) (lbefore x y)))",
+
+      # FIFO order
+      "(forall ((a1 id) (r1 id) (a2 id) (r2 id)) (=> (and (match a1 r1) (match a2 r2) (not (= a1 a2)) (lbefore a1 a2)) (lbefore r1 r2)))",
+
+      # LIFO order
+      "(forall ((a1 id) (r1 id) (a2 id) (r2 id)) (=> (and (match a1 r1) (match a2 r2) (not (= a1 a2)) (lbefore a1 a2) (lbefore r1 r2)) (lbefore r1 a2)))"
     ]
 
     puts
@@ -72,7 +81,6 @@ module SatisfactionChecker
       facts << "(= (ret o#{id}) #{ret})" if ret
       history.after(id).each do |a|
         facts << "(hbefore o#{id} o#{a})"
-        # facts << "(hbefore o#{a} o#{id})"
       end
     end
     facts.each do |f|
