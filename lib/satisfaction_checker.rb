@@ -4,25 +4,27 @@ require_relative 'z3.rb'
 module SatisfactionChecker
   include Z3
 
+  Z = Z3.context
+
   def self.op(id)
-    Expr::symbol("op_#{id}",@sorts[:id])
+    Z.const("op_#{id}",@sorts[:id])
   end
 
   def self.method(m)
-    Expr::symbol(m,@sorts[:method])
+    Z.const(m,@sorts[:method])
   end
 
   def self.value(v)
-    Expr::symbol(v.to_s,@sorts[:value])
+    Z.const(v.to_s,@sorts[:value])
   end
 
   def self.check(history)
     ops = history.map{|id| id}
     vals = history.values
-    Z3::enable_trace("z3.trace")
-    solver = Solver.make
+    # Z3::enable_trace("z3.trace")
+    solver = Z.solver
 
-    @sorts = [:id, :method, :value].map{|s| [s,Sort::ui(s)]}
+    @sorts = [:id, :method, :value].map{|s| [s,Z.ui_sort(s)]}
     @decls = [
       [:meth, :id, :method],
       [:push, :method],
@@ -34,7 +36,7 @@ module SatisfactionChecker
       [:match, :id, :id, :bool],
       *ops.map{|id| ["o#{id}", :id]},
       *vals.map{|v| [v, :value]},
-    ].map{|name,*types| [name,Function.make(name,*types.map{|t| @sorts.to_h.merge({bool: Sort::bool})[t]})]}
+    ].map{|name,*types| [name,Z.function(name,*types.map{|t| @sorts.to_h.merge({bool: Z.bool_sort})[t]})]}
 
     @axioms = [
       # TODO USE PATTERNS OR NOTHING WILL FIRE
@@ -67,7 +69,7 @@ module SatisfactionChecker
 
     puts
     @axioms.each do |ax|
-      solver.assert(Z3::parse("(assert #{ax})",@sorts,@decls), debug:true)
+      solver.assert(Z.parse("(assert #{ax})",@sorts,@decls), debug:true)
     end
     facts = []
     
@@ -84,7 +86,7 @@ module SatisfactionChecker
       end
     end
     facts.each do |f|
-      solver.assert(Z3::parse("(assert #{f})",@sorts,@decls), debug:true)
+      solver.assert(Z.parse("(assert #{f})",@sorts,@decls), debug:true)
     end
     solver.check(debug: true)
   end

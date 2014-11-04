@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'ffi'
+require 'forwardable'
 
 Z3_LIBRARY_PATH = '/Users/mje/Code/z3/build/libz3.dylib'
 
@@ -18,24 +19,21 @@ end
 
 module Z3
 
-  def self.default_configuration
-    @@default_configuration ||= Z3::Configuration.make
-  end
+  module ContextualObject; def cc(context) @context = context; self end end
 
-  def self.default_context
-    @@default_context ||= Z3::Context.make(default_configuration)
-  end
+  def self.config()                                   Z3::mk_config() end
+  def self.context(config: default_configuration)     Z3::mk_context(config) end
+  def self.context_rc(config: default_configuration)  Z3::mk_context_rc(config) end
+
+  def self.default_configuration; @@default_configuration ||= self.config end
+  def self.default_context;       @@default_context ||= self.context      end
 
   class Configuration < FFI::AutoPointer
-    def self.make()           Z3::mk_config() end
     def self.release(pointer) Z3::del_config(pointer) end
-
     def set(param,val) Z3::set_param_value(self, param, val)  end
   end
 
   class Context < FFI::AutoPointer
-    def self.make(config)     Z3::mk_context(config) end
-    def self.make_rc(config)  Z3::mk_context_rc(config) end
     def self.release(pointer) Z3::del_context(pointer) end
 
     def inc_ref(expr)     Z3::inc_ref(self,expr) end
@@ -48,6 +46,75 @@ module Z3
       return str.null? ? nil : str.read_string()
     end
     def interrupt()       Z3::interrupt(self) end
+
+    def parse(str, sorts, decls)
+      Z3::parse_smtlib2_string(self, str,
+        sorts.count, sorts.map{|n,_| wrap_symbol(n)}.to_ptr, sorts.map{|_,s| s}.to_ptr,
+        decls.count, decls.map{|n,_| wrap_symbol(n)}.to_ptr, decls.map{|_,d| d}.to_ptr).
+      cc(self)
+    end
+
+    def msg; Z3::get_smtlib_error(self) end
+
+    # TODO Parameters
+    # TODO ParameterDescriptions
+
+    # Symbols
+    def int_symbol(i)     Z3::mk_int_symbol(self,i).cc(self) end
+    def string_symbol(s)  Z3::mk_string_symbol(self,s).cc(self) end
+    def wrap_symbol(s)
+      case s
+      when Z3::Symbol; s
+      when ::Symbol;   string_symbol(s.to_s)
+      when ::String;   string_symbol(s)
+      else fail "Unexpected symbol type: #{s.class}"
+      end
+    end
+
+    # Sorts
+    def uninterpreted_sort(sym)
+      Z3::mk_uninterpreted_sort(self,wrap_symbol(sym)).cc(self)
+    end
+    alias :ui_sort :uninterpreted_sort
+    def bool_sort;  Z3::mk_bool_sort(self).cc(self) end
+    def int_sort;   Z3::mk_int_sort(self).cc(self) end
+    def real_sort;  Z3::mk_real_sort(self).cc(self) end
+
+    # Constants
+    def func_decl(name, *params, ret)
+      Z3::mk_func_decl(self, wrap_symbol(name), params.count, params.to_ptr, ret).cc(self)
+    end
+    alias :function :func_decl
+    def app(decl, *args)    Z3::mk_app(self, decl, args.count, args.to_ptr).cc(self) end
+    def const(sym, type)    Z3::mk_const(self, wrap_symbol(sym), type).cc(self) end
+    def int(num, type: nil) Z3::mk_int(self, num, type || int_sort).cc(self) end
+
+    # Propositional Logic and Equality, Arithmetic: Integers and Reals
+    [:true, :false, :eq, :not, :ite, :iff, :implies, :xor,
+     :unary_minus, :div, :mod, :rem, :power, :lt, :le, :gt, :ge,
+     :int2real, :real2int, :is_int].each do |f|
+      define_method(f) do |*args|
+        Kernel.const_get(:Z3).method("mk_#{f}").call(self,*args).cc(self)
+      end
+    end
+    [:distinct, :and, :or, :add, :mul, :sub].each do |f|
+      define_method(f) do |*args|
+        Kernel.const_get(:Z3).method("mk_#{f}").call(self,args.count,args.to_ptr).cc(self)
+      end
+    end
+
+    # Quantifiers
+    [:forall, :exists].each do |f|
+      define_method(f) do |*vars, body, weight:0, patterns:[]|
+        names = vars.map(&:first).to_ptr
+        sorts = vars.map{|v| v[1]}.to_ptr
+        Kernel.const_get(:Z3).method("mk_#{f}").
+          call(self,weight,patterns.count,patterns.to_ptr,vars.count,sorts,names,body).cc(self)
+      end
+    end
+
+    # Solvers
+    def solver; Z3::mk_solver(self).cc(self) end
   end
 
   class Parameters < FFI::AutoPointer
@@ -59,133 +126,53 @@ module Z3
   end
 
   class Symbol < FFI::AutoPointer
+    include ContextualObject
     def self.release(pointer) end
-    def self.int(i, context: Z3::default_context)
-      Z3::mk_int_symbol(context,i)
-    end
-    def self.string(s, context: Z3::default_context)
-      Z3::mk_string_symbol(context,s)
-    end
-    def self.wrap(s, context: Z3::default_context)
-      case s
-      when Z3::Symbol; s
-      when ::Symbol;   self.string(s.to_s, context: context)
-      when ::String;   self.string(s, context: context)
-      else fail "Unexpected symbol type: #{s.class}"
-      end
-    end
   end
 
   class Sort < FFI::AutoPointer
+    include ContextualObject
     def self.release(pointer) end
-    def self.uninterpreted(sym, context: Z3::default_context)
-      Z3::mk_uninterpreted_sort(context, sym.is_a?(Symbol) ? sym : Symbol::string(sym.to_s))
-    end
-    class << self
-      alias :ui :uninterpreted
-    end
-    def self.bool(context: Z3::default_context)
-      Z3::mk_bool_sort(context)
-    end
-    def self.int(context: Z3::default_context)
-      Z3::mk_int_sort(context)
-    end
-    def self.real(context: Z3::default_context)
-      Z3::mk_real_sort(context)
-    end
-    def to_s(context: Z3::default_context)
-      Z3::sort_to_string(context, self)
-    end
+    def to_s; Z3::sort_to_string(@context, self) end
   end
 
   class Function < FFI::AutoPointer
+    include ContextualObject
     def self.release(pointer) end
-    def self.make(name, *params, ret, context: Z3::default_context)
-      Z3::mk_func_decl(context, Symbol::wrap(name), params.count, params.to_ptr, ret)
-    end
-    def app(*args)
-      Expr::app(self,*args)
-    end
-    def to_s(context: Z3::default_context)
-      Z3::func_decl_to_string(context, self)
-    end
+    def app(*args)  @context.app(self,*args) end
+    def to_s;       Z3::func_decl_to_string(@context, self) end
   end
 
   class Expr < FFI::AutoPointer
+    include ContextualObject
     def self.release(pointer) end
-
-    [:true, :false, :eq, :not, :ite, :iff, :implies, :xor,
-     :unary_minus, :div, :mod, :rem, :power, :lt, :le, :gt, :ge,
-     :int2real, :real2int, :is_int].each do |f|
-      (class << self; self; end).instance_eval do
-        define_method(f) do |*args, context: Z3::default_context|
-          Kernel.const_get(:Z3).method("mk_#{f}").call(context,*args)
-        end
-      end
-    end
-
-    [:eq, :iff, :implies, :and, :or, :xor,
-     :add, :sub, :mul, :div, :mod, :rem, :power,
+    [:eq, :not, :iff, :implies, :and, :or, :xor,
+     :unary_minus, :add, :sub, :mul, :div, :mod, :rem, :power,
      :lt, :le, :gt, :ge].each do |f|
-       define_method(f) do |*args, context: Z3::default_context|
-         self.class.method(f).call(self, *args, context: context)
+       define_method(f) do |*args|
+         @context.send(f, *args)
        end
     end
+    def to_s; Z3::ast_to_string(@context, self) end
 
-    [:distinct, :and, :or, :add, :mul, :sub].each do |f|
-      (class << self; self; end).instance_eval do
-        define_method(f) do |*args, context: Z3::default_context|
-          Kernel.const_get(:Z3).method("mk_#{f}").call(context,args.count,args.to_ptr)
-        end
-      end
-    end
-
-    def self.app(decl, *args, context: Z3::default_context)
-      Z3::mk_app(context, decl, args.count, args.to_ptr)
-    end
-    def self.const(sym, type, context: Z3::default_context)
-      Z3::mk_const(context, sym, type)
-    end
-    def self.symbol(str, type, context: Z3::default_context)
-      self.const(Symbol::string(str,context:context),type,context:context)
-    end
-    def self.int(num, type: nil, context: Z3::default_context)
-      Z3::mk_int(context, num, type || Z3::Sort.int(context: context))
-    end
-
-    [:forall, :exists].each do |f|
-      (class << self; self; end).instance_eval do
-        define_method(f) do |*vars, body, weight:0, patterns:[], context: Z3::default_context|
-          names = vars.map(&:first).to_ptr
-          sorts = vars.map{|v| v[1]}.to_ptr
-          Kernel.const_get(:Z3).method("mk_#{f}").
-            call(context,weight,patterns.count,patterns.to_ptr,vars.count,sorts,names,body)
-        end
-      end
-    end
-
-    def to_s(context: Z3::default_context)
-      Z3::ast_to_string(context, self)
-    end
-
-    def ==(e)  Expr::eq(self,e) end
-    def ===(e) Expr::iff(self,e) end
-    def !;     Expr::not(self) end
+    def ==(e)  eq(self,e) end
+    def ===(e) iff(self,e) end
+    def !;     send(:not,self) end
     def !=(e)  !(self == e) end
-    def ^;     Expr::xor(self,e) end
-    def -@;    Expr::unary_minus(self) end
-    def /(e)   Expr::div(self,e) end
-    def %(e)   Expr::mod(self,e) end
-    def **(e)  Expr::power(self,e) end
-    def <(e)   Expr::lt(self,e) end
-    def <=(e)  Expr::le(self,e) end
-    def >(e)   Expr::gt(self,e) end
-    def >=(e)  Expr::ge(self,e) end
-    def &(e)   Expr::and(self,e) end
-    def |(e)   Expr::or(self,e) end
-    def +(e)   Expr::add(self,e) end
-    def *(e)   Expr::mul(self,e) end
-    def -(e)   Expr::sub(self,e) end
+    def ^;     xor(self,e) end
+    def -@;    unary_minus(self) end
+    def /(e)   div(self,e) end
+    def %(e)   mod(self,e) end
+    def **(e)  power(self,e) end
+    def <(e)   lt(self,e) end
+    def <=(e)  le(self,e) end
+    def >(e)   gt(self,e) end
+    def >=(e)  ge(self,e) end
+    def &(e)   send(:and,self,e) end
+    def |(e)   send(:or,self,e) end
+    def +(e)   add(self,e) end
+    def *(e)   mul(self,e) end
+    def -(e)   sub(self,e) end
   end
 
   class Model < FFI::AutoPointer
@@ -221,13 +208,12 @@ module Z3
   end
 
   class Solver < FFI::AutoPointer
-    attr_accessor :context
+    include ContextualObject
+
+    # extend Forwardable
+    # def_delegators @context, :inc_ref, :dec_ref
+
     def self.release(pointer) end
-    def self.make(context: Z3::default_context)
-      s = Z3::mk_solver(context)
-      s.context = context
-      s
-    end
     def to_s()  Z3::solver_to_string(@context,self) end
     def push()  Z3::solver_push(@context,self) end
     def pop(i)  Z3::solver_pop(@context,self,i) end
@@ -260,15 +246,6 @@ module Z3
 
   class RealClosedField < FFI::AutoPointer
     def self.release(pointer) end
-  end
-
-  def self.parse(str, sorts, decls, context: Z3::default_context)
-    Z3::parse_smtlib2_string(context, str,
-      sorts.count, sorts.map{|n,_| Symbol::wrap(n)}.to_ptr, sorts.map{|_,s| s}.to_ptr,
-      decls.count, decls.map{|n,_| Symbol::wrap(n)}.to_ptr, decls.map{|_,d| d}.to_ptr)
-  end
-  def self.msg(context: Z3::default_context)
-    Z3::get_smtlib_error(context)
   end
 
   extend FFI::Library

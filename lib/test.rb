@@ -5,27 +5,27 @@ require 'test/unit'
 
 class TestZ3 < Test::Unit::TestCase
   include Z3
-
+  Z = Z3::context
   def test_z3
-    solver = Solver.make
-    it = Sort::int
-    t = Expr::true
-    f = Expr::false
-    x = Expr::int(1)
-    y = Expr::int(2)
-    s = Z3::Symbol::int(1)
-    s2 = Z3::Symbol::string("before")
-    z = Expr::const(s,Z3::Sort::int)
-    f = Function.make(s,it,it,it)
-    f2 = Function.make(s2,it,it,it)
+    solver = Z.solver
+    it = Z.int_sort
+    t = Z.true
+    f = Z.false
+    x = Z.int(1)
+    y = Z.int(2)
+    s = Z.int_symbol(1)
+    s2 = Z.string_symbol("before")
+    z = Z.const(s,Z.int_sort)
+    f = Z.function(s,it,it,it)
+    f2 = Z.function(s2,it,it,it)
     solver.push
-    solver.assert Expr::forall(
-      [s,Sort::int],
+    solver.assert Z.forall(
+      [s,Z.int_sort],
       (f2.app(f.app(x,y),z) != z) & t === (-x + y * z == y - x + y)
     )
     assert solver.check
     solver.push
-    solver.assert Expr::false
+    solver.assert Z.false
     assert !solver.check
     solver.pop 2
     solver.assert (x == y)
