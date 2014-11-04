@@ -93,6 +93,20 @@ class TestHistory < Test::Unit::TestCase
 
     assert h.linearizations.count == 3
 
-    SatisfactionChecker::check(h)
+    assert SatisfactionChecker::check(h)
+
+    h = History.new
+    h.complete! (h.start! :push, :a)
+    h.complete! (h.start! :push, :b)
+    h.complete! (h.start! :pop), :b
+    h.complete! (h.start! :pop), :a
+    assert SatisfactionChecker::check(h)
+
+    h = History.new
+    h.complete! (h.start! :push, :a)
+    h.complete! (h.start! :push, :b)
+    h.complete! (h.start! :pop), :a
+    h.complete! (h.start! :pop), :b
+    assert !SatisfactionChecker::check(h)
   end
 end

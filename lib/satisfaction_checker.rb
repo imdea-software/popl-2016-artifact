@@ -16,20 +16,20 @@ module SatisfactionChecker
       t.yield :arg, :id, :value
       t.yield :ret, :id, :value
 
-      t.yield :hbefore, :id, :id, :bool
-      t.yield :lbefore, :id, :id, :bool
+      t.yield :hb, :id, :id, :bool
+      t.yield :lb, :id, :id, :bool
     
       # "linearization order includes happens-before order"
-      t.yield "(forall ((x id) (y id)) (=> (hbefore x y) (lbefore x y)))"
+      t.yield "(forall ((x id) (y id)) (=> (hb x y) (lb x y)))"
 
       # linearization order is transitive
-      t.yield "(forall ((x id) (y id) (z id)) (=> (and (lbefore x y) (lbefore y z)) (lbefore x z)))"
+      t.yield "(forall ((x id) (y id) (z id)) (=> (and (lb x y) (lb y z)) (lb x z)))"
 
       # linearization order is anitsymmetric
-      t.yield "(forall ((x id) (y id)) (=> (and (lbefore x y) (lbefore y x)) (= x y)))"
+      t.yield "(forall ((x id) (y id)) (=> (and (lb x y) (lb y x)) (= x y)))"
 
       # linearization order is total
-      t.yield "(forall ((x id) (y id)) (or (lbefore x y) (lbefore y x)))"
+      t.yield "(forall ((x id) (y id)) (or (lb x y) (lb y x)))"
     end
 
     theory :collection_theory do |t|
@@ -41,17 +41,17 @@ module SatisfactionChecker
       t.yield "(forall ((x id) (y id)) (= (match x y) (and (= (meth x) push) (= (meth y) pop) (= (arg x) (ret y)))))"
 
       # adds before matched removes
-      t.yield "(forall ((x id) (y id)) (=> (match x y) (lbefore x y)))"
+      t.yield "(forall ((x id) (y id)) (=> (match x y) (lb x y)))"
     end
 
     theory :stack_theory do |t|
       # LIFO order
-      t.yield "(forall ((a1 id) (r1 id) (a2 id) (r2 id)) (=> (and (match a1 r1) (match a2 r2) (not (= a1 a2)) (lbefore a1 a2) (lbefore r1 r2)) (lbefore r1 a2)))"
+      t.yield "(forall ((a1 id) (r1 id) (a2 id) (r2 id)) (=> (and (match a1 r1) (match a2 r2) (not (= a1 a2)) (lb a1 a2) (lb r1 r2)) (lb r1 a2)))"
     end
 
     theory :queue_theory do |t|
       # FIFO order
-      t.yield "(forall ((a1 id) (r1 id) (a2 id) (r2 id)) (=> (and (match a1 r1) (match a2 r2) (not (= a1 a2)) (lbefore a1 a2)) (lbefore r1 r2)))"
+      t.yield "(forall ((a1 id) (r1 id) (a2 id) (r2 id)) (=> (and (match a1 r1) (match a2 r2) (not (= a1 a2)) (lb a1 a2)) (lb r1 r2)))"
     end
 
     theory :ground_theory do |history,t|
@@ -63,6 +63,7 @@ module SatisfactionChecker
 
       t.yield "(distinct #{ops.map{|id| "o#{id}"} * " "})"
       t.yield "(distinct #{vals * " "})"
+
       history.each do |id|
         arg = history.arguments(id).first
         ret = history.returns(id).first
@@ -70,7 +71,7 @@ module SatisfactionChecker
         t.yield "(= (arg o#{id}) #{arg})" if arg
         t.yield "(= (ret o#{id}) #{ret})" if ret
         history.after(id).each do |a|
-          t.yield "(hbefore o#{id} o#{a})"
+          t.yield "(hb o#{id} o#{a})"
         end
       end
     end
