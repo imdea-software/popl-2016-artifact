@@ -19,7 +19,14 @@ end
 
 module Z3
 
-  module ContextualObject; def cc(context) @context = context; self end end
+  module ContextualObject
+    def post_initialize; end
+    def cc(context)
+      @context = context
+      post_initialize
+      self
+    end
+  end
 
   def self.config()                                   Z3::mk_config() end
   def self.context(config: default_configuration)     Z3::mk_context(config) end
@@ -209,35 +216,90 @@ module Z3
 
   class Solver < FFI::AutoPointer
     include ContextualObject
+    attr_accessor :debug
 
-    # extend Forwardable
-    # def_delegators @context, :inc_ref, :dec_ref
+    extend Forwardable
+    def_delegators :@context, :inc_ref, :dec_ref
+    def_delegators :@context, :parse, :msg
+    def_delegators :@context, :int_symbol, :string_symbol
+    def_delegators :@context, :ui_sort, :bool_sort, :int_sort, :real_sort
+    def_delegators :@context, :func_decl, :function, :app, :const, :int
+    def_delegators :@context, :true, :false, :eq, :not, :and, :or, :xor, :ite, :iff, :implies
+    def_delegators :@context, :unary_minus, :add, :sub, :mul, :div, :mod, :rem, :power
+    def_delegators :@context, :distinct
+    def_delegators :@context, :lt, :le, :gt, :ge
+    def_delegators :@context, :int2real, :real2int, :is_int
+    def_delegators :@context, :forall, :exists
 
     def self.release(pointer) end
+    def post_initialize
+      @debug = false
+      @sorts = [[]]
+      @decls = [[]]
+    end
     def to_s()  Z3::solver_to_string(@context,self) end
-    def push()  Z3::solver_push(@context,self) end
-    def pop(i)  Z3::solver_pop(@context,self,i) end
+    def push()
+      @sorts.push []
+      @decls.push []
+      Z3::solver_push(@context,self)
+    end
+    def pop(i)
+      @sorts.pop(i)
+      @decls.pop(i)
+      Z3::solver_pop(@context,self,i)
+    end
     def reset() Z3::solver_reset(@context,self) end
-    def assert(expr, debug: false)
-      puts "[Z3] #{expr}" if debug
+    def assert(expr)
+      if expr.is_a?(String)
+        expr = @context.parse("(assert #{expr})", @sorts.flatten(1), @decls.flatten(1))
+      end
+      fail "Unexpected expression type #{expr.class}" unless expr.is_a?(Expr)
+      puts "[Z3] #{expr}" if @debug
       Z3::solver_assert(@context,self,expr)
     end
-    def check(debug:false)
+    alias :<< :assert
+    def resolve(s)
+      s.is_a?(Sort) ? s : @sorts.flatten(1).to_h.merge({bool: @context.bool_sort})[s]
+    end
+    def sort(s)
+      @sorts.last.push [s,@context.ui_sort(s)]
+    end
+    def decl(name,*args,ret)
+      @decls.last.push [name,@context.function(name,*args.map{|t| resolve(t)},resolve(ret))]
+    end
+    def theory(t)
+      fail "Expected a theory." unless t.is_a?(Enumerable)
+      t.each do |arg,*args|
+        if arg.is_a?(String); assert arg
+        elsif args.empty?;    sort arg
+        else                  decl arg, *args
+        end
+      end
+    end
+    def check
       case Z3::solver_check(@context,self)
       when :false
-        puts "[Z3] UNSAT" if debug
+        puts "[Z3] UNSAT" if @debug
         false
       when :undef
-        puts "[Z3] UNKNOWN" if debug
+        puts "[Z3] UNKNOWN" if @debug
         :unknown
       when :true
-        puts "[Z3] SAT" if debug
+        puts "[Z3] SAT" if @debug
         true
       else
         fail "Unexpected solver result."
       end
     end
     def get_help() Z3::solver_get_help(@context, self) end
+  end
+
+  def theory(name,&blk)
+    define_method(name) do |*args|
+      Enumerator.new do |y|
+        blk.call(*args,y)
+      end
+    end
   end
 
   class Statistics < FFI::AutoPointer

@@ -4,91 +4,87 @@ require_relative 'z3.rb'
 module SatisfactionChecker
   include Z3
 
-  Z = Z3.context
+  class << self
+    extend Z3
 
-  def self.op(id)
-    Z.const("op_#{id}",@sorts[:id])
-  end
+    theory :basic_theory do |t|
+      t.yield :id
+      t.yield :method
+      t.yield :value
 
-  def self.method(m)
-    Z.const(m,@sorts[:method])
-  end
+      t.yield :meth, :id, :method
+      t.yield :arg, :id, :value
+      t.yield :ret, :id, :value
 
-  def self.value(v)
-    Z.const(v.to_s,@sorts[:value])
+      t.yield :hbefore, :id, :id, :bool
+      t.yield :lbefore, :id, :id, :bool
+    
+      # "linearization order includes happens-before order"
+      t.yield "(forall ((x id) (y id)) (=> (hbefore x y) (lbefore x y)))"
+
+      # linearization order is transitive
+      t.yield "(forall ((x id) (y id) (z id)) (=> (and (lbefore x y) (lbefore y z)) (lbefore x z)))"
+
+      # linearization order is anitsymmetric
+      t.yield "(forall ((x id) (y id)) (=> (and (lbefore x y) (lbefore y x)) (= x y)))"
+
+      # linearization order is total
+      t.yield "(forall ((x id) (y id)) (or (lbefore x y) (lbefore y x)))"
+    end
+
+    theory :collection_theory do |t|
+      t.yield :push, :method
+      t.yield :pop, :method
+      t.yield :match, :id, :id, :bool
+
+      # matching
+      t.yield "(forall ((x id) (y id)) (= (match x y) (and (= (meth x) push) (= (meth y) pop) (= (arg x) (ret y)))))"
+
+      # adds before matched removes
+      t.yield "(forall ((x id) (y id)) (=> (match x y) (lbefore x y)))"
+    end
+
+    theory :stack_theory do |t|
+      # LIFO order
+      t.yield "(forall ((a1 id) (r1 id) (a2 id) (r2 id)) (=> (and (match a1 r1) (match a2 r2) (not (= a1 a2)) (lbefore a1 a2) (lbefore r1 r2)) (lbefore r1 a2)))"
+    end
+
+    theory :queue_theory do |t|
+      # FIFO order
+      t.yield "(forall ((a1 id) (r1 id) (a2 id) (r2 id)) (=> (and (match a1 r1) (match a2 r2) (not (= a1 a2)) (lbefore a1 a2)) (lbefore r1 r2)))"
+    end
+
+    theory :ground_theory do |history,t|
+      ops = history.map{|id| id}
+      vals = history.values
+
+      ops.each {|id| t.yield "o#{id}".to_sym, :id}
+      vals.each {|v| t.yield v, :value}
+
+      t.yield "(distinct #{ops.map{|id| "o#{id}"} * " "})"
+      t.yield "(distinct #{vals * " "})"
+      history.each do |id|
+        arg = history.arguments(id).first
+        ret = history.returns(id).first
+        t.yield "(= (meth o#{id}) #{history.method_name(id)})"
+        t.yield "(= (arg o#{id}) #{arg})" if arg
+        t.yield "(= (ret o#{id}) #{ret})" if ret
+        history.after(id).each do |a|
+          t.yield "(hbefore o#{id} o#{a})"
+        end
+      end
+    end
+
   end
 
   def self.check(history)
-    ops = history.map{|id| id}
-    vals = history.values
-    # Z3::enable_trace("z3.trace")
-    solver = Z.solver
-
-    @sorts = [:id, :method, :value].map{|s| [s,Z.ui_sort(s)]}
-    @decls = [
-      [:meth, :id, :method],
-      [:push, :method],
-      [:pop, :method],
-      [:lbefore, :id, :id, :bool],
-      [:hbefore, :id, :id, :bool],
-      [:arg, :id, :value],
-      [:ret, :id, :value],
-      [:match, :id, :id, :bool],
-      *ops.map{|id| ["o#{id}", :id]},
-      *vals.map{|v| [v, :value]},
-    ].map{|name,*types| [name,Z.function(name,*types.map{|t| @sorts.to_h.merge({bool: Z.bool_sort})[t]})]}
-
-    @axioms = [
-      # TODO USE PATTERNS OR NOTHING WILL FIRE
-
-      # "linearization order includes happens-before order"
-      # "(forall ((x id) (y id)) (! (=> (hbefore x y) (lbefore x y)) :pattern ((hbefore x y)) ))",
-      "(forall ((x id) (y id)) (=> (hbefore x y) (lbefore x y)))",
-
-      # linearization order is transitive
-      "(forall ((x id) (y id) (z id)) (=> (and (lbefore x y) (lbefore y z)) (lbefore x z)))",
-
-      # linearization order is anitsymmetric
-      "(forall ((x id) (y id)) (=> (and (lbefore x y) (lbefore y x)) (= x y)))",
-
-      # linearization order is total
-      "(forall ((x id) (y id)) (or (lbefore x y) (lbefore y x)))",
-
-      # matching
-      "(forall ((x id) (y id)) (= (match x y) (and (= (meth x) push) (= (meth y) pop) (= (arg x) (ret y)))))",
-
-      # adds before matched removes
-      "(forall ((x id) (y id)) (=> (match x y) (lbefore x y)))",
-
-      # FIFO order
-      "(forall ((a1 id) (r1 id) (a2 id) (r2 id)) (=> (and (match a1 r1) (match a2 r2) (not (= a1 a2)) (lbefore a1 a2)) (lbefore r1 r2)))",
-
-      # LIFO order
-      "(forall ((a1 id) (r1 id) (a2 id) (r2 id)) (=> (and (match a1 r1) (match a2 r2) (not (= a1 a2)) (lbefore a1 a2) (lbefore r1 r2)) (lbefore r1 a2)))"
-    ]
-
-    puts
-    @axioms.each do |ax|
-      solver.assert(Z.parse("(assert #{ax})",@sorts,@decls), debug:true)
-    end
-    facts = []
-    
-    facts << "(distinct #{ops.map{|id| "o#{id}"} * " "})"
-    facts << "(distinct #{vals * " "})"
-    history.each do |id|
-      arg = history.arguments(id).first
-      ret = history.returns(id).first
-      facts << "(= (meth o#{id}) #{history.method_name(id)})"
-      facts << "(= (arg o#{id}) #{arg})" if arg
-      facts << "(= (ret o#{id}) #{ret})" if ret
-      history.after(id).each do |a|
-        facts << "(hbefore o#{id} o#{a})"
-      end
-    end
-    facts.each do |f|
-      solver.assert(Z.parse("(assert #{f})",@sorts,@decls), debug:true)
-    end
-    solver.check(debug: true)
+    solver = Z3.context.solver
+    solver.debug = true
+    solver.theory basic_theory
+    solver.theory collection_theory
+    solver.theory stack_theory
+    solver.theory ground_theory(history)
+    solver.check
   end
 
 end
