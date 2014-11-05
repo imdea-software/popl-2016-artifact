@@ -3,11 +3,11 @@
 require 'ffi'
 require 'forwardable'
 
-Z3_LIBRARY_PATH = '/Users/mje/Code/z3/build/libz3.dylib'
-
-fail "Cannot find Z3 Library." \
-  unless Object.const_defined?(:Z3_LIBRARY_PATH) \
-  && File.exists?(Z3_LIBRARY_PATH)
+Z3_LIB_PATH = File.join(
+  ENV['DYLD_LIBRARY_PATH'].split(':').find{|p| File.exists?(File.join(p,'libz3.dylib'))},
+  'libz3.dylib'
+)
+fail "Cannot find Z3 Library." unless Z3_LIB_PATH
 
 class Array
   def to_ptr()
@@ -311,7 +311,7 @@ module Z3
   end
 
   extend FFI::Library
-  ffi_lib Z3_LIBRARY_PATH
+  ffi_lib Z3_LIB_PATH
 
   enum :lbool, [:false, -1, :undef, :true]
   enum :symbol_kind, [:int, :string]
@@ -341,9 +341,9 @@ module Z3
   end
 
   # Configuration
-  attach_function :Z3_global_param_set, [:string, :string], :void
-  attach_function :Z3_global_param_reset_all, [], :void
-  attach_function :Z3_global_param_get, [:string, :string], :bool
+  # attach_function :Z3_global_param_set, [:string, :string], :void
+  # attach_function :Z3_global_param_reset_all, [], :void
+  # attach_function :Z3_global_param_get, [:string, :string], :bool
 
   # Create configuration
   attach_function :Z3_mk_config, [], Configuration
@@ -516,8 +516,8 @@ module Z3
 
   # Miscellaneous
   attach_function :Z3_get_version, [:pointer, :pointer, :pointer, :pointer], :void
-  attach_function :Z3_enable_trace, [:string], :void
-  attach_function :Z3_disable_trace, [:string], :void
+  # attach_function :Z3_enable_trace, [:string], :void
+  # attach_function :Z3_disable_trace, [:string], :void
   attach_function :Z3_reset_memory, [], :void
   # TODO a few more...
 
@@ -541,7 +541,7 @@ module Z3
   attach_function :Z3_mk_solver_for_logic, [Context, Symbol], Solver
   attach_function :Z3_mk_solver_from_tactic, [Context, Tactic], Solver
   attach_function :Z3_solver_get_help, [Context, Solver], :string
-  attach_function :Z3_solver_get_param_descrs, [Context, Solver], ParameterDescriptions
+  # attach_function :Z3_solver_get_param_descrs, [Context, Solver], ParameterDescriptions
   attach_function :Z3_solver_set_params, [Context, Solver, Parameters], :void
   attach_function :Z3_solver_inc_ref, [Context, Solver], :void
   attach_function :Z3_solver_dec_ref, [Context, Solver], :void
@@ -550,7 +550,7 @@ module Z3
   attach_function :Z3_solver_reset, [Context, Solver], :void
   attach_function :Z3_solver_get_num_scopes, [Context, Solver], :uint
   attach_function :Z3_solver_assert, [Context, Solver, Expr], :void
-  attach_function :Z3_solver_assert_and_track, [Context, Solver, Expr, Expr], :void
+  # attach_function :Z3_solver_assert_and_track, [Context, Solver, Expr, Expr], :void
   attach_function :Z3_solver_get_assertions, [Context, Solver], ExprVector
   attach_function :Z3_solver_check, [Context, Solver], :lbool
   attach_function :Z3_solver_check_assumptions,  [Context, Solver, :uint, :ast_ary], :lbool
