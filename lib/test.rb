@@ -1,8 +1,23 @@
+require 'logger'
 require_relative 'z3'
 require_relative 'history.rb'
 require_relative 'satisfaction_checker.rb'
 require_relative 'lineup_checker.rb'
 require 'test/unit'
+
+module Kernel
+  def log
+    @@logger ||= (
+      l = Logger.new(STDOUT,'daily')
+      l.formatter = proc do |severity, datetime, progname, msg|
+        "[#{progname || severity}] #{msg}\n"
+      end
+      # TODO set this with command-line options
+      # l.level = Logger::INFO
+      l
+    )
+  end
+end
 
 class TestZ3 < Test::Unit::TestCase
   include Z3

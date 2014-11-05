@@ -10,7 +10,6 @@ class LineUpChecker
 
   def initialize
     @solver = Z3.context.solver
-    @solver.debug = true
     @solver.theory basic_theory
     @solver.theory collection_theory
     @solver.theory lifo_theory
@@ -41,9 +40,9 @@ class LineUpChecker
   def check(history)
     num_checked = 0
     sat = false
-    # puts "HISTORY", history, "HAS #{history.linearizations.count} LINEARIZATIONS"
+    log.debug('LineUp') {"checking linearizations of history\n#{history}"}
     history.linearizations.each do |seq|
-      # puts "CHECKING LINEARIZATION #{seq * ", "}"
+      log.debug('LineUp') {"checking linearization #{seq * ", "}"}
       @solver.push
       @solver.theory ground_theory(history,seq)
       sat = @solver.check
@@ -51,7 +50,7 @@ class LineUpChecker
       @solver.pop
       break if sat
     end
-    # puts "CHECKED #{num_checked} LINEARIZATIONS"
+    log.debug('LineUp') {"checked #{num_checked} linearizations: #{sat ? "OK" : "violation"}"}
     return sat
   end
 

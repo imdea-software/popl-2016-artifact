@@ -17,6 +17,16 @@ class Array
   end
 end
 
+class Symbol
+  def to_b()
+    case self
+    when :true; true
+    when :false; false
+    else :unknown
+    end
+  end
+end
+
 module Z3
 
   module ContextualObject
@@ -216,7 +226,6 @@ module Z3
 
   class Solver < FFI::AutoPointer
     include ContextualObject
-    attr_accessor :debug
 
     extend Forwardable
     def_delegators :@context, :inc_ref, :dec_ref
@@ -233,19 +242,18 @@ module Z3
 
     def self.release(pointer) end
     def post_initialize
-      @debug = false
       @sorts = [[]]
       @decls = [[]]
     end
     def to_s()  Z3::solver_to_string(@context,self) end
     def push()
-      puts "[Z3] PUSH" if @debug
+      log.debug('z3') {"push"}
       @sorts.push []
       @decls.push []
       Z3::solver_push(@context,self)
     end
     def pop(level: 1)
-      puts "[Z3] POP(#{level})" if @debug
+      log.debug('z3') {"pop(#{level})"}
       @sorts.pop(level)
       @decls.pop(level)
       Z3::solver_pop(@context,self,level)
@@ -256,7 +264,7 @@ module Z3
         expr = @context.parse("(assert #{expr})", @sorts.flatten(1), @decls.flatten(1))
       end
       fail "Unexpected expression type #{expr.class}" unless expr.is_a?(Expr)
-      puts "[Z3] #{expr}" if @debug
+      log.debug('z3') {"assert #{expr}"}
       Z3::solver_assert(@context,self,expr)
     end
     def resolve_sort(s)
@@ -277,20 +285,18 @@ module Z3
         end
       end
     end
-    def check
-      case Z3::solver_check(@context,self)
-      when :false
-        puts "[Z3] UNSAT" if @debug
-        false
-      when :undef
-        puts "[Z3] UNKNOWN" if @debug
-        :unknown
-      when :true
-        puts "[Z3] SAT" if @debug
-        true
-      else
-        fail "Unexpected solver result."
+    def lbool_to_bool(lb)
+      case lb
+      when :true; true
+      when :false; false
+      when :undef; :unknown
+      else fail "Unexpected lbool."
       end
+    end
+    def check
+      res = Z3::solver_check(@context,self).to_b
+      log.debug('z3') {"sat? #{res}"}
+      res
     end
     def get_help() Z3::solver_get_help(@context, self) end
   end

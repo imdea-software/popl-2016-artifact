@@ -10,7 +10,6 @@ class SatisfactionChecker
 
   def initialize
     @solver = Z3.context.solver
-    @solver.debug = true
     @solver.theory basic_theory
     @solver.theory collection_theory
     @solver.theory lifo_theory
@@ -39,10 +38,12 @@ class SatisfactionChecker
   end
 
   def check(history)
+    log.debug('theory-checker') {"checking history\n#{history}"}
     @solver.push
     @solver.theory ground_theory(history)
     res = @solver.check
     @solver.pop
+    log.debug('theory-checker') {"result: #{res ? "OK" : "violation"}"}
     res
   end
 
