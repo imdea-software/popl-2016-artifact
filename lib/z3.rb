@@ -4,7 +4,7 @@ require 'ffi'
 require 'forwardable'
 
 Z3_LIB_PATH = File.join(
-  ENV['DYLD_LIBRARY_PATH'].split(':').find{|p| File.exists?(File.join(p,'libz3.dylib'))},
+  ENV['LIBRARY_PATH'].split(':').find{|p| File.exists?(File.join(p,'libz3.dylib'))},
   'libz3.dylib'
 )
 fail "Cannot find Z3 Library." unless Z3_LIB_PATH
