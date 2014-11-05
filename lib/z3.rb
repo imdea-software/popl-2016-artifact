@@ -239,14 +239,16 @@ module Z3
     end
     def to_s()  Z3::solver_to_string(@context,self) end
     def push()
+      puts "[Z3] PUSH" if @debug
       @sorts.push []
       @decls.push []
       Z3::solver_push(@context,self)
     end
-    def pop(i)
-      @sorts.pop(i)
-      @decls.pop(i)
-      Z3::solver_pop(@context,self,i)
+    def pop(level: 1)
+      puts "[Z3] POP(#{level})" if @debug
+      @sorts.pop(level)
+      @decls.pop(level)
+      Z3::solver_pop(@context,self,level)
     end
     def reset() Z3::solver_reset(@context,self) end
     def assert(expr)
@@ -257,18 +259,17 @@ module Z3
       puts "[Z3] #{expr}" if @debug
       Z3::solver_assert(@context,self,expr)
     end
-    alias :<< :assert
-    def resolve(s)
+    def resolve_sort(s)
       s.is_a?(Sort) ? s : @sorts.flatten(1).to_h.merge({bool: @context.bool_sort})[s]
     end
     def sort(s)
       @sorts.last.push [s,@context.ui_sort(s)]
     end
     def decl(name,*args,ret)
-      @decls.last.push [name,@context.function(name,*args.map{|t| resolve(t)},resolve(ret))]
+      @decls.last.push [name,@context.function(name,*args.map{|t| resolve_sort(t)},resolve_sort(ret))]
     end
     def theory(t)
-      fail "Expected a theory." unless t.is_a?(Enumerable)
+      fail "Expected a \"theory\"." unless t.is_a?(Enumerable)
       t.each do |arg,*args|
         if arg.is_a?(String); assert arg
         elsif args.empty?;    sort arg
@@ -292,14 +293,6 @@ module Z3
       end
     end
     def get_help() Z3::solver_get_help(@context, self) end
-  end
-
-  def theory(name,&blk)
-    define_method(name) do |*args|
-      Enumerator.new do |y|
-        blk.call(*args,y)
-      end
-    end
   end
 
   class Statistics < FFI::AutoPointer

@@ -60,9 +60,8 @@ class History
 
   def to_s; to_interval_s end
 
-  def values
-    map {|id| arguments(id) + (returns(id) || [])}.compact.flatten.uniq
-  end
+  def method_names; map{|id| method_name(id)}.uniq end
+  def values; map{|id| arguments(id)+(returns(id)||[])}.flatten(1).uniq end
 
   def intervals
     past = @before.values.map{|ops| ops.count}.uniq.sort.map.with_index{|c,i| [c,i]}.to_h

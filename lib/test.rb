@@ -1,6 +1,7 @@
 require_relative 'z3'
 require_relative 'history.rb'
 require_relative 'satisfaction_checker.rb'
+require_relative 'lineup_checker.rb'
 require 'test/unit'
 
 class TestZ3 < Test::Unit::TestCase
@@ -27,7 +28,7 @@ class TestZ3 < Test::Unit::TestCase
     solver.push
     solver.assert Z.false
     assert !solver.check
-    solver.pop 2
+    solver.pop(level: 2)
     solver.assert (x == y)
     assert !solver.check
     solver.reset
@@ -92,21 +93,26 @@ class TestHistory < Test::Unit::TestCase
     assert h.after(id1).include?(id3)
 
     assert h.linearizations.count == 3
-
-    assert SatisfactionChecker::check(h)
+    
+    sat_checker = SatisfactionChecker.new
+    lin_checker = LineUpChecker.new
+    assert sat_checker.check(h)
+    assert lin_checker.check(h)
 
     h = History.new
     h.complete! (h.start! :push, :a)
     h.complete! (h.start! :push, :b)
     h.complete! (h.start! :pop), :b
     h.complete! (h.start! :pop), :a
-    assert SatisfactionChecker::check(h)
+    assert sat_checker.check(h)
+    assert lin_checker.check(h)
 
     h = History.new
     h.complete! (h.start! :push, :a)
     h.complete! (h.start! :push, :b)
     h.complete! (h.start! :pop), :a
     h.complete! (h.start! :pop), :b
-    assert !SatisfactionChecker::check(h)
+    assert !sat_checker.check(h)
+    assert !lin_checker.check(h)
   end
 end

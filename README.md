@@ -5,8 +5,8 @@ data structures, e.g., locks, semaphores, atomic registers, stacks, queues.
 List of tasks:
 
 - [ ] Generate lots of benchmark log files for the SCAL implementations.
-- [ ] Implement a linearization monitor.
-- [ ] Implement saturation via SAT/SMT (?).
+- [x] Implement a linearization monitor.
+- [x] Implement saturation via SAT/SMT (?).
 - [ ] Optimize our monitor – intervals or graphs?
 
 List of things to demonstrate:
