@@ -20,17 +20,17 @@ class SatisfactionChecker
     vals = history.values
 
     ops.each {|id| t.yield "o#{id}".to_sym, :id}
-    vals.each {|v| t.yield v, :value}
+    vals.each {|v| t.yield "v#{v}".to_sym, :value}
 
-    t.yield "(distinct #{ops.map{|id| "o#{id}"} * " "})"
-    t.yield "(distinct #{vals * " "})"
+    t.yield "(distinct #{ops.map{|id| "o#{id}"} * " "})" if ops.count > 1
+    t.yield "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
 
     history.each do |id|
-      arg = history.arguments(id).first
-      ret = history.returns(id).first
+      args = history.arguments(id)
+      rets = history.returns(id) || []
       t.yield "(= (meth o#{id}) #{history.method_name(id)})"
-      t.yield "(= (arg o#{id}) #{arg})" if arg
-      t.yield "(= (ret o#{id}) #{ret})" if ret
+      args.each_with_index {|x,idx| t.yield "(= (arg o#{id} #{idx}) v#{x})"}
+      rets.each_with_index {|x,idx| t.yield "(= (ret o#{id} #{idx}) v#{x})"}
       history.after(id).each do |a|
         t.yield "(hb o#{id} o#{a})"
       end
@@ -38,12 +38,12 @@ class SatisfactionChecker
   end
 
   def check(history)
-    log.debug('theory-checker') {"checking history\n#{history}"}
+    log.info('theory-checker') {"checking history\n#{history}"}
     @solver.push
     @solver.theory ground_theory(history)
     res = @solver.check
     @solver.pop
-    log.debug('theory-checker') {"result: #{res ? "OK" : "violation"}"}
+    log.info('theory-checker') {"result: #{res ? "OK" : "violation"}"}
     res
   end
 

@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 require 'ffi'
 require 'forwardable'
 
@@ -268,7 +266,7 @@ module Z3
       Z3::solver_assert(@context,self,expr)
     end
     def resolve_sort(s)
-      s.is_a?(Sort) ? s : @sorts.flatten(1).to_h.merge({bool: @context.bool_sort})[s]
+      s.is_a?(Sort) ? s : @sorts.flatten(1).to_h.merge({bool: @context.bool_sort, int: @context.int_sort})[s]
     end
     def sort(s)
       @sorts.last.push [s,@context.ui_sort(s)]

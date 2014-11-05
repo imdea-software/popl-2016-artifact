@@ -93,7 +93,7 @@ class History
     end * "\n"
   end
 
-  def self.read(input)
+  def self.from_execution_log(input)
     h = new
     ids = {}
     input.each do |line|

@@ -20,17 +20,17 @@ class LineUpChecker
     vals = history.values
 
     ops.each {|id| t.yield "o#{id}".to_sym, :id}
-    vals.each {|v| t.yield v, :value}
+    vals.each {|v| t.yield "v#{v}".to_sym, :value}
 
-    t.yield "(distinct #{ops.map{|id| "o#{id}"} * " "})"
-    t.yield "(distinct #{vals * " "})"
+    t.yield "(distinct #{ops.map{|id| "o#{id}"} * " "})" if ops.count > 1
+    t.yield "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
 
     seq.each_with_index do |id,idx|
-      arg = history.arguments(id).first
-      ret = history.returns(id).first
+      args = history.arguments(id)
+      rets = history.returns(id) || []
       t.yield "(= (meth o#{id}) #{history.method_name(id)})"
-      t.yield "(= (arg o#{id}) #{arg})" if arg
-      t.yield "(= (ret o#{id}) #{ret})" if ret
+      args.each_with_index {|x,idx| t.yield "(= (arg o#{id} #{idx}) v#{x})"}
+      rets.each_with_index {|x,idx| t.yield "(= (ret o#{id} #{idx}) v#{x})"}
       seq.drop(idx+1).each do |a|
         t.yield "(hb o#{id} o#{a})"
       end
@@ -40,9 +40,9 @@ class LineUpChecker
   def check(history)
     num_checked = 0
     sat = false
-    log.debug('LineUp') {"checking linearizations of history\n#{history}"}
+    log.info('LineUp') {"checking linearizations of history\n#{history}"}
     history.linearizations.each do |seq|
-      log.debug('LineUp') {"checking linearization #{seq * ", "}"}
+      log.info('LineUp') {"checking linearization #{seq * ", "}"}
       @solver.push
       @solver.theory ground_theory(history,seq)
       sat = @solver.check
@@ -50,7 +50,7 @@ class LineUpChecker
       @solver.pop
       break if sat
     end
-    log.debug('LineUp') {"checked #{num_checked} linearizations: #{sat ? "OK" : "violation"}"}
+    log.info('LineUp') {"checked #{num_checked} linearizations: #{sat ? "OK" : "violation"}"}
     return sat
   end
 

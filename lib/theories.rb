@@ -17,8 +17,8 @@ module BasicTheories
     t.yield :value
 
     t.yield :meth, :id, :method
-    t.yield :arg, :id, :value
-    t.yield :ret, :id, :value
+    t.yield :arg, :id, :int, :value
+    t.yield :ret, :id, :int, :value
 
     t.yield :hb, :id, :id, :bool
     t.yield :lb, :id, :id, :bool
@@ -46,7 +46,7 @@ module CollectionTheories
     t.yield :match, :id, :id, :bool
 
     # matching
-    t.yield "(forall ((x id) (y id)) (= (match x y) (and (= (meth x) push) (= (meth y) pop) (= (arg x) (ret y)))))"
+    t.yield "(forall ((x id) (y id)) (= (match x y) (and (= (meth x) push) (= (meth y) pop) (= (arg x 1) (ret y 1)))))"
 
     # adds before matched removes
     t.yield "(forall ((x id) (y id)) (=> (match x y) (lb x y)))"
