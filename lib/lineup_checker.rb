@@ -26,15 +26,14 @@ class LineUpChecker
     t.yield "(distinct #{ops.map{|id| "o#{id}"} * " "})"
     t.yield "(distinct #{vals * " "})"
 
-    history.each do |id|
+    seq.each_with_index do |id,idx|
       arg = history.arguments(id).first
       ret = history.returns(id).first
       t.yield "(= (meth o#{id}) #{history.method_name(id)})"
       t.yield "(= (arg o#{id}) #{arg})" if arg
       t.yield "(= (ret o#{id}) #{ret})" if ret
-      history.after(id).each do |a|
+      seq.drop(idx+1).each do |a|
         t.yield "(hb o#{id} o#{a})"
-        t.yield "(lb o#{id} o#{a})"
       end
     end
   end
@@ -42,7 +41,9 @@ class LineUpChecker
   def check(history)
     num_checked = 0
     sat = false
+    # puts "HISTORY", history, "HAS #{history.linearizations.count} LINEARIZATIONS"
     history.linearizations.each do |seq|
+      # puts "CHECKING LINEARIZATION #{seq * ", "}"
       @solver.push
       @solver.theory ground_theory(history,seq)
       sat = @solver.check
