@@ -38,13 +38,6 @@ class SatisfactionChecker < HistoryChecker
     t.yield "(forall ((x id)) (or #{ops.map{|id| "(= x o#{id})"} * " "}))"
     t.yield "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
 
-    # TODO this code should not depend the collection theory
-    # TODO THE FOLLOWING IS UNSOUND... PENDING POPS MIGHT RETURN THAT VALUE
-    # vals.each.reject do |v|
-    #   v == :empty ||
-    #   ops.any? {|id| history.returns(id) && history.returns(id).include?(v)}
-    # end.each {|v| t.yield "(not (popped v#{v}))"}
-
     history.each do |id|
       args = history.arguments(id)
       rets = history.returns(id) || []

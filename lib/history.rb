@@ -138,7 +138,27 @@ class History
     self
   end
 
-  def linearizations
+  def completions(completer)
+    Enumerator.new do |y|
+      partials = []
+      partials << self
+
+      while !partials.empty? do
+        h = partials.shift
+        p = h.instance_variable_get('@pending').first
+        if p
+          partials << h.remove(p)
+          completer.call(h,p).each do |rets|
+            partials << h.complete(p,*rets)
+          end
+        else
+          y << h
+        end
+      end
+    end
+  end
+
+  def linearizations()
     Enumerator.new do |y|
       partials = []
       partials << [[], self]

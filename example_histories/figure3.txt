@@ -14,6 +14,6 @@
             [7] call pop
             [7] return 2
         [4] return
-[5] return
+[5] return empty
 [8] call pop
-[8] return
+[8] return 3
