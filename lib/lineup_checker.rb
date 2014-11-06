@@ -1,23 +1,29 @@
-require_relative 'history.rb'
-require_relative 'theories.rb'
-require_relative 'z3.rb'
+require_relative 'history'
+require_relative 'history_checker'
+require_relative 'theories'
+require_relative 'z3'
 
-class LineUpChecker
+class LineUpChecker < HistoryChecker
   include Z3
   extend Theories
   include BasicTheories
   include CollectionTheories
 
-  def initialize
+  def initialize(object, incremental)
+    super(object, incremental)
     @solver = Z3.context.solver
     @solver.theory basic_theory
-    @solver.theory collection_theory
-    @solver.theory lifo_theory
+    case @object
+    when 'atomic-stack'
+      @solver.theory collection_theory
+      @solver.theory lifo_theory
+    when 'atomic-queue'
+      @solver.theory collection_theory
+      @solver.theory fifo_theory
+    end
   end
 
-  def to_s
-    "Line-Up checker"
-  end
+  def name; "Line-Up checker" end
 
   theory :ground_theory do |history,seq,t|
     ops = history.map{|id| id}
@@ -52,6 +58,7 @@ class LineUpChecker
   end
 
   def check(history)
+    super(history)
     num_checked = 0
     sat = false
     log.info('LineUp') {"checking linearizations of history\n#{history}"}

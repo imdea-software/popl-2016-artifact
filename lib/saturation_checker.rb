@@ -1,14 +1,15 @@
-require_relative 'history.rb'
+require_relative 'history'
+require_relative 'history_checker'
 
-class SaturationChecker
-  def initialize
+class SaturationChecker < HistoryChecker
+  def initialize(object, incremental)
+    super(object, incremental)
   end
 
-  def to_s
-    "Saturation checker"
-  end
+  def name; "Saturation checker" end
 
   def check(history)
+    super(history)
     true
   end
 end

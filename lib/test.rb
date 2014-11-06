@@ -1,8 +1,8 @@
 require 'logger'
 require_relative 'z3'
-require_relative 'history.rb'
-require_relative 'satisfaction_checker.rb'
-require_relative 'lineup_checker.rb'
+require_relative 'history'
+require_relative 'satisfaction_checker'
+require_relative 'lineup_checker'
 require 'test/unit'
 
 module Kernel

@@ -17,6 +17,8 @@ module Kernel
 end
 
 require_relative 'history'
+require_relative 'execution_log_parser'
+require_relative 'history_checker'
 require_relative 'lineup_checker'
 require_relative 'satisfaction_checker'
 require_relative 'saturation_checker'
@@ -78,12 +80,15 @@ begin
     exit
   end
 
+  log_parser = ExecutionLogParser.new(execution_log)
+
   @checker =
     case @checker
-    when :lineup; LineUpChecker.new
-    when :smt; SatisfactionChecker.new
-    when :saturation; SaturationChecker.new
-    end
+    when :lineup;     LineUpChecker
+    when :smt;        SatisfactionChecker
+    when :saturation; SaturationChecker
+    else              HistoryChecker
+    end.new(log_parser.object, @incremental)
 
   num_steps = 0
   num_checks = 0
@@ -100,7 +105,7 @@ begin
 
   start_time = Time.now
 
-  History.from_execution_log(File.readlines(execution_log)) do |h|
+  log_parser.parse! do |h|
     next unless (num_steps += 1) % @frequency == 0
     violation = num_steps unless @checker.nil? || @checker.check(h) || violation
     num_checks += 1
@@ -109,9 +114,10 @@ begin
 
   end_time = Time.now
 
+  puts "OBJECT:     #{log_parser.object || "?"}"
   puts "STEPS:      #{num_steps}"
-  puts "CHECKER:    #{@checker || "none"}"
-  puts "CHECKS:     #{num_checks}"
+  puts "CHECKER:    #{@checker}"
+  puts "CHECKS:     #{@checker.num_checks}"
   puts "MEMORY:     #{max_rss / 1024.0}KB"
   puts "TIME:       #{end_time - start_time}s"
   puts "VIOLATION:  #{violation || "none"}"
