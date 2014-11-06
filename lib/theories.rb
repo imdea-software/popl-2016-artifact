@@ -44,10 +44,22 @@ module CollectionTheories
     t.yield :push, :method
     t.yield :pop, :method
     t.yield :match, :id, :id, :bool
+    t.yield :pushed, :value, :bool
+    t.yield :popped, :value, :bool
+    t.yield :unmatched, :id, :bool
     t.yield :vempty, :value
 
     # matching
     t.yield "(forall ((x id) (y id)) (= (match x y) (and (= (meth x) push) (= (meth y) pop) (= (arg x 0) (ret y 0)))))"
+
+    # unmatched
+    t.yield "(forall ((x id) (v value)) (=> (and (= (meth x) push) (= (arg x 0) v)) (pushed v)))"
+    t.yield "(forall ((x id) (v value)) (=> (and (= (meth x) pop) (= (ret x 0) v)) (popped v)))"
+    t.yield "(forall ((x id)) (= (unmatched x) (and (= (meth x) push) (not (popped (arg x 0))))))"
+
+    # all popped elements are pushed
+    t.yield "(forall ((v value)) (=> (and (not (= v vempty)) (popped v)) (pushed v)))"
+    t.yield "(forall ((x id) (y id)) (=> (and (not (= x y)) (= (meth x) pop) (= (meth y) pop)) (not (= (ret x 0) (ret y 0)))))"
 
     # adds before matched removes
     t.yield "(forall ((x id) (y id)) (=> (match x y) (lb x y)))"
@@ -59,6 +71,7 @@ module CollectionTheories
   theory :lifo_theory do |t|
     # LIFO order
     t.yield "(forall ((a1 id) (r1 id) (a2 id) (r2 id)) (=> (and (match a1 r1) (match a2 r2) (not (= a1 a2)) (lb a1 a2) (lb r1 r2)) (lb r1 a2)))"
+    t.yield "(forall ((a1 id) (r1 id) (a2 id)) (=> (and (match a1 r1) (unmatched a2) (not (= a1 a2)) (lb a1 a2)) (lb r1 a2)))"
   end
 
   theory :fifo_theory do |t|

@@ -103,6 +103,7 @@ class History
     ids = {}
     input.each do |line|
       line.chomp!
+      next if line.empty?
       if line.match(/\A\[(?'id'\d+)\]\s*call \s*(?'method'\w+)(\((?'values'\w+(\s*,\s*\w+)*)?\))?\Z/) do |m|
         id = m[:id].to_i
         fail "Duplicate operation identifier #{id}" if ids.include?(id)

@@ -1,0 +1,8 @@
+[1] call push(1)
+[1] return
+[2] call push(2)
+[2] return
+[3] call pop
+[3] return 1
+[4] call pop
+[4] return 2

@@ -20,10 +20,19 @@ class LineUpChecker
     vals = history.values
 
     ops.each {|id| t.yield "o#{id}".to_sym, :id}
+
+    # TODO this code should not depend the collection theory
     vals.each {|v| t.yield "v#{v}".to_sym, :value unless v == :empty}
 
     t.yield "(distinct #{ops.map{|id| "o#{id}"} * " "})" if ops.count > 1
+    t.yield "(forall ((x id)) (or #{ops.map{|id| "(= x o#{id})"} * " "}))"
     t.yield "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
+
+    # TODO this code should not depend the collection theory
+    vals.each.reject do |v|
+      v == :empty ||
+      ops.any? {|id| history.returns(id) && history.returns(id).include?(v)}
+    end.each {|v| t.yield "(not (popped v#{v}))"}
 
     seq.each_with_index do |id,idx|
       args = history.arguments(id)

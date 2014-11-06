@@ -1,3 +1,4 @@
+require 'os'
 require 'ffi'
 require 'forwardable'
 
@@ -22,7 +23,7 @@ end
 module Z3
 
   def self.z3_lib
-    ext = 'dylib'
+    ext = OS.windows? ? 'dll' : OS.mac? ? 'dylib' : 'so'
     path = ENV['LIBRARY_PATH'].split(':').find{|p| File.exists?(File.join(p,"libz3.#{ext}"))}
     (log.fatal "Cannot find 'libz3.#{ext}' in \$LIBRARY_PATH."; exit) unless path
     File.join(path,"libz3.#{ext}")

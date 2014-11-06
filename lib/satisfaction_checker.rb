@@ -23,7 +23,15 @@ class SatisfactionChecker
     vals.each {|v| t.yield "v#{v}".to_sym, :value unless v == :empty}
 
     t.yield "(distinct #{ops.map{|id| "o#{id}"} * " "})" if ops.count > 1
+
+    # TODO this code should not depend the collection theory
     t.yield "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
+
+    # TODO this code should not depend the collection theory
+    vals.each.reject do |v|
+      v == :empty ||
+      ops.any? {|id| history.returns(id) && history.returns(id).include?(v)}
+    end.each {|v| t.yield "(not (popped v#{v}))"}
 
     history.each do |id|
       args = history.arguments(id)

@@ -2,6 +2,7 @@
 
 require 'optparse'
 require 'logger'
+require 'os'
 
 module Kernel
   def log
@@ -18,6 +19,7 @@ end
 require_relative 'history'
 require_relative 'lineup_checker'
 require_relative 'satisfaction_checker'
+require_relative 'saturation_checker'
 
 log.level = Logger::WARN
 
@@ -61,6 +63,7 @@ OptionParser.new do |opts|
   end
 
   opts.on("--saturation", "Use custom saturation checker.") do |c|
+    @saturation_checker = SaturationChecker.new
   end
 
   opts.on("--remove-obsolete", "Remove obsolete operations.") do |c|
@@ -74,12 +77,37 @@ begin
     exit
   end
 
-  step = 0
-  History.from_execution_log(File.readlines(execution_log)) do |h|
-    next unless (step += 1) % @frequency == 0
-    @lineup_checker.check(h) if @lineup_checker
-    @smt_checker.check(h) if @smt_checker
+  checker = @lineup_checker || @smt_checker || @saturation_checker
+  num_steps = 0
+  num_checks = 0
+  max_rss = 0
+  violation = nil
+
+  # measure memory usage in a separate thread, since a relatively expensive
+  # system call is used
+  rss_thread = Thread.new do
+    rss = OS.rss_bytes
+    max_rss = rss if rss > max_rss
+    sleep 1
   end
+
+  start_time = Time.now
+
+  History.from_execution_log(File.readlines(execution_log)) do |h|
+    next unless (num_steps += 1) % @frequency == 0
+    violation = num_steps unless checker.nil? || checker.check(h) || violation
+    num_checks += 1
+    break if violation # TODO keep going?
+  end
+
+  end_time = Time.now
+
+  puts "STEPS:      #{num_steps}"
+  puts "CHECKS:     #{num_checks}"
+  puts "MEMORY:     #{max_rss / 1024.0}KB"
+  puts "TIME:       #{end_time - start_time}s"
+  puts "VIOLATION:  #{violation || "none"}"
+  puts "TIME/CHECK: #{(end_time - start_time)/num_checks}s"
 ensure
   log.close
 end
