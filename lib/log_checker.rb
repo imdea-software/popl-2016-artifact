@@ -81,19 +81,18 @@ begin
   end
 
   log_parser = ExecutionLogParser.new(execution_log)
-
+  history = History.new
   @checker =
     case @checker
     when :lineup;     LineUpChecker
     when :smt;        SatisfactionChecker
     when :saturation; SaturationChecker
     else              HistoryChecker
-    end.new(log_parser.object, @incremental)
+    end.new(log_parser.object, history, @incremental)
+  history.add_observer(@checker)
 
   num_steps = 0
-  num_checks = 0
   max_rss = 0
-  violation = nil
 
   # measure memory usage in a separate thread, since a relatively expensive
   # system call is used
@@ -105,23 +104,26 @@ begin
 
   start_time = Time.now
 
-  log_parser.parse! do |h|
-    next unless (num_steps += 1) % @frequency == 0
-    violation = num_steps unless @checker.nil? || @checker.check(h) || violation
-    num_checks += 1
-    break if violation # TODO keep going?
+  log_parser.parse! do |act, method_or_id, *values|
+    break if @checker.violation?
+    num_steps += 1
+    case act
+    when :call;   next history.start!(method_or_id, *values)
+    when :return; next history.complete!(method_or_id, *values)
+    else          fail "Unexpected action."
+    end
   end
 
   end_time = Time.now
 
   puts "OBJECT:     #{log_parser.object || "?"}"
-  puts "STEPS:      #{num_steps}"
   puts "CHECKER:    #{@checker}"
+  puts "VIOLATION:  #{@checker.violation?}"
+  puts "STEPS:      #{num_steps}"
   puts "CHECKS:     #{@checker.num_checks}"
   puts "MEMORY:     #{max_rss / 1024.0}KB"
   puts "TIME:       #{end_time - start_time}s"
-  puts "VIOLATION:  #{violation || "none"}"
-  puts "TIME/CHECK: #{(end_time - start_time)/num_checks}s"
+  puts "TIME/CHECK: #{(end_time - start_time)/@checker.num_checks}s"
 ensure
   log.close
 end

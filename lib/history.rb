@@ -11,6 +11,7 @@ class History
     @before = {}
     @after = {}
     # @after_reduced = {}
+    @observers = []
   end
 
   def initialize_copy(other)
@@ -26,6 +27,7 @@ class History
     @before.each {|id,ops| @before[id] = ops.clone}
     @after.each {|id,ops| @after[id] = ops.clone}
     # @after_reduced.each {|id,ops| @after_reduced[id] = ops.clone}
+    @observers = []
   end
 
   def each(&block)
@@ -98,6 +100,9 @@ class History
     end * "\n"
   end
 
+  def add_observer(o)         @observers << o end
+  def notify_observers(*args) @observers.each {|o| o.update(*args)} end
+
   def start!(m,*args)
     id = (@unique_id += 1)
     @pending << id
@@ -110,6 +115,7 @@ class History
     # @after_reduced[id] = []
     @completed.each {|c| @after[c] << id}
     # @completed.each {|c| @after_reduced[c] << id if @after[c].all? {|p| pending?(p)}}
+    notify_observers :start
     id
   end
 
@@ -119,6 +125,7 @@ class History
     @pending.delete id
     @completed << id
     @returns[id] = rets
+    notify_observers :complete
     self
   end
 
@@ -135,6 +142,7 @@ class History
     @after.each {|_,ops| ops.delete id}
     # @after_reduced.delete id
     # @after_reduced.each {|_,ops| ops.delete id}
+    notify_observers :remove
     self
   end
 

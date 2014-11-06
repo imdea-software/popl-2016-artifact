@@ -11,8 +11,8 @@ class LineUpChecker < HistoryChecker
 
   @@do_completion = true
 
-  def initialize(object, incremental)
-    super(object, incremental)
+  def initialize(object, history, incremental)
+    super(object, history, incremental)
     @solver = Z3.context.solver
     @solver.theory basic_theory
     case @object
@@ -99,13 +99,13 @@ class LineUpChecker < HistoryChecker
     return [sat, num_checked]
   end
 
-  def check(history)
-    super(history)
+  def check()
+    super()
     sat = false
-    log.info('LineUp') {"checking linearizations of history\n#{history}"}
-    sat, n = @@do_completion ? check_completions(history) : check_linearizations(history)
+    log.info('LineUp') {"checking linearizations of history\n#{@history}"}
+    sat, n = @@do_completion ? check_completions(@history) : check_linearizations(@history)
     log.info('LineUp') {"checked #{n} linearizations: #{sat ? "OK" : "violation"}"}
-    return sat
+    flag_violation unless sat
   end
 
 end

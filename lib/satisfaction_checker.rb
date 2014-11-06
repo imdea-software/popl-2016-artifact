@@ -9,8 +9,8 @@ class SatisfactionChecker < HistoryChecker
   include BasicTheories
   include CollectionTheories
 
-  def initialize(object, incremental)
-    super(object, incremental)
+  def initialize(object, history, incremental)
+    super(object, history, incremental)
     @solver = Z3.context.solver
     @solver.theory basic_theory
     case @object
@@ -50,15 +50,15 @@ class SatisfactionChecker < HistoryChecker
     end
   end
 
-  def check(history)
-    super(history)
-    log.info('theory-checker') {"checking history\n#{history}"}
+  def check()
+    super()
+    log.info('theory-checker') {"checking history\n#{@history}"}
     @solver.push
-    @solver.theory ground_theory(history)
-    res = @solver.check
+    @solver.theory ground_theory(@history)
+    sat = @solver.check
     @solver.pop
-    log.info('theory-checker') {"result: #{res ? "OK" : "violation"}"}
-    res
+    log.info('theory-checker') {"result: #{sat ? "OK" : "violation"}"}
+    flag_violation unless sat
   end
 
 end
