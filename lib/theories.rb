@@ -64,8 +64,9 @@ module CollectionTheories
     # adds before matched removes
     t.yield "(forall ((x id) (y id)) (=> (match x y) (lb x y)))"
 
-    # all matched pairs before or after empty removes
+    # all adds removed before empty removes
     t.yield "(forall ((x id) (y id) (z id)) (=> (and (match x y) (= (meth z) pop) (= (ret z 0) vempty) (lb x z)) (lb y z)))"
+    t.yield "(forall ((x id) (z id)) (=> (and (unmatched x) (= (meth z) pop) (= (ret z 0) vempty)) (lb x z)))"
   end
 
   theory :lifo_theory do |t|
@@ -77,5 +78,6 @@ module CollectionTheories
   theory :fifo_theory do |t|
     # FIFO order
     t.yield "(forall ((a1 id) (r1 id) (a2 id) (r2 id)) (=> (and (match a1 r1) (match a2 r2) (not (= a1 a2)) (lb a1 a2)) (lb r1 r2)))"
+    t.yield "(forall ((a1 id) (r1 id) (a2 id)) (=> (and (match a1 r1) (unmatched a2) (not (= a1 a2))) (lb a1 a2)))"
   end
 end

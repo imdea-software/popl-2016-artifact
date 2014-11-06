@@ -29,10 +29,11 @@ class LineUpChecker
     t.yield "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
 
     # TODO this code should not depend the collection theory
-    vals.each.reject do |v|
-      v == :empty ||
-      ops.any? {|id| history.returns(id) && history.returns(id).include?(v)}
-    end.each {|v| t.yield "(not (popped v#{v}))"}
+    # TODO THE FOLLOWING IS UNSOUND... PENDING POPS MIGHT RETURN THAT VALUE
+    # vals.each.reject do |v|
+    #   v == :empty ||
+    #   ops.any? {|id| history.returns(id) && history.returns(id).include?(v)}
+    # end.each {|v| t.yield "(not (popped v#{v}))"}
 
     seq.each_with_index do |id,idx|
       args = history.arguments(id)
