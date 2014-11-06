@@ -24,9 +24,9 @@ require_relative 'saturation_checker'
 log.level = Logger::WARN
 
 @frequency = 1
-@lineup_checker = nil
-@smt_checker = nil
-@saturation_checker = nil
+@checker = nil
+@incremental = false
+@remove_obsolete = false
 
 OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename $0} [options] FILE"
@@ -50,23 +50,24 @@ OptionParser.new do |opts|
     log.level = Logger::DEBUG
   end
 
-  opts.on("--frequency N", Integer, "Check every N steps (default #{@frequency})") do |n|
+  opts.on("--checker NAME", [:lineup, :smt, :saturation],
+    "from [lineup, smt, saturation]") do |c|
+    @checker = c
+  end
+
+  opts.on("--frequency N", Integer,
+    "Check every N steps (default #{@frequency})") do |n|
     @frequency = n
   end
 
-  opts.on("--line-up", "Use LineUp checker.") do |c|
-    @lineup_checker = LineUpChecker.new
+  opts.on("--[no-]incremental",
+    "Incremental checking? (default #{@incremental}).") do | i|
+    @incremental = i
   end
 
-  opts.on("--smt-solver", "Use SAT-based checker.") do |c|
-    @smt_checker = SatisfactionChecker.new
-  end
-
-  opts.on("--saturation", "Use custom saturation checker.") do |c|
-    @saturation_checker = SaturationChecker.new
-  end
-
-  opts.on("--remove-obsolete", "Remove obsolete operations.") do |c|
+  opts.on("--[no-]remove-obsolete",
+    "Remove operations? (default #{@remove_obsolete}).") do |r|
+    @remove_obsolete = r
   end
 end.parse!
 
@@ -77,7 +78,13 @@ begin
     exit
   end
 
-  checker = @lineup_checker || @smt_checker || @saturation_checker
+  @checker =
+    case @checker
+    when :lineup; LineUpChecker.new
+    when :smt; SatisfactionChecker.new
+    when :saturation; SaturationChecker.new
+    end
+
   num_steps = 0
   num_checks = 0
   max_rss = 0
@@ -95,7 +102,7 @@ begin
 
   History.from_execution_log(File.readlines(execution_log)) do |h|
     next unless (num_steps += 1) % @frequency == 0
-    violation = num_steps unless checker.nil? || checker.check(h) || violation
+    violation = num_steps unless @checker.nil? || @checker.check(h) || violation
     num_checks += 1
     break if violation # TODO keep going?
   end
@@ -103,6 +110,7 @@ begin
   end_time = Time.now
 
   puts "STEPS:      #{num_steps}"
+  puts "CHECKER:    #{@checker || "none"}"
   puts "CHECKS:     #{num_checks}"
   puts "MEMORY:     #{max_rss / 1024.0}KB"
   puts "TIME:       #{end_time - start_time}s"

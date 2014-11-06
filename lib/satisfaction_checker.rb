@@ -15,6 +15,10 @@ class SatisfactionChecker
     @solver.theory lifo_theory
   end
 
+  def to_s
+    "SMT checker (Z3)"
+  end
+
   theory :ground_theory do |history,t|
     ops = history.map{|id| id}
     vals = history.values

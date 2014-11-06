@@ -15,6 +15,10 @@ class LineUpChecker
     @solver.theory lifo_theory
   end
 
+  def to_s
+    "Line-Up checker"
+  end
+
   theory :ground_theory do |history,seq,t|
     ops = history.map{|id| id}
     vals = history.values
