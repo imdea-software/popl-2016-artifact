@@ -92,6 +92,8 @@ begin
   history.add_observer(@checker)
 
   num_steps = 0
+  max_size = 0
+  cum_size = 0
   max_rss = 0
 
   # measure memory usage in a separate thread, since a relatively expensive
@@ -106,7 +108,12 @@ begin
 
   log_parser.parse! do |act, method_or_id, *values|
     break if @checker.violation?
+
     num_steps += 1
+    size = history.count
+    max_size = size if size > max_size
+    cum_size += size
+
     case act
     when :call;   next history.start!(method_or_id, *values)
     when :return; next history.complete!(method_or_id, *values)
@@ -120,6 +127,8 @@ begin
   puts "CHECKER:    #{@checker}"
   puts "VIOLATION:  #{@checker.violation?}"
   puts "STEPS:      #{num_steps}"
+  puts "AVG SIZE:   #{cum_size * 1.0 / num_steps}"
+  puts "MAX SIZE:   #{max_size}"
   puts "CHECKS:     #{@checker.num_checks}"
   puts "MEMORY:     #{max_rss / 1024.0}KB"
   puts "TIME:       #{end_time - start_time}s"
