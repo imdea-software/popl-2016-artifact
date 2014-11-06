@@ -10,6 +10,7 @@ class History
     @returns = {}
     @before = {}
     @after = {}
+    # @after_reduced = {}
   end
 
   def initialize_copy(other)
@@ -21,8 +22,10 @@ class History
     @returns = @returns.clone
     @before = @before.clone
     @after = @after.clone
+    # @after_reduced = @after_reduced.clone
     @before.each {|id,ops| @before[id] = ops.clone}
     @after.each {|id,ops| @after[id] = ops.clone}
+    # @after_reduced.each {|id,ops| @after_reduced[id] = ops.clone}
   end
 
   def each(&block)
@@ -38,11 +41,13 @@ class History
   def empty?;             count == 0 end
   def include?(id)        !@method_names[id].nil? end
   def pending?(id)        @returns[id].nil? end
+  def completed?(id)      !pending?(id) end
   def method_name(id)     @method_names[id] end
   def arguments(id)       @arguments[id] end
   def returns(id)         @returns[id] end
   def before(id)          @before[id] end
   def after(id)           @after[id] end
+  # def after_reduced(id)   @after_reduced[id] end
   def minimals;           select {|id| before(id).empty? } end
   def maximals;           select {|id| after(id).empty? } end
 
@@ -127,10 +132,12 @@ class History
     @method_names[id] = m.to_s
     @arguments[id] = args
     @returns[id] = nil
-    @completed.each {|c| @after[c] << id}
     @before[id] = []
     @before[id].push *@completed
     @after[id] = []
+    # @after_reduced[id] = []
+    @completed.each {|c| @after[c] << id}
+    # @completed.each {|c| @after_reduced[c] << id if @after[c].all? {|p| pending?(p)}}
     id
   end
 
@@ -154,6 +161,8 @@ class History
     @before.each {|_,ops| ops.delete id}
     @after.delete id
     @after.each {|_,ops| ops.delete id}
+    # @after_reduced.delete id
+    # @after_reduced.each {|_,ops| ops.delete id}
     self
   end
 

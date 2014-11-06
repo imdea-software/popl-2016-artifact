@@ -46,7 +46,7 @@ module CollectionTheories
     t.yield :match, :id, :id, :bool
 
     # matching
-    t.yield "(forall ((x id) (y id)) (= (match x y) (and (= (meth x) push) (= (meth y) pop) (= (arg x 1) (ret y 1)))))"
+    t.yield "(forall ((x id) (y id)) (= (match x y) (and (= (meth x) push) (= (meth y) pop) (= (arg x 0) (ret y 0)))))"
 
     # adds before matched removes
     t.yield "(forall ((x id) (y id)) (=> (match x y) (lb x y)))"

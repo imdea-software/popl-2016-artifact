@@ -1,12 +1,6 @@
 require 'ffi'
 require 'forwardable'
 
-Z3_LIB_PATH = File.join(
-  ENV['LIBRARY_PATH'].split(':').find{|p| File.exists?(File.join(p,'libz3.dylib'))},
-  'libz3.dylib'
-)
-fail "Cannot find Z3 Library." unless Z3_LIB_PATH
-
 class Array
   def to_ptr()
     ptr = FFI::MemoryPointer.new(:pointer, count)
@@ -26,6 +20,13 @@ class Symbol
 end
 
 module Z3
+
+  def self.z3_lib
+    ext = 'dylib'
+    path = ENV['LIBRARY_PATH'].split(':').find{|p| File.exists?(File.join(p,"libz3.#{ext}"))}
+    (log.fatal "Cannot find 'libz3.#{ext}' in \$LIBRARY_PATH."; exit) unless path
+    File.join(path,"libz3.#{ext}")
+  end
 
   module ContextualObject
     def post_initialize; end
@@ -283,14 +284,6 @@ module Z3
         end
       end
     end
-    def lbool_to_bool(lb)
-      case lb
-      when :true; true
-      when :false; false
-      when :undef; :unknown
-      else fail "Unexpected lbool."
-      end
-    end
     def check
       res = Z3::solver_check(@context,self).to_b
       log.debug('z3') {"sat? #{res}"}
@@ -308,7 +301,7 @@ module Z3
   end
 
   extend FFI::Library
-  ffi_lib Z3_LIB_PATH
+  ffi_lib z3_lib
 
   enum :lbool, [:false, -1, :undef, :true]
   enum :symbol_kind, [:int, :string]

@@ -3,10 +3,6 @@
 require 'optparse'
 require 'logger'
 
-require_relative 'history'
-require_relative 'lineup_checker'
-require_relative 'satisfaction_checker'
-
 module Kernel
   def log
     @@logger ||= (
@@ -18,6 +14,10 @@ module Kernel
     )
   end
 end
+
+require_relative 'history'
+require_relative 'lineup_checker'
+require_relative 'satisfaction_checker'
 
 log.level = Logger::WARN
 
