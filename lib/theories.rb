@@ -44,12 +44,16 @@ module CollectionTheories
     t.yield :push, :method
     t.yield :pop, :method
     t.yield :match, :id, :id, :bool
+    t.yield :vempty, :value
 
     # matching
     t.yield "(forall ((x id) (y id)) (= (match x y) (and (= (meth x) push) (= (meth y) pop) (= (arg x 0) (ret y 0)))))"
 
     # adds before matched removes
     t.yield "(forall ((x id) (y id)) (=> (match x y) (lb x y)))"
+
+    # all matched pairs before or after empty removes
+    t.yield "(forall ((x id) (y id) (z id)) (=> (and (match x y) (= (meth z) pop) (= (ret z 0) vempty) (lb x z)) (lb y z)))"
   end
 
   theory :lifo_theory do |t|

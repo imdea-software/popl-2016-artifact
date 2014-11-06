@@ -20,7 +20,7 @@ class LineUpChecker
     vals = history.values
 
     ops.each {|id| t.yield "o#{id}".to_sym, :id}
-    vals.each {|v| t.yield "v#{v}".to_sym, :value}
+    vals.each {|v| t.yield "v#{v}".to_sym, :value unless v == :empty}
 
     t.yield "(distinct #{ops.map{|id| "o#{id}"} * " "})" if ops.count > 1
     t.yield "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
@@ -42,7 +42,7 @@ class LineUpChecker
     sat = false
     log.info('LineUp') {"checking linearizations of history\n#{history}"}
     history.linearizations.each do |seq|
-      log.info('LineUp') {"checking linearization #{seq * ", "}"}
+      log.debug('LineUp') {"checking linearization #{seq * ", "}"}
       @solver.push
       @solver.theory ground_theory(history,seq)
       sat = @solver.check
