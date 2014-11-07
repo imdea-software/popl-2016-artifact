@@ -115,7 +115,7 @@ class History
     # @after_reduced[id] = []
     @completed.each {|c| @after[c] << id}
     # @completed.each {|c| @after_reduced[c] << id if @after[c].all? {|p| pending?(p)}}
-    notify_observers :start
+    notify_observers :start, m, *args
     id
   end
 
@@ -125,7 +125,7 @@ class History
     @pending.delete id
     @completed << id
     @returns[id] = rets
-    notify_observers :complete
+    notify_observers :complete, id, *rets
     self
   end
 
@@ -142,7 +142,7 @@ class History
     @after.each {|_,ops| ops.delete id}
     # @after_reduced.delete id
     # @after_reduced.each {|_,ops| ops.delete id}
-    notify_observers :remove
+    notify_observers :remove, id
     self
   end
 

@@ -21,9 +21,20 @@ class SatisfactionChecker < HistoryChecker
       @solver.theory collection_theory
       @solver.theory fifo_theory
     end
+    @needs_refresh = true
   end
 
   def name; "SMT checker (Z3)" end
+
+  def removed!(id); @needs_refresh = true end
+  def refresh?;     @needs_refresh end
+  def refresh!;     @needs_refresh = false end
+
+  # TODO implement the incremental version
+  def started!(m, *values)
+  end
+  def completed!(id, *values)
+  end
 
   theory :ground_theory do |history,t|
     ops = history.map{|id| id}
