@@ -63,6 +63,8 @@ module BasicTheories
     t.yield :unmatched, :id, :bool
     t.yield :vempty, :value
 
+    t.yield "(distinct add rem_)"
+
     # matching
     t.yield "(forall ((x id) (y id)) (= (match x y) (and (= (meth x) add) (= (meth y) rem_) (= (arg x 0) (ret y 0)))))"
 
