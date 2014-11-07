@@ -1,5 +1,6 @@
 require_relative 'history'
 require_relative 'history_checker'
+require_relative 'history_completer'
 require_relative 'theories'
 require_relative 'z3'
 
@@ -52,21 +53,10 @@ class LineUpChecker < HistoryChecker
     end
   end
 
-  def completer(history,id)
-    case @object
-    when /atomic-(stack|queue)/
-      ([:empty] +
-        history.map{|id| history.arguments(id)}.flatten(1) -
-        history.map{|id| history.returns(id)||[]}.flatten(1)).map{|v| [v]}
-    else
-      log.error('LineUp') {"I don't know how to complete #{@object} operations."}
-    end
-  end
-
   def check_completions(history)
     num_checked = 0
     sat = false
-    history.completions(method(:completer)).each do |complete_history|
+    history.completions(HistoryCompleter.get(@object)).each do |complete_history|
       log.info('LineUp') {"checking completion\n#{complete_history}"}
       sat, n = check_linearizations(complete_history)
       num_checked += n
