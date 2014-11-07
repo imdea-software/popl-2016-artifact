@@ -27,6 +27,7 @@ log.level = Logger::WARN
 
 @frequency = 1
 @checker = nil
+@completion = false
 @incremental = false
 @remove_obsolete = false
 
@@ -52,7 +53,7 @@ OptionParser.new do |opts|
     log.level = Logger::DEBUG
   end
 
-  opts.on("--checker NAME", [:lineup, :smt, :saturation],
+  opts.on("-c", "--checker NAME", [:lineup, :smt, :saturation],
     "from [lineup, smt, saturation]") do |c|
     @checker = c
   end
@@ -62,8 +63,13 @@ OptionParser.new do |opts|
     @frequency = n
   end
 
+  opts.on("--[no-]completion",
+    "History completion? (default #{@completion}).") do |c|
+    @completion = c
+  end
+
   opts.on("--[no-]incremental",
-    "Incremental checking? (default #{@incremental}).") do | i|
+    "Incremental checking? (default #{@incremental}).") do |i|
     @incremental = i
   end
 
@@ -88,7 +94,7 @@ begin
     when :smt;        SatisfactionChecker
     when :saturation; SaturationChecker
     else              HistoryChecker
-    end.new(log_parser.object, history, @incremental)
+    end.new(log_parser.object, history, @completion, @incremental)
   history.add_observer(@checker)
 
   num_steps = 0

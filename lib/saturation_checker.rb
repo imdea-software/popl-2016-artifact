@@ -2,8 +2,8 @@ require_relative 'history'
 require_relative 'history_checker'
 
 class SaturationChecker < HistoryChecker
-  def initialize(object, history, incremental)
-    super(object, history, incremental)
+  def initialize(object, history, completion, incremental)
+    super(object, history, completion, incremental)
   end
 
   def name; "Saturation checker" end

@@ -9,10 +9,8 @@ class LineUpChecker < HistoryChecker
   extend Theories
   include BasicTheories
 
-  @@do_completion = true
-
-  def initialize(object, history, incremental)
-    super(object, history, incremental)
+  def initialize(object, history, completion, incremental)
+    super(object, history, completion, incremental)
     @solver = Z3.context.solver
     theories_for(object).each {|t| @solver.theory t}
   end
@@ -33,8 +31,7 @@ class LineUpChecker < HistoryChecker
     t.yield "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
 
     # TODO this code should not depend the collection theory
-    # TODO THE FOLLOWING IS ONLY SOUND FOR COMPLETE HISTORIES
-    if @@do_completion
+    if history.complete?
       unremoved =
         history.map{|id| history.arguments(id)}.flatten(1) -
         history.map{|id| history.returns(id)||[]}.flatten(1)
@@ -84,7 +81,7 @@ class LineUpChecker < HistoryChecker
     super()
     sat = false
     log.info('LineUp') {"checking linearizations of history\n#{@history}"}
-    sat, n = @@do_completion ? check_completions(@history) : check_linearizations(@history)
+    sat, n = @completion ? check_completions(@history) : check_linearizations(@history)
     log.info('LineUp') {"checked #{n} linearizations: #{sat ? "OK" : "violation"}"}
     flag_violation unless sat
   end

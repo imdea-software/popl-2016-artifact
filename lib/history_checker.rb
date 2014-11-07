@@ -1,14 +1,15 @@
 class HistoryChecker
-  def initialize(object, history, incremental)
+  def initialize(object, history, completion, incremental)
     @object = object
     @history = history
+    @completion = completion
     @incremental = incremental
     @num_checks = 0
     @violation = false
   end
 
   def name; "none" end
-  def to_s; "#{name}, #{"non-" unless @incremental}incremental" end
+  def to_s; "#{name}, #{"non-" unless @incremental}incremental, w/#{"o" unless @completion} completion" end
 
   def num_checks; @num_checks end
 
