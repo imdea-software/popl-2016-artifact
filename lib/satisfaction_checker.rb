@@ -29,7 +29,7 @@ class SatisfactionChecker < HistoryChecker
 
   theory :ground_theory do |history,t|
     ops = history.map{|id| id}
-    vals = history.values
+    vals = history.values | [:empty]
 
     ops.each {|id| t.yield "o#{id}".to_sym, :id}
 
@@ -37,7 +37,7 @@ class SatisfactionChecker < HistoryChecker
     vals.reject{|v| v == :empty}.each {|v| t.yield "v#{v}".to_sym, :value}
 
     t.yield "(distinct #{ops.map{|id| "o#{id}"} * " "})" if ops.count > 1
-    t.yield "(forall ((x id)) (or #{ops.map{|id| "(= x o#{id})"} * " "}))" if ops.count > 1
+    t.yield "(forall ((x id)) (or #{ops.map{|id| "(= x o#{id})"} * " "}))" if ops.count > 0
     t.yield "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
 
     # TODO this code should not depend the collection theory

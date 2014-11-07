@@ -42,7 +42,9 @@ class History
 
   def empty?;             count == 0 end
   def include?(id)        !@method_names[id].nil? end
+  def pending;            @pending end
   def pending?(id)        @returns[id].nil? end
+  def completed;          @completed end
   def completed?(id)      !pending?(id) end
   def complete?;          @pending.empty? end
   def method_name(id)     @method_names[id] end
@@ -101,7 +103,7 @@ class History
     end * "\n"
   end
 
-  def add_observer(o)         @observers << o end
+  def add_observer(o)         @observers << o if o end
   def notify_observers(*args) @observers.each {|o| o.update(*args)} end
 
   def start!(m,*args)

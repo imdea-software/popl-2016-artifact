@@ -22,6 +22,7 @@ require_relative 'history_checker'
 require_relative 'lineup_checker'
 require_relative 'satisfaction_checker'
 require_relative 'saturation_checker'
+require_relative 'obsolete_remover'
 
 log.level = Logger::WARN
 
@@ -95,7 +96,11 @@ begin
     when :saturation; SaturationChecker
     else              HistoryChecker
     end.new(log_parser.object, history, @completion, @incremental)
+
+  # NOTE be careful, order is important here...
+  # should check the histories before removing obsolete operations
   history.add_observer(@checker)
+  history.add_observer(ObsoleteRemover.get(log_parser.object,history)) if @remove_obsolete
 
   num_steps = 0
   max_size = 0

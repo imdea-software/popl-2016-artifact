@@ -56,47 +56,50 @@ module BasicTheories
 
   theory :collection_theory do |t|
     t.yield :add, :method
-    t.yield :rem_, :method
+    t.yield :rm, :method
     t.yield :match, :id, :id, :bool
     t.yield :added, :value, :bool
     t.yield :removed, :value, :bool
     t.yield :unmatched, :id, :bool
     t.yield :vempty, :value
 
-    t.yield "(distinct add rem_)"
+    t.yield "(distinct add rm)"
 
     # matching
-    t.yield "(forall ((x id) (y id)) (= (match x y) (and (= (meth x) add) (= (meth y) rem_) (= (arg x 0) (ret y 0)))))"
+    t.yield "(forall ((x id) (y id)) (= (match x y) (and (= (meth x) add) (= (meth y) rm) (= (arg x 0) (ret y 0)))))"
 
     # unmatched
     t.yield "(forall ((x id) (v value)) (=> (and (= (meth x) add) (= (arg x 0) v)) (added v)))"
-    t.yield "(forall ((x id) (v value)) (=> (and (= (meth x) rem_) (= (ret x 0) v)) (removed v)))"
+    t.yield "(forall ((x id) (v value)) (=> (and (= (meth x) rm) (= (ret x 0) v)) (removed v)))"
     t.yield "(forall ((x id)) (= (unmatched x) (and (= (meth x) add) (not (removed (arg x 0))))))"
 
     # all popped elements are pushed
-    t.yield "(forall ((v value)) (=> (and (not (= v vempty)) (removed v)) (added v)))"
-    t.yield "(forall ((x id) (y id)) (=> (and (not (= x y)) (= (meth x) rem_) (= (meth y) rem_)) (not (= (ret x 0) (ret y 0)))))"
+    t.yield "(forall ((x id)) (=> (and (= (meth x) rm) (not (= (ret x 0) vempty))) (exists ((y id)) (and (= (meth y) add) (= (arg y 0) (ret x 0))))))"
 
-    # adds before matched rem_oves
+    # same, without nested quantifier
+    t.yield "(forall ((v value)) (=> (and (not (= v vempty)) (removed v)) (added v)))"
+    t.yield "(forall ((x id) (y id)) (=> (and (not (= x y)) (= (meth x) rm) (= (meth y) rm)) (not (= (ret x 0) (ret y 0)))))"
+
+    # adds before matched rmoves
     t.yield "(forall ((x id) (y id)) (=> (match x y) (lb x y)))"
 
-    # all adds removed before empty rem_oves
-    t.yield "(forall ((x id) (y id) (z id)) (=> (and (match x y) (= (meth z) rem_) (= (ret z 0) vempty) (lb x z)) (lb y z)))"
-    t.yield "(forall ((x id) (z id)) (=> (and (unmatched x) (= (meth z) rem_) (= (ret z 0) vempty)) (lb x z)))"
+    # all adds removed before empty rmoves
+    t.yield "(forall ((x id) (y id) (z id)) (=> (and (match x y) (= (meth z) rm) (= (ret z 0) vempty) (lb x z)) (lb y z)))"
+    t.yield "(forall ((x id) (z id)) (=> (and (unmatched x) (= (meth z) rm) (= (ret z 0) vempty)) (lb x z)))"
   end
 
   theory :stack_theory do |t|
     t.yield :push, :method
     t.yield :pop, :method
     t.yield "(= push add)"
-    t.yield "(= pop rem_)"
+    t.yield "(= pop rm)"
   end
 
   theory :queue_theory do |t|
     t.yield :enqueue, :method
     t.yield :dequeue, :method
     t.yield "(= enqueue add)"
-    t.yield "(= dequeue rem_)"
+    t.yield "(= dequeue rm)"
   end
 
   theory :lifo_theory do |t|

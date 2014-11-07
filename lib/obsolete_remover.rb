@@ -1,0 +1,82 @@
+module ObsoleteRemover
+  def self.get(object, history)
+    case object
+    when /stack|queue/
+      CollectionObsoleteRemover.new(history)
+    else
+      # log.warn "Defaulting to the UNSOUND generic remover."
+      # GenericObsoleteRemover.new(history)
+      log.warn "I don't know how to remove obsolete operations for #{object} objects."
+      log.warn "Disabling obsolete-removal."
+      nil
+    end
+  end
+end
+
+class GenericObsoleteRemover
+  def initialize(history)
+    @history = history
+    @dependencies = {}
+  end
+
+  def update(msg, id, *values)
+    case msg
+    when :complete
+      on_completion(id)
+    end
+  end
+
+  def on_completion(id)
+    log.info('generic-op-remover') {"checking for obsolete operations..."}
+    @dependencies[id] = @history.pending.clone
+    @dependencies.values.each {|ids| ids.delete id}
+    obsolete = @dependencies.select{|_,ids| ids.empty?}.map{|id,_| id}
+    return if obsolete.empty?
+    log.info('generic-op-remover') {"removing: #{obsolete * ", "}"}
+    obsolete.each do |id|
+      @history.remove! id
+      @dependencies.delete id
+    end
+  end
+end
+
+class CollectionObsoleteRemover < GenericObsoleteRemover
+  def initialize(history)
+    super(history)
+    @ops_for_elem = {}
+  end
+
+  def add?(id)    @history.method_name(id) =~ /add|push|enqueue/ end
+  def remove?(id) @history.method_name(id) =~ /remove|pop|dequeue/ end
+
+  def matched?(elem)
+    @ops_for_elem[elem].any? {|id| add?(id)} && @ops_for_elem[elem].any? {|id| remove?(id)}
+  end
+
+  def get_element(id)
+    if add?(id);        @history.arguments(id).first
+    elsif remove?(id);  @history.returns(id).first
+    else                fail "Unexpected method #{@history.method_name(id)}."
+    end
+  end
+
+  def on_completion(id)
+    log.info('collection-elem-remover') {"Checking for obsolete operations..."}
+    elem = get_element(id)
+    @ops_for_elem[elem] ||= []
+    @ops_for_elem[elem] << id
+    @dependencies[elem] ||= []
+    @dependencies[elem] |= @history.pending
+    @dependencies.values.each {|ids| ids.delete id}
+    obsolete = @dependencies.select {|elem,ids| matched?(elem) && ids.empty?}.keys
+    return if obsolete.empty?
+    log.info('collection-elem-remover') {"removing: #{obsolete * ", "}"}
+    obsolete.each do |elem|
+      @ops_for_elem[elem].each do |id|
+        @history.remove! id
+      end
+      @dependencies.delete elem
+      @ops_for_elem.delete elem
+    end
+  end
+end
