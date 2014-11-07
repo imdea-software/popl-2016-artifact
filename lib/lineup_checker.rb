@@ -7,22 +7,13 @@ class LineUpChecker < HistoryChecker
   include Z3
   extend Theories
   include BasicTheories
-  include CollectionTheories
 
   @@do_completion = true
 
   def initialize(object, history, incremental)
     super(object, history, incremental)
     @solver = Z3.context.solver
-    @solver.theory basic_theory
-    case @object
-    when 'atomic-stack'
-      @solver.theory collection_theory
-      @solver.theory lifo_theory
-    when 'atomic-queue'
-      @solver.theory collection_theory
-      @solver.theory fifo_theory
-    end
+    theories_for(object).each {|t| @solver.theory t}
   end
 
   def name; "Line-Up checker" end
@@ -41,12 +32,12 @@ class LineUpChecker < HistoryChecker
     t.yield "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
 
     # TODO this code should not depend the collection theory
-    # TODO THE FOLLOWING IS UNSOUND... PENDING POPS MIGHT RETURN THAT VALUE
+    # TODO THE FOLLOWING IS ONLY SOUND FOR COMPLETE HISTORIES
     if @@do_completion
-      unpopped =
+      unremoved =
         history.map{|id| history.arguments(id)}.flatten(1) -
         history.map{|id| history.returns(id)||[]}.flatten(1)
-      unpopped.each {|v| t.yield "(not (popped v#{v}))"}
+      unremoved.each {|v| t.yield "(not (removed v#{v}))"}
     end
 
     seq.each_with_index do |id,idx|

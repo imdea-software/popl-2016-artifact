@@ -7,20 +7,11 @@ class SatisfactionChecker < HistoryChecker
   include Z3
   extend Theories
   include BasicTheories
-  include CollectionTheories
 
   def initialize(object, history, incremental)
     super(object, history, incremental)
     @solver = Z3.context.solver
-    @solver.theory basic_theory
-    case @object
-    when 'atomic-stack'
-      @solver.theory collection_theory
-      @solver.theory lifo_theory
-    when 'atomic-queue'
-      @solver.theory collection_theory
-      @solver.theory fifo_theory
-    end
+    theories_for(object).each {|t| @solver.theory t}
     @needs_refresh = true
   end
 

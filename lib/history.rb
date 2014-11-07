@@ -44,6 +44,7 @@ class History
   def include?(id)        !@method_names[id].nil? end
   def pending?(id)        @returns[id].nil? end
   def completed?(id)      !pending?(id) end
+  def complete?;          @pending.empty? end
   def method_name(id)     @method_names[id] end
   def arguments(id)       @arguments[id] end
   def returns(id)         @returns[id] end
@@ -153,14 +154,14 @@ class History
 
       while !partials.empty? do
         h = partials.shift
-        p = h.instance_variable_get('@pending').first
-        if p
+        if h.complete?
+          y << h
+        else
+          p = h.instance_variable_get('@pending').first
           partials << h.remove(p)
           completer.call(h,p).each do |rets|
             partials << h.complete(p,*rets)
           end
-        else
-          y << h
         end
       end
     end
