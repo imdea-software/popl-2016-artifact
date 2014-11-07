@@ -30,7 +30,7 @@ log.level = Logger::WARN
 @checker = nil
 @completion = false
 @incremental = false
-@remove_obsolete = false
+@obsolete_removal = false
 
 OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename $0} [options] FILE"
@@ -75,8 +75,8 @@ OptionParser.new do |opts|
   end
 
   opts.on("--[no-]remove-obsolete",
-    "Remove operations? (default #{@remove_obsolete}).") do |r|
-    @remove_obsolete = r
+    "Remove operations? (default #{@obsolete_removal}).") do |r|
+    @obsolete_removal = r
   end
 end.parse!
 
@@ -100,7 +100,7 @@ begin
   # NOTE be careful, order is important here...
   # should check the histories before removing obsolete operations
   history.add_observer(@checker)
-  history.add_observer(ObsoleteRemover.get(log_parser.object,history)) if @remove_obsolete
+  history.add_observer(ObsoleteRemover.get(log_parser.object,history)) if @obsolete_removal
 
   num_steps = 0
   max_size = 0
@@ -136,6 +136,7 @@ begin
 
   puts "OBJECT:     #{log_parser.object || "?"}"
   puts "CHECKER:    #{@checker}"
+  puts "REMOVAL:    #{@obsolete_removal}"
   puts "VIOLATION:  #{@checker.violation?}"
   puts "STEPS:      #{num_steps}"
   puts "AVG SIZE:   #{cum_size * 1.0 / num_steps}"
