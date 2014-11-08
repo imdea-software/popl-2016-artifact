@@ -7,8 +7,8 @@ List of tasks:
 - [ ] Generate lots of benchmark log files for the SCAL implementations.
 - [x] Implement a linearization monitor.
 - [x] Implement saturation via SAT/SMT (?).
-- [ ] Implement obsolete operation removal
-- [ ] Implement incremental SMT checking
+- [x] Implement obsolete operation removal
+- [x] Implement incremental SMT checking
 - [ ] Implement incremental saturation checking
 
 List of things to demonstrate:
