@@ -1,26 +1,112 @@
+require 'set'
 require_relative 'history'
 require_relative 'history_checker'
+
+class Rule
+  def initialize(history, matcher, *matches)
+    @history = history
+    @matcher = matcher
+    @matches = matches
+  end
+  def to_s; "#{name}(#{@matches * ","})" end
+  def matches; @matches end
+  def before?(o1,o2)
+    o1 && (!o2 && @history.ext_completed?(o1) || o2 && @history.ext_before?(o1,o2))
+  end
+end
+
+class LifoOrderRule < Rule
+  def initialize(history, matcher, m1, m2)
+    super(history, matcher, m1, m2)
+  end
+  def name; "LIFO" end
+  def apply!
+    m1, m2 = @matches
+    # puts "GOT #{m1}, #{m2} FROM #{@matcher.map.to_a}"
+    a1 = @matcher.add(m1)
+    r1 = @matcher.rem(m1)
+    a2 = @matcher.add(m2)
+    r2 = @matcher.rem(m2)
+    if before?(a1,a2) && before?(r1,r2) && a2
+      @history.order!(r1,a2)
+      true
+    elsif before?(a1,a2) && before?(a2,r1) && r1 && r2
+      @history.order!(r2,r1)
+      true
+    elsif before?(a2,r1) && before?(r1,r2) && a1
+      @history.order!(a2,a1)
+      true
+    else
+      false
+    end
+  end
+end
 
 class SaturationChecker < HistoryChecker
   def initialize(object, matcher, history, completion, incremental)
     super(object, matcher, history, completion, incremental)
+    @rules = {}
   end
 
   def name; "Saturation checker" end
 
+  def see_match(m1)
+    return if @rules.include?(m1)
+    @rules[m1] = []
+    @matcher.each do |m2,_|
+      next unless m1 != m2
+      r1 = LifoOrderRule.new(@history, @matcher, m1, m2)
+      r2 = LifoOrderRule.new(@history, @matcher, m2, m1)
+      @rules[m1].push r1, r2
+      @rules[m2].push r1, r2
+      log.debug('saturation-checker') {"added rules: #{r1}, #{r2}."}
+    end
+  end
+
+  def inconsistent?
+    @history.any? {|op| @history.ext_before?(op,op)}
+  end
+
   def started!(id, method_name, *arguments)
+    see_match(@matcher.match(id)) if @matcher.add?(id)
   end
 
   def completed!(id, *returns)
+    see_match(@matcher.match(id))
+
+    worklist = Set.new
+    worklist << @matcher.match(id)
+    while !worklist.empty?
+      m = worklist.first
+      worklist.delete(m)
+      next unless @rules.include?(m)
+      @rules[m].each do |rule|
+        log.debug('saturation-checker') {"checking #{rule} rule."}
+        if rule.apply!
+
+          # if inconsistent? ...
+
+          log.debug('saturation-checker') {"applied #{rule} rule."}
+          @rules.values.each {|rs| rs.delete rule}
+          @rules.reject! {|_,rs| rs.empty?}
+          worklist.merge(rule.matches)
+        end
+      end
+    end
   end
 
   def removed!(id)
+    m = @matcher.match(id)
+    puts "REMOVING #{id} -> #{m}"
+    @rules.delete m
+    @rules.values.each {|rs| rs.reject! {|r| r.matches.include? m}}
+    @rules.reject! {|_,rs| rs.empty?}
   end
 
   def check()
     super()
     log.info('saturation-checker') {"checking history\n#{@history}"}
-    ok = true
+    ok = !inconsistent?
     log.info('saturation-checker') {"result: #{ok ? "OK" : "violation"}"}
     flag_violation unless ok
   end

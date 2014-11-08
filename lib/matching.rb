@@ -34,6 +34,8 @@ class CollectionMatcher
   def rem?(id) @history.method_name(id) =~ /remove|pop|dequeue/ end
 
   def operations(m) @operations[m] end
+  def add(m) @operations[m].find(&method(:add?)) end
+  def rem(m) @operations[m].find(&method(:rem?)) end
 
   def match(id)
     m = if add?(id) then @history.arguments(id).first
@@ -42,13 +44,12 @@ class CollectionMatcher
         else id
         end
     @operations[m] ||= []
+    log.debug("matcher") {"match(#{id}) => #{m}"}
     m
   end
 
   def complete?(m)
-    @operations[m].any?(&method(:add?)) &&
-    @operations[m].any?(&method(:rem?)) &&
-      @operations[m].all?(&@history.method(:completed?))
+    add(m) && rem(m) && @operations[m].all?(&@history.method(:completed?))
   end
 
   def update(msg, id, *values)

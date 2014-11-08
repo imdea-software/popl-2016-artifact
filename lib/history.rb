@@ -12,6 +12,7 @@ class History
     @after = {}
     @ext_before = {}
     @ext_after = {}
+    @dependencies = {}
     @observers = []
   end
 
@@ -31,6 +32,8 @@ class History
     @after.each {|id,ops| @after[id] = ops.clone}
     @ext_before.each {|id,ops| @ext_before[id] = ops.clone}
     @ext_after.each {|id,ops| @ext_after[id] = ops.clone}
+    @dependencies = @dependencies.clone
+    @dependencies.each {|id,ops| @dependencies[id] = ops.clone}
     @observers = []
   end
 
@@ -52,6 +55,8 @@ class History
   def completed?(id)      !pending?(id) end
   def complete?;          @pending.empty? end
 
+  def ext_completed?(id)  @dependencies[id].empty? end
+
   # TODO unclear whether this is only valid for intervla orders...
   def sequential?;        @before.values.map(&:count).uniq.count == count end
 
@@ -59,10 +64,11 @@ class History
   def arguments(id)       @arguments[id] end
   def returns(id)         @returns[id] end
 
+  def before?(i1,i2)      before(i2).include?(i1) end
   def before(id)          @before[id] end
   def after(id)           @after[id] end
 
-  def ext_before?(i1,i2)  ext_before(i1).include?(i2) end
+  def ext_before?(i1,i2)  ext_before(i2).include?(i1) end
   def ext_before(id)      @before[id] + @ext_before[id] end
   def ext_after(id)       @after[id] + @ext_after[id] end
 
@@ -140,6 +146,7 @@ class History
     @after[id] = []
     @ext_before[id] = []
     @ext_after[id] = []
+    @dependencies[id] = []
     @before[id].push *@completed
     @completed.each do |c|
       @after[c] << id
@@ -161,6 +168,8 @@ class History
     @pending.delete id
     @completed << id
     @returns[id] = rets
+    @dependencies[id] = @pending.clone
+    @dependencies.each {|_,ops| ops.delete id}
     notify_observers :complete, id, *rets
     self
   end
@@ -180,6 +189,8 @@ class History
     @ext_before.each {|_,ops| ops.delete id}
     @ext_after.delete id
     @ext_after.each {|_,ops| ops.delete id}
+    @dependencies.delete id
+    @dependencies.each {|_,ops| ops.delete id}
     notify_observers :remove, id
     self
   end
