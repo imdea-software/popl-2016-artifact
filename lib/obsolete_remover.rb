@@ -30,7 +30,7 @@ class GenericObsoleteRemover
     log.info('generic-op-remover') {"checking for obsolete operations..."}
     @dependencies[id] = @history.pending.clone
     @dependencies.values.each {|ids| ids.delete id}
-    obsolete = @dependencies.select{|_,ids| ids.empty?}.map{|id,_| id}
+    obsolete = @dependencies.select{|_,ids| ids.empty?}.keys
     return if obsolete.empty?
     log.info('generic-op-remover') {"removing: #{obsolete * ", "}"}
     obsolete.each do |id|
@@ -44,6 +44,7 @@ class CollectionObsoleteRemover < GenericObsoleteRemover
   def initialize(history)
     super(history)
     @ops_for_elem = {}
+    @deps_for_elem = {}
   end
 
   def add?(id)    @history.method_name(id) =~ /add|push|enqueue/ end
@@ -63,19 +64,27 @@ class CollectionObsoleteRemover < GenericObsoleteRemover
   def on_completion(id)
     log.info('collection-elem-remover') {"Checking for obsolete operations..."}
     elem = get_element(id)
-    @ops_for_elem[elem] ||= []
-    @ops_for_elem[elem] << id
-    @dependencies[elem] ||= []
-    @dependencies[elem] |= @history.pending
+    if elem == :empty
+      @dependencies[id] = @history.pending.clone
+    else
+      @ops_for_elem[elem] ||= []
+      @ops_for_elem[elem] << id
+      @deps_for_elem[elem] ||= []
+      @deps_for_elem[elem] |= @history.pending
+    end
     @dependencies.values.each {|ids| ids.delete id}
-    obsolete = @dependencies.select {|elem,ids| matched?(elem) && ids.empty?}.keys
-    return if obsolete.empty?
-    log.info('collection-elem-remover') {"removing: #{obsolete * ", "}"}
-    obsolete.each do |elem|
-      @ops_for_elem[elem].each do |id|
-        @history.remove! id
-      end
-      @dependencies.delete elem
+    @deps_for_elem.values.each {|ids| ids.delete id}
+    obsolete_ids = @dependencies.select{|_,ids| ids.empty?}.keys
+    obsolete_elems = @deps_for_elem.select{|elem, ids| matched?(elem) && ids.empty?}.keys
+    obsolete_ids += obsolete_elems.map{|elem| @ops_for_elem[elem]}.flatten
+    return if obsolete_ids.empty?
+    log.info('collection-elem-remover') {"removing: #{obsolete_ids * ", "}"}
+    obsolete_ids.each do |id|
+      @history.remove! id
+      @dependencies.delete id
+    end
+    obsolete_elems.each do |elem|
+      @deps_for_elem.delete elem
       @ops_for_elem.delete elem
     end
   end

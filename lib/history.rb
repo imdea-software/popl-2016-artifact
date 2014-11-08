@@ -107,6 +107,7 @@ class History
   def notify_observers(*args) @observers.each {|o| o.update(*args)} end
 
   def start!(m,*args)
+    # fail "Unexpected arguments." unless args.all?{|x| x.is_a?(Symbol)}
     id = (@unique_id += 1)
     @pending << id
     @method_names[id] = m.to_s
@@ -125,6 +126,7 @@ class History
   def complete!(id,*rets)
     fail "Operation #{id} not present."     unless include?(id)
     fail "Operation #{id} already updated." unless pending?(id)
+    # fail "Unexpected returns." unless rets.all?{|x| x.is_a?(Symbol)}
     @pending.delete id
     @completed << id
     @returns[id] = rets
