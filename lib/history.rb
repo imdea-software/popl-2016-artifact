@@ -47,6 +47,10 @@ class History
   def completed;          @completed end
   def completed?(id)      !pending?(id) end
   def complete?;          @pending.empty? end
+
+  # TODO unclear whether this is only valid for intervla orders...
+  def sequential?;        @before.values.map(&:count).uniq.count == count end
+
   def method_name(id)     @method_names[id] end
   def arguments(id)       @arguments[id] end
   def returns(id)         @returns[id] end
@@ -73,9 +77,13 @@ class History
   def method_names; map{|id| method_name(id)}.uniq end
   def values; map{|id| arguments(id)+(returns(id)||[])}.flatten(1).uniq end
 
+  def interval_order?
+    @before.values.sort_by(&:count).each_cons(2).all?{|p,q| (p-q).empty?}
+  end
+
   def intervals
-    past = @before.values.map{|ops| ops.count}.uniq.sort.map.with_index{|c,i| [c,i]}.to_h
-    future = @after.values.map{|ops| ops.count}.uniq.sort.reverse.map.with_index{|c,i| [c,i]}.to_h
+    past = @before.values.map(&:count).uniq.sort.map.with_index.to_h
+    future = @after.values.map(&:count).uniq.sort.reverse.map.with_index.to_h
     fail "Uh oh..." unless (n = past.count) == future.count
     [n, each.map{|id| [id,[past[before(id).count], future[after(id).count]]]}.to_h]
   end
@@ -93,6 +101,7 @@ class History
   end
 
   def to_interval_s(scale: 2)
+    # fail "Not an interval order." unless interval_order?
     n, imap = intervals
     ops = each.map{|id| [id,["[#{id}]",label(id)]]}.to_h
     id_j = ops.values.map{|id,_| id.length}.max

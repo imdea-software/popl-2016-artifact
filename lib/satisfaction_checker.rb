@@ -11,15 +11,11 @@ class SatisfactionChecker < HistoryChecker
   def initialize(object, history, completion, incremental)
     super(object, history, completion, incremental)
     @solver = Z3.context.solver
-    theories_for(object).each {|t| @solver.theory t}
+    theories_for(object).each(&@solver.method(:theory))
     @solver.push if @incremental
   end
 
   def name; "SMT checker (Z3)" end
-
-  def removed!(id); @needs_refresh = true end
-  def refresh?;     @needs_refresh end
-  def refresh!;     @needs_refresh = false end
 
   def started!(id, method_name, *arguments)
     return unless @incremental
@@ -65,8 +61,8 @@ class SatisfactionChecker < HistoryChecker
     sat = false
     history.completions(HistoryCompleter.get(@object)).each do |complete_history|
       log.info('theory-checker') {"checking completion\n#{complete_history}"}
-      sat, _ = check_history(complete_history)
-      num_checked += 1
+      sat, n = check_history(complete_history)
+      num_checked += n
       break if sat
     end
     return [sat, num_checked]
