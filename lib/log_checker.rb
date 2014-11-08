@@ -26,58 +26,64 @@ require_relative 'obsolete_remover'
 
 log.level = Logger::WARN
 
-@frequency = 1
 @checker = nil
 @completion = false
 @incremental = false
 @obsolete_removal = false
+@checkers = [:lineup, :smt, :saturation]
+# @frequency = 1
 
 OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename $0} [options] FILE"
 
   opts.separator ""
 
-  opts.on("-h", "--help", "Show this message") do
+  opts.on("-h", "--help", "Show this message.") do
     puts opts
     exit
   end
 
-  opts.on('-q', "--quiet", "") do |q|
+  opts.on('-q', "--quiet", "Display only error messages.") do |q|
     log.level = Logger::ERROR
   end
 
-  opts.on("-v", "--verbose", "") do |v|
+  opts.on("-v", "--verbose", "Display informative messages too.") do |v|
     log.level = Logger::INFO
   end
 
-  opts.on("-d", "--debug", "Show debugging info?") do |d|
+  opts.on("-d", "--debug", "Display debugging messages too.") do |d|
     log.level = Logger::DEBUG
   end
 
-  opts.on("-c", "--checker NAME", [:lineup, :smt, :saturation],
-    "from [lineup, smt, saturation]") do |c|
+  opts.separator ""
+  opts.separator "Specify which algorithm to use, from {#{@checkers * ", "}}"
+
+  opts.on("-a", "--algorithm NAME", @checkers, "(default: none)") do |c|
     @checker = c
   end
 
-  opts.on("--frequency N", Integer,
-    "Check every N steps (default #{@frequency})") do |n|
-    @frequency = n
-  end
+  opts.separator ""
+  opts.separator "Plus any combination of these flags:"
 
-  opts.on("--[no-]completion",
+  opts.on("-c", "--[no-]completion",
     "History completion? (default #{@completion}).") do |c|
     @completion = c
   end
 
-  opts.on("--[no-]incremental",
+  opts.on("-i", "--[no-]incremental",
     "Incremental checking? (default #{@incremental}).") do |i|
     @incremental = i
   end
 
-  opts.on("--[no-]remove-obsolete",
+  opts.on("-r", "--[no-]remove-obsolete",
     "Remove operations? (default #{@obsolete_removal}).") do |r|
     @obsolete_removal = r
   end
+
+  # opts.on("--frequency N", Integer,
+  #   "Check every N steps (default #{@frequency})") do |n|
+  #   @frequency = n
+  # end
 end.parse!
 
 begin

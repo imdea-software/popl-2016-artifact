@@ -12,7 +12,7 @@ class SatisfactionChecker < HistoryChecker
     super(object, history, completion, incremental)
     @solver = Z3.context.solver
     theories_for(object).each {|t| @solver.theory t}
-    @needs_refresh = true
+    @solver.push if @incremental
   end
 
   def name; "SMT checker (Z3)" end
@@ -21,48 +21,40 @@ class SatisfactionChecker < HistoryChecker
   def refresh?;     @needs_refresh end
   def refresh!;     @needs_refresh = false end
 
-  # TODO implement the incremental version
-  def started!(m, *values)
-  end
-  def completed!(id, *values)
-  end
-
-  theory :ground_theory do |history,t|
-    ops = history.map{|id| id}
-    vals = history.values | [:empty]
-
-    ops.each {|id| t.yield "o#{id}".to_sym, :id}
-
-    # TODO this code should not depend the collection theory
-    vals.reject{|v| v == :empty}.each {|v| t.yield "v#{v}".to_sym, :value}
-
-    t.yield "(distinct #{ops.map{|id| "o#{id}"} * " "})" if ops.count > 1
-    t.yield "(forall ((x id)) (or #{ops.map{|id| "(= x o#{id})"} * " "}))" if ops.count > 0
-    t.yield "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
-
-    # TODO this code should not depend the collection theory
-    if history.complete?
-      unremoved =
-        history.map{|id| history.arguments(id)}.flatten(1) -
-        history.map{|id| history.returns(id)||[]}.flatten(1)
-      unremoved.each {|v| t.yield "(not (removed v#{v}))"}
+  def started!(id, method_name, *arguments)
+    return unless @incremental
+    ops = @history
+    vals = @history.values | [:empty]
+    @solver.decl "o#{id}", :id
+    @solver.assert "(= (meth o#{id}) #{method_name})"
+    arguments.each_with_index do |x,idx|
+      @solver.decl "v#{x}", :value
+      @solver.assert "(= (arg o#{id} #{idx}) v#{x})"
     end
-
-    history.each do |id|
-      args = history.arguments(id)
-      rets = history.returns(id) || []
-      t.yield "(= (meth o#{id}) #{history.method_name(id)})"
-      args.each_with_index {|x,idx| t.yield "(= (arg o#{id} #{idx}) v#{x})"}
-      rets.each_with_index {|x,idx| t.yield "(= (ret o#{id} #{idx}) v#{x})"}
-      history.after(id).each do |a|
-        t.yield "(hb o#{id} o#{a})"
-      end
+    @history.before(id).each do |b|
+      @solver.assert "(hb o#{b} o#{id})"
     end
+  end
+
+  def completed!(id, *returns)
+    return unless @incremental
+    returns.each_with_index do |x,idx|
+      @solver.decl "v#{x}", :value
+      @solver.assert "(= (ret o#{id} #{idx}) v#{x})"
+    end
+  end
+
+  def removed!(id)
+    return unless @incremental
+    @solver.pop
+    @solver.push
+    @solver.theory history_ops_theory(@history)
   end
 
   def check_history(history)
     @solver.push
-    @solver.theory ground_theory(@history)
+    @solver.theory history_ops_theory(@history) unless @incremental
+    @solver.theory history_domains_theory(@history)
     sat = @solver.check
     @solver.pop
     return [sat, 1]

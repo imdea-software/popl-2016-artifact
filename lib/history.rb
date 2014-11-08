@@ -118,7 +118,7 @@ class History
     # @after_reduced[id] = []
     @completed.each {|c| @after[c] << id}
     # @completed.each {|c| @after_reduced[c] << id if @after[c].all? {|p| pending?(p)}}
-    notify_observers :start, m, *args
+    notify_observers :start, id, m, *args
     id
   end
 

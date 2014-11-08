@@ -118,4 +118,60 @@ module BasicTheories
     t.yield "(forall ((a1 id) (r1 id) (a2 id) (r2 id)) (=> (and (match a1 r1) (match a2 r2) (not (= a1 a2)) (lb a1 a2)) (lb r1 r2)))"
     t.yield "(forall ((a1 id) (r1 id) (a2 id)) (=> (and (match a1 r1) (unmatched a2) (not (= a1 a2))) (lb a1 a2)))"
   end
+
+  theory :history_ops_theory do |history,t|
+    ops = history.map{|id| id}
+    vals = history.values | [:empty]
+
+    ops.each {|id| t.yield "o#{id}", :id}
+    vals.each {|v| t.yield "v#{v}", :value}
+
+    history.each do |id|
+      args = history.arguments(id)
+      rets = history.returns(id) || []
+      t.yield "(= (meth o#{id}) #{history.method_name(id)})"
+      args.each_with_index {|x,idx| t.yield "(= (arg o#{id} #{idx}) v#{x})"}
+      rets.each_with_index {|x,idx| t.yield "(= (ret o#{id} #{idx}) v#{x})"}
+      history.after(id).each do |a|
+        t.yield "(hb o#{id} o#{a})"
+      end
+    end
+  end
+
+  theory :seq_history_ops_theory do |history,seq,t|
+    ops = history
+    vals = history.values | [:empty]
+
+    ops.each {|id| t.yield "o#{id}", :id}
+    vals.each {|v| t.yield "v#{v}", :value}
+
+    seq.each_with_index do |id,idx|
+      args = history.arguments(id)
+      rets = history.returns(id) || []
+      t.yield "(= (meth o#{id}) #{history.method_name(id)})"
+      args.each_with_index {|x,idx| t.yield "(= (arg o#{id} #{idx}) v#{x})"}
+      rets.each_with_index {|x,idx| t.yield "(= (ret o#{id} #{idx}) v#{x})"}
+      seq.drop(idx+1).each do |a|
+        t.yield "(hb o#{id} o#{a})"
+      end
+    end
+  end
+
+  theory :history_domains_theory do |history,t|
+    ops = history.map{|id| id}
+    vals = history.values | [:empty]
+
+    t.yield "(distinct #{ops.map{|id| "o#{id}"} * " "})" if ops.count > 1
+    t.yield "(forall ((x id)) (or #{ops.map{|id| "(= x o#{id})"} * " "}))" if ops.count > 0
+    t.yield "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
+
+    # TODO this code should not depend the collection theory
+    if history.complete?
+      unremoved =
+        history.map{|id| history.arguments(id)}.flatten(1) -
+        history.map{|id| history.returns(id)||[]}.flatten(1)
+      unremoved.each {|v| t.yield "(not (removed v#{v}))"}
+    end
+  end
+
 end

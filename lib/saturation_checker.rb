@@ -10,6 +10,9 @@ class SaturationChecker < HistoryChecker
 
   def check()
     super()
-    # flag_violation unless ...
+    log.info('saturation-checker') {"checking history\n#{@history}"}
+    ok = true
+    log.info('saturation-checker') {"result: #{ok ? "OK" : "violation"}"}
+    flag_violation unless ok
   end
 end

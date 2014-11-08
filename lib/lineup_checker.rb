@@ -13,42 +13,10 @@ class LineUpChecker < HistoryChecker
     super(object, history, completion, incremental)
     @solver = Z3.context.solver
     theories_for(object).each {|t| @solver.theory t}
+    log.warn('LineUp') {"I don't have an incremental mode."} if @incremental
   end
 
   def name; "Line-Up checker" end
-
-  theory :ground_theory do |history,seq,t|
-    ops = history.map{|id| id}
-    vals = history.values | [:empty]
-
-    ops.each {|id| t.yield "o#{id}".to_sym, :id}
-
-    # TODO this code should not depend the collection theory
-    vals.reject{|v| v == :empty}.each {|v| t.yield "v#{v}".to_sym, :value}
-
-    t.yield "(distinct #{ops.map{|id| "o#{id}"} * " "})" if ops.count > 1
-    t.yield "(forall ((x id)) (or #{ops.map{|id| "(= x o#{id})"} * " "}))" if ops.count > 0
-    t.yield "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
-
-    # TODO this code should not depend the collection theory
-    if history.complete?
-      unremoved =
-        history.map{|id| history.arguments(id)}.flatten(1) -
-        history.map{|id| history.returns(id)||[]}.flatten(1)
-      unremoved.each {|v| t.yield "(not (removed v#{v}))"}
-    end
-
-    seq.each_with_index do |id,idx|
-      args = history.arguments(id)
-      rets = history.returns(id) || []
-      t.yield "(= (meth o#{id}) #{history.method_name(id)})"
-      args.each_with_index {|x,idx| t.yield "(= (arg o#{id} #{idx}) v#{x})"}
-      rets.each_with_index {|x,idx| t.yield "(= (ret o#{id} #{idx}) v#{x})"}
-      seq.drop(idx+1).each do |a|
-        t.yield "(hb o#{id} o#{a})"
-      end
-    end
-  end
 
   def check_completions(history)
     num_checked = 0
@@ -68,7 +36,8 @@ class LineUpChecker < HistoryChecker
     history.linearizations.each do |seq|
       log.info('LineUp') {"checking linearization\n#{seq.map{|id| history.label(id)} * ", "}"}
       @solver.push
-      @solver.theory ground_theory(history,seq)
+      @solver.theory seq_history_ops_theory(history,seq)
+      @solver.theory history_domains_theory(history)
       sat = @solver.check
       num_checked += 1
       @solver.pop

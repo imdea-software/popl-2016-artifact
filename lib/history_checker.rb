@@ -20,15 +20,15 @@ class HistoryChecker
     @num_checks += 1
   end
 
+  def started!(id, method_name, *arguments) end
+  def completed!(id, *returns) end
   def removed!(id) end
-  def started!(m, *values) end
-  def completed!(id, *values) end
 
-  def update(msg, m_or_id, *values)
+  def update(msg, id, *args)
     case msg
-    when :start;    started!(m_or_id, *values)
-    when :complete; completed!(m_or_id, *values); check()
-    when :remove;   removed!(m_or_id)
+    when :start;    started!(id, *args)
+    when :complete; completed!(id, *args); check()
+    when :remove;   removed!(id)
     end
   end
 end

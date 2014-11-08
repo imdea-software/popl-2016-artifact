@@ -245,52 +245,71 @@ module Z3
       @sorts = [[]]
       @decls = [[]]
     end
+
     def to_s()  Z3::solver_to_string(@context,self) end
+
     def push()
       log.debug('z3') {"push"}
       @sorts.push []
       @decls.push []
       Z3::solver_push(@context,self)
     end
+
     def pop(level: 1)
       log.debug('z3') {"pop(#{level})"}
       @sorts.pop(level)
       @decls.pop(level)
       Z3::solver_pop(@context,self,level)
     end
-    def reset() Z3::solver_reset(@context,self) end
+
+    def reset()
+      log.debug('z3') {"reset"}
+      Z3::solver_reset(@context,self)
+    end
+
     def assert(expr)
-      if expr.is_a?(String)
-        expr = @context.parse("(assert #{expr})", @sorts.flatten(1), @decls.flatten(1))
-      end
+      expr = @context.parse("(assert #{expr})", sorts, decls) if expr.is_a?(String)
       fail "Unexpected expression type #{expr.class}" unless expr.is_a?(Expr)
       log.debug('z3') {"assert #{expr}"}
       Z3::solver_assert(@context,self,expr)
     end
-    def resolve_sort(s)
-      s.is_a?(Sort) ? s : @sorts.flatten(1).to_h.merge({bool: @context.bool_sort, int: @context.int_sort})[s]
-    end
-    def sort(s)
-      @sorts.last.push [s,@context.ui_sort(s)]
-    end
-    def decl(name,*args,ret)
-      @decls.last.push [name,@context.function(name,*args.map{|t| resolve_sort(t)},resolve_sort(ret))]
-    end
-    def theory(t)
-      fail "Expected a \"theory\"." unless t.is_a?(Enumerable)
-      t.each do |arg,*args|
-        if arg.is_a?(String); assert arg
-        elsif args.empty?;    sort arg
-        else                  decl arg, *args
-        end
-      end
-    end
+
     def check
       res = Z3::solver_check(@context,self).to_b
       log.debug('z3') {"sat? #{res}"}
       res
     end
+
     def get_help() Z3::solver_get_help(@context, self) end
+
+    # Conversion through Hash ensures unique symbols
+    def sorts; @sorts.flatten(1).to_h.to_a end
+    def decls; @decls.flatten(1).to_h.to_a end
+
+    def builtin_sorts; {bool: @context.bool_sort, int: @context.int_sort} end
+    def resolve_sort(s) s.is_a?(Sort) ? s : @sorts.flatten(1).to_h.merge(builtin_sorts)[s] end
+
+    def sort(s) @sorts.last.push [s.to_sym, @context.ui_sort(s)] end
+    def decl(name,*args,ret)
+      @decls.last.push [
+        name.to_sym,
+        @context.function(name,*args.map{|t| resolve_sort(t)},resolve_sort(ret))
+      ]
+    end
+
+    alias :<< :add
+    def add(arg,*args)
+      if arg.is_a?(Expr) || arg.is_a?(String) && arg.include?('(')
+                          assert arg
+      elsif args.empty?;  sort arg
+      else                decl arg, *args
+      end
+    end
+
+    def theory(t)
+      fail "Expected a \"theory\"." unless t.is_a?(Enumerable)
+      t.each{|*args| add(*args)}
+    end
   end
 
   class Statistics < FFI::AutoPointer
