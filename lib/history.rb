@@ -10,7 +10,8 @@ class History
     @returns = {}
     @before = {}
     @after = {}
-    # @after_reduced = {}
+    @ext_before = {}
+    @ext_after = {}
     @observers = []
   end
 
@@ -23,10 +24,13 @@ class History
     @returns = @returns.clone
     @before = @before.clone
     @after = @after.clone
-    # @after_reduced = @after_reduced.clone
+    @ext_before = @ext_before.clone
+    @ext_after = @ext_after.clone
+    @before.values.map {|ops| ops.clone}
     @before.each {|id,ops| @before[id] = ops.clone}
     @after.each {|id,ops| @after[id] = ops.clone}
-    # @after_reduced.each {|id,ops| @after_reduced[id] = ops.clone}
+    @ext_before.each {|id,ops| @ext_before[id] = ops.clone}
+    @ext_after.each {|id,ops| @ext_after[id] = ops.clone}
     @observers = []
   end
 
@@ -54,9 +58,14 @@ class History
   def method_name(id)     @method_names[id] end
   def arguments(id)       @arguments[id] end
   def returns(id)         @returns[id] end
+
   def before(id)          @before[id] end
   def after(id)           @after[id] end
-  # def after_reduced(id)   @after_reduced[id] end
+
+  def ext_before?(i1,i2)  ext_before(i1).include?(i2) end
+  def ext_before(id)      @before[id] + @ext_before[id] end
+  def ext_after(id)       @after[id] + @ext_after[id] end
+
   def minimals;           select {|id| before(id).empty? } end
   def maximals;           select {|id| after(id).empty? } end
 
@@ -72,7 +81,12 @@ class History
     end
   end
 
-  def to_s; to_interval_s end
+  def to_s
+    str = to_interval_s
+    extras = @ext_after.map{|a,ids| ids.map{|b| "#{a} < #{b}"} * ", "}.reject(&:empty?)
+    str << "\n" + extras * "\n" unless extras.empty?
+    str
+  end
 
   def method_names; map{|id| method_name(id)}.uniq end
   def values; map{|id| arguments(id)+(returns(id)||[])}.flatten(1).uniq end
@@ -123,11 +137,19 @@ class History
     @arguments[id] = args
     @returns[id] = nil
     @before[id] = []
-    @before[id].push *@completed
     @after[id] = []
-    # @after_reduced[id] = []
-    @completed.each {|c| @after[c] << id}
-    # @completed.each {|c| @after_reduced[c] << id if @after[c].all? {|p| pending?(p)}}
+    @ext_before[id] = []
+    @ext_after[id] = []
+    @before[id].push *@completed
+    @completed.each do |c|
+      @after[c] << id
+      @ext_before[c].each do |b|
+        next if ext_before?(b,id)
+        @ext_after[b] << id
+        @ext_before[id] << b
+      end
+    end
+
     notify_observers :start, id, m, *args
     id
   end
@@ -154,9 +176,28 @@ class History
     @before.each {|_,ops| ops.delete id}
     @after.delete id
     @after.each {|_,ops| ops.delete id}
-    # @after_reduced.delete id
-    # @after_reduced.each {|_,ops| ops.delete id}
+    @ext_before.delete id
+    @ext_before.each {|_,ops| ops.delete id}
+    @ext_after.delete id
+    @ext_after.each {|_,ops| ops.delete id}
     notify_observers :remove, id
+    self
+  end
+
+  def order!(x,y)
+    return self if ext_before?(x,y)
+    @ext_before[y] << x
+    @ext_after[x] << y
+    ext_before(x).each do |w|
+      next if ext_before?(w,y)
+      @ext_before[y] << w
+      @ext_after[w] << y
+    end
+    ext_after(y).each do |z|
+      next if ext_before?(x,z)
+      @ext_before[z] << x
+      @ext_after[x] << z
+    end
     self
   end
 

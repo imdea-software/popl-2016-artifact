@@ -8,6 +8,15 @@ class SaturationChecker < HistoryChecker
 
   def name; "Saturation checker" end
 
+  def started!(id, method_name, *arguments)
+  end
+
+  def completed!(id, *returns)
+  end
+
+  def removed!(id)
+  end
+
   def check()
     super()
     log.info('saturation-checker') {"checking history\n#{@history}"}

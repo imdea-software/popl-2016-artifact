@@ -1,5 +1,6 @@
 require_relative 'history'
 require_relative 'history_checker'
+require_relative 'history_completer'
 require_relative 'theories'
 require_relative 'z3'
 
