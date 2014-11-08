@@ -18,6 +18,7 @@ end
 
 require_relative 'history'
 require_relative 'execution_log_parser'
+require_relative 'matching'
 require_relative 'history_checker'
 require_relative 'lineup_checker'
 require_relative 'satisfaction_checker'
@@ -95,18 +96,20 @@ begin
 
   log_parser = ExecutionLogParser.new(execution_log)
   history = History.new
+  matcher = Matcher.get(log_parser.object, history)
   @checker =
     case @checker
     when :lineup;     LineUpChecker
     when :smt;        SatisfactionChecker
     when :saturation; SaturationChecker
     else              HistoryChecker
-    end.new(log_parser.object, history, @completion, @incremental)
+    end.new(log_parser.object, matcher, history, @completion, @incremental)
 
   # NOTE be careful, order is important here...
   # should check the histories before removing obsolete operations
   history.add_observer(@checker)
-  history.add_observer(ObsoleteRemover.get(log_parser.object,history)) if @obsolete_removal
+  history.add_observer(matcher)
+  history.add_observer(ObsoleteRemover.new(history,matcher)) if @obsolete_removal
 
   num_steps = 0
   max_size = 0

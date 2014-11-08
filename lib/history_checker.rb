@@ -1,6 +1,7 @@
 class HistoryChecker
-  def initialize(object, history, completion, incremental)
+  def initialize(object, matcher, history, completion, incremental)
     @object = object
+    @matcher = matcher
     @history = history
     @completion = completion
     @incremental = incremental

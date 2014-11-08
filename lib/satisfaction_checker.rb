@@ -9,8 +9,8 @@ class SatisfactionChecker < HistoryChecker
   extend Theories
   include BasicTheories
 
-  def initialize(object, history, completion, incremental)
-    super(object, history, completion, incremental)
+  def initialize(object, matcher, history, completion, incremental)
+    super(object, matcher, history, completion, incremental)
     @solver = Z3.context.solver
     theories_for(object).each(&@solver.method(:theory))
     @solver.push if @incremental
