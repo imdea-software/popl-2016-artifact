@@ -2,6 +2,7 @@
 
 FLAGSS = [
   "-a saturation",
+  "-a saturation -r",
   "-a smt",
   "-a smt -i",
   "-a smt -c",
@@ -11,9 +12,9 @@ FLAGSS = [
 ]
 
 COLUMNS = {
-  example: 20,
+  example: 1,
   flags: 20,
-  step: 5,
+  step: 4,
   time: 10
 }
 
@@ -32,22 +33,25 @@ def format(stats)
   COLUMNS.map {|title,width| (stats[title] || "-").ljust(width)} * " | "
 end
 
-def sep
-  COLUMNS.map {|_,width| "-" * width} * "-+-"
+def sep(sym: "-", joint: "+")
+  COLUMNS.map {|_,width| sym * width} * "#{sym}#{joint}#{sym}"
 end
 
 ["examples/simple/*"].each do |source|
-  puts "-" * 80
+  COLUMNS[:example] = Dir.glob(source).map{|f| File.basename(f).length}.max
+  COLUMNS[:flags] = FLAGSS.map(&:length).max
+
+  puts sep(joint: "-")
   puts "Report for #{source}"
-  puts "-" * 80
+  puts sep(joint: "-")
   puts COLUMNS.map {|title,width| title.to_s.ljust(width)} * " | "
   puts sep
-
+  
   Dir.glob(source) do |example|
     FLAGSS.each do |flags|
-      puts format(stats(File.basename(example), flags,`#{File.dirname(__FILE__)}/logchecker.rb #{example} #{flags}`))
+      output = `#{File.dirname(__FILE__)}/logchecker.rb #{example} #{flags}`
+      puts format(stats(File.basename(example), flags, output))
     end
     puts sep
   end
-  puts "-" * 80
 end
