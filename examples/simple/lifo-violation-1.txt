@@ -1,3 +1,5 @@
+# @object atomic-stack
+
 [1] call push(1)
 [1] return
 [2] call push(2)

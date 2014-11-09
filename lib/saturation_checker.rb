@@ -86,6 +86,7 @@ class SaturationChecker < HistoryChecker
     super(object, matcher, history, completion, incremental)
     @rules = {}
     log.warn('saturation-checker') {"I don't do completions."} if @completion
+    log.warn('saturation-checker') {"I only do incremental."} unless @incremental
   end
 
   def name; "Saturation checker" end
