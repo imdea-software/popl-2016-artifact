@@ -15,6 +15,24 @@ class Rule
   end
 end
 
+class AddRemoveOrderRule < Rule
+  def initialize(history, matcher, m)
+    super(history, matcher, m)
+  end
+  def name; "AR" end
+  def apply!
+    m = @matches.first
+    a = @matcher.add(m)
+    r = @matcher.rem(m)
+    if a && r
+      @history.order!(a,r)
+      true
+    else
+      false
+    end
+  end
+end
+
 class LifoOrderRule < Rule
   def initialize(history, matcher, m1, m2)
     super(history, matcher, m1, m2)
@@ -55,6 +73,8 @@ class SaturationChecker < HistoryChecker
     @rules[m1] = []
 
     if @matcher.value?(m1)
+      @rules[m1].push AddRemoveOrderRule.new(@history, @matcher, m1)
+
       @matcher.each do |m2,_|
         next unless @matcher.value?(m2) && m1 != m2
         r1 = LifoOrderRule.new(@history, @matcher, m1, m2)
