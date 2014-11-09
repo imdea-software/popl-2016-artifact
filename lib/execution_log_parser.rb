@@ -11,6 +11,7 @@ class ExecutionLogParser
         end
       end
     end
+    return nil
   end
 
   def object; extract_metadata(:object) end
