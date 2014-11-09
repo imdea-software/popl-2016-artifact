@@ -176,6 +176,7 @@ class History
 
   def remove!(id)
     fail "Operation #{id} not present." unless include?(id)
+    notify_observers :remove, id
     @completed.delete id
     @pending.delete id
     @method_names.delete id
@@ -191,7 +192,6 @@ class History
     @ext_after.each {|_,ops| ops.delete id}
     @dependencies.delete id
     @dependencies.each {|_,ops| ops.delete id}
-    notify_observers :remove, id
     self
   end
 

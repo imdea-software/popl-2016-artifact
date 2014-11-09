@@ -32,6 +32,7 @@ log.level = Logger::WARN
 @incremental = false
 @obsolete_removal = false
 @checkers = [:lineup, :smt, :saturation]
+@step_limit = nil
 # @frequency = 1
 
 OptionParser.new do |opts|
@@ -81,6 +82,13 @@ OptionParser.new do |opts|
     @obsolete_removal = r
   end
 
+  opts.separator ""
+  opts.separator "Options for limiting things:"
+
+  opts.on("-s", "--steps N", Integer, "Check only N steps of history.") do |n|
+    @step_limit = n
+  end
+
   # opts.on("--frequency N", Integer,
   #   "Check every N steps (default #{@frequency})") do |n|
   #   @frequency = n
@@ -128,6 +136,7 @@ begin
 
   log_parser.parse! do |act, method_or_id, *values|
     break if @checker.violation?
+    break if @step_limit && @step_limit <= num_steps
 
     num_steps += 1
     size = history.count
@@ -135,9 +144,14 @@ begin
     cum_size += size
 
     case act
-    when :call;   next history.start!(method_or_id, *values)
-    when :return; next history.complete!(method_or_id, *values)
-    else          fail "Unexpected action."
+    when :call
+      log.debug('log-parser') {"[#{history.instance_variable_get(:@unique_id)+1}] call #{method_or_id}(#{values * ", "})"}
+      next history.start!(method_or_id, *values)
+    when :return
+      log.debug('log-parser') {"[#{method_or_id}] return #{values * ", "}"}
+      next history.complete!(method_or_id, *values)
+    else
+      fail "Unexpected action."
     end
   end
 

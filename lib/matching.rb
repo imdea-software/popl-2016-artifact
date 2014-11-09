@@ -21,6 +21,10 @@ class CollectionMatcher
     @operations = {}
   end
 
+  def to_s
+    @operations.map{|m,ops| "#{m} (#{m.class}): {#{ops * ", "}}"} * "\n"
+  end
+
   def each(&block)
     if block_given?
       @operations.each(&block)
@@ -32,6 +36,11 @@ class CollectionMatcher
 
   def add?(id) @history.method_name(id) =~ /add|push|enqueue/ end
   def rem?(id) @history.method_name(id) =~ /remove|pop|dequeue/ end
+  def value?(m)
+    @operations[m].find do |id|
+      add?(id) || @history.completed?(id) && @history.returns(id).first != :empty
+    end
+  end
 
   def operations(m) @operations[m] end
   def add(m) @operations[m].find(&method(:add?)) end
@@ -39,17 +48,17 @@ class CollectionMatcher
 
   def match(id)
     m = if add?(id) then @history.arguments(id).first
-        elsif rem?(id) && @history.completed?(id) && 
-          @history.returns(id).first != :empty then @history.returns(id).first
+        elsif rem?(id) && @history.completed?(id) && @history.returns(id).first != :empty
+          then @history.returns(id).first
         else id
         end
     @operations[m] ||= []
-    log.debug("matcher") {"match(#{id}) => #{m}"}
     m
   end
 
   def complete?(m)
-    add(m) && rem(m) && @operations[m].all?(&@history.method(:completed?))
+    @operations[m].all?(&@history.method(:completed?)) &&
+    (add(m) && rem(m) || !value?(m))
   end
 
   def update(msg, id, *values)

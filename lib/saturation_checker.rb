@@ -22,7 +22,6 @@ class LifoOrderRule < Rule
   def name; "LIFO" end
   def apply!
     m1, m2 = @matches
-    # puts "GOT #{m1}, #{m2} FROM #{@matcher.map.to_a}"
     a1 = @matcher.add(m1)
     r1 = @matcher.rem(m1)
     a2 = @matcher.add(m2)
@@ -50,16 +49,19 @@ class SaturationChecker < HistoryChecker
 
   def name; "Saturation checker" end
 
-  def see_match(m1)
+  def see_match(id)
+    m1 = @matcher.match(id)
     return if @rules.include?(m1)
     @rules[m1] = []
-    @matcher.each do |m2,_|
-      next unless m1 != m2
-      r1 = LifoOrderRule.new(@history, @matcher, m1, m2)
-      r2 = LifoOrderRule.new(@history, @matcher, m2, m1)
-      @rules[m1].push r1, r2
-      @rules[m2].push r1, r2
-      log.debug('saturation-checker') {"added rules: #{r1}, #{r2}."}
+
+    if @matcher.value?(m1)
+      @matcher.each do |m2,_|
+        next unless @matcher.value?(m2) && m1 != m2
+        r1 = LifoOrderRule.new(@history, @matcher, m1, m2)
+        r2 = LifoOrderRule.new(@history, @matcher, m2, m1)
+        @rules[m1].push r1, r2
+        @rules[m2].push r1, r2
+      end
     end
   end
 
@@ -68,11 +70,11 @@ class SaturationChecker < HistoryChecker
   end
 
   def started!(id, method_name, *arguments)
-    see_match(@matcher.match(id)) if @matcher.add?(id)
+    see_match(id) if @matcher.add?(id)
   end
 
   def completed!(id, *returns)
-    see_match(@matcher.match(id))
+    see_match(id)
 
     worklist = Set.new
     worklist << @matcher.match(id)
@@ -97,7 +99,6 @@ class SaturationChecker < HistoryChecker
 
   def removed!(id)
     m = @matcher.match(id)
-    puts "REMOVING #{id} -> #{m}"
     @rules.delete m
     @rules.values.each {|rs| rs.reject! {|r| r.matches.include? m}}
     @rules.reject! {|_,rs| rs.empty?}
