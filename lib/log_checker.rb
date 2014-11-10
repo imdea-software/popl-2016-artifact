@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'optparse'
 require 'logger'
+require 'optparse'
 require 'os'
+require 'timeout'
 
 module Kernel
   def log
@@ -24,7 +25,8 @@ log.level = Logger::WARN
 @obsolete_removal = false
 @checkers = [:lineup, :smt, :saturation]
 @step_limit = nil
-# @frequency = 1
+@time_limit = nil
+@frequency = nil
 
 OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename $0} [options] FILE"
@@ -74,17 +76,23 @@ OptionParser.new do |opts|
   end
 
   opts.separator ""
-  opts.separator "Options for limiting things:"
+  opts.separator "And possibly some limits:"
 
-  opts.on("-s", "--steps N", Integer, "Check only N steps of history.") do |n|
+  opts.on("-s", "--steps N", Integer, "Limit to N execution-log steps.") do |n|
     @step_limit = n
   end
 
-  # opts.on("--frequency N", Integer,
-  #   "Check every N steps (default #{@frequency})") do |n|
-  #   @frequency = n
-  # end
+  opts.on("-t", "--time N", Integer, "Limit to N seconds.") do |n|
+    @time_limit = n
+  end
+
+  opts.on("-f", "--frequency N", Integer, "Only check once every N times.") do |n|
+    @frequency = n
+  end
 end.parse!
+
+class StepLimitReached < Exception; end
+class ViolationFound < Exception; end
 
 begin
   execution_log = ARGV.first
@@ -134,25 +142,35 @@ begin
 
   start_time = Time.now
 
-  log_parser.parse! do |act, method_or_id, *values|
-    break if @checker.violation?
-    break if @step_limit && @step_limit <= num_steps
+  begin
+    Timeout.timeout(@time_limit) do
+      log_parser.parse! do |act, method_or_id, *values|
+        raise ViolationFound if @checker.violation?
+        raise StepLimitReached if @step_limit && @step_limit <= num_steps
 
-    num_steps += 1
-    size = history.count
-    max_size = size if size > max_size
-    cum_size += size
+        num_steps += 1
+        size = history.count
+        max_size = size if size > max_size
+        cum_size += size
 
-    case act
-    when :call
-      log.debug('log-parser') {"[#{history.instance_variable_get(:@unique_id)+1}] call #{method_or_id}(#{values * ", "})"}
-      next history.start!(method_or_id, *values)
-    when :return
-      log.debug('log-parser') {"[#{method_or_id}] return #{values * ", "}"}
-      next history.complete!(method_or_id, *values)
-    else
-      fail "Unexpected action."
+        case act
+        when :call
+          log.debug('log-parser') {"[#{history.instance_variable_get(:@unique_id)+1}] call #{method_or_id}(#{values * ", "})"}
+          next history.start!(method_or_id, *values)
+        when :return
+          log.debug('log-parser') {"[#{method_or_id}] return #{values * ", "}"}
+          next history.complete!(method_or_id, *values)
+        else
+          fail "Unexpected action."
+        end
+      end
     end
+  rescue Timeout::Error
+    log.warn('log-parser') {"time limit reached"}
+  rescue StepLimitReached
+    log.warn('log-parser') {"step limit reached"}
+  rescue ViolationFound
+    log.warn('log-parser') {"violation discovered"}
   end
 
   end_time = Time.now

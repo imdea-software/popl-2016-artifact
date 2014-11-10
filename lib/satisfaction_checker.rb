@@ -14,6 +14,7 @@ class SatisfactionChecker < HistoryChecker
     @solver = Z3.context.solver
     theories_for(object).each(&@solver.method(:theory))
     @solver.push if @incremental
+    @refresh = false
   end
 
   def name; "SMT checker (Z3)" end
@@ -43,15 +44,19 @@ class SatisfactionChecker < HistoryChecker
 
   def removed!(id)
     return unless @incremental
-    @solver.pop
-    @solver.push
-    @solver.theory history_ops_theory(@history)
+    @refresh = true
   end
 
   def check_history(history)
+    if @refresh
+      @solver.pop
+      @solver.push
+      @solver.theory history_ops_theory(@history)
+      @refresh = false
+    end
     @solver.push
-    @solver.theory history_ops_theory(@history) unless @incremental
-    @solver.theory history_domains_theory(@history)
+    @solver.theory history_ops_theory(history) unless @incremental
+    @solver.theory history_domains_theory(history)
     sat = @solver.check
     @solver.pop
     return [sat, 1]
