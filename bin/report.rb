@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 
+SOURCES = [
+  "examples/simple/*"
+]
+
 FLAGSS = [
   "-a saturation",
   "-a saturation -r",
@@ -38,7 +42,7 @@ def sep(sym: "-", joint: "+")
   COLUMNS.map {|_,width| sym * width} * "#{sym}#{joint}#{sym}"
 end
 
-["examples/simple/*"].each do |source|
+SOURCES.each do |source|
   COLUMNS[:example] = Dir.glob(source).map{|f| File.basename(f).length}.max
   COLUMNS[:flags] = FLAGSS.map(&:length).max
 

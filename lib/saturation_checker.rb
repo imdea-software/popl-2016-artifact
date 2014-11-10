@@ -55,6 +55,29 @@ class RemoveEmptyRule < Rule
   end
 end
 
+class FifoOrderRule < Rule
+  def initialize(history, matcher, m1, m2)
+    super(history, matcher, m1, m2)
+  end
+  def name; "FIFO" end
+  def apply!
+    m1, m2 = @matches
+    a1 = @matcher.add(m1)
+    r1 = @matcher.rem(m1)
+    a2 = @matcher.add(m2)
+    r2 = @matcher.rem(m2)
+    if before?(a1,a2) && r1 && r2
+      @history.order!(r1,r2)
+      true
+    elsif before?(r1,r2) && a1 && a2
+      @history.order!(a1,a2)
+      true
+    else
+      false
+    end
+  end
+end
+
 class LifoOrderRule < Rule
   def initialize(history, matcher, m1, m2)
     super(history, matcher, m1, m2)
@@ -93,6 +116,14 @@ class SaturationChecker < HistoryChecker
 
   def see_match(id)
     m1 = @matcher.match(id)
+    ops = @matcher.operations(m1)
+
+    # duplicate remove?
+    flag_violation if ops.count > 2
+
+    # unmatched remove?
+    flag_violation if @matcher.value?(m1) && ops.none? {|id| @matcher.add?(id)}
+
     return if @rules.include?(m1)
     @rules[m1] = []
 
@@ -103,8 +134,10 @@ class SaturationChecker < HistoryChecker
         next if m1 == m2
         next unless @rules[m2]
         if @matcher.value?(m2)
-          r1 = LifoOrderRule.new(@history, @matcher, m1, m2)
-          r2 = LifoOrderRule.new(@history, @matcher, m2, m1)
+          r1 = LifoOrderRule.new(@history, @matcher, m1, m2) if @object =~ /stack/
+          r2 = LifoOrderRule.new(@history, @matcher, m2, m1) if @object =~ /stack/
+          r1 = FifoOrderRule.new(@history, @matcher, m1, m2) if @object =~ /queue/
+          r2 = FifoOrderRule.new(@history, @matcher, m2, m1) if @object =~ /queue/
           @rules[m1].push r1, r2
           @rules[m2].push r1, r2
         else

@@ -1,0 +1,10 @@
+# @object atomic-queue
+
+[1] call enqueue(a)
+[1] return
+[2] call enqueue(b)
+[2] return
+[3] call dequeue
+[3] return b
+[4] call dequeue
+[4] return a

@@ -1,0 +1,8 @@
+# @object atomic-stack
+
+[1] call push(a)
+[1] return
+[2] call pop
+[2] return a
+[3] call pop
+[3] return a
