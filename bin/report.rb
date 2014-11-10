@@ -5,6 +5,10 @@ FLAGSS = []
 COLUMNS = { example: 1, flags: 1, step: 4, viol: 4, time: 10 }
 TIMEOUT = 5
 
+SOURCES << "examples/generated/bkq-very-concurrent/*"
+SOURCES << "examples/generated/msq-very-concurrent/*"
+# SOURCES << "examples/generated/bkq-almost-sequential/*"
+# SOURCES << "examples/generated/msq-almost-sequential/*"
 SOURCES << "examples/generated/*"
 SOURCES << "examples/simple/*"
 FLAGSS << "-a saturation"

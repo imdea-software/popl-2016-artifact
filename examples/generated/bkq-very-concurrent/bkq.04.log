@@ -1,0 +1,101 @@
+# @object atomic-queue
+[1] call add(2)
+[2] call add(3)
+[3] call add(4)
+[4] call add(5)
+[5] call add(6)
+[6] call add(7)
+[7] call add(8)
+[8] call add(9)
+[9] call add(10)
+[10] call add(11)
+[11] call add(12)
+[12] call add(13)
+[13] call add(14)
+[14] call add(15)
+[15] call add(16)
+[16] call add(17)
+[17] call add(18)
+[18] call add(19)
+[19] call add(20)
+[20] call rm
+[21] call rm
+[22] call rm
+[23] call rm
+[24] call rm
+[25] call rm
+[26] call rm
+[27] call rm
+[28] call rm
+[29] call rm
+[30] call rm
+[30] return empty
+[31] call rm
+[31] return empty
+[33] call rm
+[34] call rm
+[35] call rm
+[36] call rm
+[37] call rm
+[38] call rm
+[39] call rm
+[40] call rm
+[41] call rm
+[42] call rm
+[43] call rm
+[44] call rm
+[45] call rm
+[46] call rm
+[47] call rm
+[48] call rm
+[49] call rm
+[0] call add(1)
+[6] return
+[15] return
+[32] call rm
+[18] return
+[20] return 7
+[29] return 16
+[34] return 19
+[11] return
+[40] return 17
+[41] return 12
+[7] return
+[16] return
+[12] return
+[43] return 8
+[10] return
+[19] return
+[32] return 11
+[48] return 13
+[28] return 20
+[38] return empty
+[4] return
+[21] return 5
+[5] return
+[23] return 6
+[3] return
+[13] return
+[35] return 14
+[0] return
+[24] return 4
+[1] return
+[49] return 2
+[9] return
+[33] return 1
+[42] return 10
+[17] return
+[27] return 18
+[2] return
+[37] return 3
+[14] return
+[45] return 15
+[8] return
+[26] return 9
+[46] return empty
+[22] return empty
+[36] return empty
+[44] return empty
+[25] return empty
+[47] return empty
+[39] return empty

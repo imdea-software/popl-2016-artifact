@@ -7,7 +7,7 @@ module HistoryCompleter
         case history.method_name(id)
         when /add|push|enqueue/
           [[]]
-        when /remove|pop|dequeue/
+        when /rm|remove|pop|dequeue/
           added_values = history.map{|id| history.arguments(id)}.flatten(1)
           removed_values = history.map{|id| history.returns(id)||[]}.flatten(1)
           ([:empty] + added_values - removed_values).map{|v| [v]}

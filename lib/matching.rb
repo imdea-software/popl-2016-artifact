@@ -35,7 +35,7 @@ class CollectionMatcher
   end
 
   def add?(id) @history.method_name(id) =~ /add|push|enqueue/ end
-  def rem?(id) @history.method_name(id) =~ /remove|pop|dequeue/ end
+  def rem?(id) @history.method_name(id) =~ /rm|remove|pop|dequeue/ end
   def value?(m)
     @operations[m].find do |id|
       add?(id) || @history.completed?(id) && @history.returns(id).first != :empty
