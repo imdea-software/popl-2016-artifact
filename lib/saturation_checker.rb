@@ -149,6 +149,7 @@ class SaturationChecker < HistoryChecker
     else
       @matcher.each do |m2,_|
         next unless @matcher.value?(m2)
+        next unless @rules[m2]
         r = RemoveEmptyRule.new(@history, @matcher, m1, m2)
         @rules[m1].push r
         @rules[m2].push r
