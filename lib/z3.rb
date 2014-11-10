@@ -26,7 +26,9 @@ module Z3
     ext = OS.windows? ? 'dll' : OS.mac? ? 'dylib' : 'so'
     path = ENV['LIBRARY_PATH'].split(':').find{|p| File.exists?(File.join(p,"libz3.#{ext}"))}
     (log.fatal "Cannot find 'libz3.#{ext}' in \$LIBRARY_PATH."; exit) unless path
-    File.join(path,"libz3.#{ext}")
+    z3 = File.join(path,"libz3.#{ext}")
+    log.debug('z3') {"using #{z3}"}
+    z3
   end
 
   module ContextualObject
@@ -56,12 +58,12 @@ module Z3
     def inc_ref(expr)     Z3::inc_ref(self,expr) end
     def dec_ref(expr)     Z3::dec_ref(self,expr) end
     def update(param,val) Z3::update_param_value(self, param, val) end
-    def get(param)
-      ptr = FFI::MemoryPointer.new(:pointer,1)
-      Z3::get_param_value(self, param, ptr)
-      str = ptr.read_pointer()
-      return str.null? ? nil : str.read_string()
-    end
+    # def get(param)
+    #   ptr = FFI::MemoryPointer.new(:pointer,1)
+    #   Z3::get_param_value(self, param, ptr)
+    #   str = ptr.read_pointer()
+    #   return str.null? ? nil : str.read_string()
+    # end
     def interrupt()       Z3::interrupt(self) end
 
     def parse(str, sorts, decls)
@@ -193,7 +195,11 @@ module Z3
   end
 
   class Model < FFI::AutoPointer
+    include ContextualObject
     def self.release(pointer) end
+    def to_s
+      Z3::model_to_string(@context,self)
+    end
   end
 
   class Theory < FFI::AutoPointer
@@ -278,6 +284,15 @@ module Z3
       res = Z3::solver_check(@context,self).to_b
       log.debug('z3') {"sat? #{res}"}
       res
+    end
+
+    # TODO JUST BREAKS EVERYTHING...
+    def model
+      Z3::solver_get_model(@context,self).cc(@context)
+    end
+
+    def proof
+      Z3::solver_get_proof(@context,self).cc(@context)
     end
 
     def get_help() Z3::solver_get_help(@context, self) end
@@ -367,7 +382,7 @@ module Z3
   attach_function :Z3_inc_ref, [Context, Expr], :void
   attach_function :Z3_dec_ref, [Context, Expr], :void
   attach_function :Z3_update_param_value, [Context, :string, :string], :void
-  attach_function :Z3_get_param_value, [Context, :string, :string_ptr], :bool_opt
+  # attach_function :Z3_get_param_value, [Context, :string, :string_ptr], :bool_opt
   attach_function :Z3_interrupt, [Context], :void
 
   # TODO Parameters

@@ -16,15 +16,6 @@ module Kernel
   end
 end
 
-require_relative 'history'
-require_relative 'execution_log_parser'
-require_relative 'matching'
-require_relative 'history_checker'
-require_relative 'lineup_checker'
-require_relative 'satisfaction_checker'
-require_relative 'saturation_checker'
-require_relative 'obsolete_remover'
-
 log.level = Logger::WARN
 
 @checker = nil
@@ -101,6 +92,15 @@ begin
     log.fatal "Invalid or missing execution-log file '#{execution_log}'."
     exit
   end
+
+  require_relative 'history'
+  require_relative 'execution_log_parser'
+  require_relative 'matching'
+  require_relative 'history_checker'
+  require_relative 'lineup_checker'
+  require_relative 'satisfaction_checker'
+  require_relative 'saturation_checker'
+  require_relative 'obsolete_remover'
 
   log_parser = ExecutionLogParser.new(execution_log)
   history = History.new

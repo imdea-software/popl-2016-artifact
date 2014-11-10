@@ -4,6 +4,7 @@ FLAGSS = [
   "-a saturation",
   "-a saturation -r",
   "-a smt",
+  "-a smt -r",
   "-a smt -i",
   "-a smt -c",
   "-a smt -c -i",
