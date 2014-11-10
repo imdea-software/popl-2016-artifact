@@ -6,7 +6,7 @@ module Matcher
     else
       # log.warn "Defaulting to the UNSOUND generic remover."
       # GenericObsoleteRemover.new(history)
-      log.warn "I don't know how to match operations for #{object} objects."
+      log.warn "I don't know how to match operations for #{object || "unknown"} objects."
       log.warn "Disabling operation matching."
       nil
     end

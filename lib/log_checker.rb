@@ -102,7 +102,7 @@ begin
   end
 
   require_relative 'history'
-  require_relative 'execution_log_parser'
+  require_relative 'log_reader_writer'
   require_relative 'matching'
   require_relative 'history_checker'
   require_relative 'lineup_checker'
@@ -110,16 +110,16 @@ begin
   require_relative 'saturation_checker'
   require_relative 'obsolete_remover'
 
-  log_parser = ExecutionLogParser.new(execution_log)
+  logrw = LogReaderWriter.new(execution_log)
   history = History.new
-  matcher = Matcher.get(log_parser.object, history)
+  matcher = Matcher.get(logrw.object, history)
   @checker =
     case @checker
     when :lineup;     LineUpChecker
     when :smt;        SatisfactionChecker
     when :saturation; SaturationChecker
     else              HistoryChecker
-    end.new(log_parser.object, matcher, history, @completion, @incremental)
+    end.new(logrw.object, matcher, history, @completion, @incremental)
 
   # NOTE be careful, order is important here...
   # should check the histories before removing obsolete operations
@@ -144,7 +144,7 @@ begin
 
   begin
     Timeout.timeout(@time_limit) do
-      log_parser.parse! do |act, method_or_id, *values|
+      logrw.read do |act, method_or_id, *values|
         raise ViolationFound if @checker.violation?
         raise StepLimitReached if @step_limit && @step_limit <= num_steps
 
@@ -177,7 +177,7 @@ begin
 
   end_time = Time.now
 
-  puts "OBJECT:     #{log_parser.object || "?"}"
+  puts "OBJECT:     #{logrw.object || "?"}"
   puts "CHECKER:    #{@checker}"
   puts "REMOVAL:    #{@obsolete_removal}"
   puts "VIOLATION:  #{@checker.violation?}"

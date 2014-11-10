@@ -1,0 +1,1021 @@
+# @object atomic-stack
+[1] call pop
+[2] call push(1)
+[1] return empty
+[3] call pop
+[4] call pop
+[4] return empty
+[5] call pop
+[3] return empty
+[2] return
+[5] return 1
+[6] call pop
+[7] call pop
+[8] call pop
+[8] return empty
+[9] call push(2)
+[10] call pop
+[7] return empty
+[6] return empty
+[10] return 2
+[9] return
+[11] call push(3)
+[12] call pop
+[12] return 3
+[13] call pop
+[14] call pop
+[15] call push(4)
+[14] return empty
+[13] return empty
+[11] return
+[16] call pop
+[17] call pop
+[18] call pop
+[17] return empty
+[16] return empty
+[19] call pop
+[18] return empty
+[20] call push(5)
+[21] call pop
+[19] return empty
+[22] call push(6)
+[21] return empty
+[23] call pop
+[23] return empty
+[24] call pop
+[25] call push(7)
+[26] call pop
+[24] return 5
+[25] return
+[26] return empty
+[27] call push(8)
+[28] call push(9)
+[15] return
+[20] return
+[29] call push(10)
+[30] call push(11)
+[31] call push(12)
+[32] call pop
+[32] return 4
+[22] return
+[31] return
+[33] call pop
+[33] return 10
+[34] call pop
+[30] return
+[34] return 8
+[28] return
+[35] call push(13)
+[27] return
+[36] call push(14)
+[35] return
+[37] call pop
+[36] return
+[37] return 13
+[29] return
+[38] call pop
+[39] call push(15)
+[38] return 14
+[40] call pop
+[40] return 9
+[41] call pop
+[41] return 12
+[42] call pop
+[43] call pop
+[44] call push(16)
+[45] call pop
+[43] return 15
+[46] call pop
+[42] return 11
+[46] return 6
+[45] return 7
+[47] call pop
+[48] call push(17)
+[47] return empty
+[49] call push(18)
+[50] call pop
+[39] return
+[51] call pop
+[50] return 18
+[51] return empty
+[52] call pop
+[53] call pop
+[53] return empty
+[54] call push(19)
+[52] return 16
+[55] call push(20)
+[48] return
+[56] call pop
+[57] call push(21)
+[58] call push(22)
+[49] return
+[56] return 17
+[44] return
+[59] call push(23)
+[60] call push(24)
+[61] call push(25)
+[54] return
+[55] return
+[62] call push(26)
+[58] return
+[60] return
+[59] return
+[63] call push(27)
+[64] call pop
+[65] call push(28)
+[64] return 28
+[62] return
+[57] return
+[65] return
+[66] call push(29)
+[67] call push(30)
+[68] call push(31)
+[61] return
+[69] call push(32)
+[70] call pop
+[63] return
+[70] return 29
+[66] return
+[71] call pop
+[72] call push(33)
+[71] return 31
+[73] call push(34)
+[67] return
+[68] return
+[74] call pop
+[75] call pop
+[76] call pop
+[74] return 27
+[75] return 30
+[76] return 25
+[77] call push(35)
+[78] call pop
+[69] return
+[78] return 32
+[79] call pop
+[80] call push(36)
+[79] return 33
+[72] return
+[81] call push(37)
+[82] call push(38)
+[83] call push(39)
+[84] call push(40)
+[73] return
+[80] return
+[85] call push(41)
+[77] return
+[86] call push(42)
+[87] call pop
+[81] return
+[87] return 38
+[84] return
+[83] return
+[82] return
+[88] call push(43)
+[89] call pop
+[89] return 42
+[90] call push(44)
+[91] call pop
+[92] call pop
+[93] call push(45)
+[92] return 41
+[86] return
+[91] return 39
+[85] return
+[94] call push(46)
+[95] call push(47)
+[96] call pop
+[96] return 36
+[97] call push(48)
+[95] return
+[98] call push(49)
+[94] return
+[99] call pop
+[99] return 44
+[88] return
+[90] return
+[93] return
+[100] call pop
+[101] call push(50)
+[97] return
+[100] return 48
+[102] call push(51)
+[98] return
+[103] call pop
+[103] return 51
+[104] call pop
+[104] return 49
+[105] call pop
+[106] call pop
+[107] call pop
+[108] call push(52)
+[106] return 45
+[105] return 43
+[109] call pop
+[109] return 46
+[107] return 50
+[102] return
+[110] call pop
+[110] return 47
+[111] call pop
+[111] return 40
+[112] call pop
+[113] call push(53)
+[112] return 52
+[114] call push(54)
+[101] return
+[115] call push(55)
+[116] call push(56)
+[108] return
+[117] call push(57)
+[114] return
+[118] call pop
+[119] call pop
+[120] call pop
+[119] return 54
+[118] return 37
+[121] call pop
+[120] return 35
+[121] return 53
+[117] return
+[122] call pop
+[122] return 56
+[123] call pop
+[123] return 55
+[124] call pop
+[115] return
+[125] call push(58)
+[126] call pop
+[124] return 57
+[126] return 34
+[113] return
+[127] call push(59)
+[128] call push(60)
+[129] call push(61)
+[116] return
+[130] call pop
+[131] call push(62)
+[130] return 26
+[129] return
+[132] call push(63)
+[133] call push(64)
+[134] call pop
+[127] return
+[134] return 59
+[128] return
+[125] return
+[131] return
+[135] call push(65)
+[136] call pop
+[137] call pop
+[138] call pop
+[137] return 62
+[136] return 58
+[138] return 64
+[139] call pop
+[139] return 60
+[140] call push(66)
+[141] call pop
+[133] return
+[141] return 66
+[142] call push(67)
+[143] call push(68)
+[144] call pop
+[140] return
+[145] call pop
+[144] return 65
+[145] return 63
+[132] return
+[146] call pop
+[135] return
+[146] return 67
+[147] call push(69)
+[148] call push(70)
+[142] return
+[149] call push(71)
+[143] return
+[150] call pop
+[151] call pop
+[151] return 61
+[150] return 68
+[152] call pop
+[152] return 24
+[153] call push(72)
+[154] call pop
+[155] call push(73)
+[156] call push(74)
+[154] return 21
+[157] call pop
+[157] return 74
+[156] return
+[155] return
+[147] return
+[158] call push(75)
+[148] return
+[153] return
+[159] call push(76)
+[160] call push(77)
+[161] call pop
+[162] call push(78)
+[161] return 72
+[149] return
+[163] call push(79)
+[164] call pop
+[164] return 78
+[165] call push(80)
+[158] return
+[162] return
+[166] call push(81)
+[167] call push(82)
+[168] call pop
+[168] return 80
+[165] return
+[169] call push(83)
+[160] return
+[163] return
+[159] return
+[170] call pop
+[171] call push(84)
+[170] return 77
+[172] call pop
+[173] call push(85)
+[172] return 76
+[174] call push(86)
+[175] call pop
+[175] return 79
+[176] call pop
+[176] return 81
+[177] call pop
+[177] return 83
+[166] return
+[174] return
+[167] return
+[171] return
+[169] return
+[173] return
+[178] call pop
+[179] call push(87)
+[178] return 84
+[180] call push(88)
+[181] call push(89)
+[182] call push(90)
+[183] call pop
+[184] call push(91)
+[183] return 88
+[182] return
+[185] call pop
+[180] return
+[186] call push(92)
+[185] return 90
+[181] return
+[187] call push(93)
+[188] call push(94)
+[179] return
+[189] call pop
+[189] return 87
+[190] call pop
+[191] call push(95)
+[190] return 89
+[192] call pop
+[192] return 93
+[193] call push(96)
+[194] call pop
+[194] return 94
+[191] return
+[187] return
+[195] call push(97)
+[196] call push(98)
+[188] return
+[184] return
+[197] call pop
+[186] return
+[198] call pop
+[199] call pop
+[198] return 98
+[197] return 97
+[200] call push(99)
+[199] return 92
+[201] call pop
+[202] call pop
+[195] return
+[201] return 96
+[202] return 91
+[203] call pop
+[203] return 95
+[196] return
+[204] call push(100)
+[205] call pop
+[205] return 86
+[206] call pop
+[207] call push(101)
+[193] return
+[208] call pop
+[206] return 85
+[209] call push(102)
+[208] return 82
+[210] call push(103)
+[211] call push(104)
+[209] return
+[210] return
+[212] call push(105)
+[207] return
+[200] return
+[213] call push(106)
+[204] return
+[214] call push(107)
+[215] call push(108)
+[211] return
+[216] call push(109)
+[217] call push(110)
+[212] return
+[218] call push(111)
+[213] return
+[219] call pop
+[214] return
+[219] return 110
+[220] call push(112)
+[221] call push(113)
+[217] return
+[222] call push(114)
+[220] return
+[223] call push(115)
+[215] return
+[224] call pop
+[225] call push(116)
+[224] return 108
+[216] return
+[222] return
+[218] return
+[226] call pop
+[226] return 113
+[221] return
+[227] call push(117)
+[228] call push(118)
+[229] call push(119)
+[223] return
+[230] call pop
+[230] return 115
+[231] call pop
+[225] return
+[231] return 119
+[232] call pop
+[232] return 116
+[227] return
+[233] call push(120)
+[229] return
+[234] call pop
+[235] call push(121)
+[234] return 117
+[236] call pop
+[237] call push(122)
+[236] return 118
+[238] call push(123)
+[239] call pop
+[228] return
+[240] call pop
+[239] return 121
+[240] return 122
+[233] return
+[241] call push(124)
+[242] call push(125)
+[235] return
+[237] return
+[243] call push(126)
+[244] call pop
+[244] return 120
+[245] call pop
+[245] return 114
+[246] call push(127)
+[243] return
+[247] call pop
+[247] return 126
+[248] call pop
+[238] return
+[248] return 124
+[241] return
+[249] call pop
+[250] call push(128)
+[242] return
+[251] call push(129)
+[249] return 125
+[252] call pop
+[252] return 127
+[253] call push(130)
+[254] call pop
+[255] call pop
+[254] return 123
+[255] return 111
+[256] call push(131)
+[246] return
+[257] call pop
+[258] call pop
+[257] return 129
+[258] return 128
+[259] call pop
+[251] return
+[259] return 131
+[250] return
+[253] return
+[260] call push(132)
+[256] return
+[261] call pop
+[262] call pop
+[261] return 130
+[263] call push(133)
+[262] return 109
+[264] call pop
+[265] call push(134)
+[266] call pop
+[264] return 112
+[267] call push(135)
+[266] return 107
+[268] call push(136)
+[269] call push(137)
+[270] call push(138)
+[267] return
+[265] return
+[263] return
+[271] call pop
+[271] return 133
+[272] call push(139)
+[273] call pop
+[273] return 137
+[260] return
+[268] return
+[274] call pop
+[274] return 138
+[269] return
+[275] call pop
+[275] return 136
+[276] call push(140)
+[277] call pop
+[277] return 132
+[278] call push(141)
+[270] return
+[279] call pop
+[280] call pop
+[279] return 139
+[280] return 134
+[272] return
+[281] call push(142)
+[282] call pop
+[283] call push(143)
+[284] call pop
+[282] return 141
+[284] return 135
+[285] call pop
+[276] return
+[278] return
+[285] return 140
+[286] call pop
+[286] return 106
+[287] call push(144)
+[281] return
+[288] call pop
+[288] return 142
+[289] call push(145)
+[290] call pop
+[283] return
+[291] call push(146)
+[290] return 144
+[292] call pop
+[293] call pop
+[294] call pop
+[293] return 143
+[292] return 146
+[294] return 104
+[291] return
+[295] call push(147)
+[296] call push(148)
+[297] call pop
+[297] return 148
+[287] return
+[295] return
+[298] call pop
+[298] return 145
+[299] call push(149)
+[300] call push(150)
+[289] return
+[301] call push(151)
+[296] return
+[302] call push(152)
+[299] return
+[303] call push(153)
+[303] return
+[304] call pop
+[304] return 151
+[305] call pop
+[305] return 153
+[306] call pop
+[307] call pop
+[306] return 149
+[308] call pop
+[301] return
+[307] return 147
+[308] return 152
+[309] call push(154)
+[310] call pop
+[311] call push(155)
+[312] call push(156)
+[302] return
+[310] return 150
+[313] call pop
+[313] return 105
+[300] return
+[314] call pop
+[314] return 103
+[315] call pop
+[315] return 101
+[316] call push(157)
+[317] call pop
+[318] call push(158)
+[319] call push(159)
+[317] return 154
+[309] return
+[311] return
+[312] return
+[320] call push(160)
+[321] call pop
+[321] return 159
+[322] call push(161)
+[323] call push(162)
+[319] return
+[324] call push(163)
+[316] return
+[325] call pop
+[325] return 163
+[324] return
+[322] return
+[318] return
+[320] return
+[326] call push(164)
+[327] call pop
+[328] call pop
+[327] return 161
+[329] call pop
+[328] return 158
+[329] return 160
+[330] call pop
+[330] return 157
+[331] call pop
+[332] call push(165)
+[331] return 162
+[333] call pop
+[334] call push(166)
+[333] return 164
+[335] call push(167)
+[336] call push(168)
+[326] return
+[337] call push(169)
+[323] return
+[338] call pop
+[338] return 165
+[339] call push(170)
+[334] return
+[335] return
+[336] return
+[340] call push(171)
+[332] return
+[341] call push(172)
+[342] call push(173)
+[343] call push(174)
+[337] return
+[344] call pop
+[339] return
+[344] return 173
+[342] return
+[345] call push(175)
+[340] return
+[346] call push(176)
+[347] call push(177)
+[348] call pop
+[349] call push(178)
+[348] return 172
+[349] return
+[341] return
+[350] call pop
+[351] call push(179)
+[350] return 174
+[352] call pop
+[352] return 178
+[343] return
+[347] return
+[353] call push(180)
+[345] return
+[354] call pop
+[351] return
+[354] return 179
+[355] call pop
+[356] call push(181)
+[357] call push(182)
+[355] return 180
+[358] call pop
+[358] return 176
+[353] return
+[346] return
+[359] call pop
+[359] return 177
+[360] call pop
+[361] call push(183)
+[360] return 175
+[362] call push(184)
+[363] call pop
+[364] call push(185)
+[365] call pop
+[363] return 171
+[365] return 170
+[366] call pop
+[356] return
+[366] return 183
+[367] call push(186)
+[361] return
+[368] call push(187)
+[357] return
+[369] call pop
+[362] return
+[369] return 187
+[370] call push(188)
+[371] call push(189)
+[372] call pop
+[364] return
+[373] call pop
+[373] return 185
+[374] call push(190)
+[372] return 186
+[367] return
+[368] return
+[375] call pop
+[376] call pop
+[377] call pop
+[375] return 184
+[376] return 188
+[377] return 182
+[370] return
+[378] call pop
+[378] return 181
+[379] call push(191)
+[380] call pop
+[381] call push(192)
+[380] return 169
+[382] call push(193)
+[383] call pop
+[383] return 189
+[384] call pop
+[384] return 191
+[371] return
+[385] call pop
+[385] return 190
+[386] call pop
+[379] return
+[387] call pop
+[387] return 166
+[386] return 168
+[388] call pop
+[389] call pop
+[388] return 167
+[389] return 156
+[390] call pop
+[374] return
+[391] call pop
+[391] return 100
+[390] return 155
+[392] call push(194)
+[393] call pop
+[394] call push(195)
+[393] return 193
+[381] return
+[395] call push(196)
+[396] call pop
+[382] return
+[396] return 192
+[397] call pop
+[398] call pop
+[398] return 102
+[397] return 99
+[399] call push(197)
+[400] call push(198)
+[392] return
+[401] call push(199)
+[395] return
+[394] return
+[402] call push(200)
+[403] call push(201)
+[404] call push(202)
+[405] call pop
+[405] return 198
+[400] return
+[406] call pop
+[406] return 200
+[407] call push(203)
+[399] return
+[404] return
+[408] call push(204)
+[409] call push(205)
+[410] call pop
+[410] return 205
+[402] return
+[401] return
+[409] return
+[403] return
+[411] call push(206)
+[412] call push(207)
+[407] return
+[413] call push(208)
+[414] call pop
+[413] return
+[414] return 208
+[411] return
+[415] call pop
+[408] return
+[415] return 206
+[416] call push(209)
+[417] call pop
+[418] call push(210)
+[419] call pop
+[420] call push(211)
+[417] return 204
+[421] call push(212)
+[419] return 203
+[421] return
+[422] call pop
+[423] call pop
+[422] return 209
+[424] call pop
+[423] return 207
+[425] call pop
+[416] return
+[424] return 212
+[425] return 201
+[426] call push(213)
+[412] return
+[427] call push(214)
+[428] call push(215)
+[429] call push(216)
+[430] call pop
+[420] return
+[430] return 216
+[418] return
+[429] return
+[431] call push(217)
+[432] call push(218)
+[433] call push(219)
+[434] call push(220)
+[428] return
+[435] call pop
+[435] return 220
+[426] return
+[431] return
+[436] call push(221)
+[433] return
+[437] call pop
+[432] return
+[438] call push(222)
+[437] return 214
+[427] return
+[434] return
+[439] call pop
+[440] call pop
+[441] call push(223)
+[442] call push(224)
+[439] return 218
+[440] return 221
+[443] call pop
+[436] return
+[444] call push(225)
+[443] return 222
+[445] call pop
+[445] return 219
+[446] call push(226)
+[447] call pop
+[438] return
+[447] return 223
+[448] call pop
+[449] call pop
+[449] return 224
+[448] return 217
+[450] call push(227)
+[442] return
+[451] call pop
+[451] return 213
+[452] call push(228)
+[453] call push(229)
+[441] return
+[454] call push(230)
+[444] return
+[455] call pop
+[455] return 226
+[446] return
+[456] call push(231)
+[457] call push(232)
+[450] return
+[458] call push(233)
+[453] return
+[459] call pop
+[452] return
+[454] return
+[459] return 230
+[460] call pop
+[460] return 228
+[461] call push(234)
+[462] call pop
+[463] call pop
+[464] call pop
+[462] return 227
+[463] return 229
+[465] call push(235)
+[464] return 233
+[466] call pop
+[458] return
+[461] return
+[466] return 235
+[456] return
+[457] return
+[467] call pop
+[465] return
+[467] return 234
+[468] call push(236)
+[469] call push(237)
+[470] call pop
+[471] call push(238)
+[470] return 231
+[472] call push(239)
+[473] call pop
+[474] call pop
+[475] call push(240)
+[473] return 232
+[474] return 225
+[476] call pop
+[476] return 236
+[468] return
+[477] call pop
+[477] return 215
+[478] call pop
+[478] return 237
+[471] return
+[469] return
+[479] call push(241)
+[480] call pop
+[480] return 239
+[481] call pop
+[482] call push(242)
+[481] return 240
+[475] return
+[483] call pop
+[472] return
+[483] return 238
+[484] call pop
+[479] return
+[485] call pop
+[484] return 241
+[486] call push(243)
+[487] call pop
+[488] call push(244)
+[489] call pop
+[487] return 211
+[485] return 210
+[489] return 199
+[490] call push(245)
+[491] call pop
+[492] call push(246)
+[491] return 242
+[482] return
+[493] call pop
+[493] return 244
+[494] call pop
+[488] return
+[495] call push(247)
+[494] return 202
+[496] call push(248)
+[497] call push(249)
+[486] return
+[498] call pop
+[498] return 245
+[492] return
+[499] call pop
+[490] return
+[496] return
+[499] return 248
+[495] return
+[500] call push(250)
+[501] call push(251)
+[502] call push(252)
+[503] call push(253)
+[504] call pop
+[505] call pop
+[497] return
+[505] return 249
+[506] call push(254)
+[507] call pop
+[507] return 250
+[504] return 247
+[500] return
+[502] return
+[508] call pop
+[509] call push(255)
+[508] return 251
+[510] call push(256)
+[506] return
+[501] return
+[503] return
+[510] return
+[509] return

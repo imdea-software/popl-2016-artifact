@@ -37,12 +37,15 @@ def sep(sym: "-", joint: "+")
   COLUMNS.map {|_,width| sym * width} * "#{sym}#{joint}#{sym}"
 end
 
+puts "Generating reports for #{SOURCES * ", "}"
+puts "Algorithm timeout for each example set to #{TIMEOUT}s." if TIMEOUT
+
 SOURCES.each do |source|
   COLUMNS[:example] = Dir.glob(source).map{|f| File.basename(f).length}.max
   COLUMNS[:flags] = FLAGSS.map(&:length).max
 
   puts sep(joint: "-")
-  puts "Report for #{source}"
+  puts source.center(sep.length)
   puts sep(joint: "-")
   puts COLUMNS.map {|title,width| title.to_s.ljust(width)} * " | "
   puts sep
