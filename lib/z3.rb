@@ -1,6 +1,6 @@
-require 'os'
 require 'ffi'
 require 'forwardable'
+require 'os'
 
 class Array
   def to_ptr()

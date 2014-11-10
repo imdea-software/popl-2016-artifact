@@ -71,7 +71,7 @@ class LogReaderWriter
           ids[id] = yield :call, method, *values
         end
 
-        next if return?(line) do |id, values|
+        next if return?(str) do |id, values|
           fail "Unexpected operation identifier #{id}" unless ids.include?(id)
           yield :return, ids[id], *values
         end

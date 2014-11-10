@@ -40,7 +40,6 @@ class MonitoredObject
             end
             rets
           end
-        else fail "Unexpected arity for method #{m}."
         end
       end
     end

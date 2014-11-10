@@ -1,0 +1,302 @@
+Generating reports for examples/generated/*, examples/simple/*
+Algorithm timeout for each example set to 5s.
+-------------------------------------------------------------------
+                       examples/generated/*                        
+-------------------------------------------------------------------
+example               | flags            | step | viol | time      
+----------------------+------------------+------+------+-----------
+my-sync-stack.0.log   | -a saturation    | 307* | -    | 5.0037s*  
+my-sync-stack.0.log   | -a saturation -r | 1062 | -    | 2.7412s   
+my-sync-stack.0.log   | -a smt           | 23*  | -    | 5.4157s*  
+my-sync-stack.0.log   | -a smt -r        | 23*  | -    | 5.1631s*  
+my-sync-stack.0.log   | -a smt -i        | 30*  | -    | 5.2389s*  
+my-sync-stack.0.log   | -a smt -c        | 27*  | -    | 5.0034s*  
+my-sync-stack.0.log   | -a smt -c -i     | 24*  | -    | 5.2451s*  
+my-sync-stack.0.log   | -a lineup        | 10*  | -    | 5.0052s*  
+my-sync-stack.0.log   | -a lineup -c     | ?    | -    | ?         
+----------------------+------------------+------+------+-----------
+my-sync-stack.1.log   | -a saturation    | 241* | -    | 5.0008s*  
+my-sync-stack.1.log   | -a saturation -r | 1056 | -    | 3.3231s   
+my-sync-stack.1.log   | -a smt           | 26*  | -    | 5.4392s*  
+my-sync-stack.1.log   | -a smt -r        | 26*  | -    | 5.944s*   
+my-sync-stack.1.log   | -a smt -i        | 27*  | -    | 5.7844s*  
+my-sync-stack.1.log   | -a smt -c        | 26*  | -    | 5.3534s*  
+my-sync-stack.1.log   | -a smt -c -i     | 19*  | -    | 5.2251s*  
+my-sync-stack.1.log   | -a lineup        | 17*  | -    | 5.0035s*  
+my-sync-stack.1.log   | -a lineup -c     | 14*  | -    | 5.0074s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.2.log   | -a saturation    | 284* | -    | 5.1033s*  
+my-sync-stack.2.log   | -a saturation -r | 1020 | -    | 4.6576s   
+my-sync-stack.2.log   | -a smt           | 28*  | -    | 6.3036s*  
+my-sync-stack.2.log   | -a smt -r        | 28*  | -    | 6.1542s*  
+my-sync-stack.2.log   | -a smt -i        | 29*  | -    | 5.3374s*  
+my-sync-stack.2.log   | -a smt -c        | 20*  | -    | 5.0625s*  
+my-sync-stack.2.log   | -a smt -c -i     | 17*  | -    | 5.1101s*  
+my-sync-stack.2.log   | -a lineup        | 15*  | -    | 5.0007s*  
+my-sync-stack.2.log   | -a lineup -c     | 15*  | -    | 5.0027s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.3.log   | -a saturation    | 261* | -    | 5.0056s*  
+my-sync-stack.3.log   | -a saturation -r | 1014 | -    | 2.6347s   
+my-sync-stack.3.log   | -a smt           | 28*  | -    | 6.904s*   
+my-sync-stack.3.log   | -a smt -r        | 28*  | -    | 5.3036s*  
+my-sync-stack.3.log   | -a smt -i        | 29*  | -    | 5.8693s*  
+my-sync-stack.3.log   | -a smt -c        | 26*  | -    | 5.2366s*  
+my-sync-stack.3.log   | -a smt -c -i     | 20*  | -    | 5.2503s*  
+my-sync-stack.3.log   | -a lineup        | 16*  | -    | 5.006s*   
+my-sync-stack.3.log   | -a lineup -c     | 14*  | -    | 5.0045s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.4.log   | -a saturation    | 268* | -    | 5.1014s*  
+my-sync-stack.4.log   | -a saturation -r | 732* | -    | 5.0042s*  
+my-sync-stack.4.log   | -a smt           | 33*  | -    | 6.0565s*  
+my-sync-stack.4.log   | -a smt -r        | 37*  | -    | 5.4742s*  
+my-sync-stack.4.log   | -a smt -i        | 37*  | -    | 7.1284s*  
+my-sync-stack.4.log   | -a smt -c        | 29*  | -    | 5.3247s*  
+my-sync-stack.4.log   | -a smt -c -i     | 28*  | -    | 5.1501s*  
+my-sync-stack.4.log   | -a lineup        | 19*  | -    | 5.0025s*  
+my-sync-stack.4.log   | -a lineup -c     | 28*  | -    | 5.0059s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.5.log   | -a saturation    | 243* | -    | 5.1016s*  
+my-sync-stack.5.log   | -a saturation -r | 650* | -    | 5.0058s*  
+my-sync-stack.5.log   | -a smt           | 25*  | -    | 5.9274s*  
+my-sync-stack.5.log   | -a smt -r        | 25*  | -    | 5.8703s*  
+my-sync-stack.5.log   | -a smt -i        | 28*  | -    | 6.3613s*  
+my-sync-stack.5.log   | -a smt -c        | 18*  | -    | 5.1515s*  
+my-sync-stack.5.log   | -a smt -c -i     | 13*  | -    | 5.297s*   
+my-sync-stack.5.log   | -a lineup        | 8*   | -    | 5.0067s*  
+my-sync-stack.5.log   | -a lineup -c     | 10*  | -    | 5.0026s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.6.log   | -a saturation    | 252* | -    | 5.1082s*  
+my-sync-stack.6.log   | -a saturation -r | 1044 | -    | 4.5963s   
+my-sync-stack.6.log   | -a smt           | 30*  | -    | 5.1765s*  
+my-sync-stack.6.log   | -a smt -r        | 35*  | -    | 5.2946s*  
+my-sync-stack.6.log   | -a smt -i        | 35*  | -    | 5.4359s*  
+my-sync-stack.6.log   | -a smt -c        | 25*  | -    | 5.0042s*  
+my-sync-stack.6.log   | -a smt -c -i     | 22*  | -    | 5.2261s*  
+my-sync-stack.6.log   | -a lineup        | 19*  | -    | 5.0024s*  
+my-sync-stack.6.log   | -a lineup -c     | 20*  | -    | 5.0061s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.7.log   | -a saturation    | 263* | -    | 5.1014s*  
+my-sync-stack.7.log   | -a saturation -r | 1030 | -    | 3.1845s   
+my-sync-stack.7.log   | -a smt           | 33*  | -    | 5.2431s*  
+my-sync-stack.7.log   | -a smt -r        | 40*  | -    | 5.1464s*  
+my-sync-stack.7.log   | -a smt -i        | 34*  | -    | 5.0494s*  
+my-sync-stack.7.log   | -a smt -c        | 37*  | -    | 5.0177s*  
+my-sync-stack.7.log   | -a smt -c -i     | 32*  | -    | 6.8469s*  
+my-sync-stack.7.log   | -a lineup        | 15*  | -    | 5.0031s*  
+my-sync-stack.7.log   | -a lineup -c     | 22*  | -    | 5.0024s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.8.log   | -a saturation    | 261* | -    | 5.0036s*  
+my-sync-stack.8.log   | -a saturation -r | 607* | -    | 5.0006s*  
+my-sync-stack.8.log   | -a smt           | 31*  | -    | 5.0035s*  
+my-sync-stack.8.log   | -a smt -r        | 36*  | -    | 5.0814s*  
+my-sync-stack.8.log   | -a smt -i        | 34*  | -    | 5.9337s*  
+my-sync-stack.8.log   | -a smt -c        | 36*  | -    | 5.1592s*  
+my-sync-stack.8.log   | -a smt -c -i     | 24*  | -    | 5.1304s*  
+my-sync-stack.8.log   | -a lineup        | 12*  | -    | 5.0148s*  
+my-sync-stack.8.log   | -a lineup -c     | 19*  | -    | 5.0018s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.9.log   | -a saturation    | 277* | -    | 5.0028s*  
+my-sync-stack.9.log   | -a saturation -r | 1040 | -    | 2.8418s   
+my-sync-stack.9.log   | -a smt           | 31*  | -    | 6.0547s*  
+my-sync-stack.9.log   | -a smt -r        | 40*  | -    | 5.1171s*  
+my-sync-stack.9.log   | -a smt -i        | 33*  | -    | 5.0624s*  
+my-sync-stack.9.log   | -a smt -c        | 26*  | -    | 5.0143s*  
+my-sync-stack.9.log   | -a smt -c -i     | 26*  | -    | 5.2356s*  
+my-sync-stack.9.log   | -a lineup        | 10*  | -    | 5.0025s*  
+my-sync-stack.9.log   | -a lineup -c     | 11*  | -    | 5.0005s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.0.log | -a saturation    | 260* | -    | 5.0027s*  
+my-unsafe-stack.0.log | -a saturation -r | 1056 | -    | 2.0757s   
+my-unsafe-stack.0.log | -a smt           | 27*  | -    | 5.398s*   
+my-unsafe-stack.0.log | -a smt -r        | 30*  | -    | 6.7386s*  
+my-unsafe-stack.0.log | -a smt -i        | 31*  | -    | 5.3325s*  
+my-unsafe-stack.0.log | -a smt -c        | 23*  | -    | 5.0133s*  
+my-unsafe-stack.0.log | -a smt -c -i     | 21*  | -    | 5.2127s*  
+my-unsafe-stack.0.log | -a lineup        | 13*  | -    | 5.0054s*  
+my-unsafe-stack.0.log | -a lineup -c     | 21*  | -    | 5.0055s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.1.log | -a saturation    | 282* | -    | 5.1017s*  
+my-unsafe-stack.1.log | -a saturation -r | 1030 | -    | 2.629s    
+my-unsafe-stack.1.log | -a smt           | 38*  | -    | 5.4331s*  
+my-unsafe-stack.1.log | -a smt -r        | 41*  | -    | 5.003s*   
+my-unsafe-stack.1.log | -a smt -i        | 41*  | -    | 7.1673s*  
+my-unsafe-stack.1.log | -a smt -c        | 40*  | -    | 5.3546s*  
+my-unsafe-stack.1.log | -a smt -c -i     | 34*  | -    | 6.2353s*  
+my-unsafe-stack.1.log | -a lineup        | 23*  | -    | 5.0046s*  
+my-unsafe-stack.1.log | -a lineup -c     | 28*  | -    | 5.0081s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.2.log | -a saturation    | 312* | -    | 5.0069s*  
+my-unsafe-stack.2.log | -a saturation -r | 994  | -    | 3.9477s   
+my-unsafe-stack.2.log | -a smt           | 24*  | -    | 5.3936s*  
+my-unsafe-stack.2.log | -a smt -r        | 24*  | -    | 5.3814s*  
+my-unsafe-stack.2.log | -a smt -i        | 30*  | -    | 5.4808s*  
+my-unsafe-stack.2.log | -a smt -c        | 20*  | -    | 5.138s*   
+my-unsafe-stack.2.log | -a smt -c -i     | 20*  | -    | 5.1105s*  
+my-unsafe-stack.2.log | -a lineup        | 15*  | -    | 5.0878s*  
+my-unsafe-stack.2.log | -a lineup -c     | 15*  | -    | 5.0028s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.3.log | -a saturation    | 309* | -    | 5.0015s*  
+my-unsafe-stack.3.log | -a saturation -r | 905* | -    | 5.0022s*  
+my-unsafe-stack.3.log | -a smt           | 26*  | -    | 5.1663s*  
+my-unsafe-stack.3.log | -a smt -r        | 26*  | -    | 5.2948s*  
+my-unsafe-stack.3.log | -a smt -i        | 35*  | -    | 6.0972s*  
+my-unsafe-stack.3.log | -a smt -c        | 25*  | -    | 5.2636s*  
+my-unsafe-stack.3.log | -a smt -c -i     | 20*  | -    | 5.0826s*  
+my-unsafe-stack.3.log | -a lineup        | 13*  | -    | 5.0041s*  
+my-unsafe-stack.3.log | -a lineup -c     | 16*  | -    | 5.0232s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.4.log | -a saturation    | 298* | -    | 5.0055s*  
+my-unsafe-stack.4.log | -a saturation -r | 1038 | -    | 2.1841s   
+my-unsafe-stack.4.log | -a smt           | 28*  | -    | 5.525s*   
+my-unsafe-stack.4.log | -a smt -r        | 32*  | -    | 5.4971s*  
+my-unsafe-stack.4.log | -a smt -i        | 33*  | -    | 5.8548s*  
+my-unsafe-stack.4.log | -a smt -c        | 29*  | -    | 5.1783s*  
+my-unsafe-stack.4.log | -a smt -c -i     | 27*  | -    | 5.1481s*  
+my-unsafe-stack.4.log | -a lineup        | 18*  | -    | 5.0031s*  
+my-unsafe-stack.4.log | -a lineup -c     | 27*  | -    | 5.0061s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.5.log | -a saturation    | 324* | -    | 5.0026s*  
+my-unsafe-stack.5.log | -a saturation -r | 1032 | -    | 2.1369s   
+my-unsafe-stack.5.log | -a smt           | 31*  | -    | 5.1876s*  
+my-unsafe-stack.5.log | -a smt -r        | 33*  | -    | 5.0043s*  
+my-unsafe-stack.5.log | -a smt -i        | 33*  | -    | 5.3905s*  
+my-unsafe-stack.5.log | -a smt -c        | 21*  | -    | 5.0059s*  
+my-unsafe-stack.5.log | -a smt -c -i     | 21*  | -    | 5.0819s*  
+my-unsafe-stack.5.log | -a lineup        | 17*  | -    | 5.0052s*  
+my-unsafe-stack.5.log | -a lineup -c     | 19*  | -    | 5.004s*   
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.6.log | -a saturation    | 330* | -    | 5.0008s*  
+my-unsafe-stack.6.log | -a saturation -r | 1020 | -    | 3.7241s   
+my-unsafe-stack.6.log | -a smt           | 39*  | -    | 5.1786s*  
+my-unsafe-stack.6.log | -a smt -r        | 62*  | -    | 5.2691s*  
+my-unsafe-stack.6.log | -a smt -i        | 41*  | -    | 5.3722s*  
+my-unsafe-stack.6.log | -a smt -c        | 34*  | -    | 5.207s*   
+my-unsafe-stack.6.log | -a smt -c -i     | 28*  | -    | 5.6233s*  
+my-unsafe-stack.6.log | -a lineup        | 27*  | -    | 5.0212s*  
+my-unsafe-stack.6.log | -a lineup -c     | 19*  | -    | 5.026s*   
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.7.log | -a saturation    | 274* | -    | 5.1043s*  
+my-unsafe-stack.7.log | -a saturation -r | 1024 | -    | 3.9534s   
+my-unsafe-stack.7.log | -a smt           | 30*  | -    | 6.8225s*  
+my-unsafe-stack.7.log | -a smt -r        | 33*  | -    | 5.0031s*  
+my-unsafe-stack.7.log | -a smt -i        | 33*  | -    | 6.4723s*  
+my-unsafe-stack.7.log | -a smt -c        | 37*  | -    | 5.0073s*  
+my-unsafe-stack.7.log | -a smt -c -i     | 30*  | -    | 5.6984s*  
+my-unsafe-stack.7.log | -a lineup        | 16*  | -    | 5.0062s*  
+my-unsafe-stack.7.log | -a lineup -c     | 17*  | -    | 5.0065s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.8.log | -a saturation    | 285* | -    | 5.0085s*  
+my-unsafe-stack.8.log | -a saturation -r | 992  | -    | 3.8669s   
+my-unsafe-stack.8.log | -a smt           | 33*  | -    | 6.3179s*  
+my-unsafe-stack.8.log | -a smt -r        | 46*  | -    | 5.2949s*  
+my-unsafe-stack.8.log | -a smt -i        | 33*  | -    | 5.118s*   
+my-unsafe-stack.8.log | -a smt -c        | 25*  | -    | 5.2778s*  
+my-unsafe-stack.8.log | -a smt -c -i     | 25*  | -    | 5.0409s*  
+my-unsafe-stack.8.log | -a lineup        | 22*  | -    | 5.0103s*  
+my-unsafe-stack.8.log | -a lineup -c     | 20*  | -    | 5.0027s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.9.log | -a saturation    | 270* | -    | 5.0007s*  
+my-unsafe-stack.9.log | -a saturation -r | 1034 | -    | 2.6403s   
+my-unsafe-stack.9.log | -a smt           | 27*  | -    | 8.298s*   
+my-unsafe-stack.9.log | -a smt -r        | 30*  | -    | 6.0063s*  
+my-unsafe-stack.9.log | -a smt -i        | 31*  | -    | 5.7161s*  
+my-unsafe-stack.9.log | -a smt -c        | 27*  | -    | 5.409s*   
+my-unsafe-stack.9.log | -a smt -c -i     | 25*  | -    | 5.2239s*  
+my-unsafe-stack.9.log | -a lineup        | 14*  | -    | 5.0031s*  
+my-unsafe-stack.9.log | -a lineup -c     | 17*  | -    | 5.0141s*  
+----------------------+------------------+------+------+-----------
+scal-impl.0.log       | -a saturation    | 0    | -    | 0.0069s   
+scal-impl.0.log       | -a saturation -r | 0    | -    | 0.0016s   
+scal-impl.0.log       | -a smt           | 0    | -    | 0.0027s   
+scal-impl.0.log       | -a smt -r        | 0    | -    | 0.0018s   
+scal-impl.0.log       | -a smt -i        | 0    | -    | 0.0017s   
+scal-impl.0.log       | -a smt -c        | 0    | -    | 0.0017s   
+scal-impl.0.log       | -a smt -c -i     | 0    | -    | 0.0017s   
+scal-impl.0.log       | -a lineup        | 0    | -    | 0.0021s   
+scal-impl.0.log       | -a lineup -c     | 0    | -    | 0.0054s   
+----------------------+------------------+------+------+-----------
+----------------------------------------------------------------------
+                          examples/simple/*                           
+----------------------------------------------------------------------
+example                  | flags            | step | viol | time      
+-------------------------+------------------+------+------+-----------
+dup-removes.log          | -a saturation    | 6    | 6    | 0.0086s   
+dup-removes.log          | -a saturation -r | 6    | 6    | 0.0043s   
+dup-removes.log          | -a smt           | 6    | 6    | 0.029s    
+dup-removes.log          | -a smt -r        | 6    | 6    | 0.0287s   
+dup-removes.log          | -a smt -i        | 6    | 6    | 0.0568s   
+dup-removes.log          | -a smt -c        | 6    | 6    | 0.0334s   
+dup-removes.log          | -a smt -c -i     | 6    | 6    | 0.0453s   
+dup-removes.log          | -a lineup        | 6    | 6    | 0.0474s   
+dup-removes.log          | -a lineup -c     | 6    | 6    | 0.0515s   
+-------------------------+------------------+------+------+-----------
+fifo-violation-1.log     | -a saturation    | 6    | 6    | 0.0041s   
+fifo-violation-1.log     | -a saturation -r | 6    | 6    | 0.0039s   
+fifo-violation-1.log     | -a smt           | 6    | 6    | 0.0466s   
+fifo-violation-1.log     | -a smt -r        | 6    | 6    | 0.06s     
+fifo-violation-1.log     | -a smt -i        | 6    | 6    | 0.0389s   
+fifo-violation-1.log     | -a smt -c        | 6    | 6    | 0.0415s   
+fifo-violation-1.log     | -a smt -c -i     | 6    | 6    | 0.0335s   
+fifo-violation-1.log     | -a lineup        | 6    | 6    | 0.0456s   
+fifo-violation-1.log     | -a lineup -c     | 6    | 6    | 0.0363s   
+-------------------------+------------------+------+------+-----------
+figure3.log              | -a saturation    | 15   | 15   | 0.0101s   
+figure3.log              | -a saturation -r | 15   | 15   | 0.0137s   
+figure3.log              | -a smt           | 15   | 15   | 1.2223s   
+figure3.log              | -a smt -r        | 15   | 15   | 0.719s    
+figure3.log              | -a smt -i        | 15   | 15   | 0.4477s   
+figure3.log              | -a smt -c        | 15   | 15   | 0.7355s   
+figure3.log              | -a smt -c -i     | 15   | 15   | 0.9043s   
+figure3.log              | -a lineup        | 15*  | -    | 5.0062s*  
+figure3.log              | -a lineup -c     | 15*  | -    | 5.0039s*  
+-------------------------+------------------+------+------+-----------
+invalid-remove.log       | -a saturation    | 4    | 4    | 0.0031s   
+invalid-remove.log       | -a saturation -r | 4    | 4    | 0.003s    
+invalid-remove.log       | -a smt           | 4    | 4    | 0.0247s   
+invalid-remove.log       | -a smt -r        | 4    | 4    | 0.0199s   
+invalid-remove.log       | -a smt -i        | 4    | 4    | 0.0211s   
+invalid-remove.log       | -a smt -c        | 4    | 4    | 0.0189s   
+invalid-remove.log       | -a smt -c -i     | 4    | 4    | 0.0239s   
+invalid-remove.log       | -a lineup        | 4    | 4    | 0.0266s   
+invalid-remove.log       | -a lineup -c     | 4    | 4    | 0.0246s   
+-------------------------+------------------+------+------+-----------
+lifo-safe-dhk-2.log      | -a saturation    | 16   | -    | 0.0115s   
+lifo-safe-dhk-2.log      | -a saturation -r | 16   | -    | 0.0127s   
+lifo-safe-dhk-2.log      | -a smt           | 16   | -    | 1.0924s   
+lifo-safe-dhk-2.log      | -a smt -r        | 16   | -    | 0.9484s   
+lifo-safe-dhk-2.log      | -a smt -i        | 16   | -    | 0.9915s   
+lifo-safe-dhk-2.log      | -a smt -c        | 16   | -    | 1.9511s   
+lifo-safe-dhk-2.log      | -a smt -c -i     | 16   | -    | 3.2443s   
+lifo-safe-dhk-2.log      | -a lineup        | 12*  | -    | 5.0067s*  
+lifo-safe-dhk-2.log      | -a lineup -c     | 14*  | -    | 5.0039s*  
+-------------------------+------------------+------+------+-----------
+lifo-violation-1.log     | -a saturation    | 6    | 6    | 0.0035s   
+lifo-violation-1.log     | -a saturation -r | 6    | 6    | 0.0038s   
+lifo-violation-1.log     | -a smt           | 6    | 6    | 0.0311s   
+lifo-violation-1.log     | -a smt -r        | 6    | 6    | 0.0365s   
+lifo-violation-1.log     | -a smt -i        | 6    | 6    | 0.0284s   
+lifo-violation-1.log     | -a smt -c        | 6    | 6    | 0.0319s   
+lifo-violation-1.log     | -a smt -c -i     | 6    | 6    | 0.0258s   
+lifo-violation-1.log     | -a lineup        | 6    | 6    | 0.0304s   
+lifo-violation-1.log     | -a lineup -c     | 6    | 6    | 0.0319s   
+-------------------------+------------------+------+------+-----------
+lifo-violation-dhk-1.log | -a saturation    | 15   | 15   | 0.0141s   
+lifo-violation-dhk-1.log | -a saturation -r | 15   | 15   | 0.0129s   
+lifo-violation-dhk-1.log | -a smt           | 12   | 12   | 0.6317s   
+lifo-violation-dhk-1.log | -a smt -r        | 12   | 12   | 0.6423s   
+lifo-violation-dhk-1.log | -a smt -i        | 12   | 12   | 0.2441s   
+lifo-violation-dhk-1.log | -a smt -c        | 12   | 12   | 0.9765s   
+lifo-violation-dhk-1.log | -a smt -c -i     | 12   | 12   | 2.0414s   
+lifo-violation-dhk-1.log | -a lineup        | 12   | 12   | 2.8682s   
+lifo-violation-dhk-1.log | -a lineup -c     | 12*  | -    | 5.006s*   
+-------------------------+------------------+------+------+-----------
+lifo-violation-dhk-2.log | -a saturation    | 16   | 16   | 0.0139s   
+lifo-violation-dhk-2.log | -a saturation -r | 16   | -    | 0.0106s   
+lifo-violation-dhk-2.log | -a smt           | 13   | 13   | 0.753s    
+lifo-violation-dhk-2.log | -a smt -r        | 13   | 13   | 0.9365s   
+lifo-violation-dhk-2.log | -a smt -i        | 13   | 13   | 0.5511s   
+lifo-violation-dhk-2.log | -a smt -c        | 13   | 13   | 0.3377s   
+lifo-violation-dhk-2.log | -a smt -c -i     | 13   | 13   | 1.5678s   
+lifo-violation-dhk-2.log | -a lineup        | 12*  | -    | 5.1518s*  
+lifo-violation-dhk-2.log | -a lineup -c     | 13*  | -    | 5.0028s*  
+-------------------------+------------------+------+------+-----------

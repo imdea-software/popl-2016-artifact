@@ -18,9 +18,9 @@ FLAGSS << "-a lineup"
 FLAGSS << "-a lineup -c"
 
 def stats(example, flags, output)
-  v = output.match(/VIOLATION: (.*)/)[1].strip == "true"
-  s = output.match(/STEPS: (.*)/)[1].strip
-  t = output.match(/TIME: (.*)/)[1].strip
+  v = (output.match(/VIOLATION: (.*)/) || ["","?"])[1].strip == "true"
+  s = (output.match(/STEPS: (.*)/) || ["","?"])[1].strip
+  t = (output.match(/TIME: (.*)/) || ["","?"])[1].strip
   { example: example,
     flags: flags,
     step: s,
