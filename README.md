@@ -9,7 +9,8 @@ List of tasks:
 - [x] Implement saturation via SAT/SMT (?).
 - [x] Implement obsolete operation removal
 - [x] Implement incremental SMT checking
-- [ ] Implement incremental saturation checking
+- [x] Implement incremental saturation checking
+- [ ] Create tests for all examples in the paper
 
 List of things to demonstrate:
 
