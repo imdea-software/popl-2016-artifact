@@ -4,7 +4,7 @@ data structures, e.g., locks, semaphores, atomic registers, stacks, queues.
 
 List of tasks:
 
-- [ ] Generate lots of benchmark log files for the SCAL implementations.
+- [x] Generate lots of benchmark log files for the SCAL implementations.
 - [x] Implement a linearization monitor.
 - [x] Implement saturation via SAT/SMT (?).
 - [x] Implement obsolete operation removal
@@ -14,9 +14,9 @@ List of tasks:
 
 List of things to demonstrate:
 
-- [ ] Our monitor correctly identifies violations.
+- [x] Our monitor correctly identifies violations.
 - [ ] Our monitor has low space overhead / we don't keep too many operations.
-- [ ] Our monitor has low runtime overhead.
+- [x] Our monitor has low runtime overhead.
 
 List of experiments?
 
