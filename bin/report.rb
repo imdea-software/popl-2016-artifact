@@ -1,27 +1,21 @@
 #!/usr/bin/env ruby
 
-SOURCES = [
-  "examples/simple/*"
-]
+SOURCES = []
+FLAGSS = []
+COLUMNS = { example: 1, flags: 1, step: 4, viol: 4, time: 10 }
+TIMEOUT = 5
 
-FLAGSS = [
-  "-a saturation",
-  "-a saturation -r",
-  "-a smt",
-  "-a smt -r",
-  "-a smt -i",
-  "-a smt -c",
-  "-a smt -c -i",
-  "-a lineup",
-  "-a lineup -c"
-]
-
-COLUMNS = {
-  example: 1,
-  flags: 20,
-  step: 4,
-  time: 10
-}
+SOURCES << "examples/generated/*"
+SOURCES << "examples/simple/*"
+FLAGSS << "-a saturation"
+FLAGSS << "-a saturation -r"
+FLAGSS << "-a smt"
+FLAGSS << "-a smt -r"
+FLAGSS << "-a smt -i"
+FLAGSS << "-a smt -c"
+FLAGSS << "-a smt -c -i"
+FLAGSS << "-a lineup"
+FLAGSS << "-a lineup -c"
 
 def stats(example, flags, output)
   v = output.match(/VIOLATION: (.*)/)[1].strip == "true"
@@ -29,7 +23,8 @@ def stats(example, flags, output)
   t = output.match(/TIME: (.*)/)[1].strip
   { example: example,
     flags: flags,
-    step: v && s,
+    step: s,
+    viol: v && s,
     time: t
   }
 end
@@ -54,7 +49,9 @@ SOURCES.each do |source|
   
   Dir.glob(source) do |example|
     FLAGSS.each do |flags|
-      output = `#{File.dirname(__FILE__)}/logchecker.rb #{example} #{flags}`
+      cmd = "#{File.dirname(__FILE__)}/logchecker.rb \"#{example}\" #{flags}"
+      cmd << " -t #{TIMEOUT}" if TIMEOUT
+      output = `#{cmd}`
       puts format(stats(File.basename(example), flags, output))
     end
     puts sep

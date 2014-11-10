@@ -148,10 +148,10 @@ begin
         raise ViolationFound if @checker.violation?
         raise StepLimitReached if @step_limit && @step_limit <= num_steps
 
-        num_steps += 1
         size = history.count
         max_size = size if size > max_size
         cum_size += size
+        num_steps += 1
 
         case act
         when :call
@@ -167,8 +167,10 @@ begin
     end
   rescue Timeout::Error
     log.warn('log-parser') {"time limit reached"}
+    timeout = "*"
   rescue StepLimitReached
     log.warn('log-parser') {"step limit reached"}
+    stepout = "†"
   rescue ViolationFound
     log.warn('log-parser') {"violation discovered"}
   end
@@ -179,13 +181,13 @@ begin
   puts "CHECKER:    #{@checker}"
   puts "REMOVAL:    #{@obsolete_removal}"
   puts "VIOLATION:  #{@checker.violation?}"
-  puts "STEPS:      #{num_steps}"
-  puts "AVG SIZE:   #{cum_size * 1.0 / num_steps}"
+  puts "STEPS:      #{num_steps}#{timeout}#{stepout}"
+  puts "AVG SIZE:   #{(cum_size * 1.0 / num_steps).round(4)}"
   puts "MAX SIZE:   #{max_size}"
   puts "CHECKS:     #{@checker.num_checks}"
-  puts "MEMORY:     #{max_rss / 1024.0}KB"
-  puts "TIME:       #{end_time - start_time}s"
-  puts "TIME/CHECK: #{(end_time - start_time)/@checker.num_checks}s"
+  puts "MEMORY:     #{(max_rss / 1024.0).round(4)}KB"
+  puts "TIME:       #{(end_time - start_time).round(4)}s#{timeout}#{stepout}"
+  puts "TIME/CHECK: #{((end_time - start_time)/@checker.num_checks).round(4)}s"
 ensure
   log.close
 end
