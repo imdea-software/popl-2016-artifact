@@ -11,6 +11,9 @@ class LineUpChecker < HistoryChecker
 
   def initialize(object, matcher, history, completion, incremental)
     super(object, matcher, history, completion, incremental)
+    # configuration = Z3.config
+    # configuration.set("timeout",1)
+    # @solver = Z3.context(configuration).solver
     @solver = Z3.context.solver
     theories_for(object).each(&@solver.method(:theory))
     log.warn('LineUp') {"I don't have an incremental mode."} if @incremental
