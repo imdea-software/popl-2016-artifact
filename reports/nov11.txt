@@ -1,0 +1,2184 @@
+Generating reports for examples/generated/bkq-very-concurrent/*, examples/generated/msq-very-concurrent/*, examples/generated/*, examples/simple/*
+Algorithm timeout for each example set to 5s.
+--------------------------------------------------------
+        examples/generated/bkq-very-concurrent/*        
+--------------------------------------------------------
+example    | flags            | step | viol | time      
+-----------+------------------+------+------+-----------
+bkq.00.log | -a saturation    | 100  | -    | 0.1032s   
+bkq.00.log | -a saturation -r | 100  | -    | 0.1151s   
+bkq.00.log | -a smt           | 53*  | -    | 5.8768s*  
+bkq.00.log | -a smt -r        | 54*  | -    | 5.7902s*  
+bkq.00.log | -a smt -i        | 53*  | -    | 5.6707s*  
+bkq.00.log | -a smt -c        | 22*  | -    | 5.001s*   
+bkq.00.log | -a smt -c -i     | 22*  | -    | 5.0024s*  
+bkq.00.log | -a lineup        | 22*  | -    | 5.0072s*  
+bkq.00.log | -a lineup -c     | 22*  | -    | 5.0493s*  
+-----------+------------------+------+------+-----------
+bkq.01.log | -a saturation    | 100  | -    | 0.0936s   
+bkq.01.log | -a saturation -r | 100  | -    | 0.1097s   
+bkq.01.log | -a smt           | 53*  | -    | 5.9999s*  
+bkq.01.log | -a smt -r        | 53*  | -    | 6.1706s*  
+bkq.01.log | -a smt -i        | 43*  | -    | 33.5814s* 
+bkq.01.log | -a smt -c        | 38*  | -    | 5.0041s*  
+bkq.01.log | -a smt -c -i     | 38*  | -    | 5.0038s*  
+bkq.01.log | -a lineup        | 38*  | -    | 5.0042s*  
+bkq.01.log | -a lineup -c     | 38*  | -    | 5.0017s*  
+-----------+------------------+------+------+-----------
+bkq.02.log | -a saturation    | 100  | -    | 0.1353s   
+bkq.02.log | -a saturation -r | 100  | -    | 0.1804s   
+bkq.02.log | -a smt           | 53*  | -    | 7.0308s*  
+bkq.02.log | -a smt -r        | 53*  | -    | 6.8755s*  
+bkq.02.log | -a smt -i        | 52*  | -    | 18.4347s* 
+bkq.02.log | -a smt -c        | 51*  | -    | 5.0055s*  
+bkq.02.log | -a smt -c -i     | 51*  | -    | 5.0041s*  
+bkq.02.log | -a lineup        | 51*  | -    | 5.1271s*  
+bkq.02.log | -a lineup -c     | 51*  | -    | 5.0029s*  
+-----------+------------------+------+------+-----------
+bkq.03.log | -a saturation    | 100  | -    | 0.1315s   
+bkq.03.log | -a saturation -r | 100  | -    | 0.1509s   
+bkq.03.log | -a smt           | 54*  | -    | 6.2206s*  
+bkq.03.log | -a smt -r        | 54*  | -    | 5.6827s*  
+bkq.03.log | -a smt -i        | 58*  | -    | 5.5352s*  
+bkq.03.log | -a smt -c        | 53*  | -    | 5.0496s*  
+bkq.03.log | -a smt -c -i     | 53*  | -    | 5.0069s*  
+bkq.03.log | -a lineup        | 53*  | -    | 5.2213s*  
+bkq.03.log | -a lineup -c     | 53*  | -    | 5.0104s*  
+-----------+------------------+------+------+-----------
+bkq.04.log | -a saturation    | 100  | -    | 0.1061s   
+bkq.04.log | -a saturation -r | 100  | -    | 0.1187s   
+bkq.04.log | -a smt           | ?    | -    | ?         
+bkq.04.log | -a smt -r        | 52*  | -    | 10.1003s* 
+bkq.04.log | -a smt -i        | 43*  | -    | 7.2711s*  
+bkq.04.log | -a smt -c        | 31*  | -    | 5.0037s*  
+bkq.04.log | -a smt -c -i     | 31*  | -    | 5.0074s*  
+bkq.04.log | -a lineup        | 31*  | -    | 5.0079s*  
+bkq.04.log | -a lineup -c     | 31*  | -    | 5.0035s*  
+-----------+------------------+------+------+-----------
+bkq.05.log | -a saturation    | 100  | -    | 0.0987s   
+bkq.05.log | -a saturation -r | 100  | -    | 0.1186s   
+bkq.05.log | -a smt           | 54*  | -    | 8.7315s*  
+bkq.05.log | -a smt -r        | 54*  | -    | 8.7582s*  
+bkq.05.log | -a smt -i        | 36*  | -    | 22.0042s* 
+bkq.05.log | -a smt -c        | 36*  | -    | 5.0029s*  
+bkq.05.log | -a smt -c -i     | 36*  | -    | 5.0045s*  
+bkq.05.log | -a lineup        | 36*  | -    | 5.0045s*  
+bkq.05.log | -a lineup -c     | 36*  | -    | 5.007s*   
+-----------+------------------+------+------+-----------
+bkq.06.log | -a saturation    | 100  | -    | 0.1031s   
+bkq.06.log | -a saturation -r | 100  | -    | 0.1152s   
+bkq.06.log | -a smt           | 52*  | -    | 6.1594s*  
+bkq.06.log | -a smt -r        | 52*  | -    | 6.1833s*  
+bkq.06.log | -a smt -i        | 49*  | -    | 7.8853s*  
+bkq.06.log | -a smt -c        | 21*  | -    | 5.0055s*  
+bkq.06.log | -a smt -c -i     | 21*  | -    | 5.0028s*  
+bkq.06.log | -a lineup        | 21*  | -    | 5.0006s*  
+bkq.06.log | -a lineup -c     | 21*  | -    | 5.0047s*  
+-----------+------------------+------+------+-----------
+bkq.07.log | -a saturation    | 100  | -    | 0.0734s   
+bkq.07.log | -a saturation -r | 100  | -    | 0.0945s   
+bkq.07.log | -a smt           | 52*  | -    | 6.1326s*  
+bkq.07.log | -a smt -r        | 53*  | -    | 6.1529s*  
+bkq.07.log | -a smt -i        | 51*  | -    | 18.2203s* 
+bkq.07.log | -a smt -c        | 51*  | -    | 5.0027s*  
+bkq.07.log | -a smt -c -i     | 51*  | -    | 5.0051s*  
+bkq.07.log | -a lineup        | 51*  | -    | 5.0021s*  
+bkq.07.log | -a lineup -c     | 51*  | -    | 5.0009s*  
+-----------+------------------+------+------+-----------
+bkq.08.log | -a saturation    | 100  | -    | 0.1441s   
+bkq.08.log | -a saturation -r | 100  | -    | 0.1307s   
+bkq.08.log | -a smt           | 53*  | -    | 6.091s*   
+bkq.08.log | -a smt -r        | 53*  | -    | 5.5589s*  
+bkq.08.log | -a smt -i        | 56*  | -    | 5.7458s*  
+bkq.08.log | -a smt -c        | 21*  | -    | 5.0077s*  
+bkq.08.log | -a smt -c -i     | 21*  | -    | 5.0013s*  
+bkq.08.log | -a lineup        | 14*  | -    | 5.0099s*  
+bkq.08.log | -a lineup -c     | 21*  | -    | 5.0041s*  
+-----------+------------------+------+------+-----------
+bkq.09.log | -a saturation    | 100  | -    | 0.1026s   
+bkq.09.log | -a saturation -r | 100  | -    | 0.1168s   
+bkq.09.log | -a smt           | 54*  | -    | 5.2152s*  
+bkq.09.log | -a smt -r        | 54*  | -    | 5.1585s*  
+bkq.09.log | -a smt -i        | 57*  | -    | 6.4807s*  
+bkq.09.log | -a smt -c        | 47*  | -    | 5.0037s*  
+bkq.09.log | -a smt -c -i     | 47*  | -    | 5.0019s*  
+bkq.09.log | -a lineup        | 13*  | -    | 5.0042s*  
+bkq.09.log | -a lineup -c     | 47*  | -    | 5.0047s*  
+-----------+------------------+------+------+-----------
+bkq.10.log | -a saturation    | 100  | -    | 0.0753s   
+bkq.10.log | -a saturation -r | 100  | -    | 0.0939s   
+bkq.10.log | -a smt           | 52*  | -    | 5.1052s*  
+bkq.10.log | -a smt -r        | ?    | -    | ?         
+bkq.10.log | -a smt -i        | 52*  | -    | 22.7259s* 
+bkq.10.log | -a smt -c        | 51*  | -    | 5.0019s*  
+bkq.10.log | -a smt -c -i     | 51*  | -    | 5.0024s*  
+bkq.10.log | -a lineup        | 51*  | -    | 5.1764s*  
+bkq.10.log | -a lineup -c     | 51*  | -    | 5.0059s*  
+-----------+------------------+------+------+-----------
+bkq.11.log | -a saturation    | 100  | -    | 0.1409s   
+bkq.11.log | -a saturation -r | 100  | -    | 0.1735s   
+bkq.11.log | -a smt           | 52*  | -    | 6.7666s*  
+bkq.11.log | -a smt -r        | 52*  | -    | 6.2696s*  
+bkq.11.log | -a smt -i        | 52*  | -    | 6.7781s*  
+bkq.11.log | -a smt -c        | 23*  | -    | 5.0062s*  
+bkq.11.log | -a smt -c -i     | 23*  | -    | 5.0029s*  
+bkq.11.log | -a lineup        | 23*  | -    | 5.0014s*  
+bkq.11.log | -a lineup -c     | 23*  | -    | 5.0063s*  
+-----------+------------------+------+------+-----------
+bkq.12.log | -a saturation    | 100  | -    | 0.1079s   
+bkq.12.log | -a saturation -r | 100  | -    | 0.1162s   
+bkq.12.log | -a smt           | 53*  | -    | 8.0585s*  
+bkq.12.log | -a smt -r        | 53*  | -    | 6.5717s*  
+bkq.12.log | -a smt -i        | 55*  | -    | 6.0327s*  
+bkq.12.log | -a smt -c        | 21*  | -    | 5.0052s*  
+bkq.12.log | -a smt -c -i     | 21*  | -    | 5.0029s*  
+bkq.12.log | -a lineup        | 21*  | -    | 5.0067s*  
+bkq.12.log | -a lineup -c     | 21*  | -    | 5.0054s*  
+-----------+------------------+------+------+-----------
+bkq.13.log | -a saturation    | 100  | -    | 0.0778s   
+bkq.13.log | -a saturation -r | 100  | -    | 0.092s    
+bkq.13.log | -a smt           | 52*  | -    | 6.306s*   
+bkq.13.log | -a smt -r        | 52*  | -    | 6.697s*   
+bkq.13.log | -a smt -i        | 52*  | -    | 35.573s*  
+bkq.13.log | -a smt -c        | 51*  | -    | 5.0069s*  
+bkq.13.log | -a smt -c -i     | 51*  | -    | 5.0016s*  
+bkq.13.log | -a lineup        | 51*  | -    | 5.0007s*  
+bkq.13.log | -a lineup -c     | 51*  | -    | 5.0016s*  
+-----------+------------------+------+------+-----------
+bkq.14.log | -a saturation    | 100  | -    | 0.1189s   
+bkq.14.log | -a saturation -r | 100  | -    | 0.1261s   
+bkq.14.log | -a smt           | 54*  | -    | 13.3292s* 
+bkq.14.log | -a smt -r        | 54*  | -    | 13.9265s* 
+bkq.14.log | -a smt -i        | 55*  | -    | 5.007s*   
+bkq.14.log | -a smt -c        | 52*  | -    | 5.0029s*  
+bkq.14.log | -a smt -c -i     | 52*  | -    | 5.0038s*  
+bkq.14.log | -a lineup        | 52*  | -    | 5.0028s*  
+bkq.14.log | -a lineup -c     | 52*  | -    | 5.0048s*  
+-----------+------------------+------+------+-----------
+bkq.15.log | -a saturation    | 100  | -    | 0.1856s   
+bkq.15.log | -a saturation -r | 100  | -    | 0.2232s   
+bkq.15.log | -a smt           | 55*  | -    | 7.7232s*  
+bkq.15.log | -a smt -r        | 53*  | -    | 7.3686s*  
+bkq.15.log | -a smt -i        | 39*  | -    | 5.0381s*  
+bkq.15.log | -a smt -c        | 24*  | -    | 5.0054s*  
+bkq.15.log | -a smt -c -i     | 24*  | -    | 5.0032s*  
+bkq.15.log | -a lineup        | 24*  | -    | 5.0055s*  
+bkq.15.log | -a lineup -c     | 24*  | -    | 5.0016s*  
+-----------+------------------+------+------+-----------
+bkq.16.log | -a saturation    | 100  | -    | 0.0807s   
+bkq.16.log | -a saturation -r | 100  | -    | 0.0998s   
+bkq.16.log | -a smt           | 53*  | -    | 11.2545s* 
+bkq.16.log | -a smt -r        | 51*  | -    | 7.8928s*  
+bkq.16.log | -a smt -i        | 47*  | -    | 27.9355s* 
+bkq.16.log | -a smt -c        | 46*  | -    | 5.0054s*  
+bkq.16.log | -a smt -c -i     | 46*  | -    | 5.0039s*  
+bkq.16.log | -a lineup        | 46*  | -    | 5.0021s*  
+bkq.16.log | -a lineup -c     | 46*  | -    | 5.0118s*  
+-----------+------------------+------+------+-----------
+bkq.17.log | -a saturation    | 100  | -    | 0.1057s   
+bkq.17.log | -a saturation -r | 100  | -    | 0.1315s   
+bkq.17.log | -a smt           | 54*  | -    | 7.4511s*  
+bkq.17.log | -a smt -r        | 54*  | -    | 6.7553s*  
+bkq.17.log | -a smt -i        | 56*  | -    | 5.4713s*  
+bkq.17.log | -a smt -c        | 52*  | -    | 5.0041s*  
+bkq.17.log | -a smt -c -i     | 52*  | -    | 5.0288s*  
+bkq.17.log | -a lineup        | 52*  | -    | 5.0031s*  
+bkq.17.log | -a lineup -c     | 52*  | -    | 5.0068s*  
+-----------+------------------+------+------+-----------
+bkq.18.log | -a saturation    | 100  | -    | 0.0796s   
+bkq.18.log | -a saturation -r | 100  | -    | 0.0934s   
+bkq.18.log | -a smt           | 51*  | -    | 8.1218s*  
+bkq.18.log | -a smt -r        | 51*  | -    | 7.6132s*  
+bkq.18.log | -a smt -i        | 51*  | -    | 16.8182s* 
+bkq.18.log | -a smt -c        | 40*  | -    | 5.0032s*  
+bkq.18.log | -a smt -c -i     | 40*  | -    | 5.0045s*  
+bkq.18.log | -a lineup        | 40*  | -    | 5.0044s*  
+bkq.18.log | -a lineup -c     | 40*  | -    | 5.0039s*  
+-----------+------------------+------+------+-----------
+bkq.19.log | -a saturation    | 100  | -    | 0.1076s   
+bkq.19.log | -a saturation -r | 100  | -    | 0.1369s   
+bkq.19.log | -a smt           | 52*  | -    | 5.9409s*  
+bkq.19.log | -a smt -r        | 52*  | -    | 5.7694s*  
+bkq.19.log | -a smt -i        | 25*  | -    | 21.8921s* 
+bkq.19.log | -a smt -c        | 25*  | -    | 5.0044s*  
+bkq.19.log | -a smt -c -i     | 25*  | -    | 5.0067s*  
+bkq.19.log | -a lineup        | 25*  | -    | 5.2497s*  
+bkq.19.log | -a lineup -c     | 25*  | -    | 5.0055s*  
+-----------+------------------+------+------+-----------
+bkq.20.log | -a saturation    | 100  | -    | 0.0969s   
+bkq.20.log | -a saturation -r | 100  | -    | 0.1203s   
+bkq.20.log | -a smt           | 53*  | -    | 5.0011s*  
+bkq.20.log | -a smt -r        | 53*  | -    | 5.0999s*  
+bkq.20.log | -a smt -i        | 43*  | -    | 28.2778s* 
+bkq.20.log | -a smt -c        | ?    | -    | ?         
+bkq.20.log | -a smt -c -i     | ?    | -    | ?         
+bkq.20.log | -a lineup        | 38*  | -    | 5.0059s*  
+bkq.20.log | -a lineup -c     | 38*  | -    | 5.0071s*  
+-----------+------------------+------+------+-----------
+bkq.21.log | -a saturation    | 100  | -    | 0.1424s   
+bkq.21.log | -a saturation -r | 100  | -    | 0.1462s   
+bkq.21.log | -a smt           | 55*  | -    | 12.8667s* 
+bkq.21.log | -a smt -r        | 51*  | -    | 5.4411s*  
+bkq.21.log | -a smt -i        | 51*  | -    | 27.8049s* 
+bkq.21.log | -a smt -c        | 48*  | -    | 5.0038s*  
+bkq.21.log | -a smt -c -i     | 48*  | -    | 5.0049s*  
+bkq.21.log | -a lineup        | 48*  | -    | 5.0017s*  
+bkq.21.log | -a lineup -c     | 48*  | -    | 5.0071s*  
+-----------+------------------+------+------+-----------
+bkq.22.log | -a saturation    | 100  | -    | 0.0986s   
+bkq.22.log | -a saturation -r | 100  | -    | 0.1117s   
+bkq.22.log | -a smt           | 53*  | -    | 9.3862s*  
+bkq.22.log | -a smt -r        | 53*  | -    | 8.9566s*  
+bkq.22.log | -a smt -i        | 48*  | -    | 13.9412s* 
+bkq.22.log | -a smt -c        | 39*  | -    | 5.0075s*  
+bkq.22.log | -a smt -c -i     | 39*  | -    | 5.0022s*  
+bkq.22.log | -a lineup        | 39*  | -    | 5.001s*   
+bkq.22.log | -a lineup -c     | 39*  | -    | 5.006s*   
+-----------+------------------+------+------+-----------
+bkq.23.log | -a saturation    | 100  | -    | 0.092s    
+bkq.23.log | -a saturation -r | 100  | -    | 0.1016s   
+bkq.23.log | -a smt           | 53*  | -    | 5.9343s*  
+bkq.23.log | -a smt -r        | 52*  | -    | 5.9358s*  
+bkq.23.log | -a smt -i        | 53*  | -    | 25.6057s* 
+bkq.23.log | -a smt -c        | 51*  | -    | 5.0073s*  
+bkq.23.log | -a smt -c -i     | 51*  | -    | 5.007s*   
+bkq.23.log | -a lineup        | 51*  | -    | 5.0048s*  
+bkq.23.log | -a lineup -c     | 51*  | -    | 5.0426s*  
+-----------+------------------+------+------+-----------
+bkq.24.log | -a saturation    | 100  | -    | 0.1021s   
+bkq.24.log | -a saturation -r | 100  | -    | 0.1237s   
+bkq.24.log | -a smt           | 52*  | -    | 10.9856s* 
+bkq.24.log | -a smt -r        | 52*  | -    | 11.1536s* 
+bkq.24.log | -a smt -i        | 51*  | -    | 21.4864s* 
+bkq.24.log | -a smt -c        | 27*  | -    | 5.0451s*  
+bkq.24.log | -a smt -c -i     | 27*  | -    | 5.0071s*  
+bkq.24.log | -a lineup        | 27*  | -    | 5.0056s*  
+bkq.24.log | -a lineup -c     | 27*  | -    | 5.0454s*  
+-----------+------------------+------+------+-----------
+bkq.25.log | -a saturation    | 100  | -    | 0.0816s   
+bkq.25.log | -a saturation -r | 100  | -    | 0.0911s   
+bkq.25.log | -a smt           | 52*  | -    | 6.4534s*  
+bkq.25.log | -a smt -r        | 51*  | -    | 6.0398s*  
+bkq.25.log | -a smt -i        | 52*  | -    | 18.5162s* 
+bkq.25.log | -a smt -c        | 51*  | -    | 5.002s*   
+bkq.25.log | -a smt -c -i     | 51*  | -    | 5.0054s*  
+bkq.25.log | -a lineup        | 51*  | -    | 5.007s*   
+bkq.25.log | -a lineup -c     | 51*  | -    | 5.0005s*  
+-----------+------------------+------+------+-----------
+bkq.26.log | -a saturation    | 100  | -    | 0.1647s   
+bkq.26.log | -a saturation -r | 100  | -    | 0.1653s   
+bkq.26.log | -a smt           | 53*  | -    | 6.6235s*  
+bkq.26.log | -a smt -r        | 53*  | -    | 6.6263s*  
+bkq.26.log | -a smt -i        | 57*  | -    | 5.231s*   
+bkq.26.log | -a smt -c        | 52*  | -    | 5.005s*   
+bkq.26.log | -a smt -c -i     | 52*  | -    | 5.0052s*  
+bkq.26.log | -a lineup        | 16*  | -    | 5.0069s*  
+bkq.26.log | -a lineup -c     | 52*  | -    | 5.0313s*  
+-----------+------------------+------+------+-----------
+bkq.27.log | -a saturation    | 100  | -    | 0.1188s   
+bkq.27.log | -a saturation -r | 100  | -    | 0.139s    
+bkq.27.log | -a smt           | 52*  | -    | 8.5736s*  
+bkq.27.log | -a smt -r        | 52*  | -    | 8.6309s*  
+bkq.27.log | -a smt -i        | 45*  | -    | 22.6545s* 
+bkq.27.log | -a smt -c        | 30*  | -    | 5.0058s*  
+bkq.27.log | -a smt -c -i     | 30*  | -    | 5.0053s*  
+bkq.27.log | -a lineup        | 30*  | -    | 5.0052s*  
+bkq.27.log | -a lineup -c     | 30*  | -    | 5.0049s*  
+-----------+------------------+------+------+-----------
+bkq.28.log | -a saturation    | 100  | -    | 0.088s    
+bkq.28.log | -a saturation -r | 100  | -    | 0.1049s   
+bkq.28.log | -a smt           | 51*  | -    | 8.2463s*  
+bkq.28.log | -a smt -r        | 51*  | -    | 5.6292s*  
+bkq.28.log | -a smt -i        | 51*  | -    | 20.2852s* 
+bkq.28.log | -a smt -c        | 42*  | -    | 5.0004s*  
+bkq.28.log | -a smt -c -i     | 42*  | -    | 5.0012s*  
+bkq.28.log | -a lineup        | 42*  | -    | 5.002s*   
+bkq.28.log | -a lineup -c     | 42*  | -    | 5.0637s*  
+-----------+------------------+------+------+-----------
+bkq.29.log | -a saturation    | 100  | -    | 0.095s    
+bkq.29.log | -a saturation -r | 100  | -    | 0.1574s   
+bkq.29.log | -a smt           | 52*  | -    | 5.5336s*  
+bkq.29.log | -a smt -r        | 52*  | -    | 5.6199s*  
+bkq.29.log | -a smt -i        | 58*  | -    | 6.0649s*  
+bkq.29.log | -a smt -c        | 46*  | -    | 5.0054s*  
+bkq.29.log | -a smt -c -i     | 46*  | -    | 5.0054s*  
+bkq.29.log | -a lineup        | 46*  | -    | 5.0018s*  
+bkq.29.log | -a lineup -c     | 46*  | -    | 5.0008s*  
+-----------+------------------+------+------+-----------
+bkq.30.log | -a saturation    | 100  | -    | 0.0821s   
+bkq.30.log | -a saturation -r | 100  | -    | 0.099s    
+bkq.30.log | -a smt           | 52*  | -    | 7.6692s*  
+bkq.30.log | -a smt -r        | 52*  | -    | 7.6787s*  
+bkq.30.log | -a smt -i        | 53*  | -    | 13.379s*  
+bkq.30.log | -a smt -c        | 49*  | -    | 5.0353s*  
+bkq.30.log | -a smt -c -i     | 49*  | -    | 5.0506s*  
+bkq.30.log | -a lineup        | 49*  | -    | 5.0056s*  
+bkq.30.log | -a lineup -c     | 49*  | -    | 5.0432s*  
+-----------+------------------+------+------+-----------
+bkq.31.log | -a saturation    | 100  | -    | 0.107s    
+bkq.31.log | -a saturation -r | 100  | -    | 0.1131s   
+bkq.31.log | -a smt           | 53*  | -    | 6.9176s*  
+bkq.31.log | -a smt -r        | 54*  | -    | 6.9402s*  
+bkq.31.log | -a smt -i        | 57*  | -    | 5.9814s*  
+bkq.31.log | -a smt -c        | 52*  | -    | 5.026s*   
+bkq.31.log | -a smt -c -i     | 52*  | -    | 5.1326s*  
+bkq.31.log | -a lineup        | 11*  | -    | 5.003s*   
+bkq.31.log | -a lineup -c     | 52*  | -    | 5.0075s*  
+-----------+------------------+------+------+-----------
+bkq.32.log | -a saturation    | 100  | -    | 0.0805s   
+bkq.32.log | -a saturation -r | 100  | -    | 0.0905s   
+bkq.32.log | -a smt           | 53*  | -    | 9.2017s*  
+bkq.32.log | -a smt -r        | 53*  | -    | 9.5652s*  
+bkq.32.log | -a smt -i        | 53*  | -    | 17.2127s* 
+bkq.32.log | -a smt -c        | 51*  | -    | 5.0067s*  
+bkq.32.log | -a smt -c -i     | 51*  | -    | 5.0072s*  
+bkq.32.log | -a lineup        | 51*  | -    | 5.0056s*  
+bkq.32.log | -a lineup -c     | 51*  | -    | 5.0051s*  
+-----------+------------------+------+------+-----------
+bkq.33.log | -a saturation    | 100  | -    | 0.103s    
+bkq.33.log | -a saturation -r | 100  | -    | 0.1384s   
+bkq.33.log | -a smt           | 54*  | -    | 8.275s*   
+bkq.33.log | -a smt -r        | 54*  | -    | 8.4334s*  
+bkq.33.log | -a smt -i        | 57*  | -    | 5.1436s*  
+bkq.33.log | -a smt -c        | 44*  | -    | 5.0076s*  
+bkq.33.log | -a smt -c -i     | 44*  | -    | 5.0062s*  
+bkq.33.log | -a lineup        | 44*  | -    | 5.008s*   
+bkq.33.log | -a lineup -c     | 44*  | -    | 5.0041s*  
+-----------+------------------+------+------+-----------
+bkq.34.log | -a saturation    | 100  | -    | 0.1313s   
+bkq.34.log | -a saturation -r | 100  | -    | 0.1411s   
+bkq.34.log | -a smt           | 48*  | -    | 7.1787s*  
+bkq.34.log | -a smt -r        | 48*  | -    | 7.1998s*  
+bkq.34.log | -a smt -i        | 48*  | -    | 15.6697s* 
+bkq.34.log | -a smt -c        | 32*  | -    | 5.0059s*  
+bkq.34.log | -a smt -c -i     | 32*  | -    | 5.0056s*  
+bkq.34.log | -a lineup        | 32*  | -    | 5.0497s*  
+bkq.34.log | -a lineup -c     | 32*  | -    | 5.0075s*  
+-----------+------------------+------+------+-----------
+bkq.35.log | -a saturation    | 100  | -    | 0.136s    
+bkq.35.log | -a saturation -r | 100  | -    | 0.1497s   
+bkq.35.log | -a smt           | 53*  | -    | 12.741s*  
+bkq.35.log | -a smt -r        | 53*  | -    | 8.6728s*  
+bkq.35.log | -a smt -i        | 54*  | -    | 15.8071s* 
+bkq.35.log | -a smt -c        | 51*  | -    | 5.0031s*  
+bkq.35.log | -a smt -c -i     | 51*  | -    | 5.0035s*  
+bkq.35.log | -a lineup        | 51*  | -    | 5.0005s*  
+bkq.35.log | -a lineup -c     | 51*  | -    | 5.0007s*  
+-----------+------------------+------+------+-----------
+bkq.36.log | -a saturation    | 100  | -    | 0.1257s   
+bkq.36.log | -a saturation -r | 100  | -    | 0.1404s   
+bkq.36.log | -a smt           | 54*  | -    | 6.3589s*  
+bkq.36.log | -a smt -r        | 54*  | -    | 6.3887s*  
+bkq.36.log | -a smt -i        | 57*  | -    | 5.1947s*  
+bkq.36.log | -a smt -c        | 52*  | -    | 5.0252s*  
+bkq.36.log | -a smt -c -i     | 52*  | -    | 5.0034s*  
+bkq.36.log | -a lineup        | 52*  | -    | 5.003s*   
+bkq.36.log | -a lineup -c     | 52*  | -    | 5.0568s*  
+-----------+------------------+------+------+-----------
+bkq.37.log | -a saturation    | 100  | -    | 0.1078s   
+bkq.37.log | -a saturation -r | 100  | -    | 0.1224s   
+bkq.37.log | -a smt           | 53*  | -    | 6.3273s*  
+bkq.37.log | -a smt -r        | 52*  | -    | 6.2984s*  
+bkq.37.log | -a smt -i        | 54*  | -    | 21.8972s* 
+bkq.37.log | -a smt -c        | 51*  | -    | 5.007s*   
+bkq.37.log | -a smt -c -i     | 51*  | -    | 5.0038s*  
+bkq.37.log | -a lineup        | 51*  | -    | 5.0036s*  
+bkq.37.log | -a lineup -c     | 51*  | -    | 5.0045s*  
+-----------+------------------+------+------+-----------
+bkq.38.log | -a saturation    | 100  | 100  | 0.1236s   
+bkq.38.log | -a saturation -r | 100  | 100  | 0.161s    
+bkq.38.log | -a smt           | 51*  | -    | 5.21s*    
+bkq.38.log | -a smt -r        | 51*  | -    | 5.1446s*  
+bkq.38.log | -a smt -i        | 26*  | -    | 25.3253s* 
+bkq.38.log | -a smt -c        | 26*  | -    | 5.0052s*  
+bkq.38.log | -a smt -c -i     | 26*  | -    | 5.0055s*  
+bkq.38.log | -a lineup        | 26*  | -    | 5.0009s*  
+bkq.38.log | -a lineup -c     | 26*  | -    | 5.0071s*  
+-----------+------------------+------+------+-----------
+bkq.39.log | -a saturation    | 100  | -    | 0.1045s   
+bkq.39.log | -a saturation -r | 100  | -    | 0.1145s   
+bkq.39.log | -a smt           | 54*  | -    | 6.6006s*  
+bkq.39.log | -a smt -r        | 53*  | -    | 6.646s*   
+bkq.39.log | -a smt -i        | 57*  | -    | 6.4945s*  
+bkq.39.log | -a smt -c        | 52*  | -    | 5.0018s*  
+bkq.39.log | -a smt -c -i     | 52*  | -    | 5.0069s*  
+bkq.39.log | -a lineup        | 11*  | -    | 5.0068s*  
+bkq.39.log | -a lineup -c     | 52*  | -    | 5.005s*   
+-----------+------------------+------+------+-----------
+bkq.40.log | -a saturation    | 100  | -    | 0.1601s   
+bkq.40.log | -a saturation -r | 100  | -    | 0.1602s   
+bkq.40.log | -a smt           | 52*  | -    | 7.4822s*  
+bkq.40.log | -a smt -r        | 52*  | -    | 7.6278s*  
+bkq.40.log | -a smt -i        | 58*  | -    | 5.8457s*  
+bkq.40.log | -a smt -c        | 18*  | -    | 5.1388s*  
+bkq.40.log | -a smt -c -i     | 18*  | -    | 5.0578s*  
+bkq.40.log | -a lineup        | 18*  | -    | 5.1594s*  
+bkq.40.log | -a lineup -c     | 18*  | -    | 5.1379s*  
+-----------+------------------+------+------+-----------
+bkq.41.log | -a saturation    | 100  | -    | 0.1118s   
+bkq.41.log | -a saturation -r | 100  | -    | 0.118s    
+bkq.41.log | -a smt           | 54*  | -    | 7.542s*   
+bkq.41.log | -a smt -r        | 54*  | -    | 7.547s*   
+bkq.41.log | -a smt -i        | 57*  | -    | 5.121s*   
+bkq.41.log | -a smt -c        | 45*  | -    | 5.0041s*  
+bkq.41.log | -a smt -c -i     | 45*  | -    | 5.003s*   
+bkq.41.log | -a lineup        | 45*  | -    | 5.0608s*  
+bkq.41.log | -a lineup -c     | 45*  | -    | 5.0034s*  
+-----------+------------------+------+------+-----------
+bkq.42.log | -a saturation    | 100  | -    | 0.1231s   
+bkq.42.log | -a saturation -r | 100  | -    | 0.1417s   
+bkq.42.log | -a smt           | 52*  | -    | 10.4386s* 
+bkq.42.log | -a smt -r        | 52*  | -    | 10.5849s* 
+bkq.42.log | -a smt -i        | 42*  | -    | 8.5725s*  
+bkq.42.log | -a smt -c        | 42*  | -    | 5.0039s*  
+bkq.42.log | -a smt -c -i     | 42*  | -    | 5.0071s*  
+bkq.42.log | -a lineup        | 42*  | -    | 5.1903s*  
+bkq.42.log | -a lineup -c     | 42*  | -    | 5.0051s*  
+-----------+------------------+------+------+-----------
+bkq.43.log | -a saturation    | 100  | -    | 0.1149s   
+bkq.43.log | -a saturation -r | 100  | -    | 0.1533s   
+bkq.43.log | -a smt           | 53*  | -    | 11.9568s* 
+bkq.43.log | -a smt -r        | 54*  | -    | 11.8926s* 
+bkq.43.log | -a smt -i        | 53*  | -    | 26.0224s* 
+bkq.43.log | -a smt -c        | 30*  | -    | 5.0017s*  
+bkq.43.log | -a smt -c -i     | 30*  | -    | 5.007s*   
+bkq.43.log | -a lineup        | 30*  | -    | 5.0029s*  
+bkq.43.log | -a lineup -c     | 30*  | -    | 5.0036s*  
+-----------+------------------+------+------+-----------
+bkq.44.log | -a saturation    | 100  | -    | 0.0931s   
+bkq.44.log | -a saturation -r | 100  | -    | 0.1193s   
+bkq.44.log | -a smt           | 53*  | -    | 6.4313s*  
+bkq.44.log | -a smt -r        | 53*  | -    | 6.358s*   
+bkq.44.log | -a smt -i        | 55*  | -    | 5.0359s*  
+bkq.44.log | -a smt -c        | 21*  | -    | 5.0046s*  
+bkq.44.log | -a smt -c -i     | 21*  | -    | 5.0078s*  
+bkq.44.log | -a lineup        | 21*  | -    | 5.0102s*  
+bkq.44.log | -a lineup -c     | 21*  | -    | 5.0096s*  
+-----------+------------------+------+------+-----------
+bkq.45.log | -a saturation    | 100  | -    | 0.0942s   
+bkq.45.log | -a saturation -r | 100  | -    | 0.1098s   
+bkq.45.log | -a smt           | ?    | -    | ?         
+bkq.45.log | -a smt -r        | 50*  | -    | 7.2647s*  
+bkq.45.log | -a smt -i        | 46*  | -    | 10.7331s* 
+bkq.45.log | -a smt -c        | 33*  | -    | 5.0031s*  
+bkq.45.log | -a smt -c -i     | 33*  | -    | 5.0063s*  
+bkq.45.log | -a lineup        | 33*  | -    | 5.0042s*  
+bkq.45.log | -a lineup -c     | 33*  | -    | 5.0013s*  
+-----------+------------------+------+------+-----------
+bkq.46.log | -a saturation    | 100  | -    | 0.0771s   
+bkq.46.log | -a saturation -r | 100  | -    | 0.0907s   
+bkq.46.log | -a smt           | 52*  | -    | 10.0622s* 
+bkq.46.log | -a smt -r        | 53*  | -    | 9.8939s*  
+bkq.46.log | -a smt -i        | 51*  | -    | 37.2441s* 
+bkq.46.log | -a smt -c        | 51*  | -    | 5.1157s*  
+bkq.46.log | -a smt -c -i     | 51*  | -    | 5.002s*   
+bkq.46.log | -a lineup        | 51*  | -    | 5.0057s*  
+bkq.46.log | -a lineup -c     | 51*  | -    | 5.0037s*  
+-----------+------------------+------+------+-----------
+bkq.47.log | -a saturation    | 100  | -    | 0.1264s   
+bkq.47.log | -a saturation -r | 100  | -    | 0.1475s   
+bkq.47.log | -a smt           | 54*  | -    | 10.4429s* 
+bkq.47.log | -a smt -r        | 54*  | -    | 10.3062s* 
+bkq.47.log | -a smt -i        | 57*  | -    | 5.9917s*  
+bkq.47.log | -a smt -c        | 21*  | -    | 5.0028s*  
+bkq.47.log | -a smt -c -i     | 21*  | -    | 5.0031s*  
+bkq.47.log | -a lineup        | 21*  | -    | 5.0029s*  
+bkq.47.log | -a lineup -c     | 21*  | -    | 5.0056s*  
+-----------+------------------+------+------+-----------
+bkq.48.log | -a saturation    | 100  | -    | 0.1077s   
+bkq.48.log | -a saturation -r | 100  | -    | 0.131s    
+bkq.48.log | -a smt           | 52*  | -    | 5.02s*    
+bkq.48.log | -a smt -r        | 53*  | -    | 7.4702s*  
+bkq.48.log | -a smt -i        | 53*  | -    | 26.451s*  
+bkq.48.log | -a smt -c        | 51*  | -    | 5.0027s*  
+bkq.48.log | -a smt -c -i     | 51*  | -    | 5.0067s*  
+bkq.48.log | -a lineup        | 51*  | -    | 5.0014s*  
+bkq.48.log | -a lineup -c     | 51*  | -    | 5.01s*    
+-----------+------------------+------+------+-----------
+bkq.49.log | -a saturation    | 100  | -    | 0.1171s   
+bkq.49.log | -a saturation -r | 100  | -    | 0.1343s   
+bkq.49.log | -a smt           | 54*  | -    | 10.6988s* 
+bkq.49.log | -a smt -r        | 54*  | -    | 10.7283s* 
+bkq.49.log | -a smt -i        | 59*  | -    | 5.9946s*  
+bkq.49.log | -a smt -c        | 22*  | -    | 5.0043s*  
+bkq.49.log | -a smt -c -i     | 22*  | -    | 5.0071s*  
+bkq.49.log | -a lineup        | 22*  | -    | 5.0089s*  
+bkq.49.log | -a lineup -c     | 22*  | -    | 5.004s*   
+-----------+------------------+------+------+-----------
+bkq.50.log | -a saturation    | 100  | -    | 0.1661s   
+bkq.50.log | -a saturation -r | 100  | -    | 0.175s    
+bkq.50.log | -a smt           | 54*  | -    | 10.8718s* 
+bkq.50.log | -a smt -r        | 54*  | -    | 10.854s*  
+bkq.50.log | -a smt -i        | 56*  | -    | 5.746s*   
+bkq.50.log | -a smt -c        | 20*  | -    | 5.0082s*  
+bkq.50.log | -a smt -c -i     | 20*  | -    | 5.2463s*  
+bkq.50.log | -a lineup        | 13*  | -    | 5.0042s*  
+bkq.50.log | -a lineup -c     | 20*  | -    | 5.1889s*  
+-----------+------------------+------+------+-----------
+bkq.51.log | -a saturation    | 100  | -    | 0.0836s   
+bkq.51.log | -a saturation -r | 100  | -    | 0.0912s   
+bkq.51.log | -a smt           | 52*  | -    | 6.7727s*  
+bkq.51.log | -a smt -r        | 52*  | -    | 6.8207s*  
+bkq.51.log | -a smt -i        | 52*  | -    | 22.993s*  
+bkq.51.log | -a smt -c        | 51*  | -    | 5.0063s*  
+bkq.51.log | -a smt -c -i     | 51*  | -    | 5.0006s*  
+bkq.51.log | -a lineup        | 51*  | -    | 5.0071s*  
+bkq.51.log | -a lineup -c     | 51*  | -    | 5.004s*   
+-----------+------------------+------+------+-----------
+bkq.52.log | -a saturation    | 100  | -    | 0.1097s   
+bkq.52.log | -a saturation -r | 100  | -    | 0.1281s   
+bkq.52.log | -a smt           | 50*  | -    | 6.311s*   
+bkq.52.log | -a smt -r        | ?    | -    | ?         
+bkq.52.log | -a smt -i        | 50*  | -    | 18.8549s* 
+bkq.52.log | -a smt -c        | 33*  | -    | 5.0031s*  
+bkq.52.log | -a smt -c -i     | 33*  | -    | 5.0025s*  
+bkq.52.log | -a lineup        | 33*  | -    | 5.007s*   
+bkq.52.log | -a lineup -c     | 33*  | -    | 5.0043s*  
+-----------+------------------+------+------+-----------
+bkq.53.log | -a saturation    | 100  | -    | 0.1275s   
+bkq.53.log | -a saturation -r | 100  | -    | 0.1359s   
+bkq.53.log | -a smt           | 51*  | -    | 6.4473s*  
+bkq.53.log | -a smt -r        | 51*  | -    | 6.5505s*  
+bkq.53.log | -a smt -i        | 53*  | -    | 13.9008s* 
+bkq.53.log | -a smt -c        | 45*  | -    | 5.0043s*  
+bkq.53.log | -a smt -c -i     | 45*  | -    | 5.0031s*  
+bkq.53.log | -a lineup        | 45*  | -    | 5.0669s*  
+bkq.53.log | -a lineup -c     | 45*  | -    | 5.003s*   
+-----------+------------------+------+------+-----------
+bkq.54.log | -a saturation    | 100  | -    | 0.1321s   
+bkq.54.log | -a saturation -r | 100  | -    | 0.1382s   
+bkq.54.log | -a smt           | 53*  | -    | 5.0886s*  
+bkq.54.log | -a smt -r        | 51*  | -    | 5.0282s*  
+bkq.54.log | -a smt -i        | 55*  | -    | 6.0784s*  
+bkq.54.log | -a smt -c        | 51*  | -    | 5.0055s*  
+bkq.54.log | -a smt -c -i     | 51*  | -    | 5.0052s*  
+bkq.54.log | -a lineup        | 14*  | -    | 5.0054s*  
+bkq.54.log | -a lineup -c     | 51*  | -    | 5.0025s*  
+-----------+------------------+------+------+-----------
+bkq.55.log | -a saturation    | 100  | -    | 0.1452s   
+bkq.55.log | -a saturation -r | 100  | -    | 0.1629s   
+bkq.55.log | -a smt           | 53*  | -    | 5.2203s*  
+bkq.55.log | -a smt -r        | 53*  | -    | 5.0819s*  
+bkq.55.log | -a smt -i        | 57*  | -    | 5.9477s*  
+bkq.55.log | -a smt -c        | 52*  | -    | 5.0055s*  
+bkq.55.log | -a smt -c -i     | 52*  | -    | 5.0049s*  
+bkq.55.log | -a lineup        | 52*  | -    | 5.0016s*  
+bkq.55.log | -a lineup -c     | 52*  | -    | 5.0362s*  
+-----------+------------------+------+------+-----------
+bkq.56.log | -a saturation    | 100  | -    | 0.122s    
+bkq.56.log | -a saturation -r | 100  | -    | 0.1243s   
+bkq.56.log | -a smt           | 52*  | -    | 7.1507s*  
+bkq.56.log | -a smt -r        | 52*  | -    | 7.1966s*  
+bkq.56.log | -a smt -i        | 53*  | -    | 25.2196s* 
+bkq.56.log | -a smt -c        | 51*  | -    | 5.0043s*  
+bkq.56.log | -a smt -c -i     | 51*  | -    | 5.0395s*  
+bkq.56.log | -a lineup        | 51*  | -    | 5.007s*   
+bkq.56.log | -a lineup -c     | 51*  | -    | 5.0034s*  
+-----------+------------------+------+------+-----------
+bkq.57.log | -a saturation    | 100  | -    | 0.0987s   
+bkq.57.log | -a saturation -r | 100  | -    | 0.1163s   
+bkq.57.log | -a smt           | 51*  | -    | 5.556s*   
+bkq.57.log | -a smt -r        | 52*  | -    | 5.7431s*  
+bkq.57.log | -a smt -i        | 56*  | -    | 5.2959s*  
+bkq.57.log | -a smt -c        | 21*  | -    | 5.0079s*  
+bkq.57.log | -a smt -c -i     | 21*  | -    | 5.0024s*  
+bkq.57.log | -a lineup        | 21*  | -    | 5.0039s*  
+bkq.57.log | -a lineup -c     | 21*  | -    | 5.0051s*  
+-----------+------------------+------+------+-----------
+bkq.58.log | -a saturation    | 100  | -    | 0.0887s   
+bkq.58.log | -a saturation -r | 100  | -    | 0.1054s   
+bkq.58.log | -a smt           | 51*  | -    | 8.1322s*  
+bkq.58.log | -a smt -r        | 51*  | -    | 8.0693s*  
+bkq.58.log | -a smt -i        | 53*  | -    | 14.9835s* 
+bkq.58.log | -a smt -c        | 44*  | -    | 5.0036s*  
+bkq.58.log | -a smt -c -i     | 44*  | -    | 5.0029s*  
+bkq.58.log | -a lineup        | 44*  | -    | 5.1008s*  
+bkq.58.log | -a lineup -c     | 44*  | -    | 5.005s*   
+-----------+------------------+------+------+-----------
+bkq.59.log | -a saturation    | 100  | -    | 0.1016s   
+bkq.59.log | -a saturation -r | 100  | -    | 0.1186s   
+bkq.59.log | -a smt           | 51*  | -    | 6.0992s*  
+bkq.59.log | -a smt -r        | 45*  | -    | 6.1619s*  
+bkq.59.log | -a smt -i        | 45*  | -    | 15.1156s* 
+bkq.59.log | -a smt -c        | 41*  | -    | 5.0125s*  
+bkq.59.log | -a smt -c -i     | 41*  | -    | 5.0111s*  
+bkq.59.log | -a lineup        | 41*  | -    | 5.0078s*  
+bkq.59.log | -a lineup -c     | 41*  | -    | 5.0074s*  
+-----------+------------------+------+------+-----------
+bkq.60.log | -a saturation    | 100  | -    | 0.1192s   
+bkq.60.log | -a saturation -r | 100  | -    | 0.1216s   
+bkq.60.log | -a smt           | 54*  | -    | 5.0496s*  
+bkq.60.log | -a smt -r        | 54*  | -    | 5.0974s*  
+bkq.60.log | -a smt -i        | 56*  | -    | 5.2634s*  
+bkq.60.log | -a smt -c        | 23*  | -    | 5.0086s*  
+bkq.60.log | -a smt -c -i     | 23*  | -    | 5.0058s*  
+bkq.60.log | -a lineup        | 14*  | -    | 5.0043s*  
+bkq.60.log | -a lineup -c     | 23*  | -    | 5.01s*    
+-----------+------------------+------+------+-----------
+bkq.61.log | -a saturation    | 100  | -    | 0.1035s   
+bkq.61.log | -a saturation -r | 100  | -    | 0.128s    
+bkq.61.log | -a smt           | 53*  | -    | 11.1156s* 
+bkq.61.log | -a smt -r        | 53*  | -    | 11.1085s* 
+bkq.61.log | -a smt -i        | 56*  | -    | 5.6252s*  
+bkq.61.log | -a smt -c        | 52*  | -    | 5.0431s*  
+bkq.61.log | -a smt -c -i     | 52*  | -    | 5.005s*   
+bkq.61.log | -a lineup        | 52*  | -    | 5.0109s*  
+bkq.61.log | -a lineup -c     | 52*  | -    | 5.0038s*  
+-----------+------------------+------+------+-----------
+bkq.62.log | -a saturation    | 100  | -    | 0.0953s   
+bkq.62.log | -a saturation -r | 100  | -    | 0.1192s   
+bkq.62.log | -a smt           | 54*  | -    | 6.6008s*  
+bkq.62.log | -a smt -r        | 54*  | -    | 6.6753s*  
+bkq.62.log | -a smt -i        | 48*  | -    | 14.0291s* 
+bkq.62.log | -a smt -c        | 34*  | -    | 5.0037s*  
+bkq.62.log | -a smt -c -i     | 34*  | -    | 5.0053s*  
+bkq.62.log | -a lineup        | 34*  | -    | 5.0028s*  
+bkq.62.log | -a lineup -c     | 34*  | -    | 5.0023s*  
+-----------+------------------+------+------+-----------
+bkq.63.log | -a saturation    | 100  | -    | 0.1112s   
+bkq.63.log | -a saturation -r | 100  | -    | 0.122s    
+bkq.63.log | -a smt           | 53*  | -    | 5.1535s*  
+bkq.63.log | -a smt -r        | 53*  | -    | 5.03s*    
+bkq.63.log | -a smt -i        | 53*  | -    | 5.5345s*  
+bkq.63.log | -a smt -c        | 38*  | -    | 5.0068s*  
+bkq.63.log | -a smt -c -i     | 38*  | -    | 5.0087s*  
+bkq.63.log | -a lineup        | 14*  | -    | 5.0543s*  
+bkq.63.log | -a lineup -c     | 38*  | -    | 5.0023s*  
+-----------+------------------+------+------+-----------
+bkq.64.log | -a saturation    | 100  | -    | 0.1092s   
+bkq.64.log | -a saturation -r | 100  | -    | 0.1281s   
+bkq.64.log | -a smt           | 53*  | -    | 6.2061s*  
+bkq.64.log | -a smt -r        | 52*  | -    | 6.1163s*  
+bkq.64.log | -a smt -i        | 37*  | -    | 27.1237s* 
+bkq.64.log | -a smt -c        | 37*  | -    | 5.0443s*  
+bkq.64.log | -a smt -c -i     | 37*  | -    | 5.0076s*  
+bkq.64.log | -a lineup        | 37*  | -    | 5.0082s*  
+bkq.64.log | -a lineup -c     | 37*  | -    | 5.0101s*  
+-----------+------------------+------+------+-----------
+bkq.65.log | -a saturation    | 100  | -    | 0.0878s   
+bkq.65.log | -a saturation -r | 100  | -    | 0.1075s   
+bkq.65.log | -a smt           | 51*  | -    | 5.7108s*  
+bkq.65.log | -a smt -r        | 52*  | -    | 7.6652s*  
+bkq.65.log | -a smt -i        | 53*  | -    | 18.6146s* 
+bkq.65.log | -a smt -c        | 51*  | -    | 5.0448s*  
+bkq.65.log | -a smt -c -i     | 51*  | -    | 5.013s*   
+bkq.65.log | -a lineup        | 51*  | -    | 5.0093s*  
+bkq.65.log | -a lineup -c     | 51*  | -    | 5.0028s*  
+-----------+------------------+------+------+-----------
+bkq.66.log | -a saturation    | 39   | 39   | 0.0121s   
+bkq.66.log | -a saturation -r | 39   | 39   | 0.0128s   
+bkq.66.log | -a smt           | 39   | 39   | 1.6005s   
+bkq.66.log | -a smt -r        | 39   | 39   | 1.5699s   
+bkq.66.log | -a smt -i        | 39   | 39   | 0.6127s   
+bkq.66.log | -a smt -c        | 32*  | -    | 5.0179s*  
+bkq.66.log | -a smt -c -i     | 32*  | -    | 5.0522s*  
+bkq.66.log | -a lineup        | 32*  | -    | 5.0079s*  
+bkq.66.log | -a lineup -c     | 32*  | -    | 5.0076s*  
+-----------+------------------+------+------+-----------
+bkq.67.log | -a saturation    | 100  | -    | 0.0775s   
+bkq.67.log | -a saturation -r | 100  | -    | 0.089s    
+bkq.67.log | -a smt           | 52*  | -    | 12.3064s* 
+bkq.67.log | -a smt -r        | 52*  | -    | 12.2457s* 
+bkq.67.log | -a smt -i        | 52*  | -    | 35.1789s* 
+bkq.67.log | -a smt -c        | 51*  | -    | 5.0122s*  
+bkq.67.log | -a smt -c -i     | 51*  | -    | 5.0045s*  
+bkq.67.log | -a lineup        | 51*  | -    | 5.0079s*  
+bkq.67.log | -a lineup -c     | 51*  | -    | 5.0054s*  
+-----------+------------------+------+------+-----------
+bkq.68.log | -a saturation    | 100  | -    | 0.0852s   
+bkq.68.log | -a saturation -r | 100  | -    | 0.0911s   
+bkq.68.log | -a smt           | 52*  | -    | 7.9668s*  
+bkq.68.log | -a smt -r        | 52*  | -    | 8.1409s*  
+bkq.68.log | -a smt -i        | 51*  | -    | 16.4234s* 
+bkq.68.log | -a smt -c        | 51*  | -    | 5.0118s*  
+bkq.68.log | -a smt -c -i     | 51*  | -    | 5.0109s*  
+bkq.68.log | -a lineup        | 51*  | -    | 5.0065s*  
+bkq.68.log | -a lineup -c     | 51*  | -    | 5.0035s*  
+-----------+------------------+------+------+-----------
+bkq.69.log | -a saturation    | 100  | -    | 0.1178s   
+bkq.69.log | -a saturation -r | 100  | -    | 0.1386s   
+bkq.69.log | -a smt           | 54*  | -    | 5.5235s*  
+bkq.69.log | -a smt -r        | 54*  | -    | 5.5085s*  
+bkq.69.log | -a smt -i        | 58*  | -    | 5.7831s*  
+bkq.69.log | -a smt -c        | 52*  | -    | 5.0053s*  
+bkq.69.log | -a smt -c -i     | 52*  | -    | 5.0121s*  
+bkq.69.log | -a lineup        | 10*  | -    | 5.0098s*  
+bkq.69.log | -a lineup -c     | 52*  | -    | 5.0118s*  
+-----------+------------------+------+------+-----------
+bkq.70.log | -a saturation    | 100  | -    | 0.0699s   
+bkq.70.log | -a saturation -r | 100  | -    | 0.0992s   
+bkq.70.log | -a smt           | 52*  | -    | 6.2399s*  
+bkq.70.log | -a smt -r        | 52*  | -    | 6.2715s*  
+bkq.70.log | -a smt -i        | 53*  | -    | 17.3111s* 
+bkq.70.log | -a smt -c        | 51*  | -    | 5.0119s*  
+bkq.70.log | -a smt -c -i     | 51*  | -    | 5.0064s*  
+bkq.70.log | -a lineup        | 51*  | -    | 5.0042s*  
+bkq.70.log | -a lineup -c     | 51*  | -    | 5.0084s*  
+-----------+------------------+------+------+-----------
+bkq.71.log | -a saturation    | 100  | -    | 0.0881s   
+bkq.71.log | -a saturation -r | 100  | -    | 0.0995s   
+bkq.71.log | -a smt           | 53*  | -    | 8.5458s*  
+bkq.71.log | -a smt -r        | 53*  | -    | 8.4648s*  
+bkq.71.log | -a smt -i        | 58*  | -    | 5.9907s*  
+bkq.71.log | -a smt -c        | 52*  | -    | 5.0061s*  
+bkq.71.log | -a smt -c -i     | 52*  | -    | 5.012s*   
+bkq.71.log | -a lineup        | 13*  | -    | 5.0122s*  
+bkq.71.log | -a lineup -c     | 52*  | -    | 5.0065s*  
+-----------+------------------+------+------+-----------
+bkq.72.log | -a saturation    | 40   | 40   | 0.0125s   
+bkq.72.log | -a saturation -r | 40   | 40   | 0.0131s   
+bkq.72.log | -a smt           | 40   | 40   | 2.8822s   
+bkq.72.log | -a smt -r        | 40   | 40   | 2.8476s   
+bkq.72.log | -a smt -i        | 40   | 40   | 1.4112s   
+bkq.72.log | -a smt -c        | 36*  | -    | 5.0081s*  
+bkq.72.log | -a smt -c -i     | 36*  | -    | 5.0123s*  
+bkq.72.log | -a lineup        | 36*  | -    | 5.0046s*  
+bkq.72.log | -a lineup -c     | 36*  | -    | 5.0095s*  
+-----------+------------------+------+------+-----------
+bkq.73.log | -a saturation    | 100  | -    | 0.1031s   
+bkq.73.log | -a saturation -r | 100  | -    | 0.1475s   
+bkq.73.log | -a smt           | 54*  | -    | 7.4194s*  
+bkq.73.log | -a smt -r        | 54*  | -    | 7.4815s*  
+bkq.73.log | -a smt -i        | 56*  | -    | 6.1298s*  
+bkq.73.log | -a smt -c        | 29*  | -    | 5.01s*    
+bkq.73.log | -a smt -c -i     | 29*  | -    | 5.0104s*  
+bkq.73.log | -a lineup        | 11*  | -    | 5.0051s*  
+bkq.73.log | -a lineup -c     | 29*  | -    | 5.0075s*  
+-----------+------------------+------+------+-----------
+bkq.74.log | -a saturation    | 100  | -    | 0.1066s   
+bkq.74.log | -a saturation -r | 100  | -    | 0.1098s   
+bkq.74.log | -a smt           | 54*  | -    | 5.8271s*  
+bkq.74.log | -a smt -r        | 54*  | -    | 5.8225s*  
+bkq.74.log | -a smt -i        | 58*  | -    | 5.2205s*  
+bkq.74.log | -a smt -c        | 52*  | -    | 5.0075s*  
+bkq.74.log | -a smt -c -i     | 52*  | -    | 5.0123s*  
+bkq.74.log | -a lineup        | 52*  | -    | 5.0082s*  
+bkq.74.log | -a lineup -c     | 52*  | -    | 5.0072s*  
+-----------+------------------+------+------+-----------
+bkq.75.log | -a saturation    | 100  | -    | 0.1412s   
+bkq.75.log | -a saturation -r | 100  | -    | 0.1591s   
+bkq.75.log | -a smt           | 53*  | -    | 6.8469s*  
+bkq.75.log | -a smt -r        | 53*  | -    | 6.904s*   
+bkq.75.log | -a smt -i        | 59*  | -    | 6.9391s*  
+bkq.75.log | -a smt -c        | 26*  | -    | 5.0009s*  
+bkq.75.log | -a smt -c -i     | 26*  | -    | 5.007s*   
+bkq.75.log | -a lineup        | 12*  | -    | 5.009s*   
+bkq.75.log | -a lineup -c     | 26*  | -    | 5.0104s*  
+-----------+------------------+------+------+-----------
+bkq.76.log | -a saturation    | 100  | -    | 0.092s    
+bkq.76.log | -a saturation -r | 100  | -    | 0.0932s   
+bkq.76.log | -a smt           | 53*  | -    | 6.3753s*  
+bkq.76.log | -a smt -r        | 53*  | -    | 10.5212s* 
+bkq.76.log | -a smt -i        | 51*  | -    | 26.6544s* 
+bkq.76.log | -a smt -c        | 51*  | -    | 5.0032s*  
+bkq.76.log | -a smt -c -i     | 51*  | -    | 5.0104s*  
+bkq.76.log | -a lineup        | 51*  | -    | 5.0032s*  
+bkq.76.log | -a lineup -c     | 51*  | -    | 5.009s*   
+-----------+------------------+------+------+-----------
+bkq.77.log | -a saturation    | 100  | -    | 0.0755s   
+bkq.77.log | -a saturation -r | 100  | -    | 0.0916s   
+bkq.77.log | -a smt           | 52*  | -    | 5.0169s*  
+bkq.77.log | -a smt -r        | 52*  | -    | 5.0229s*  
+bkq.77.log | -a smt -i        | 54*  | -    | 20.6129s* 
+bkq.77.log | -a smt -c        | 51*  | -    | 5.0074s*  
+bkq.77.log | -a smt -c -i     | 51*  | -    | 5.0104s*  
+bkq.77.log | -a lineup        | 51*  | -    | 5.0105s*  
+bkq.77.log | -a lineup -c     | 51*  | -    | 5.012s*   
+-----------+------------------+------+------+-----------
+bkq.78.log | -a saturation    | 100  | -    | 0.0885s   
+bkq.78.log | -a saturation -r | 100  | -    | 0.0979s   
+bkq.78.log | -a smt           | 54*  | -    | 7.8237s*  
+bkq.78.log | -a smt -r        | 54*  | -    | 7.971s*   
+bkq.78.log | -a smt -i        | 57*  | -    | 5.0887s*  
+bkq.78.log | -a smt -c        | 19*  | -    | 5.0068s*  
+bkq.78.log | -a smt -c -i     | 19*  | -    | 5.0088s*  
+bkq.78.log | -a lineup        | 19*  | -    | 5.0082s*  
+bkq.78.log | -a lineup -c     | 19*  | -    | 5.0118s*  
+-----------+------------------+------+------+-----------
+bkq.79.log | -a saturation    | 100  | -    | 0.0751s   
+bkq.79.log | -a saturation -r | 100  | -    | 0.0947s   
+bkq.79.log | -a smt           | 53*  | -    | 6.1332s*  
+bkq.79.log | -a smt -r        | 53*  | -    | 6.1169s*  
+bkq.79.log | -a smt -i        | 52*  | -    | 14.6777s* 
+bkq.79.log | -a smt -c        | 36*  | -    | 5.0104s*  
+bkq.79.log | -a smt -c -i     | 36*  | -    | 5.0042s*  
+bkq.79.log | -a lineup        | 36*  | -    | 5.0794s*  
+bkq.79.log | -a lineup -c     | 36*  | -    | 5.0085s*  
+-----------+------------------+------+------+-----------
+bkq.80.log | -a saturation    | 100  | -    | 0.0855s   
+bkq.80.log | -a saturation -r | 100  | -    | 0.0953s   
+bkq.80.log | -a smt           | 53*  | -    | 8.1988s*  
+bkq.80.log | -a smt -r        | 53*  | -    | 8.262s*   
+bkq.80.log | -a smt -i        | 55*  | -    | 5.0283s*  
+bkq.80.log | -a smt -c        | 20*  | -    | 5.0093s*  
+bkq.80.log | -a smt -c -i     | 20*  | -    | 5.0085s*  
+bkq.80.log | -a lineup        | 20*  | -    | 5.0104s*  
+bkq.80.log | -a lineup -c     | 20*  | -    | 5.0105s*  
+-----------+------------------+------+------+-----------
+bkq.81.log | -a saturation    | 100  | -    | 0.0746s   
+bkq.81.log | -a saturation -r | 100  | -    | 0.088s    
+bkq.81.log | -a smt           | 54*  | -    | 10.429s*  
+bkq.81.log | -a smt -r        | 53*  | -    | 5.3845s*  
+bkq.81.log | -a smt -i        | 54*  | -    | 21.151s*  
+bkq.81.log | -a smt -c        | 44*  | -    | 5.0122s*  
+bkq.81.log | -a smt -c -i     | 44*  | -    | 5.0105s*  
+bkq.81.log | -a lineup        | 44*  | -    | 5.0089s*  
+bkq.81.log | -a lineup -c     | 44*  | -    | 5.0079s*  
+-----------+------------------+------+------+-----------
+bkq.82.log | -a saturation    | 100  | -    | 0.0954s   
+bkq.82.log | -a saturation -r | 100  | -    | 0.1162s   
+bkq.82.log | -a smt           | 54*  | -    | 5.0092s*  
+bkq.82.log | -a smt -r        | 54*  | -    | 7.7316s*  
+bkq.82.log | -a smt -i        | 55*  | -    | 5.5931s*  
+bkq.82.log | -a smt -c        | 35*  | -    | 5.0038s*  
+bkq.82.log | -a smt -c -i     | 35*  | -    | 5.0118s*  
+bkq.82.log | -a lineup        | 35*  | -    | 5.0016s*  
+bkq.82.log | -a lineup -c     | 35*  | -    | 5.0102s*  
+-----------+------------------+------+------+-----------
+bkq.83.log | -a saturation    | 100  | -    | 0.1044s   
+bkq.83.log | -a saturation -r | 100  | -    | 0.111s    
+bkq.83.log | -a smt           | 55*  | -    | 7.607s*   
+bkq.83.log | -a smt -r        | 55*  | -    | 7.8238s*  
+bkq.83.log | -a smt -i        | 57*  | -    | 5.7248s*  
+bkq.83.log | -a smt -c        | 22*  | -    | 5.004s*   
+bkq.83.log | -a smt -c -i     | 22*  | -    | 5.0113s*  
+bkq.83.log | -a lineup        | 22*  | -    | 5.0104s*  
+bkq.83.log | -a lineup -c     | 22*  | -    | 5.0011s*  
+-----------+------------------+------+------+-----------
+bkq.84.log | -a saturation    | 100  | -    | 0.0888s   
+bkq.84.log | -a saturation -r | 100  | -    | 0.1075s   
+bkq.84.log | -a smt           | 51*  | -    | 6.2829s*  
+bkq.84.log | -a smt -r        | 100  | -    | 4059.846s 
+bkq.84.log | -a smt -i        | 57*  | -    | 5.7256s*  
+bkq.84.log | -a smt -c        | 24*  | -    | 5.1245s*  
+bkq.84.log | -a smt -c -i     | 24*  | -    | 5.0116s*  
+bkq.84.log | -a lineup        | 15*  | -    | 5.0087s*  
+bkq.84.log | -a lineup -c     | 24*  | -    | 5.1769s*  
+-----------+------------------+------+------+-----------
+bkq.85.log | -a saturation    | 100  | -    | 0.102s    
+bkq.85.log | -a saturation -r | 100  | -    | 0.1203s   
+bkq.85.log | -a smt           | 54*  | -    | 5.5432s*  
+bkq.85.log | -a smt -r        | 54*  | -    | 5.4926s*  
+bkq.85.log | -a smt -i        | 58*  | -    | 6.5997s*  
+bkq.85.log | -a smt -c        | 52*  | -    | 5.0081s*  
+bkq.85.log | -a smt -c -i     | 52*  | -    | 5.0077s*  
+bkq.85.log | -a lineup        | 14*  | -    | 5.0104s*  
+bkq.85.log | -a lineup -c     | 52*  | -    | 5.0055s*  
+-----------+------------------+------+------+-----------
+bkq.86.log | -a saturation    | 100  | -    | 0.1075s   
+bkq.86.log | -a saturation -r | 100  | -    | 0.1114s   
+bkq.86.log | -a smt           | 51*  | -    | 5.8041s*  
+bkq.86.log | -a smt -r        | 51*  | -    | 5.8947s*  
+bkq.86.log | -a smt -i        | 53*  | -    | 5.0134s*  
+bkq.86.log | -a smt -c        | 17*  | -    | 5.0068s*  
+bkq.86.log | -a smt -c -i     | 17*  | -    | 5.0062s*  
+bkq.86.log | -a lineup        | 17*  | -    | 5.0172s*  
+bkq.86.log | -a lineup -c     | 17*  | -    | 5.0075s*  
+-----------+------------------+------+------+-----------
+bkq.87.log | -a saturation    | 100  | -    | 0.0718s   
+bkq.87.log | -a saturation -r | 100  | -    | 0.0945s   
+bkq.87.log | -a smt           | 53*  | -    | 8.3901s*  
+bkq.87.log | -a smt -r        | 53*  | -    | 8.3357s*  
+bkq.87.log | -a smt -i        | 53*  | -    | 13.9822s* 
+bkq.87.log | -a smt -c        | 51*  | -    | 5.0122s*  
+bkq.87.log | -a smt -c -i     | 51*  | -    | 5.0063s*  
+bkq.87.log | -a lineup        | 51*  | -    | 5.0105s*  
+bkq.87.log | -a lineup -c     | 51*  | -    | 5.0065s*  
+-----------+------------------+------+------+-----------
+bkq.88.log | -a saturation    | 100  | -    | 0.1132s   
+bkq.88.log | -a saturation -r | 100  | -    | 0.1272s   
+bkq.88.log | -a smt           | 52*  | -    | 8.3176s*  
+bkq.88.log | -a smt -r        | 52*  | -    | 8.3081s*  
+bkq.88.log | -a smt -i        | 38*  | -    | 23.4989s* 
+bkq.88.log | -a smt -c        | 26*  | -    | 5.0688s*  
+bkq.88.log | -a smt -c -i     | 26*  | -    | 5.013s*   
+bkq.88.log | -a lineup        | 26*  | -    | 5.0349s*  
+bkq.88.log | -a lineup -c     | 26*  | -    | 5.0122s*  
+-----------+------------------+------+------+-----------
+bkq.89.log | -a saturation    | 100  | -    | 0.0869s   
+bkq.89.log | -a saturation -r | 100  | -    | 0.1041s   
+bkq.89.log | -a smt           | 53*  | -    | 6.8092s*  
+bkq.89.log | -a smt -r        | 53*  | -    | 6.8919s*  
+bkq.89.log | -a smt -i        | 57*  | -    | 6.2425s*  
+bkq.89.log | -a smt -c        | 52*  | -    | 5.0078s*  
+bkq.89.log | -a smt -c -i     | 52*  | -    | 5.0105s*  
+bkq.89.log | -a lineup        | 15*  | -    | 5.0103s*  
+bkq.89.log | -a lineup -c     | 52*  | -    | 5.0102s*  
+-----------+------------------+------+------+-----------
+bkq.90.log | -a saturation    | 100  | -    | 0.0935s   
+bkq.90.log | -a saturation -r | 100  | -    | 0.1929s   
+bkq.90.log | -a smt           | 51*  | -    | 8.8396s*  
+bkq.90.log | -a smt -r        | 51*  | -    | 6.6945s*  
+bkq.90.log | -a smt -i        | 49*  | -    | 11.8542s* 
+bkq.90.log | -a smt -c        | 49*  | -    | 5.0104s*  
+bkq.90.log | -a smt -c -i     | 49*  | -    | 5.0104s*  
+bkq.90.log | -a lineup        | 49*  | -    | 5.0045s*  
+bkq.90.log | -a lineup -c     | 49*  | -    | 5.0014s*  
+-----------+------------------+------+------+-----------
+bkq.91.log | -a saturation    | 100  | -    | 0.1055s   
+bkq.91.log | -a saturation -r | 100  | -    | 0.1281s   
+bkq.91.log | -a smt           | 53*  | -    | 6.5404s*  
+bkq.91.log | -a smt -r        | 100  | -    | 2987.2397s
+bkq.91.log | -a smt -i        | 34*  | -    | 12.7869s* 
+bkq.91.log | -a smt -c        | 34*  | -    | 5.0118s*  
+bkq.91.log | -a smt -c -i     | 34*  | -    | 5.0023s*  
+bkq.91.log | -a lineup        | 34*  | -    | 5.2314s*  
+bkq.91.log | -a lineup -c     | 34*  | -    | 5.0006s*  
+-----------+------------------+------+------+-----------
+bkq.92.log | -a saturation    | 100  | -    | 0.1346s   
+bkq.92.log | -a saturation -r | 100  | -    | 0.1397s   
+bkq.92.log | -a smt           | 53*  | -    | 9.0279s*  
+bkq.92.log | -a smt -r        | 53*  | -    | 9.0041s*  
+bkq.92.log | -a smt -i        | 52*  | -    | 15.4741s* 
+bkq.92.log | -a smt -c        | 51*  | -    | 5.0118s*  
+bkq.92.log | -a smt -c -i     | 51*  | -    | 5.0094s*  
+bkq.92.log | -a lineup        | 51*  | -    | 5.0105s*  
+bkq.92.log | -a lineup -c     | 51*  | -    | 5.0036s*  
+-----------+------------------+------+------+-----------
+bkq.93.log | -a saturation    | 100  | -    | 0.0735s   
+bkq.93.log | -a saturation -r | 100  | -    | 0.0964s   
+bkq.93.log | -a smt           | 53*  | -    | 5.5348s*  
+bkq.93.log | -a smt -r        | 53*  | -    | 5.6262s*  
+bkq.93.log | -a smt -i        | 56*  | -    | 5.2662s*  
+bkq.93.log | -a smt -c        | 23*  | -    | 5.0066s*  
+bkq.93.log | -a smt -c -i     | 23*  | -    | 5.0121s*  
+bkq.93.log | -a lineup        | 23*  | -    | 5.2133s*  
+bkq.93.log | -a lineup -c     | 23*  | -    | 5.0107s*  
+-----------+------------------+------+------+-----------
+bkq.94.log | -a saturation    | 100  | -    | 0.0915s   
+bkq.94.log | -a saturation -r | 100  | -    | 0.1004s   
+bkq.94.log | -a smt           | 53*  | -    | 6.1077s*  
+bkq.94.log | -a smt -r        | 53*  | -    | 6.0697s*  
+bkq.94.log | -a smt -i        | 55*  | -    | 5.148s*   
+bkq.94.log | -a smt -c        | 17*  | -    | 5.0085s*  
+bkq.94.log | -a smt -c -i     | 17*  | -    | 5.0105s*  
+bkq.94.log | -a lineup        | 17*  | -    | 5.004s*   
+bkq.94.log | -a lineup -c     | 17*  | -    | 5.0123s*  
+-----------+------------------+------+------+-----------
+bkq.95.log | -a saturation    | 100  | -    | 0.1604s   
+bkq.95.log | -a saturation -r | 100  | -    | 0.1534s   
+bkq.95.log | -a smt           | 53*  | -    | 6.6559s*  
+bkq.95.log | -a smt -r        | 100  | -    | 4243.3052s
+bkq.95.log | -a smt -i        | 56*  | -    | 5.5355s*  
+bkq.95.log | -a smt -c        | 20*  | -    | 5.009s*   
+bkq.95.log | -a smt -c -i     | 20*  | -    | 5.0095s*  
+bkq.95.log | -a lineup        | 20*  | -    | 5.0104s*  
+bkq.95.log | -a lineup -c     | 20*  | -    | 5.0097s*  
+-----------+------------------+------+------+-----------
+bkq.96.log | -a saturation    | 100  | -    | 0.0922s   
+bkq.96.log | -a saturation -r | 100  | -    | 0.104s    
+bkq.96.log | -a smt           | 53*  | -    | 5.0124s*  
+bkq.96.log | -a smt -r        | 53*  | -    | 7.997s*   
+bkq.96.log | -a smt -i        | 55*  | -    | 7.142s*   
+bkq.96.log | -a smt -c        | 52*  | -    | 5.0087s*  
+bkq.96.log | -a smt -c -i     | 52*  | -    | 5.0053s*  
+bkq.96.log | -a lineup        | 14*  | -    | 5.0106s*  
+bkq.96.log | -a lineup -c     | 52*  | -    | 5.0208s*  
+-----------+------------------+------+------+-----------
+bkq.97.log | -a saturation    | 100  | -    | 0.107s    
+bkq.97.log | -a saturation -r | 100  | -    | 0.122s    
+bkq.97.log | -a smt           | 51*  | -    | 7.4698s*  
+bkq.97.log | -a smt -r        | 51*  | -    | 7.4245s*  
+bkq.97.log | -a smt -i        | 51*  | -    | 6.5415s*  
+bkq.97.log | -a smt -c        | 34*  | -    | 5.0022s*  
+bkq.97.log | -a smt -c -i     | 34*  | -    | 5.0035s*  
+bkq.97.log | -a lineup        | 34*  | -    | 5.0105s*  
+bkq.97.log | -a lineup -c     | 34*  | -    | 5.0085s*  
+-----------+------------------+------+------+-----------
+bkq.98.log | -a saturation    | 100  | -    | 0.0964s   
+bkq.98.log | -a saturation -r | 100  | -    | 0.1162s   
+bkq.98.log | -a smt           | 53*  | -    | 10.4315s* 
+bkq.98.log | -a smt -r        | 53*  | -    | 10.2983s* 
+bkq.98.log | -a smt -i        | 41*  | -    | 8.4788s*  
+bkq.98.log | -a smt -c        | 26*  | -    | 5.0104s*  
+bkq.98.log | -a smt -c -i     | 26*  | -    | 5.0093s*  
+bkq.98.log | -a lineup        | 26*  | -    | 5.0012s*  
+bkq.98.log | -a lineup -c     | 26*  | -    | 5.0071s*  
+-----------+------------------+------+------+-----------
+bkq.99.log | -a saturation    | 51   | 51   | 0.0131s   
+bkq.99.log | -a saturation -r | 51   | 51   | 0.0167s   
+bkq.99.log | -a smt           | 51   | 51   | 2.5699s   
+bkq.99.log | -a smt -r        | 51   | 51   | 2.5501s   
+bkq.99.log | -a smt -i        | 51   | 51   | 0.9283s   
+bkq.99.log | -a smt -c        | 39*  | -    | 5.0105s*  
+bkq.99.log | -a smt -c -i     | 39*  | -    | 5.0039s*  
+bkq.99.log | -a lineup        | 10*  | -    | 5.0105s*  
+bkq.99.log | -a lineup -c     | 39*  | -    | 5.0119s*  
+-----------+------------------+------+------+-----------
+--------------------------------------------------------
+        examples/generated/msq-very-concurrent/*        
+--------------------------------------------------------
+example    | flags            | step | viol | time      
+-----------+------------------+------+------+-----------
+msq.00.log | -a saturation    | 100  | -    | 0.1849s   
+msq.00.log | -a saturation -r | 100  | -    | 0.1978s   
+msq.00.log | -a smt           | 53*  | -    | 5.5839s*  
+msq.00.log | -a smt -r        | 53*  | -    | 5.5821s*  
+msq.00.log | -a smt -i        | 56*  | -    | 5.1909s*  
+msq.00.log | -a smt -c        | 22*  | -    | 5.063s*   
+msq.00.log | -a smt -c -i     | 22*  | -    | 5.0258s*  
+msq.00.log | -a lineup        | 22*  | -    | 5.2568s*  
+msq.00.log | -a lineup -c     | 22*  | -    | 5.056s*   
+-----------+------------------+------+------+-----------
+msq.01.log | -a saturation    | 100  | -    | 0.1417s   
+msq.01.log | -a saturation -r | 100  | -    | 0.1678s   
+msq.01.log | -a smt           | 52*  | -    | 8.0362s*  
+msq.01.log | -a smt -r        | 52*  | -    | 7.9079s*  
+msq.01.log | -a smt -i        | 32*  | -    | 25.1944s* 
+msq.01.log | -a smt -c        | 32*  | -    | 5.0106s*  
+msq.01.log | -a smt -c -i     | 32*  | -    | 5.0106s*  
+msq.01.log | -a lineup        | 32*  | -    | 5.0086s*  
+msq.01.log | -a lineup -c     | 32*  | -    | 5.0057s*  
+-----------+------------------+------+------+-----------
+msq.02.log | -a saturation    | 100  | -    | 0.1734s   
+msq.02.log | -a saturation -r | 100  | -    | 0.1996s   
+msq.02.log | -a smt           | 55*  | -    | 6.8823s*  
+msq.02.log | -a smt -r        | 55*  | -    | 7.0285s*  
+msq.02.log | -a smt -i        | 57*  | -    | 5.6484s*  
+msq.02.log | -a smt -c        | 30*  | -    | 5.0011s*  
+msq.02.log | -a smt -c -i     | 30*  | -    | 5.0057s*  
+msq.02.log | -a lineup        | 30*  | -    | 5.0107s*  
+msq.02.log | -a lineup -c     | 30*  | -    | 5.0543s*  
+-----------+------------------+------+------+-----------
+msq.03.log | -a saturation    | 100  | -    | 0.1499s   
+msq.03.log | -a saturation -r | 100  | -    | 0.1862s   
+msq.03.log | -a smt           | 52*  | -    | 7.8159s*  
+msq.03.log | -a smt -r        | 52*  | -    | 7.6781s*  
+msq.03.log | -a smt -i        | 52*  | -    | 13.0912s* 
+msq.03.log | -a smt -c        | 38*  | -    | 5.0048s*  
+msq.03.log | -a smt -c -i     | 38*  | -    | 5.0047s*  
+msq.03.log | -a lineup        | 38*  | -    | 5.0265s*  
+msq.03.log | -a lineup -c     | 38*  | -    | 5.0059s*  
+-----------+------------------+------+------+-----------
+msq.04.log | -a saturation    | 100  | -    | 0.1917s   
+msq.04.log | -a saturation -r | 100  | -    | 0.2022s   
+msq.04.log | -a smt           | 52*  | -    | 7.3306s*  
+msq.04.log | -a smt -r        | 52*  | -    | 7.2323s*  
+msq.04.log | -a smt -i        | 53*  | -    | 15.5661s* 
+msq.04.log | -a smt -c        | 51*  | -    | 5.0107s*  
+msq.04.log | -a smt -c -i     | 51*  | -    | 5.0105s*  
+msq.04.log | -a lineup        | 51*  | -    | 5.0058s*  
+msq.04.log | -a lineup -c     | 51*  | -    | 5.0122s*  
+-----------+------------------+------+------+-----------
+msq.05.log | -a saturation    | 100  | -    | 0.1642s   
+msq.05.log | -a saturation -r | 100  | -    | 0.1785s   
+msq.05.log | -a smt           | 53*  | -    | 7.3518s*  
+msq.05.log | -a smt -r        | 52*  | -    | 7.2272s*  
+msq.05.log | -a smt -i        | 53*  | -    | 25.77s*   
+msq.05.log | -a smt -c        | 29*  | -    | 5.0206s*  
+msq.05.log | -a smt -c -i     | 29*  | -    | 5.0151s*  
+msq.05.log | -a lineup        | 29*  | -    | 5.0105s*  
+msq.05.log | -a lineup -c     | 29*  | -    | 5.0105s*  
+-----------+------------------+------+------+-----------
+msq.06.log | -a saturation    | 100  | -    | 0.2291s   
+msq.06.log | -a saturation -r | 100  | -    | 0.2445s   
+msq.06.log | -a smt           | 53*  | -    | 7.8546s*  
+msq.06.log | -a smt -r        | 53*  | -    | 8.0116s*  
+msq.06.log | -a smt -i        | 55*  | -    | 5.594s*   
+msq.06.log | -a smt -c        | 22*  | -    | 5.0229s*  
+msq.06.log | -a smt -c -i     | 22*  | -    | 5.1799s*  
+msq.06.log | -a lineup        | 15*  | -    | 5.0075s*  
+msq.06.log | -a lineup -c     | 22*  | -    | 5.008s*   
+-----------+------------------+------+------+-----------
+msq.07.log | -a saturation    | 100  | -    | 0.1719s   
+msq.07.log | -a saturation -r | 100  | -    | 0.237s    
+msq.07.log | -a smt           | 53*  | -    | 5.0123s*  
+msq.07.log | -a smt -r        | 53*  | -    | 8.6295s*  
+msq.07.log | -a smt -i        | 53*  | -    | 26.1449s* 
+msq.07.log | -a smt -c        | 42*  | -    | 5.0102s*  
+msq.07.log | -a smt -c -i     | 42*  | -    | 5.002s*   
+msq.07.log | -a lineup        | 42*  | -    | 5.0104s*  
+msq.07.log | -a lineup -c     | 42*  | -    | 5.0122s*  
+-----------+------------------+------+------+-----------
+msq.08.log | -a saturation    | 100  | -    | 0.1636s   
+msq.08.log | -a saturation -r | 100  | -    | 0.1924s   
+msq.08.log | -a smt           | 52*  | -    | 7.9961s*  
+msq.08.log | -a smt -r        | 52*  | -    | 7.9331s*  
+msq.08.log | -a smt -i        | 52*  | -    | 21.4047s* 
+msq.08.log | -a smt -c        | 40*  | -    | 5.006s*   
+msq.08.log | -a smt -c -i     | 40*  | -    | 5.0121s*  
+msq.08.log | -a lineup        | 40*  | -    | 5.0097s*  
+msq.08.log | -a lineup -c     | 40*  | -    | 5.0062s*  
+-----------+------------------+------+------+-----------
+msq.09.log | -a saturation    | 100  | -    | 0.1628s   
+msq.09.log | -a saturation -r | 100  | -    | 0.1881s   
+msq.09.log | -a smt           | 53*  | -    | 5.6263s*  
+msq.09.log | -a smt -r        | 52*  | -    | 5.5802s*  
+msq.09.log | -a smt -i        | 56*  | -    | 5.0622s*  
+msq.09.log | -a smt -c        | 34*  | -    | 5.0123s*  
+msq.09.log | -a smt -c -i     | 34*  | -    | 5.0106s*  
+msq.09.log | -a lineup        | 34*  | -    | 5.1744s*  
+msq.09.log | -a lineup -c     | 34*  | -    | 5.0092s*  
+-----------+------------------+------+------+-----------
+msq.10.log | -a saturation    | 100  | -    | 0.1506s   
+msq.10.log | -a saturation -r | 100  | -    | 0.1677s   
+msq.10.log | -a smt           | 53*  | -    | 5.9704s*  
+msq.10.log | -a smt -r        | 53*  | -    | 6.092s*   
+msq.10.log | -a smt -i        | 49*  | -    | 26.4166s* 
+msq.10.log | -a smt -c        | 49*  | -    | 5.0118s*  
+msq.10.log | -a smt -c -i     | 49*  | -    | 5.0023s*  
+msq.10.log | -a lineup        | 49*  | -    | 5.0023s*  
+msq.10.log | -a lineup -c     | 49*  | -    | 5.001s*   
+-----------+------------------+------+------+-----------
+msq.11.log | -a saturation    | 100  | -    | 0.1773s   
+msq.11.log | -a saturation -r | 100  | -    | 0.1971s   
+msq.11.log | -a smt           | 51*  | -    | 5.6099s*  
+msq.11.log | -a smt -r        | 51*  | -    | 5.6014s*  
+msq.11.log | -a smt -i        | 52*  | -    | 16.1471s* 
+msq.11.log | -a smt -c        | 45*  | -    | 5.0013s*  
+msq.11.log | -a smt -c -i     | 45*  | -    | 5.0103s*  
+msq.11.log | -a lineup        | 45*  | -    | 5.0023s*  
+msq.11.log | -a lineup -c     | 45*  | -    | 5.0045s*  
+-----------+------------------+------+------+-----------
+msq.12.log | -a saturation    | 100  | -    | 0.1274s   
+msq.12.log | -a saturation -r | 100  | -    | 0.1406s   
+msq.12.log | -a smt           | 52*  | -    | 6.6392s*  
+msq.12.log | -a smt -r        | 52*  | -    | 6.5215s*  
+msq.12.log | -a smt -i        | 51*  | -    | 17.4095s* 
+msq.12.log | -a smt -c        | 51*  | -    | 5.0085s*  
+msq.12.log | -a smt -c -i     | 51*  | -    | 5.0124s*  
+msq.12.log | -a lineup        | 51*  | -    | 5.0021s*  
+msq.12.log | -a lineup -c     | 51*  | -    | 5.0054s*  
+-----------+------------------+------+------+-----------
+msq.13.log | -a saturation    | 100  | -    | 0.1829s   
+msq.13.log | -a saturation -r | 100  | -    | 0.2191s   
+msq.13.log | -a smt           | 54*  | -    | 7.4246s*  
+msq.13.log | -a smt -r        | 55*  | -    | 7.5377s*  
+msq.13.log | -a smt -i        | 57*  | -    | 5.6598s*  
+msq.13.log | -a smt -c        | 22*  | -    | 5.0084s*  
+msq.13.log | -a smt -c -i     | 22*  | -    | 5.0094s*  
+msq.13.log | -a lineup        | 12*  | -    | 5.0085s*  
+msq.13.log | -a lineup -c     | 22*  | -    | 5.0092s*  
+-----------+------------------+------+------+-----------
+msq.14.log | -a saturation    | 100  | -    | 0.1534s   
+msq.14.log | -a saturation -r | 100  | -    | 0.1822s   
+msq.14.log | -a smt           | 51*  | -    | 8.4889s*  
+msq.14.log | -a smt -r        | 51*  | -    | 8.5928s*  
+msq.14.log | -a smt -i        | 39*  | -    | 23.2503s* 
+msq.14.log | -a smt -c        | 39*  | -    | 5.0116s*  
+msq.14.log | -a smt -c -i     | 39*  | -    | 5.0106s*  
+msq.14.log | -a lineup        | 39*  | -    | 5.0106s*  
+msq.14.log | -a lineup -c     | 39*  | -    | 5.0064s*  
+-----------+------------------+------+------+-----------
+msq.15.log | -a saturation    | 100  | -    | 0.1413s   
+msq.15.log | -a saturation -r | 100  | -    | 0.1616s   
+msq.15.log | -a smt           | 55*  | -    | 12.5281s* 
+msq.15.log | -a smt -r        | 54*  | -    | 9.623s*   
+msq.15.log | -a smt -i        | 53*  | -    | 24.6598s* 
+msq.15.log | -a smt -c        | 48*  | -    | 5.002s*   
+msq.15.log | -a smt -c -i     | 48*  | -    | 5.0104s*  
+msq.15.log | -a lineup        | 48*  | -    | 5.0105s*  
+msq.15.log | -a lineup -c     | 48*  | -    | 5.0076s*  
+-----------+------------------+------+------+-----------
+msq.16.log | -a saturation    | 100  | -    | 0.1988s   
+msq.16.log | -a saturation -r | 100  | -    | 0.2114s   
+msq.16.log | -a smt           | 52*  | -    | 6.6761s*  
+msq.16.log | -a smt -r        | 52*  | -    | 6.8892s*  
+msq.16.log | -a smt -i        | 43*  | -    | 5.1328s*  
+msq.16.log | -a smt -c        | 22*  | -    | 5.0087s*  
+msq.16.log | -a smt -c -i     | 22*  | -    | 5.0085s*  
+msq.16.log | -a lineup        | 22*  | -    | 5.2088s*  
+msq.16.log | -a lineup -c     | 22*  | -    | 5.008s*   
+-----------+------------------+------+------+-----------
+msq.17.log | -a saturation    | 100  | -    | 0.1539s   
+msq.17.log | -a saturation -r | 100  | -    | 0.2002s   
+msq.17.log | -a smt           | 53*  | -    | 13.0037s* 
+msq.17.log | -a smt -r        | 53*  | -    | 12.9527s* 
+msq.17.log | -a smt -i        | 52*  | -    | 13.8739s* 
+msq.17.log | -a smt -c        | 24*  | -    | 5.0117s*  
+msq.17.log | -a smt -c -i     | 24*  | -    | 5.0616s*  
+msq.17.log | -a lineup        | 24*  | -    | 5.0068s*  
+msq.17.log | -a lineup -c     | 24*  | -    | 5.0121s*  
+-----------+------------------+------+------+-----------
+msq.18.log | -a saturation    | 100  | -    | 0.1486s   
+msq.18.log | -a saturation -r | 100  | -    | 0.1615s   
+msq.18.log | -a smt           | 53*  | -    | 5.2076s*  
+msq.18.log | -a smt -r        | 52*  | -    | 5.1113s*  
+msq.18.log | -a smt -i        | 52*  | -    | 14.0715s* 
+msq.18.log | -a smt -c        | 51*  | -    | 5.0055s*  
+msq.18.log | -a smt -c -i     | 51*  | -    | 5.0028s*  
+msq.18.log | -a lineup        | 51*  | -    | 5.0105s*  
+msq.18.log | -a lineup -c     | 51*  | -    | 5.0121s*  
+-----------+------------------+------+------+-----------
+msq.19.log | -a saturation    | 100  | -    | 0.2053s   
+msq.19.log | -a saturation -r | 100  | -    | 0.2016s   
+msq.19.log | -a smt           | 54*  | -    | 9.7403s*  
+msq.19.log | -a smt -r        | 54*  | -    | 9.7703s*  
+msq.19.log | -a smt -i        | 58*  | -    | 5.4307s*  
+msq.19.log | -a smt -c        | 43*  | -    | 5.012s*   
+msq.19.log | -a smt -c -i     | 43*  | -    | 5.0027s*  
+msq.19.log | -a lineup        | 12*  | -    | 5.0065s*  
+msq.19.log | -a lineup -c     | 43*  | -    | 5.0072s*  
+-----------+------------------+------+------+-----------
+msq.20.log | -a saturation    | 100  | -    | 0.1689s   
+msq.20.log | -a saturation -r | 100  | -    | 0.1898s   
+msq.20.log | -a smt           | 53*  | -    | 6.676s*   
+msq.20.log | -a smt -r        | 53*  | -    | 6.6764s*  
+msq.20.log | -a smt -i        | 53*  | -    | 9.0854s*  
+msq.20.log | -a smt -c        | 22*  | -    | 5.0119s*  
+msq.20.log | -a smt -c -i     | 22*  | -    | 5.0872s*  
+msq.20.log | -a lineup        | 22*  | -    | 5.1889s*  
+msq.20.log | -a lineup -c     | 22*  | -    | 5.0452s*  
+-----------+------------------+------+------+-----------
+msq.21.log | -a saturation    | 100  | -    | 0.1418s   
+msq.21.log | -a saturation -r | 100  | -    | 0.1528s   
+msq.21.log | -a smt           | 53*  | -    | 6.1883s*  
+msq.21.log | -a smt -r        | 53*  | -    | 9.5893s*  
+msq.21.log | -a smt -i        | 35*  | -    | 23.2804s* 
+msq.21.log | -a smt -c        | 35*  | -    | 5.0083s*  
+msq.21.log | -a smt -c -i     | 35*  | -    | 5.0119s*  
+msq.21.log | -a lineup        | 35*  | -    | 5.0971s*  
+msq.21.log | -a lineup -c     | 35*  | -    | 5.0034s*  
+-----------+------------------+------+------+-----------
+msq.22.log | -a saturation    | 100  | -    | 0.1717s   
+msq.22.log | -a saturation -r | 100  | -    | 0.2024s   
+msq.22.log | -a smt           | 55*  | -    | 8.2859s*  
+msq.22.log | -a smt -r        | 55*  | -    | 8.4903s*  
+msq.22.log | -a smt -i        | 57*  | -    | 5.5711s*  
+msq.22.log | -a smt -c        | 23*  | -    | 5.009s*   
+msq.22.log | -a smt -c -i     | 23*  | -    | 5.0105s*  
+msq.22.log | -a lineup        | 23*  | -    | 5.0105s*  
+msq.22.log | -a lineup -c     | 23*  | -    | 5.0021s*  
+-----------+------------------+------+------+-----------
+msq.23.log | -a saturation    | 100  | -    | 0.1201s   
+msq.23.log | -a saturation -r | 100  | -    | 0.139s    
+msq.23.log | -a smt           | 52*  | -    | 6.9006s*  
+msq.23.log | -a smt -r        | 52*  | -    | 6.7911s*  
+msq.23.log | -a smt -i        | 51*  | -    | 15.3296s* 
+msq.23.log | -a smt -c        | 51*  | -    | 5.008s*   
+msq.23.log | -a smt -c -i     | 51*  | -    | 5.0109s*  
+msq.23.log | -a lineup        | 51*  | -    | 5.0069s*  
+msq.23.log | -a lineup -c     | 51*  | -    | 5.0118s*  
+-----------+------------------+------+------+-----------
+msq.24.log | -a saturation    | 100  | -    | 0.1937s   
+msq.24.log | -a saturation -r | 100  | -    | 0.2067s   
+msq.24.log | -a smt           | 47*  | -    | 6.7951s*  
+msq.24.log | -a smt -r        | 47*  | -    | 6.8757s*  
+msq.24.log | -a smt -i        | 40*  | -    | 16.6287s* 
+msq.24.log | -a smt -c        | 40*  | -    | 5.0108s*  
+msq.24.log | -a smt -c -i     | 40*  | -    | 5.0066s*  
+msq.24.log | -a lineup        | 40*  | -    | 5.0104s*  
+msq.24.log | -a lineup -c     | 40*  | -    | 5.0074s*  
+-----------+------------------+------+------+-----------
+msq.25.log | -a saturation    | 100  | -    | 0.1657s   
+msq.25.log | -a saturation -r | 100  | -    | 0.1959s   
+msq.25.log | -a smt           | 52*  | -    | 6.1355s*  
+msq.25.log | -a smt -r        | 52*  | -    | 5.9881s*  
+msq.25.log | -a smt -i        | 32*  | -    | 6.5673s*  
+msq.25.log | -a smt -c        | 32*  | -    | 5.01s*    
+msq.25.log | -a smt -c -i     | 32*  | -    | 5.0088s*  
+msq.25.log | -a lineup        | 32*  | -    | 5.0105s*  
+msq.25.log | -a lineup -c     | 32*  | -    | 5.0066s*  
+-----------+------------------+------+------+-----------
+msq.26.log | -a saturation    | 100  | -    | 0.1664s   
+msq.26.log | -a saturation -r | 100  | -    | 0.1578s   
+msq.26.log | -a smt           | 54*  | -    | 5.0106s*  
+msq.26.log | -a smt -r        | 54*  | -    | 5.004s*   
+msq.26.log | -a smt -i        | 57*  | -    | 6.2199s*  
+msq.26.log | -a smt -c        | 52*  | -    | 5.0068s*  
+msq.26.log | -a smt -c -i     | 52*  | -    | 5.0086s*  
+msq.26.log | -a lineup        | 52*  | -    | 5.001s*   
+msq.26.log | -a lineup -c     | 52*  | -    | 5.0106s*  
+-----------+------------------+------+------+-----------
+msq.27.log | -a saturation    | 100  | -    | 0.1704s   
+msq.27.log | -a saturation -r | 100  | -    | 0.1841s   
+msq.27.log | -a smt           | 52*  | -    | 6.0917s*  
+msq.27.log | -a smt -r        | 53*  | -    | 8.7515s*  
+msq.27.log | -a smt -i        | 52*  | -    | 17.8097s* 
+msq.27.log | -a smt -c        | 51*  | -    | 5.0065s*  
+msq.27.log | -a smt -c -i     | 51*  | -    | 5.0104s*  
+msq.27.log | -a lineup        | 51*  | -    | 5.0078s*  
+msq.27.log | -a lineup -c     | 51*  | -    | 5.0069s*  
+-----------+------------------+------+------+-----------
+msq.28.log | -a saturation    | 100  | -    | 0.1689s   
+msq.28.log | -a saturation -r | 100  | -    | 0.1887s   
+msq.28.log | -a smt           | 54*  | -    | 6.3414s*  
+msq.28.log | -a smt -r        | 54*  | -    | 6.3176s*  
+msq.28.log | -a smt -i        | 59*  | -    | 5.107s*   
+msq.28.log | -a smt -c        | 25*  | -    | 5.005s*   
+msq.28.log | -a smt -c -i     | 25*  | -    | 5.0105s*  
+msq.28.log | -a lineup        | 12*  | -    | 5.0079s*  
+msq.28.log | -a lineup -c     | 25*  | -    | 5.0088s*  
+-----------+------------------+------+------+-----------
+msq.29.log | -a saturation    | 100  | -    | 0.1736s   
+msq.29.log | -a saturation -r | 100  | -    | 0.1942s   
+msq.29.log | -a smt           | 53*  | -    | 5.9475s*  
+msq.29.log | -a smt -r        | 52*  | -    | 5.8029s*  
+msq.29.log | -a smt -i        | 35*  | -    | 9.2664s*  
+msq.29.log | -a smt -c        | 35*  | -    | 5.0105s*  
+msq.29.log | -a smt -c -i     | 35*  | -    | 5.0119s*  
+msq.29.log | -a lineup        | 35*  | -    | 5.0038s*  
+msq.29.log | -a lineup -c     | 35*  | -    | 5.0031s*  
+-----------+------------------+------+------+-----------
+msq.30.log | -a saturation    | 100  | -    | 0.1873s   
+msq.30.log | -a saturation -r | 100  | -    | 0.1711s   
+msq.30.log | -a smt           | 54*  | -    | 9.4557s*  
+msq.30.log | -a smt -r        | 54*  | -    | 9.3345s*  
+msq.30.log | -a smt -i        | 57*  | -    | 5.7664s*  
+msq.30.log | -a smt -c        | 21*  | -    | 5.0105s*  
+msq.30.log | -a smt -c -i     | 21*  | -    | 5.0098s*  
+msq.30.log | -a lineup        | 21*  | -    | 5.0106s*  
+msq.30.log | -a lineup -c     | 21*  | -    | 5.0043s*  
+-----------+------------------+------+------+-----------
+msq.31.log | -a saturation    | 100  | -    | 0.1806s   
+msq.31.log | -a saturation -r | 100  | -    | 0.1818s   
+msq.31.log | -a smt           | 52*  | -    | 6.1833s*  
+msq.31.log | -a smt -r        | 52*  | -    | 6.308s*   
+msq.31.log | -a smt -i        | 52*  | -    | 23.184s*  
+msq.31.log | -a smt -c        | 51*  | -    | 5.0027s*  
+msq.31.log | -a smt -c -i     | 51*  | -    | 5.0049s*  
+msq.31.log | -a lineup        | 51*  | -    | 5.0103s*  
+msq.31.log | -a lineup -c     | 51*  | -    | 5.0066s*  
+-----------+------------------+------+------+-----------
+msq.32.log | -a saturation    | 100  | -    | 0.1549s   
+msq.32.log | -a saturation -r | 100  | -    | 0.1692s   
+msq.32.log | -a smt           | 52*  | -    | 7.1474s*  
+msq.32.log | -a smt -r        | 53*  | -    | 7.2772s*  
+msq.32.log | -a smt -i        | 51*  | -    | 35.1074s* 
+msq.32.log | -a smt -c        | 51*  | -    | 5.0084s*  
+msq.32.log | -a smt -c -i     | 51*  | -    | 5.0104s*  
+msq.32.log | -a lineup        | 51*  | -    | 5.0034s*  
+msq.32.log | -a lineup -c     | 51*  | -    | 5.0075s*  
+-----------+------------------+------+------+-----------
+msq.33.log | -a saturation    | 100  | -    | 0.157s    
+msq.33.log | -a saturation -r | 100  | -    | 0.1758s   
+msq.33.log | -a smt           | 53*  | -    | 6.3458s*  
+msq.33.log | -a smt -r        | 53*  | -    | 6.3171s*  
+msq.33.log | -a smt -i        | 58*  | -    | 6.5194s*  
+msq.33.log | -a smt -c        | 27*  | -    | 5.0345s*  
+msq.33.log | -a smt -c -i     | 27*  | -    | 5.0105s*  
+msq.33.log | -a lineup        | 27*  | -    | 5.0093s*  
+msq.33.log | -a lineup -c     | 27*  | -    | 5.0309s*  
+-----------+------------------+------+------+-----------
+msq.34.log | -a saturation    | 100  | -    | 0.1559s   
+msq.34.log | -a saturation -r | 100  | -    | 0.1841s   
+msq.34.log | -a smt           | 54*  | -    | 7.2978s*  
+msq.34.log | -a smt -r        | 53*  | -    | 7.1315s*  
+msq.34.log | -a smt -i        | 56*  | -    | 5.7672s*  
+msq.34.log | -a smt -c        | 21*  | -    | 5.0104s*  
+msq.34.log | -a smt -c -i     | 21*  | -    | 5.0096s*  
+msq.34.log | -a lineup        | 21*  | -    | 5.0057s*  
+msq.34.log | -a lineup -c     | 21*  | -    | 5.0121s*  
+-----------+------------------+------+------+-----------
+msq.35.log | -a saturation    | 100  | -    | 0.1821s   
+msq.35.log | -a saturation -r | 100  | -    | 0.2063s   
+msq.35.log | -a smt           | 55*  | -    | 9.4447s*  
+msq.35.log | -a smt -r        | 55*  | -    | 9.4136s*  
+msq.35.log | -a smt -i        | 59*  | -    | 7.8264s*  
+msq.35.log | -a smt -c        | 46*  | -    | 5.0118s*  
+msq.35.log | -a smt -c -i     | 46*  | -    | 5.2158s*  
+msq.35.log | -a lineup        | 16*  | -    | 5.0032s*  
+msq.35.log | -a lineup -c     | 46*  | -    | 5.0085s*  
+-----------+------------------+------+------+-----------
+msq.36.log | -a saturation    | 100  | -    | 0.1594s   
+msq.36.log | -a saturation -r | 100  | -    | 0.1854s   
+msq.36.log | -a smt           | 44*  | -    | 5.8076s*  
+msq.36.log | -a smt -r        | 44*  | -    | 5.7119s*  
+msq.36.log | -a smt -i        | 100  | -    | 3658.0349s
+msq.36.log | -a smt -c        | 38*  | -    | 5.0119s*  
+msq.36.log | -a smt -c -i     | 38*  | -    | 5.0019s*  
+msq.36.log | -a lineup        | 38*  | -    | 5.0101s*  
+msq.36.log | -a lineup -c     | 38*  | -    | 5.007s*   
+-----------+------------------+------+------+-----------
+msq.37.log | -a saturation    | 100  | -    | 0.182s    
+msq.37.log | -a saturation -r | 100  | -    | 0.2031s   
+msq.37.log | -a smt           | 53*  | -    | 6.6107s*  
+msq.37.log | -a smt -r        | 53*  | -    | 6.6884s*  
+msq.37.log | -a smt -i        | 58*  | -    | 5.4519s*  
+msq.37.log | -a smt -c        | 27*  | -    | 5.0102s*  
+msq.37.log | -a smt -c -i     | 27*  | -    | 5.012s*   
+msq.37.log | -a lineup        | 27*  | -    | 5.0104s*  
+msq.37.log | -a lineup -c     | 27*  | -    | 5.0046s*  
+-----------+------------------+------+------+-----------
+msq.38.log | -a saturation    | 100  | -    | 0.1694s   
+msq.38.log | -a saturation -r | 100  | -    | 0.1828s   
+msq.38.log | -a smt           | 45*  | -    | 7.5354s*  
+msq.38.log | -a smt -r        | 52*  | -    | 7.4799s*  
+msq.38.log | -a smt -i        | 26*  | -    | 23.1358s* 
+msq.38.log | -a smt -c        | 26*  | -    | 5.0028s*  
+msq.38.log | -a smt -c -i     | 26*  | -    | 5.0177s*  
+msq.38.log | -a lineup        | 26*  | -    | 5.0104s*  
+msq.38.log | -a lineup -c     | 26*  | -    | 5.0041s*  
+-----------+------------------+------+------+-----------
+msq.39.log | -a saturation    | 100  | -    | 0.1735s   
+msq.39.log | -a saturation -r | 100  | -    | 0.189s    
+msq.39.log | -a smt           | 52*  | -    | 9.2165s*  
+msq.39.log | -a smt -r        | 52*  | -    | 9.3304s*  
+msq.39.log | -a smt -i        | 51*  | -    | 13.3101s* 
+msq.39.log | -a smt -c        | 33*  | -    | 5.0048s*  
+msq.39.log | -a smt -c -i     | 33*  | -    | 5.0106s*  
+msq.39.log | -a lineup        | 33*  | -    | 5.0087s*  
+msq.39.log | -a lineup -c     | 33*  | -    | 5.0106s*  
+-----------+------------------+------+------+-----------
+msq.40.log | -a saturation    | 100  | -    | 0.1633s   
+msq.40.log | -a saturation -r | 100  | -    | 0.1732s   
+msq.40.log | -a smt           | 53*  | -    | 6.9046s*  
+msq.40.log | -a smt -r        | 53*  | -    | 6.9668s*  
+msq.40.log | -a smt -i        | 56*  | -    | 5.0309s*  
+msq.40.log | -a smt -c        | 17*  | -    | 5.0094s*  
+msq.40.log | -a smt -c -i     | 17*  | -    | 5.0005s*  
+msq.40.log | -a lineup        | 17*  | -    | 5.0097s*  
+msq.40.log | -a lineup -c     | 17*  | -    | 5.0078s*  
+-----------+------------------+------+------+-----------
+msq.41.log | -a saturation    | 100  | -    | 0.1582s   
+msq.41.log | -a saturation -r | 100  | -    | 0.1851s   
+msq.41.log | -a smt           | 53*  | -    | 7.6945s*  
+msq.41.log | -a smt -r        | 53*  | -    | 7.6588s*  
+msq.41.log | -a smt -i        | 48*  | -    | 25.1719s* 
+msq.41.log | -a smt -c        | 44*  | -    | 5.0008s*  
+msq.41.log | -a smt -c -i     | 44*  | -    | 5.0068s*  
+msq.41.log | -a lineup        | 44*  | -    | 5.0103s*  
+msq.41.log | -a lineup -c     | 44*  | -    | 5.0101s*  
+-----------+------------------+------+------+-----------
+msq.42.log | -a saturation    | 100  | -    | 0.1319s   
+msq.42.log | -a saturation -r | 100  | -    | 0.1583s   
+msq.42.log | -a smt           | 52*  | -    | 8.3187s*  
+msq.42.log | -a smt -r        | 52*  | -    | 8.3027s*  
+msq.42.log | -a smt -i        | 48*  | -    | 18.8411s* 
+msq.42.log | -a smt -c        | 44*  | -    | 5.0086s*  
+msq.42.log | -a smt -c -i     | 44*  | -    | 5.0105s*  
+msq.42.log | -a lineup        | 44*  | -    | 5.0047s*  
+msq.42.log | -a lineup -c     | 44*  | -    | 5.007s*   
+-----------+------------------+------+------+-----------
+msq.43.log | -a saturation    | 100  | -    | 0.1567s   
+msq.43.log | -a saturation -r | 100  | -    | 0.1814s   
+msq.43.log | -a smt           | 53*  | -    | 9.2418s*  
+msq.43.log | -a smt -r        | 53*  | -    | 9.2127s*  
+msq.43.log | -a smt -i        | 47*  | -    | 14.6922s* 
+msq.43.log | -a smt -c        | 47*  | -    | 5.012s*   
+msq.43.log | -a smt -c -i     | 47*  | -    | 5.0072s*  
+msq.43.log | -a lineup        | 47*  | -    | 5.0043s*  
+msq.43.log | -a lineup -c     | 47*  | -    | 5.008s*   
+-----------+------------------+------+------+-----------
+msq.44.log | -a saturation    | 100  | -    | 0.1701s   
+msq.44.log | -a saturation -r | 100  | -    | 0.1958s   
+msq.44.log | -a smt           | 53*  | -    | 6.3346s*  
+msq.44.log | -a smt -r        | 52*  | -    | 6.2678s*  
+msq.44.log | -a smt -i        | 52*  | -    | 17.97s*   
+msq.44.log | -a smt -c        | 45*  | -    | 5.0062s*  
+msq.44.log | -a smt -c -i     | 45*  | -    | 5.0116s*  
+msq.44.log | -a lineup        | 45*  | -    | 5.0008s*  
+msq.44.log | -a lineup -c     | 45*  | -    | 5.0006s*  
+-----------+------------------+------+------+-----------
+msq.45.log | -a saturation    | 100  | -    | 0.1738s   
+msq.45.log | -a saturation -r | 100  | -    | 0.1884s   
+msq.45.log | -a smt           | 51*  | -    | 9.6422s*  
+msq.45.log | -a smt -r        | 51*  | -    | 9.5753s*  
+msq.45.log | -a smt -i        | 39*  | -    | 11.9526s* 
+msq.45.log | -a smt -c        | 28*  | -    | 5.0067s*  
+msq.45.log | -a smt -c -i     | 28*  | -    | 5.0024s*  
+msq.45.log | -a lineup        | 28*  | -    | 5.0118s*  
+msq.45.log | -a lineup -c     | 28*  | -    | 5.0114s*  
+-----------+------------------+------+------+-----------
+msq.46.log | -a saturation    | 100  | -    | 0.1376s   
+msq.46.log | -a saturation -r | 100  | -    | 0.1621s   
+msq.46.log | -a smt           | 54*  | -    | 11.0932s* 
+msq.46.log | -a smt -r        | 54*  | -    | 8.2849s*  
+msq.46.log | -a smt -i        | 53*  | -    | 31.3942s* 
+msq.46.log | -a smt -c        | 51*  | -    | 5.0118s*  
+msq.46.log | -a smt -c -i     | 51*  | -    | 5.0032s*  
+msq.46.log | -a lineup        | 51*  | -    | 5.0077s*  
+msq.46.log | -a lineup -c     | 51*  | -    | 5.0121s*  
+-----------+------------------+------+------+-----------
+msq.47.log | -a saturation    | 100  | -    | 0.1683s   
+msq.47.log | -a saturation -r | 100  | -    | 0.2101s   
+msq.47.log | -a smt           | 53*  | -    | 7.5091s*  
+msq.47.log | -a smt -r        | 53*  | -    | 7.655s*   
+msq.47.log | -a smt -i        | 56*  | -    | 5.0173s*  
+msq.47.log | -a smt -c        | 17*  | -    | 5.0048s*  
+msq.47.log | -a smt -c -i     | 17*  | -    | 5.0111s*  
+msq.47.log | -a lineup        | 17*  | -    | 5.0077s*  
+msq.47.log | -a lineup -c     | 17*  | -    | 5.077s*   
+-----------+------------------+------+------+-----------
+msq.48.log | -a saturation    | 100  | -    | 0.1371s   
+msq.48.log | -a saturation -r | 100  | -    | 0.1535s   
+msq.48.log | -a smt           | 52*  | -    | 8.0129s*  
+msq.48.log | -a smt -r        | 53*  | -    | 7.875s*   
+msq.48.log | -a smt -i        | 53*  | -    | 14.1821s* 
+msq.48.log | -a smt -c        | 51*  | -    | 5.0071s*  
+msq.48.log | -a smt -c -i     | 51*  | -    | 5.0119s*  
+msq.48.log | -a lineup        | 51*  | -    | 5.012s*   
+msq.48.log | -a lineup -c     | 51*  | -    | 5.0109s*  
+-----------+------------------+------+------+-----------
+msq.49.log | -a saturation    | 100  | -    | 0.2161s   
+msq.49.log | -a saturation -r | 100  | -    | 0.235s    
+msq.49.log | -a smt           | 42*  | -    | 5.4454s*  
+msq.49.log | -a smt -r        | 48*  | -    | 5.5072s*  
+msq.49.log | -a smt -i        | 44*  | -    | 16.6931s* 
+msq.49.log | -a smt -c        | 40*  | -    | 5.0048s*  
+msq.49.log | -a smt -c -i     | 40*  | -    | 5.0106s*  
+msq.49.log | -a lineup        | 40*  | -    | 5.0031s*  
+msq.49.log | -a lineup -c     | 40*  | -    | 5.0073s*  
+-----------+------------------+------+------+-----------
+msq.50.log | -a saturation    | 100  | -    | 0.1338s   
+msq.50.log | -a saturation -r | 100  | -    | 0.1639s   
+msq.50.log | -a smt           | 52*  | -    | 6.8943s*  
+msq.50.log | -a smt -r        | 52*  | -    | 6.8093s*  
+msq.50.log | -a smt -i        | 52*  | -    | 16.6062s* 
+msq.50.log | -a smt -c        | 51*  | -    | 5.0082s*  
+msq.50.log | -a smt -c -i     | 51*  | -    | 5.0086s*  
+msq.50.log | -a lineup        | 51*  | -    | 5.0076s*  
+msq.50.log | -a lineup -c     | 51*  | -    | 5.0105s*  
+-----------+------------------+------+------+-----------
+msq.51.log | -a saturation    | 100  | -    | 0.1503s   
+msq.51.log | -a saturation -r | 100  | -    | 0.1635s   
+msq.51.log | -a smt           | 54*  | -    | 6.1555s*  
+msq.51.log | -a smt -r        | 54*  | -    | 6.1137s*  
+msq.51.log | -a smt -i        | 56*  | -    | 5.6764s*  
+msq.51.log | -a smt -c        | 22*  | -    | 5.0022s*  
+msq.51.log | -a smt -c -i     | 22*  | -    | 5.0105s*  
+msq.51.log | -a lineup        | 22*  | -    | 5.0094s*  
+msq.51.log | -a lineup -c     | 22*  | -    | 5.0105s*  
+-----------+------------------+------+------+-----------
+msq.52.log | -a saturation    | 100  | -    | 0.1665s   
+msq.52.log | -a saturation -r | 100  | -    | 0.1887s   
+msq.52.log | -a smt           | 51*  | -    | 6.1996s*  
+msq.52.log | -a smt -r        | 48*  | -    | 6.3538s*  
+msq.52.log | -a smt -i        | 51*  | -    | 11.9142s* 
+msq.52.log | -a smt -c        | 45*  | -    | 5.01s*    
+msq.52.log | -a smt -c -i     | 45*  | -    | 5.01s*    
+msq.52.log | -a lineup        | 45*  | -    | 5.0104s*  
+msq.52.log | -a lineup -c     | 45*  | -    | 5.0119s*  
+-----------+------------------+------+------+-----------
+msq.53.log | -a saturation    | 100  | -    | 0.1795s   
+msq.53.log | -a saturation -r | 100  | -    | 0.2001s   
+msq.53.log | -a smt           | 42*  | -    | 6.8338s*  
+msq.53.log | -a smt -r        | 42*  | -    | 6.8496s*  
+msq.53.log | -a smt -i        | 32*  | -    | 9.1435s*  
+msq.53.log | -a smt -c        | 22*  | -    | 5.0106s*  
+msq.53.log | -a smt -c -i     | 22*  | -    | 5.0121s*  
+msq.53.log | -a lineup        | 22*  | -    | 5.2482s*  
+msq.53.log | -a lineup -c     | 22*  | -    | 5.0537s*  
+-----------+------------------+------+------+-----------
+msq.54.log | -a saturation    | 100  | -    | 0.1592s   
+msq.54.log | -a saturation -r | 100  | -    | 0.1734s   
+msq.54.log | -a smt           | 52*  | -    | 6.8293s*  
+msq.54.log | -a smt -r        | 52*  | -    | 6.8963s*  
+msq.54.log | -a smt -i        | 53*  | -    | 27.7465s* 
+msq.54.log | -a smt -c        | 51*  | -    | 5.0079s*  
+msq.54.log | -a smt -c -i     | 51*  | -    | 5.0105s*  
+msq.54.log | -a lineup        | 51*  | -    | 5.0103s*  
+msq.54.log | -a lineup -c     | 51*  | -    | 5.0034s*  
+-----------+------------------+------+------+-----------
+msq.55.log | -a saturation    | 100  | -    | 0.1737s   
+msq.55.log | -a saturation -r | 100  | -    | 0.1894s   
+msq.55.log | -a smt           | 53*  | -    | 9.1275s*  
+msq.55.log | -a smt -r        | 53*  | -    | 7.997s*   
+msq.55.log | -a smt -i        | 54*  | -    | 17.0552s* 
+msq.55.log | -a smt -c        | 48*  | -    | 5.0104s*  
+msq.55.log | -a smt -c -i     | 48*  | -    | 5.0118s*  
+msq.55.log | -a lineup        | 48*  | -    | 5.0077s*  
+msq.55.log | -a lineup -c     | 48*  | -    | 5.0011s*  
+-----------+------------------+------+------+-----------
+msq.56.log | -a saturation    | 100  | -    | 0.1785s   
+msq.56.log | -a saturation -r | 100  | -    | 0.1871s   
+msq.56.log | -a smt           | 51*  | -    | 8.7844s*  
+msq.56.log | -a smt -r        | 51*  | -    | 8.7524s*  
+msq.56.log | -a smt -i        | 44*  | -    | 20.9126s* 
+msq.56.log | -a smt -c        | 25*  | -    | 5.0634s*  
+msq.56.log | -a smt -c -i     | 25*  | -    | 5.0016s*  
+msq.56.log | -a lineup        | 25*  | -    | 5.0031s*  
+msq.56.log | -a lineup -c     | 25*  | -    | 5.0074s*  
+-----------+------------------+------+------+-----------
+msq.57.log | -a saturation    | 100  | -    | 0.1818s   
+msq.57.log | -a saturation -r | 100  | -    | 0.2266s   
+msq.57.log | -a smt           | 53*  | -    | 5.2076s*  
+msq.57.log | -a smt -r        | 53*  | -    | 5.2521s*  
+msq.57.log | -a smt -i        | 57*  | -    | 5.0346s*  
+msq.57.log | -a smt -c        | 39*  | -    | 5.009s*   
+msq.57.log | -a smt -c -i     | 39*  | -    | 5.0122s*  
+msq.57.log | -a lineup        | 39*  | -    | 5.0068s*  
+msq.57.log | -a lineup -c     | 39*  | -    | 5.0045s*  
+-----------+------------------+------+------+-----------
+msq.58.log | -a saturation    | 100  | -    | 0.1989s   
+msq.58.log | -a saturation -r | 100  | -    | 0.2s      
+msq.58.log | -a smt           | 55*  | -    | 15.6754s* 
+msq.58.log | -a smt -r        | 55*  | -    | 15.3584s* 
+msq.58.log | -a smt -i        | 58*  | -    | 6.4001s*  
+msq.58.log | -a smt -c        | 20*  | -    | 5.0117s*  
+msq.58.log | -a smt -c -i     | 20*  | -    | 5.0012s*  
+msq.58.log | -a lineup        | 20*  | -    | 5.0046s*  
+msq.58.log | -a lineup -c     | 20*  | -    | 5.0103s*  
+-----------+------------------+------+------+-----------
+msq.59.log | -a saturation    | 100  | -    | 0.1556s   
+msq.59.log | -a saturation -r | 100  | -    | 0.1809s   
+msq.59.log | -a smt           | 56*  | -    | 5.0057s*  
+msq.59.log | -a smt -r        | 55*  | -    | 5.0344s*  
+msq.59.log | -a smt -i        | 58*  | -    | 7.2701s*  
+msq.59.log | -a smt -c        | 25*  | -    | 5.0021s*  
+msq.59.log | -a smt -c -i     | 25*  | -    | 5.0081s*  
+msq.59.log | -a lineup        | 13*  | -    | 5.0029s*  
+msq.59.log | -a lineup -c     | 25*  | -    | 5.0023s*  
+-----------+------------------+------+------+-----------
+msq.60.log | -a saturation    | 100  | -    | 0.1673s   
+msq.60.log | -a saturation -r | 100  | -    | 0.1852s   
+msq.60.log | -a smt           | 53*  | -    | 8.7838s*  
+msq.60.log | -a smt -r        | 53*  | -    | 8.7993s*  
+msq.60.log | -a smt -i        | 50*  | -    | 10.9967s* 
+msq.60.log | -a smt -c        | 29*  | -    | 5.0026s*  
+msq.60.log | -a smt -c -i     | 29*  | -    | 5.0631s*  
+msq.60.log | -a lineup        | 29*  | -    | 5.0104s*  
+msq.60.log | -a lineup -c     | 29*  | -    | 5.0066s*  
+-----------+------------------+------+------+-----------
+msq.61.log | -a saturation    | 100  | -    | 0.1538s   
+msq.61.log | -a saturation -r | 100  | -    | 0.1786s   
+msq.61.log | -a smt           | 51*  | -    | 7.0098s*  
+msq.61.log | -a smt -r        | 51*  | -    | 6.9562s*  
+msq.61.log | -a smt -i        | 56*  | -    | 6.4827s*  
+msq.61.log | -a smt -c        | 18*  | -    | 5.0104s*  
+msq.61.log | -a smt -c -i     | 18*  | -    | 5.0007s*  
+msq.61.log | -a lineup        | 18*  | -    | 5.0105s*  
+msq.61.log | -a lineup -c     | 18*  | -    | 5.0071s*  
+-----------+------------------+------+------+-----------
+msq.62.log | -a saturation    | 100  | -    | 0.1886s   
+msq.62.log | -a saturation -r | 100  | -    | 0.2068s   
+msq.62.log | -a smt           | 52*  | -    | 8.9018s*  
+msq.62.log | -a smt -r        | 52*  | -    | 8.8906s*  
+msq.62.log | -a smt -i        | 52*  | -    | 14.1597s* 
+msq.62.log | -a smt -c        | 34*  | -    | 5.0093s*  
+msq.62.log | -a smt -c -i     | 34*  | -    | 5.0087s*  
+msq.62.log | -a lineup        | 34*  | -    | 5.0122s*  
+msq.62.log | -a lineup -c     | 34*  | -    | 5.0118s*  
+-----------+------------------+------+------+-----------
+msq.63.log | -a saturation    | 100  | -    | 0.1661s   
+msq.63.log | -a saturation -r | 100  | -    | 0.1996s   
+msq.63.log | -a smt           | 51*  | -    | 7.9472s*  
+msq.63.log | -a smt -r        | 52*  | -    | 7.9919s*  
+msq.63.log | -a smt -i        | 52*  | -    | 16.5064s* 
+msq.63.log | -a smt -c        | 41*  | -    | 5.0117s*  
+msq.63.log | -a smt -c -i     | 41*  | -    | 5.0557s*  
+msq.63.log | -a lineup        | 41*  | -    | 5.0069s*  
+msq.63.log | -a lineup -c     | 41*  | -    | 5.0055s*  
+-----------+------------------+------+------+-----------
+msq.64.log | -a saturation    | 100  | -    | 0.1261s   
+msq.64.log | -a saturation -r | 100  | -    | 0.1459s   
+msq.64.log | -a smt           | 51*  | -    | 8.7866s*  
+msq.64.log | -a smt -r        | 51*  | -    | 8.8601s*  
+msq.64.log | -a smt -i        | 49*  | -    | 22.3868s* 
+msq.64.log | -a smt -c        | 49*  | -    | 5.003s*   
+msq.64.log | -a smt -c -i     | 49*  | -    | 5.0069s*  
+msq.64.log | -a lineup        | 49*  | -    | 5.0093s*  
+msq.64.log | -a lineup -c     | 49*  | -    | 5.0039s*  
+-----------+------------------+------+------+-----------
+msq.65.log | -a saturation    | 100  | -    | 0.1464s   
+msq.65.log | -a saturation -r | 100  | -    | 0.1637s   
+msq.65.log | -a smt           | 51*  | -    | 8.174s*   
+msq.65.log | -a smt -r        | 53*  | -    | 8.3414s*  
+msq.65.log | -a smt -i        | 42*  | -    | 11.9152s* 
+msq.65.log | -a smt -c        | 35*  | -    | 5.0046s*  
+msq.65.log | -a smt -c -i     | 35*  | -    | 5.0121s*  
+msq.65.log | -a lineup        | 35*  | -    | 5.1144s*  
+msq.65.log | -a lineup -c     | 35*  | -    | 5.0093s*  
+-----------+------------------+------+------+-----------
+msq.66.log | -a saturation    | 100  | -    | 0.168s    
+msq.66.log | -a saturation -r | 100  | -    | 0.1799s   
+msq.66.log | -a smt           | 55*  | -    | 7.1397s*  
+msq.66.log | -a smt -r        | 54*  | -    | 7.2156s*  
+msq.66.log | -a smt -i        | 57*  | -    | 5.5146s*  
+msq.66.log | -a smt -c        | 36*  | -    | 5.0099s*  
+msq.66.log | -a smt -c -i     | 36*  | -    | 5.004s*   
+msq.66.log | -a lineup        | 36*  | -    | 5.0049s*  
+msq.66.log | -a lineup -c     | 36*  | -    | 5.0063s*  
+-----------+------------------+------+------+-----------
+msq.67.log | -a saturation    | 100  | -    | 0.1325s   
+msq.67.log | -a saturation -r | 100  | -    | 0.1475s   
+msq.67.log | -a smt           | 52*  | -    | 6.3971s*  
+msq.67.log | -a smt -r        | 52*  | -    | 6.3773s*  
+msq.67.log | -a smt -i        | 52*  | -    | 17.7236s* 
+msq.67.log | -a smt -c        | 51*  | -    | 5.0105s*  
+msq.67.log | -a smt -c -i     | 51*  | -    | 5.0022s*  
+msq.67.log | -a lineup        | 51*  | -    | 5.0075s*  
+msq.67.log | -a lineup -c     | 51*  | -    | 5.0113s*  
+-----------+------------------+------+------+-----------
+msq.68.log | -a saturation    | 100  | -    | 0.1862s   
+msq.68.log | -a saturation -r | 100  | -    | 0.2104s   
+msq.68.log | -a smt           | 55*  | -    | 5.9701s*  
+msq.68.log | -a smt -r        | 54*  | -    | 6.1262s*  
+msq.68.log | -a smt -i        | 59*  | -    | 5.4481s*  
+msq.68.log | -a smt -c        | 34*  | -    | 5.0103s*  
+msq.68.log | -a smt -c -i     | 34*  | -    | 5.0007s*  
+msq.68.log | -a lineup        | 34*  | -    | 5.0023s*  
+msq.68.log | -a lineup -c     | 34*  | -    | 5.0061s*  
+-----------+------------------+------+------+-----------
+msq.69.log | -a saturation    | 100  | -    | 0.1563s   
+msq.69.log | -a saturation -r | 100  | -    | 0.1531s   
+msq.69.log | -a smt           | 52*  | -    | 6.1088s*  
+msq.69.log | -a smt -r        | 52*  | -    | 5.973s*   
+msq.69.log | -a smt -i        | 53*  | -    | 23.8202s* 
+msq.69.log | -a smt -c        | 47*  | -    | 5.0084s*  
+msq.69.log | -a smt -c -i     | 47*  | -    | 5.0102s*  
+msq.69.log | -a lineup        | 47*  | -    | 5.0097s*  
+msq.69.log | -a lineup -c     | 47*  | -    | 5.0117s*  
+-----------+------------------+------+------+-----------
+msq.70.log | -a saturation    | 100  | -    | 0.1374s   
+msq.70.log | -a saturation -r | 100  | -    | 0.1591s   
+msq.70.log | -a smt           | 53*  | -    | 7.4686s*  
+msq.70.log | -a smt -r        | 52*  | -    | 7.4791s*  
+msq.70.log | -a smt -i        | 53*  | -    | 24.0733s* 
+msq.70.log | -a smt -c        | 51*  | -    | 5.0104s*  
+msq.70.log | -a smt -c -i     | 51*  | -    | 5.0105s*  
+msq.70.log | -a lineup        | 51*  | -    | 5.0049s*  
+msq.70.log | -a lineup -c     | 51*  | -    | 5.0106s*  
+-----------+------------------+------+------+-----------
+msq.71.log | -a saturation    | 100  | -    | 0.1783s   
+msq.71.log | -a saturation -r | 100  | -    | 0.1832s   
+msq.71.log | -a smt           | 41*  | -    | 5.1091s*  
+msq.71.log | -a smt -r        | 51*  | -    | 5.0494s*  
+msq.71.log | -a smt -i        | 59*  | -    | 6.1637s*  
+msq.71.log | -a smt -c        | 31*  | -    | 5.0104s*  
+msq.71.log | -a smt -c -i     | 31*  | -    | 5.0091s*  
+msq.71.log | -a lineup        | 31*  | -    | 5.073s*   
+msq.71.log | -a lineup -c     | 31*  | -    | 5.0105s*  
+-----------+------------------+------+------+-----------
+msq.72.log | -a saturation    | 100  | -    | 0.1752s   
+msq.72.log | -a saturation -r | 100  | -    | 0.1845s   
+msq.72.log | -a smt           | 54*  | -    | 7.4523s*  
+msq.72.log | -a smt -r        | 54*  | -    | 7.664s*   
+msq.72.log | -a smt -i        | 53*  | -    | 26.369s*  
+msq.72.log | -a smt -c        | 37*  | -    | 5.0017s*  
+msq.72.log | -a smt -c -i     | 37*  | -    | 5.0092s*  
+msq.72.log | -a lineup        | 37*  | -    | 5.0076s*  
+msq.72.log | -a lineup -c     | 37*  | -    | 5.0098s*  
+-----------+------------------+------+------+-----------
+msq.73.log | -a saturation    | 100  | -    | 0.168s    
+msq.73.log | -a saturation -r | 100  | -    | 0.1886s   
+msq.73.log | -a smt           | 52*  | -    | 5.1191s*  
+msq.73.log | -a smt -r        | 52*  | -    | 5.1362s*  
+msq.73.log | -a smt -i        | 40*  | -    | 6.7554s*  
+msq.73.log | -a smt -c        | 31*  | -    | 5.007s*   
+msq.73.log | -a smt -c -i     | 31*  | -    | 5.0104s*  
+msq.73.log | -a lineup        | 31*  | -    | 5.0047s*  
+msq.73.log | -a lineup -c     | 31*  | -    | 5.0077s*  
+-----------+------------------+------+------+-----------
+msq.74.log | -a saturation    | 100  | -    | 0.1644s   
+msq.74.log | -a saturation -r | 100  | -    | 0.183s    
+msq.74.log | -a smt           | 52*  | -    | 5.2813s*  
+msq.74.log | -a smt -r        | 100  | -    | 3102.3936s
+msq.74.log | -a smt -i        | 58*  | -    | 6.5069s*  
+msq.74.log | -a smt -c        | 47*  | -    | 5.0118s*  
+msq.74.log | -a smt -c -i     | 47*  | -    | 5.012s*   
+msq.74.log | -a lineup        | 47*  | -    | 5.0016s*  
+msq.74.log | -a lineup -c     | 47*  | -    | 5.0084s*  
+-----------+------------------+------+------+-----------
+msq.75.log | -a saturation    | 100  | -    | 0.1543s   
+msq.75.log | -a saturation -r | 100  | -    | 0.1578s   
+msq.75.log | -a smt           | 52*  | -    | 7.1159s*  
+msq.75.log | -a smt -r        | 51*  | -    | 5.2329s*  
+msq.75.log | -a smt -i        | 52*  | -    | 23.06s*   
+msq.75.log | -a smt -c        | 51*  | -    | 5.0025s*  
+msq.75.log | -a smt -c -i     | 51*  | -    | 5.0104s*  
+msq.75.log | -a lineup        | 51*  | -    | 5.0105s*  
+msq.75.log | -a lineup -c     | 51*  | -    | 5.0022s*  
+-----------+------------------+------+------+-----------
+msq.76.log | -a saturation    | 100  | -    | 0.1625s   
+msq.76.log | -a saturation -r | 100  | -    | 0.1884s   
+msq.76.log | -a smt           | 52*  | -    | 5.8456s*  
+msq.76.log | -a smt -r        | 53*  | -    | 5.8434s*  
+msq.76.log | -a smt -i        | 52*  | -    | 30.7319s* 
+msq.76.log | -a smt -c        | 51*  | -    | 5.0061s*  
+msq.76.log | -a smt -c -i     | 51*  | -    | 5.0023s*  
+msq.76.log | -a lineup        | 51*  | -    | 5.008s*   
+msq.76.log | -a lineup -c     | 51*  | -    | 5.009s*   
+-----------+------------------+------+------+-----------
+msq.77.log | -a saturation    | 100  | -    | 0.1286s   
+msq.77.log | -a saturation -r | 100  | -    | 0.1515s   
+msq.77.log | -a smt           | 53*  | -    | 6.1476s*  
+msq.77.log | -a smt -r        | 53*  | -    | 9.9758s*  
+msq.77.log | -a smt -i        | 53*  | -    | 14.9394s* 
+msq.77.log | -a smt -c        | 51*  | -    | 5.0109s*  
+msq.77.log | -a smt -c -i     | 51*  | -    | 5.0052s*  
+msq.77.log | -a lineup        | 51*  | -    | 5.0106s*  
+msq.77.log | -a lineup -c     | 51*  | -    | 5.0104s*  
+-----------+------------------+------+------+-----------
+msq.78.log | -a saturation    | 100  | -    | 0.1425s   
+msq.78.log | -a saturation -r | 100  | -    | 0.1753s   
+msq.78.log | -a smt           | 52*  | -    | 5.0252s*  
+msq.78.log | -a smt -r        | 52*  | -    | 5.0659s*  
+msq.78.log | -a smt -i        | 52*  | -    | 19.0868s* 
+msq.78.log | -a smt -c        | 51*  | -    | 5.0105s*  
+msq.78.log | -a smt -c -i     | 51*  | -    | 5.0116s*  
+msq.78.log | -a lineup        | 51*  | -    | 5.0087s*  
+msq.78.log | -a lineup -c     | 51*  | -    | 5.005s*   
+-----------+------------------+------+------+-----------
+msq.79.log | -a saturation    | 100  | -    | 0.1634s   
+msq.79.log | -a saturation -r | 100  | -    | 0.1796s   
+msq.79.log | -a smt           | 53*  | -    | 7.6295s*  
+msq.79.log | -a smt -r        | 53*  | -    | 7.6887s*  
+msq.79.log | -a smt -i        | 58*  | -    | 5.2239s*  
+msq.79.log | -a smt -c        | 23*  | -    | 5.0071s*  
+msq.79.log | -a smt -c -i     | 23*  | -    | 5.0063s*  
+msq.79.log | -a lineup        | 23*  | -    | 5.0939s*  
+msq.79.log | -a lineup -c     | 23*  | -    | 5.0174s*  
+-----------+------------------+------+------+-----------
+msq.80.log | -a saturation    | 100  | -    | 0.1804s   
+msq.80.log | -a saturation -r | 100  | -    | 0.1968s   
+msq.80.log | -a smt           | 53*  | -    | 5.8789s*  
+msq.80.log | -a smt -r        | 54*  | -    | 5.8964s*  
+msq.80.log | -a smt -i        | 57*  | -    | 6.2335s*  
+msq.80.log | -a smt -c        | 24*  | -    | 5.0077s*  
+msq.80.log | -a smt -c -i     | 24*  | -    | 5.0066s*  
+msq.80.log | -a lineup        | 24*  | -    | 5.0118s*  
+msq.80.log | -a lineup -c     | 24*  | -    | 5.0049s*  
+-----------+------------------+------+------+-----------
+msq.81.log | -a saturation    | 100  | -    | 0.1314s   
+msq.81.log | -a saturation -r | 100  | -    | 0.144s    
+msq.81.log | -a smt           | 52*  | -    | 6.1393s*  
+msq.81.log | -a smt -r        | 52*  | -    | 6.2483s*  
+msq.81.log | -a smt -i        | 52*  | -    | 26.1888s* 
+msq.81.log | -a smt -c        | 51*  | -    | 5.0058s*  
+msq.81.log | -a smt -c -i     | 51*  | -    | 5.0037s*  
+msq.81.log | -a lineup        | 51*  | -    | 5.0105s*  
+msq.81.log | -a lineup -c     | 51*  | -    | 5.0016s*  
+-----------+------------------+------+------+-----------
+msq.82.log | -a saturation    | 100  | -    | 0.1642s   
+msq.82.log | -a saturation -r | 100  | -    | 0.1905s   
+msq.82.log | -a smt           | 54*  | -    | 5.1281s*  
+msq.82.log | -a smt -r        | 54*  | -    | 5.1553s*  
+msq.82.log | -a smt -i        | 58*  | -    | 6.0314s*  
+msq.82.log | -a smt -c        | 28*  | -    | 5.0104s*  
+msq.82.log | -a smt -c -i     | 28*  | -    | 5.0021s*  
+msq.82.log | -a lineup        | 28*  | -    | 5.0227s*  
+msq.82.log | -a lineup -c     | 28*  | -    | 5.0093s*  
+-----------+------------------+------+------+-----------
+msq.83.log | -a saturation    | 100  | -    | 0.1605s   
+msq.83.log | -a saturation -r | 100  | -    | 0.1798s   
+msq.83.log | -a smt           | 50*  | -    | 6.287s*   
+msq.83.log | -a smt -r        | 50*  | -    | 6.2324s*  
+msq.83.log | -a smt -i        | 26*  | -    | 23.2453s* 
+msq.83.log | -a smt -c        | 26*  | -    | 5.0133s*  
+msq.83.log | -a smt -c -i     | 26*  | -    | 5.031s*   
+msq.83.log | -a lineup        | 26*  | -    | 5.0076s*  
+msq.83.log | -a lineup -c     | 26*  | -    | 5.0085s*  
+-----------+------------------+------+------+-----------
+msq.84.log | -a saturation    | 100  | -    | 0.1347s   
+msq.84.log | -a saturation -r | 100  | -    | 0.1505s   
+msq.84.log | -a smt           | 53*  | -    | 6.5304s*  
+msq.84.log | -a smt -r        | 52*  | -    | 6.5131s*  
+msq.84.log | -a smt -i        | 52*  | -    | 16.3934s* 
+msq.84.log | -a smt -c        | 51*  | -    | 5.0097s*  
+msq.84.log | -a smt -c -i     | 51*  | -    | 5.0024s*  
+msq.84.log | -a lineup        | 51*  | -    | 5.0034s*  
+msq.84.log | -a lineup -c     | 51*  | -    | 5.0104s*  
+-----------+------------------+------+------+-----------
+msq.85.log | -a saturation    | 100  | -    | 0.1673s   
+msq.85.log | -a saturation -r | 100  | -    | 0.1568s   
+msq.85.log | -a smt           | 53*  | -    | 6.7733s*  
+msq.85.log | -a smt -r        | 53*  | -    | 6.8593s*  
+msq.85.log | -a smt -i        | 53*  | -    | 27.8745s* 
+msq.85.log | -a smt -c        | 34*  | -    | 5.0058s*  
+msq.85.log | -a smt -c -i     | 34*  | -    | 5.0049s*  
+msq.85.log | -a lineup        | 34*  | -    | 5.002s*   
+msq.85.log | -a lineup -c     | 34*  | -    | 5.01s*    
+-----------+------------------+------+------+-----------
+msq.86.log | -a saturation    | 100  | -    | 0.1725s   
+msq.86.log | -a saturation -r | 100  | -    | 0.1891s   
+msq.86.log | -a smt           | 52*  | -    | 5.4203s*  
+msq.86.log | -a smt -r        | 40*  | -    | 5.2716s*  
+msq.86.log | -a smt -i        | 59*  | -    | 5.1247s*  
+msq.86.log | -a smt -c        | 32*  | -    | 5.0075s*  
+msq.86.log | -a smt -c -i     | 32*  | -    | 5.0117s*  
+msq.86.log | -a lineup        | 10*  | -    | 5.0103s*  
+msq.86.log | -a lineup -c     | 32*  | -    | 5.0106s*  
+-----------+------------------+------+------+-----------
+msq.87.log | -a saturation    | 100  | -    | 0.1954s   
+msq.87.log | -a saturation -r | 100  | -    | 0.2143s   
+msq.87.log | -a smt           | 55*  | -    | 7.981s*   
+msq.87.log | -a smt -r        | 55*  | -    | 8.1877s*  
+msq.87.log | -a smt -i        | 57*  | -    | 5.5029s*  
+msq.87.log | -a smt -c        | 53*  | -    | 5.0104s*  
+msq.87.log | -a smt -c -i     | 53*  | -    | 5.0087s*  
+msq.87.log | -a lineup        | 53*  | -    | 5.0035s*  
+msq.87.log | -a lineup -c     | 53*  | -    | 5.012s*   
+-----------+------------------+------+------+-----------
+msq.88.log | -a saturation    | 100  | -    | 0.1882s   
+msq.88.log | -a saturation -r | 100  | -    | 0.2214s   
+msq.88.log | -a smt           | 53*  | -    | 10.4333s* 
+msq.88.log | -a smt -r        | 53*  | -    | 10.3867s* 
+msq.88.log | -a smt -i        | 35*  | -    | 8.3727s*  
+msq.88.log | -a smt -c        | 26*  | -    | 5.0339s*  
+msq.88.log | -a smt -c -i     | 26*  | -    | 5.0064s*  
+msq.88.log | -a lineup        | 26*  | -    | 5.0071s*  
+msq.88.log | -a lineup -c     | 26*  | -    | 5.0009s*  
+-----------+------------------+------+------+-----------
+msq.89.log | -a saturation    | 100  | -    | 0.1735s   
+msq.89.log | -a saturation -r | 100  | -    | 0.1982s   
+msq.89.log | -a smt           | 51*  | -    | 5.5348s*  
+msq.89.log | -a smt -r        | 51*  | -    | 5.584s*   
+msq.89.log | -a smt -i        | 52*  | -    | 32.7559s* 
+msq.89.log | -a smt -c        | 47*  | -    | 5.0051s*  
+msq.89.log | -a smt -c -i     | 47*  | -    | 5.0042s*  
+msq.89.log | -a lineup        | 47*  | -    | 5.0013s*  
+msq.89.log | -a lineup -c     | 47*  | -    | 5.0074s*  
+-----------+------------------+------+------+-----------
+msq.90.log | -a saturation    | 100  | -    | 0.1672s   
+msq.90.log | -a saturation -r | 100  | -    | 0.1881s   
+msq.90.log | -a smt           | 51*  | -    | 5.2343s*  
+msq.90.log | -a smt -r        | 51*  | -    | 5.1187s*  
+msq.90.log | -a smt -i        | 100  | -    | 2631.2531s
+msq.90.log | -a smt -c        | 29*  | -    | 5.0309s*  
+msq.90.log | -a smt -c -i     | 29*  | -    | 5.0298s*  
+msq.90.log | -a lineup        | 29*  | -    | 5.0104s*  
+msq.90.log | -a lineup -c     | 29*  | -    | 5.0085s*  
+-----------+------------------+------+------+-----------
+msq.91.log | -a saturation    | 100  | -    | 0.1673s   
+msq.91.log | -a saturation -r | 100  | -    | 0.1803s   
+msq.91.log | -a smt           | 48*  | -    | 5.8483s*  
+msq.91.log | -a smt -r        | 48*  | -    | 5.8191s*  
+msq.91.log | -a smt -i        | 51*  | -    | 16.9012s* 
+msq.91.log | -a smt -c        | 38*  | -    | 5.011s*   
+msq.91.log | -a smt -c -i     | 38*  | -    | 5.0058s*  
+msq.91.log | -a lineup        | 38*  | -    | 5.0022s*  
+msq.91.log | -a lineup -c     | 38*  | -    | 5.0116s*  
+-----------+------------------+------+------+-----------
+msq.92.log | -a saturation    | 100  | -    | 0.1598s   
+msq.92.log | -a saturation -r | 100  | -    | 0.1671s   
+msq.92.log | -a smt           | 53*  | -    | 7.0427s*  
+msq.92.log | -a smt -r        | 53*  | -    | 7.117s*   
+msq.92.log | -a smt -i        | 47*  | -    | 19.8299s* 
+msq.92.log | -a smt -c        | 47*  | -    | 5.0118s*  
+msq.92.log | -a smt -c -i     | 47*  | -    | 5.0018s*  
+msq.92.log | -a lineup        | 47*  | -    | 5.0038s*  
+msq.92.log | -a lineup -c     | 47*  | -    | 5.0033s*  
+-----------+------------------+------+------+-----------
+msq.93.log | -a saturation    | 100  | -    | 0.166s    
+msq.93.log | -a saturation -r | 100  | -    | 0.1935s   
+msq.93.log | -a smt           | 54*  | -    | 8.3102s*  
+msq.93.log | -a smt -r        | 55*  | -    | 8.3223s*  
+msq.93.log | -a smt -i        | 56*  | -    | 5.5559s*  
+msq.93.log | -a smt -c        | 29*  | -    | 5.0104s*  
+msq.93.log | -a smt -c -i     | 29*  | -    | 5.0037s*  
+msq.93.log | -a lineup        | 29*  | -    | 5.0106s*  
+msq.93.log | -a lineup -c     | 29*  | -    | 5.0691s*  
+-----------+------------------+------+------+-----------
+msq.94.log | -a saturation    | 100  | -    | 0.0968s   
+msq.94.log | -a saturation -r | 100  | -    | 0.1078s   
+msq.94.log | -a smt           | 52*  | -    | 8.4472s*  
+msq.94.log | -a smt -r        | 53*  | -    | 10.2764s* 
+msq.94.log | -a smt -i        | 52*  | -    | 29.7225s* 
+msq.94.log | -a smt -c        | 51*  | -    | 5.0076s*  
+msq.94.log | -a smt -c -i     | 51*  | -    | 5.0116s*  
+msq.94.log | -a lineup        | 51*  | -    | 5.0013s*  
+msq.94.log | -a lineup -c     | 51*  | -    | 5.007s*   
+-----------+------------------+------+------+-----------
+msq.95.log | -a saturation    | 100  | -    | 0.1735s   
+msq.95.log | -a saturation -r | 100  | -    | 0.1841s   
+msq.95.log | -a smt           | 52*  | -    | 7.2703s*  
+msq.95.log | -a smt -r        | 52*  | -    | 7.5619s*  
+msq.95.log | -a smt -i        | 53*  | -    | 15.4935s* 
+msq.95.log | -a smt -c        | 51*  | -    | 5.0062s*  
+msq.95.log | -a smt -c -i     | 51*  | -    | 5.0022s*  
+msq.95.log | -a lineup        | 51*  | -    | 5.0013s*  
+msq.95.log | -a lineup -c     | 51*  | -    | 5.0101s*  
+-----------+------------------+------+------+-----------
+msq.96.log | -a saturation    | 100  | -    | 0.2067s   
+msq.96.log | -a saturation -r | 100  | -    | 0.2353s   
+msq.96.log | -a smt           | 52*  | -    | 8.7263s*  
+msq.96.log | -a smt -r        | 52*  | -    | 8.6634s*  
+msq.96.log | -a smt -i        | 57*  | -    | 5.8753s*  
+msq.96.log | -a smt -c        | 36*  | -    | 5.0104s*  
+msq.96.log | -a smt -c -i     | 36*  | -    | 5.0048s*  
+msq.96.log | -a lineup        | 36*  | -    | 5.1921s*  
+msq.96.log | -a lineup -c     | 36*  | -    | 5.0006s*  
+-----------+------------------+------+------+-----------
+msq.97.log | -a saturation    | 100  | -    | 0.1945s   
+msq.97.log | -a saturation -r | 100  | -    | 0.2698s   
+msq.97.log | -a smt           | 54*  | -    | 8.5706s*  
+msq.97.log | -a smt -r        | 54*  | -    | 8.5579s*  
+msq.97.log | -a smt -i        | 60*  | -    | 6.3078s*  
+msq.97.log | -a smt -c        | 27*  | -    | 5.0089s*  
+msq.97.log | -a smt -c -i     | 27*  | -    | 5.0504s*  
+msq.97.log | -a lineup        | 27*  | -    | 5.0104s*  
+msq.97.log | -a lineup -c     | 27*  | -    | 5.0095s*  
+-----------+------------------+------+------+-----------
+msq.98.log | -a saturation    | 100  | -    | 0.1711s   
+msq.98.log | -a saturation -r | 100  | -    | 0.1902s   
+msq.98.log | -a smt           | 54*  | -    | 5.8037s*  
+msq.98.log | -a smt -r        | 54*  | -    | 5.7738s*  
+msq.98.log | -a smt -i        | 59*  | -    | 6.2157s*  
+msq.98.log | -a smt -c        | 52*  | -    | 5.0032s*  
+msq.98.log | -a smt -c -i     | 52*  | -    | 5.0077s*  
+msq.98.log | -a lineup        | 52*  | -    | 5.0947s*  
+msq.98.log | -a lineup -c     | 52*  | -    | 5.012s*   
+-----------+------------------+------+------+-----------
+msq.99.log | -a saturation    | 100  | -    | 0.147s    
+msq.99.log | -a saturation -r | 100  | -    | 0.1592s   
+msq.99.log | -a smt           | 53*  | -    | 7.2702s*  
+msq.99.log | -a smt -r        | 53*  | -    | 7.2255s*  
+msq.99.log | -a smt -i        | 54*  | -    | 26.6623s* 
+msq.99.log | -a smt -c        | 44*  | -    | 5.0119s*  
+msq.99.log | -a smt -c -i     | 44*  | -    | 5.0059s*  
+msq.99.log | -a lineup        | 44*  | -    | 5.0005s*  
+msq.99.log | -a lineup -c     | 44*  | -    | 5.0027s*  
+-----------+------------------+------+------+-----------
+-------------------------------------------------------------------
+                       examples/generated/*                        
+-------------------------------------------------------------------
+example               | flags            | step | viol | time      
+----------------------+------------------+------+------+-----------
+bkq-almost-sequential | -a saturation    | ?    | -    | ?         
+bkq-almost-sequential | -a saturation -r | ?    | -    | ?         
+bkq-almost-sequential | -a smt           | ?    | -    | ?         
+bkq-almost-sequential | -a smt -r        | ?    | -    | ?         
+bkq-almost-sequential | -a smt -i        | ?    | -    | ?         
+bkq-almost-sequential | -a smt -c        | ?    | -    | ?         
+bkq-almost-sequential | -a smt -c -i     | ?    | -    | ?         
+bkq-almost-sequential | -a lineup        | ?    | -    | ?         
+bkq-almost-sequential | -a lineup -c     | ?    | -    | ?         
+----------------------+------------------+------+------+-----------
+bkq-very-concurrent   | -a saturation    | ?    | -    | ?         
+bkq-very-concurrent   | -a saturation -r | ?    | -    | ?         
+bkq-very-concurrent   | -a smt           | ?    | -    | ?         
+bkq-very-concurrent   | -a smt -r        | ?    | -    | ?         
+bkq-very-concurrent   | -a smt -i        | ?    | -    | ?         
+bkq-very-concurrent   | -a smt -c        | ?    | -    | ?         
+bkq-very-concurrent   | -a smt -c -i     | ?    | -    | ?         
+bkq-very-concurrent   | -a lineup        | ?    | -    | ?         
+bkq-very-concurrent   | -a lineup -c     | ?    | -    | ?         
+----------------------+------------------+------+------+-----------
+msq-almost-sequential | -a saturation    | ?    | -    | ?         
+msq-almost-sequential | -a saturation -r | ?    | -    | ?         
+msq-almost-sequential | -a smt           | ?    | -    | ?         
+msq-almost-sequential | -a smt -r        | ?    | -    | ?         
+msq-almost-sequential | -a smt -i        | ?    | -    | ?         
+msq-almost-sequential | -a smt -c        | ?    | -    | ?         
+msq-almost-sequential | -a smt -c -i     | ?    | -    | ?         
+msq-almost-sequential | -a lineup        | ?    | -    | ?         
+msq-almost-sequential | -a lineup -c     | ?    | -    | ?         
+----------------------+------------------+------+------+-----------
+msq-very-concurrent   | -a saturation    | ?    | -    | ?         
+msq-very-concurrent   | -a saturation -r | ?    | -    | ?         
+msq-very-concurrent   | -a smt           | ?    | -    | ?         
+msq-very-concurrent   | -a smt -r        | ?    | -    | ?         
+msq-very-concurrent   | -a smt -i        | ?    | -    | ?         
+msq-very-concurrent   | -a smt -c        | ?    | -    | ?         
+msq-very-concurrent   | -a smt -c -i     | ?    | -    | ?         
+msq-very-concurrent   | -a lineup        | ?    | -    | ?         
+msq-very-concurrent   | -a lineup -c     | ?    | -    | ?         
+----------------------+------------------+------+------+-----------
+my-sync-stack.0.log   | -a saturation    | 318* | -    | 5.0123s*  
+my-sync-stack.0.log   | -a saturation -r | 1062 | -    | 2.4102s   
+my-sync-stack.0.log   | -a smt           | 24*  | -    | 5.6024s*  
+my-sync-stack.0.log   | -a smt -r        | 24*  | -    | 5.5302s*  
+my-sync-stack.0.log   | -a smt -i        | 32*  | -    | 5.7838s*  
+my-sync-stack.0.log   | -a smt -c        | 27*  | -    | 5.0023s*  
+my-sync-stack.0.log   | -a smt -c -i     | 24*  | -    | 5.1718s*  
+my-sync-stack.0.log   | -a lineup        | ?    | -    | ?         
+my-sync-stack.0.log   | -a lineup -c     | 20*  | -    | 5.0026s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.1.log   | -a saturation    | 300* | -    | 5.0033s*  
+my-sync-stack.1.log   | -a saturation -r | 1056 | -    | 1.979s    
+my-sync-stack.1.log   | -a smt           | 30*  | -    | 7.1087s*  
+my-sync-stack.1.log   | -a smt -r        | 30*  | -    | 6.9997s*  
+my-sync-stack.1.log   | -a smt -i        | 30*  | -    | 6.7709s*  
+my-sync-stack.1.log   | -a smt -c        | 28*  | -    | 5.1789s*  
+my-sync-stack.1.log   | -a smt -c -i     | 26*  | -    | 5.9672s*  
+my-sync-stack.1.log   | -a lineup        | 17*  | -    | 5.007s*   
+my-sync-stack.1.log   | -a lineup -c     | 18*  | -    | 5.0052s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.2.log   | -a saturation    | 331* | -    | 5.0013s*  
+my-sync-stack.2.log   | -a saturation -r | 1020 | -    | 3.2726s   
+my-sync-stack.2.log   | -a smt           | 29*  | -    | 6.173s*   
+my-sync-stack.2.log   | -a smt -r        | 31*  | -    | 5.5559s*  
+my-sync-stack.2.log   | -a smt -i        | 34*  | -    | 5.7751s*  
+my-sync-stack.2.log   | -a smt -c        | 28*  | -    | 5.2252s*  
+my-sync-stack.2.log   | -a smt -c -i     | 19*  | -    | 5.0342s*  
+my-sync-stack.2.log   | -a lineup        | 15*  | -    | 5.0021s*  
+my-sync-stack.2.log   | -a lineup -c     | 15*  | -    | 5.0057s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.3.log   | -a saturation    | 319* | -    | 5.0018s*  
+my-sync-stack.3.log   | -a saturation -r | 1014 | -    | 1.6687s   
+my-sync-stack.3.log   | -a smt           | 29*  | -    | 5.1615s*  
+my-sync-stack.3.log   | -a smt -r        | 36*  | -    | 5.0051s*  
+my-sync-stack.3.log   | -a smt -i        | 36*  | -    | 5.7129s*  
+my-sync-stack.3.log   | -a smt -c        | 29*  | -    | 5.3203s*  
+my-sync-stack.3.log   | -a smt -c -i     | 20*  | -    | 5.0655s*  
+my-sync-stack.3.log   | -a lineup        | 16*  | -    | 5.0042s*  
+my-sync-stack.3.log   | -a lineup -c     | 14*  | -    | 5.0208s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.4.log   | -a saturation    | 310* | -    | 5.0029s*  
+my-sync-stack.4.log   | -a saturation -r | 910* | -    | 5.0075s*  
+my-sync-stack.4.log   | -a smt           | 36*  | -    | 5.2431s*  
+my-sync-stack.4.log   | -a smt -r        | 39*  | -    | 6.9865s*  
+my-sync-stack.4.log   | -a smt -i        | 37*  | -    | 5.6603s*  
+my-sync-stack.4.log   | -a smt -c        | 31*  | -    | 5.0686s*  
+my-sync-stack.4.log   | -a smt -c -i     | 29*  | -    | 5.0979s*  
+my-sync-stack.4.log   | -a lineup        | 22*  | -    | 5.0043s*  
+my-sync-stack.4.log   | -a lineup -c     | 29*  | -    | 5.0024s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.5.log   | -a saturation    | 278* | -    | 5.0026s*  
+my-sync-stack.5.log   | -a saturation -r | 875* | -    | 5.0055s*  
+my-sync-stack.5.log   | -a smt           | 30*  | -    | 5.4616s*  
+my-sync-stack.5.log   | -a smt -r        | 38*  | -    | 5.375s*   
+my-sync-stack.5.log   | -a smt -i        | 30*  | -    | 5.3726s*  
+my-sync-stack.5.log   | -a smt -c        | 20*  | -    | 5.0382s*  
+my-sync-stack.5.log   | -a smt -c -i     | 15*  | -    | 5.0393s*  
+my-sync-stack.5.log   | -a lineup        | 8*   | -    | 5.0058s*  
+my-sync-stack.5.log   | -a lineup -c     | 11*  | -    | 5.0108s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.6.log   | -a saturation    | 315* | -    | 5.0077s*  
+my-sync-stack.6.log   | -a saturation -r | 1044 | -    | 2.2587s   
+my-sync-stack.6.log   | -a smt           | 36*  | -    | 5.0079s*  
+my-sync-stack.6.log   | -a smt -r        | 41*  | -    | 5.0651s*  
+my-sync-stack.6.log   | -a smt -i        | 38*  | -    | 6.3764s*  
+my-sync-stack.6.log   | -a smt -c        | 31*  | -    | 5.1367s*  
+my-sync-stack.6.log   | -a smt -c -i     | 24*  | -    | 5.1651s*  
+my-sync-stack.6.log   | -a lineup        | 19*  | -    | 5.003s*   
+my-sync-stack.6.log   | -a lineup -c     | 20*  | -    | 5.0055s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.7.log   | -a saturation    | 290* | -    | 5.0038s*  
+my-sync-stack.7.log   | -a saturation -r | 1030 | -    | 1.9898s   
+my-sync-stack.7.log   | -a smt           | 37*  | -    | 6.7933s*  
+my-sync-stack.7.log   | -a smt -r        | 45*  | -    | 5.4957s*  
+my-sync-stack.7.log   | -a smt -i        | 37*  | -    | 5.3287s*  
+my-sync-stack.7.log   | -a smt -c        | 39*  | -    | 5.1358s*  
+my-sync-stack.7.log   | -a smt -c -i     | 33*  | -    | 9.0753s*  
+my-sync-stack.7.log   | -a lineup        | 17*  | -    | 5.0024s*  
+my-sync-stack.7.log   | -a lineup -c     | 22*  | -    | 5.0063s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.8.log   | -a saturation    | 301* | -    | 5.0039s*  
+my-sync-stack.8.log   | -a saturation -r | 726* | -    | 5.0019s*  
+my-sync-stack.8.log   | -a smt           | 32*  | -    | 5.0046s*  
+my-sync-stack.8.log   | -a smt -r        | 39*  | -    | 5.7838s*  
+my-sync-stack.8.log   | -a smt -i        | 36*  | -    | 5.6544s*  
+my-sync-stack.8.log   | -a smt -c        | 36*  | -    | 5.1417s*  
+my-sync-stack.8.log   | -a smt -c -i     | 31*  | -    | 7.5221s*  
+my-sync-stack.8.log   | -a lineup        | ?    | -    | ?         
+my-sync-stack.8.log   | -a lineup -c     | 19*  | -    | 5.0024s*  
+----------------------+------------------+------+------+-----------
+my-sync-stack.9.log   | -a saturation    | 315* | -    | 5.0011s*  
+my-sync-stack.9.log   | -a saturation -r | 1040 | -    | 1.8221s   
+my-sync-stack.9.log   | -a smt           | 33*  | -    | 7.3271s*  
+my-sync-stack.9.log   | -a smt -r        | 45*  | -    | 7.2166s*  
+my-sync-stack.9.log   | -a smt -i        | 34*  | -    | 6.2069s*  
+my-sync-stack.9.log   | -a smt -c        | 31*  | -    | 5.1389s*  
+my-sync-stack.9.log   | -a smt -c -i     | 26*  | -    | 5.1246s*  
+my-sync-stack.9.log   | -a lineup        | 10*  | -    | 5.0067s*  
+my-sync-stack.9.log   | -a lineup -c     | 12*  | -    | 5.0022s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.0.log | -a saturation    | 305* | -    | 5.0034s*  
+my-unsafe-stack.0.log | -a saturation -r | 1056 | -    | 1.2991s   
+my-unsafe-stack.0.log | -a smt           | 30*  | -    | 7.1768s*  
+my-unsafe-stack.0.log | -a smt -r        | 31*  | -    | 5.0847s*  
+my-unsafe-stack.0.log | -a smt -i        | 33*  | -    | 5.1576s*  
+my-unsafe-stack.0.log | -a smt -c        | 27*  | -    | 5.0026s*  
+my-unsafe-stack.0.log | -a smt -c -i     | 23*  | -    | 5.0898s*  
+my-unsafe-stack.0.log | -a lineup        | 13*  | -    | 5.0074s*  
+my-unsafe-stack.0.log | -a lineup -c     | 21*  | -    | 5.0253s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.1.log | -a saturation    | 317* | -    | 5.0071s*  
+my-unsafe-stack.1.log | -a saturation -r | 1030 | -    | 1.6971s   
+my-unsafe-stack.1.log | -a smt           | 40*  | -    | 6.0951s*  
+my-unsafe-stack.1.log | -a smt -r        | 45*  | -    | 5.1485s*  
+my-unsafe-stack.1.log | -a smt -i        | 41*  | -    | 6.6157s*  
+my-unsafe-stack.1.log | -a smt -c        | 40*  | -    | 5.2584s*  
+my-unsafe-stack.1.log | -a smt -c -i     | 34*  | -    | 6.0038s*  
+my-unsafe-stack.1.log | -a lineup        | 23*  | -    | 5.0079s*  
+my-unsafe-stack.1.log | -a lineup -c     | 28*  | -    | 5.0079s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.2.log | -a saturation    | 320* | -    | 5.0015s*  
+my-unsafe-stack.2.log | -a saturation -r | 994  | -    | 3.7872s   
+my-unsafe-stack.2.log | -a smt           | 24*  | -    | 5.3053s*  
+my-unsafe-stack.2.log | -a smt -r        | 24*  | -    | 5.2963s*  
+my-unsafe-stack.2.log | -a smt -i        | 30*  | -    | 5.5618s*  
+my-unsafe-stack.2.log | -a smt -c        | 21*  | -    | 5.0055s*  
+my-unsafe-stack.2.log | -a smt -c -i     | 20*  | -    | 5.1598s*  
