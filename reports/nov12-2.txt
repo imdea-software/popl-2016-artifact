@@ -1,0 +1,107 @@
+Generating reports for examples/generated/my-sync-stack.*.log
+Algorithm timeout for each example set to 50s.
+-----------------------------------------------------------------
+             examples/generated/my-sync-stack.*.log              
+-----------------------------------------------------------------
+example             | flags            | step | viol | time      
+--------------------+------------------+------+------+-----------
+my-sync-stack.0.log | -a saturation    | 621* | -    | 50.0022s* 
+my-sync-stack.0.log | -a saturation -r | 1062 | -    | 2.6735s   
+my-sync-stack.0.log | -a smt           | 45*  | -    | 67.1783s* 
+my-sync-stack.0.log | -a smt -r        | 62*  | -    | 55.9603s* 
+my-sync-stack.0.log | -a smt -i        | 50*  | -    | 50.6983s* 
+my-sync-stack.0.log | -a smt -c        | 29*  | -    | 50.0053s* 
+my-sync-stack.0.log | -a smt -c -i     | 27*  | -    | 50.6565s* 
+my-sync-stack.0.log | -a lineup        | 10*  | -    | 50.0023s* 
+my-sync-stack.0.log | -a lineup -c     | 22*  | -    | 50.0421s* 
+--------------------+------------------+------+------+-----------
+my-sync-stack.1.log | -a saturation    | 634* | -    | 50.0028s* 
+my-sync-stack.1.log | -a saturation -r | 1056 | -    | 1.8431s   
+my-sync-stack.1.log | -a smt           | 51*  | -    | 58.135s*  
+my-sync-stack.1.log | -a smt -r        | 113* | -    | 53.0673s* 
+my-sync-stack.1.log | -a smt -i        | 51*  | -    | 57.1819s* 
+my-sync-stack.1.log | -a smt -c        | 37*  | -    | 50.2277s* 
+my-sync-stack.1.log | -a smt -c -i     | 37*  | -    | 50.1657s* 
+my-sync-stack.1.log | -a lineup        | 18*  | -    | 50.0018s* 
+my-sync-stack.1.log | -a lineup -c     | 22*  | -    | 50.0026s* 
+--------------------+------------------+------+------+-----------
+my-sync-stack.2.log | -a saturation    | 627* | -    | 50.0019s* 
+my-sync-stack.2.log | -a saturation -r | 1020 | -    | 3.2649s   
+my-sync-stack.2.log | -a smt           | 47*  | -    | 63.9876s* 
+my-sync-stack.2.log | -a smt -r        | 75*  | -    | 50.0714s* 
+my-sync-stack.2.log | -a smt -i        | 48*  | -    | 54.8645s* 
+my-sync-stack.2.log | -a smt -c        | 42*  | -    | 56.1837s* 
+my-sync-stack.2.log | -a smt -c -i     | 35*  | -    | 51.9338s* 
+my-sync-stack.2.log | -a lineup        | 15*  | -    | 50.002s*  
+my-sync-stack.2.log | -a lineup -c     | 17*  | -    | 50.1055s* 
+--------------------+------------------+------+------+-----------
+my-sync-stack.3.log | -a saturation    | 649* | -    | 50.005s*  
+my-sync-stack.3.log | -a saturation -r | 1014 | -    | 1.6382s   
+my-sync-stack.3.log | -a smt           | 48*  | -    | 56.0921s* 
+my-sync-stack.3.log | -a smt -r        | 109* | -    | 52.7837s* 
+my-sync-stack.3.log | -a smt -i        | 54*  | -    | 53.6941s* 
+my-sync-stack.3.log | -a smt -c        | 41*  | -    | 50.5739s* 
+my-sync-stack.3.log | -a smt -c -i     | 39*  | -    | 51.4985s* 
+my-sync-stack.3.log | -a lineup        | ?    | -    | ?         
+my-sync-stack.3.log | -a lineup -c     | 20*  | -    | 50.0061s* 
+--------------------+------------------+------+------+-----------
+my-sync-stack.4.log | -a saturation    | 621* | -    | 50.0026s* 
+my-sync-stack.4.log | -a saturation -r | 976  | -    | 5.4468s   
+my-sync-stack.4.log | -a smt           | 50*  | -    | 56.6088s* 
+my-sync-stack.4.log | -a smt -r        | 67*  | -    | 53.5171s* 
+my-sync-stack.4.log | -a smt -i        | 51*  | -    | 52.2273s* 
+my-sync-stack.4.log | -a smt -c        | 50*  | -    | 54.2838s* 
+my-sync-stack.4.log | -a smt -c -i     | 49*  | -    | 51.1932s* 
+my-sync-stack.4.log | -a lineup        | 25*  | -    | 50.0053s* 
+my-sync-stack.4.log | -a lineup -c     | 29*  | -    | 50.0065s* 
+--------------------+------------------+------+------+-----------
+my-sync-stack.5.log | -a saturation    | 609* | -    | 50.0024s* 
+my-sync-stack.5.log | -a saturation -r | 994  | -    | 5.7236s   
+my-sync-stack.5.log | -a smt           | 45*  | -    | 50.8463s* 
+my-sync-stack.5.log | -a smt -r        | 72*  | -    | 54.9278s* 
+my-sync-stack.5.log | -a smt -i        | 47*  | -    | 50.0319s* 
+my-sync-stack.5.log | -a smt -c        | 40*  | -    | 51.1676s* 
+my-sync-stack.5.log | -a smt -c -i     | 38*  | -    | 53.1757s* 
+my-sync-stack.5.log | -a lineup        | 10*  | -    | 50.0023s* 
+my-sync-stack.5.log | -a lineup -c     | 13*  | -    | 50.0136s* 
+--------------------+------------------+------+------+-----------
+my-sync-stack.6.log | -a saturation    | 665* | -    | 50.0044s* 
+my-sync-stack.6.log | -a saturation -r | 1044 | -    | 2.2194s   
+my-sync-stack.6.log | -a smt           | 56*  | -    | 50.0344s* 
+my-sync-stack.6.log | -a smt -r        | 100* | -    | 50.8082s* 
+my-sync-stack.6.log | -a smt -i        | 56*  | -    | 51.8685s* 
+my-sync-stack.6.log | -a smt -c        | 50*  | -    | 50.0024s* 
+my-sync-stack.6.log | -a smt -c -i     | 49*  | -    | 57.2226s* 
+my-sync-stack.6.log | -a lineup        | 24*  | -    | 50.0028s* 
+my-sync-stack.6.log | -a lineup -c     | 20*  | -    | 50.0034s* 
+--------------------+------------------+------+------+-----------
+my-sync-stack.7.log | -a saturation    | 635* | -    | 50.0035s* 
+my-sync-stack.7.log | -a saturation -r | 1030 | -    | 2.0559s   
+my-sync-stack.7.log | -a smt           | 47*  | -    | 52.4558s* 
+my-sync-stack.7.log | -a smt -r        | 78*  | -    | 51.9637s* 
+my-sync-stack.7.log | -a smt -i        | 54*  | -    | 57.5649s* 
+my-sync-stack.7.log | -a smt -c        | 47*  | -    | 51.3296s* 
+my-sync-stack.7.log | -a smt -c -i     | 45*  | -    | 50.4608s* 
+my-sync-stack.7.log | -a lineup        | 21*  | -    | 50.0026s* 
+my-sync-stack.7.log | -a lineup -c     | ?    | -    | ?         
+--------------------+------------------+------+------+-----------
+my-sync-stack.8.log | -a saturation    | 569* | -    | 50.0028s* 
+my-sync-stack.8.log | -a saturation -r | 972  | -    | 9.3625s   
+my-sync-stack.8.log | -a smt           | 44*  | -    | 57.8452s* 
+my-sync-stack.8.log | -a smt -r        | 57*  | -    | 50.3827s* 
+my-sync-stack.8.log | -a smt -i        | 50*  | -    | 51.138s*  
+my-sync-stack.8.log | -a smt -c        | 57*  | -    | 50.8403s* 
+my-sync-stack.8.log | -a smt -c -i     | 50*  | -    | 60.6667s* 
+my-sync-stack.8.log | -a lineup        | 17*  | -    | 50.0027s* 
+my-sync-stack.8.log | -a lineup -c     | 20*  | -    | 50.0053s* 
+--------------------+------------------+------+------+-----------
+my-sync-stack.9.log | -a saturation    | 643* | -    | 50.0051s* 
+my-sync-stack.9.log | -a saturation -r | 1040 | -    | 1.819s    
+my-sync-stack.9.log | -a smt           | 49*  | -    | 60.6288s* 
+my-sync-stack.9.log | -a smt -r        | 66*  | -    | 57.049s*  
+my-sync-stack.9.log | -a smt -i        | 52*  | -    | 61.5884s* 
+my-sync-stack.9.log | -a smt -c        | 49*  | -    | 53.0618s* 
+my-sync-stack.9.log | -a smt -c -i     | 42*  | -    | 50.8198s* 
+my-sync-stack.9.log | -a lineup        | 16*  | -    | 50.0087s* 
+my-sync-stack.9.log | -a lineup -c     | 21*  | -    | 50.1039s* 
+--------------------+------------------+------+------+-----------
