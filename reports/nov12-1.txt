@@ -1,0 +1,107 @@
+Generating reports for examples/generated/my-unsafe-stack/*.log
+Algorithm timeout for each example set to 5s.
+-------------------------------------------------------------------
+             examples/generated/my-unsafe-stack/*.log              
+-------------------------------------------------------------------
+example               | flags            | step | viol | time      
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.0.log | -a saturation    | 42   | 42   | 0.0471s   
+my-unsafe-stack.0.log | -a saturation -r | 42   | 42   | 0.0422s   
+my-unsafe-stack.0.log | -a smt           | 26*  | -    | 5.8171s*  
+my-unsafe-stack.0.log | -a smt -r        | 29*  | -    | 5.255s*   
+my-unsafe-stack.0.log | -a smt -i        | 29   | 29   | 3.3681s   
+my-unsafe-stack.0.log | -a smt -c        | 29*  | -    | 5.0055s*  
+my-unsafe-stack.0.log | -a smt -c -i     | 25*  | -    | 6.7277s*  
+my-unsafe-stack.0.log | -a lineup        | 17*  | -    | 5.0076s*  
+my-unsafe-stack.0.log | -a lineup -c     | 22*  | -    | 5.008s*   
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.1.log | -a saturation    | 27   | 27   | 0.0145s   
+my-unsafe-stack.1.log | -a saturation -r | 27   | 27   | 0.0185s   
+my-unsafe-stack.1.log | -a smt           | 27   | 27   | 2.4174s   
+my-unsafe-stack.1.log | -a smt -r        | 27   | 27   | 2.2978s   
+my-unsafe-stack.1.log | -a smt -i        | 27   | 27   | 0.9383s   
+my-unsafe-stack.1.log | -a smt -c        | 27   | 27   | 3.5649s   
+my-unsafe-stack.1.log | -a smt -c -i     | 23*  | -    | 5.0349s*  
+my-unsafe-stack.1.log | -a lineup        | 22*  | -    | 5.0052s*  
+my-unsafe-stack.1.log | -a lineup -c     | 23*  | -    | 5.0607s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.2.log | -a saturation    | 33   | 33   | 0.0148s   
+my-unsafe-stack.2.log | -a saturation -r | 33   | 33   | 0.0173s   
+my-unsafe-stack.2.log | -a smt           | 33   | 33   | 4.536s    
+my-unsafe-stack.2.log | -a smt -r        | 33   | 33   | 1.8957s   
+my-unsafe-stack.2.log | -a smt -i        | 33   | 33   | 1.9043s   
+my-unsafe-stack.2.log | -a smt -c        | 33*  | -    | 5.008s*   
+my-unsafe-stack.2.log | -a smt -c -i     | 28*  | -    | 5.3147s*  
+my-unsafe-stack.2.log | -a lineup        | 22*  | -    | 5.0034s*  
+my-unsafe-stack.2.log | -a lineup -c     | 29*  | -    | 5.1498s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.3.log | -a saturation    | 41   | 41   | 0.0327s   
+my-unsafe-stack.3.log | -a saturation -r | 41   | 41   | 0.0341s   
+my-unsafe-stack.3.log | -a smt           | 30*  | -    | 5.2437s*  
+my-unsafe-stack.3.log | -a smt -r        | 39*  | -    | 5.4713s*  
+my-unsafe-stack.3.log | -a smt -i        | 33*  | -    | 5.7336s*  
+my-unsafe-stack.3.log | -a smt -c        | 27*  | -    | 5.148s*   
+my-unsafe-stack.3.log | -a smt -c -i     | 25*  | -    | 5.0205s*  
+my-unsafe-stack.3.log | -a lineup        | 18*  | -    | 5.0039s*  
+my-unsafe-stack.3.log | -a lineup -c     | 18*  | -    | 5.0076s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.4.log | -a saturation    | 64   | 64   | 0.0829s   
+my-unsafe-stack.4.log | -a saturation -r | 64   | 64   | 0.0745s   
+my-unsafe-stack.4.log | -a smt           | 38*  | -    | 6.0842s*  
+my-unsafe-stack.4.log | -a smt -r        | 42   | 42   | 4.0352s   
+my-unsafe-stack.4.log | -a smt -i        | 40*  | -    | 6.1812s*  
+my-unsafe-stack.4.log | -a smt -c        | 29*  | -    | 5.0535s*  
+my-unsafe-stack.4.log | -a smt -c -i     | 28*  | -    | 5.1677s*  
+my-unsafe-stack.4.log | -a lineup        | 28*  | -    | 5.008s*   
+my-unsafe-stack.4.log | -a lineup -c     | 28*  | -    | 5.005s*   
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.5.log | -a saturation    | 54   | 54   | 0.0532s   
+my-unsafe-stack.5.log | -a saturation -r | 54   | 54   | 0.0414s   
+my-unsafe-stack.5.log | -a smt           | 34*  | -    | 5.5007s*  
+my-unsafe-stack.5.log | -a smt -r        | 38*  | -    | 5.0442s*  
+my-unsafe-stack.5.log | -a smt -i        | 38*  | -    | 5.7804s*  
+my-unsafe-stack.5.log | -a smt -c        | 37*  | -    | 5.16s*    
+my-unsafe-stack.5.log | -a smt -c -i     | 32*  | -    | 5.3146s*  
+my-unsafe-stack.5.log | -a lineup        | 24*  | -    | 5.0076s*  
+my-unsafe-stack.5.log | -a lineup -c     | 34*  | -    | 5.0076s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.6.log | -a saturation    | 47   | 47   | 0.0597s   
+my-unsafe-stack.6.log | -a saturation -r | 47   | 47   | 0.0403s   
+my-unsafe-stack.6.log | -a smt           | 27*  | -    | 5.0056s*  
+my-unsafe-stack.6.log | -a smt -r        | 31*  | -    | 5.5483s*  
+my-unsafe-stack.6.log | -a smt -i        | 31*  | -    | 5.4609s*  
+my-unsafe-stack.6.log | -a smt -c        | 31*  | -    | 5.0126s*  
+my-unsafe-stack.6.log | -a smt -c -i     | 22*  | -    | 5.4147s*  
+my-unsafe-stack.6.log | -a lineup        | 9*   | -    | 5.008s*   
+my-unsafe-stack.6.log | -a lineup -c     | 10*  | -    | 5.0135s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.7.log | -a saturation    | 59   | 59   | 0.096s    
+my-unsafe-stack.7.log | -a saturation -r | 59   | 59   | 0.0751s   
+my-unsafe-stack.7.log | -a smt           | 28*  | -    | 5.2383s*  
+my-unsafe-stack.7.log | -a smt -r        | 59   | 59   | 100.7456s 
+my-unsafe-stack.7.log | -a smt -i        | 36*  | -    | 5.9702s*  
+my-unsafe-stack.7.log | -a smt -c        | 30*  | -    | 5.3077s*  
+my-unsafe-stack.7.log | -a smt -c -i     | 27*  | -    | 5.1202s*  
+my-unsafe-stack.7.log | -a lineup        | 18*  | -    | 5.0049s*  
+my-unsafe-stack.7.log | -a lineup -c     | 20*  | -    | 5.0046s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.8.log | -a saturation    | 30   | 30   | 0.0167s   
+my-unsafe-stack.8.log | -a saturation -r | 30   | 30   | 0.0187s   
+my-unsafe-stack.8.log | -a smt           | 30   | 30   | 3.3308s   
+my-unsafe-stack.8.log | -a smt -r        | 30   | 30   | 3.18s     
+my-unsafe-stack.8.log | -a smt -i        | 30   | 30   | 2.7383s   
+my-unsafe-stack.8.log | -a smt -c        | 29*  | -    | 5.6564s*  
+my-unsafe-stack.8.log | -a smt -c -i     | 18*  | -    | 5.7969s*  
+my-unsafe-stack.8.log | -a lineup        | 16*  | -    | 5.0077s*  
+my-unsafe-stack.8.log | -a lineup -c     | 16*  | -    | 5.0078s*  
+----------------------+------------------+------+------+-----------
+my-unsafe-stack.9.log | -a saturation    | 35   | 35   | 0.0272s   
+my-unsafe-stack.9.log | -a saturation -r | 35   | 35   | 0.0319s   
+my-unsafe-stack.9.log | -a smt           | 21   | 21   | 0.9193s   
+my-unsafe-stack.9.log | -a smt -r        | 21   | 21   | 0.7241s   
+my-unsafe-stack.9.log | -a smt -i        | 21   | 21   | 0.7544s   
+my-unsafe-stack.9.log | -a smt -c        | 21   | 21   | 2.6934s   
+my-unsafe-stack.9.log | -a smt -c -i     | 21   | 21   | 2.3985s   
+my-unsafe-stack.9.log | -a lineup        | 10*  | -    | 5.0035s*  
+my-unsafe-stack.9.log | -a lineup -c     | 9*   | -    | 5.0035s*  
+----------------------+------------------+------+------+-----------

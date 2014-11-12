@@ -7,10 +7,12 @@ require_relative 'randomized_tester'
 require_relative 'log_reader_writer'
 require_relative 'impls/my_unsafe_stack'
 require_relative 'impls/my_sync_stack'
-require_relative 'impls/scal_impl'
 
-OBJECTS = [MySyncStack, MyUnsafeStack]
+OBJECTS = []
 DEST = "examples/generated/"
+
+# OBJECTS << MySyncStack
+OBJECTS << MyUnsafeStack
 
 def generate(obj, file, num_threads, time_limit: nil)
   RandomizedTester.new.run(
@@ -59,7 +61,7 @@ begin
     @num_executions.times do |i|
       generate(
         obj = obj_class.new,
-        File.join(DEST, "#{obj}.#{i}.log"),
+        File.join(DEST, obj.to_s, "#{obj}.#{i}.log"),
         @num_threads,
         time_limit: @time_limit
       )

@@ -3,7 +3,7 @@
 SOURCES = []
 FLAGSS = []
 COLUMNS = { example: 1, flags: 1, step: 4, viol: 4, time: 10 }
-TIMEOUT = 100
+TIMEOUT = 5
 
 # SOURCES << "examples/generated/bkq-very-concurrent/*.log"
 # SOURCES << "examples/generated/msq-very-concurrent/*.log"
@@ -12,7 +12,8 @@ TIMEOUT = 100
 # SOURCES << "examples/generated/*.log"
 # SOURCES << "examples/simple/.log*"
 
-SOURCES << "examples/generated/my-sync-stack.*.log"
+# SOURCES << "examples/generated/my-sync-stack/*.log"
+SOURCES << "examples/generated/my-unsafe-stack/*.log"
 
 FLAGSS << "-a saturation"
 FLAGSS << "-a saturation -r"
