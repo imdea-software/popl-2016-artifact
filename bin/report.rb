@@ -3,7 +3,7 @@
 SOURCES = []
 FLAGSS = []
 COLUMNS = { example: 1, flags: 1, step: 4, viol: 4, time: 10 }
-TIMEOUT = 50
+TIMEOUT = 25
 
 # SOURCES << "examples/generated/bkq-very-concurrent/*.log"
 # SOURCES << "examples/generated/msq-very-concurrent/*.log"
