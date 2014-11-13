@@ -1,23 +1,35 @@
+Monitoring Refinement via Symbolic Reasoning
+============================================
 
-This project aims to develop principled monitoring algorithms for concurrent
+This project aims to develop efficient monitoring algorithms for concurrent
 data structures, e.g., locks, semaphores, atomic registers, stacks, queues.
 
-List of tasks:
+Contents
+--------
 
-- [x] Generate lots of benchmark log files for the SCAL implementations.
-- [x] Implement a linearization monitor.
-- [x] Implement saturation via SAT/SMT (?).
-- [x] Implement obsolete operation removal
-- [x] Implement incremental SMT checking
-- [x] Implement incremental saturation checking
-- [ ] Create tests for all examples in the paper
+- `bin/` contains the executables for generating history logs (`loggenerator.rb`), checking history logs (`logchecker.rb`), and for generating reports (`report.rb`).
 
-List of things to demonstrate:
+- `examples/generated` contains many history logs generated from actual executions.
 
-- [x] Our monitor correctly identifies violations.
-- [ ] Our monitor has low space overhead / we don't keep too many operations.
-- [x] Our monitor has low runtime overhead.
+- `examples/simple` contains a few hand-crafted histories.
 
-List of experiments?
+- `lib/` contains the source code of the checking algorithms.
 
-TODO
+- `reports/` contains some previously-generated reports benchmarking the performance of each algorithm.
+
+Usage
+-----
+
+To try out the history checking algorithms, run, for example
+
+    ./bin/logchecker.rb examples/simple/lifo-violation-dhk-2.log -a symbolic -v
+
+To see the list of options, run
+
+    ./bin/logchecker.rb --help
+    
+To generate benchmarking reports, run
+
+    ./bin/report.rb
+
+And that's about it.

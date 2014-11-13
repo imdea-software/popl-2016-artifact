@@ -23,7 +23,7 @@ log.level = Logger::WARN
 @completion = false
 @incremental = false
 @obsolete_removal = false
-@checkers = [:lineup, :smt, :saturation]
+@checkers = [:enumerate, :symbolic, :saturate]
 @step_limit = nil
 @time_limit = nil
 @frequency = nil
@@ -115,9 +115,9 @@ begin
   matcher = Matcher.get(logrw.object, history)
   @checker =
     case @checker
-    when :lineup;     LineUpChecker
-    when :smt;        SatisfactionChecker
-    when :saturation; SaturationChecker
+    when :enumerate;  LineUpChecker
+    when :symbolic;   SatisfactionChecker
+    when :saturate;   SaturationChecker
     else              HistoryChecker
     end.new(logrw.object, matcher, history, @completion, @incremental)
 

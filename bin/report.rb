@@ -3,28 +3,25 @@
 SOURCES = []
 FLAGSS = []
 COLUMNS = { example: 1, flags: 1, step: 4, viol: 4, time: 10 }
-TIMEOUT = 75
+TIMEOUT = 5
 
-# SOURCES << "examples/generated/bkq-very-concurrent/*.log"
-# SOURCES << "examples/generated/msq-very-concurrent/*.log"
-# SOURCES << "examples/generated/bkq-almost-sequential/*.log"
-# SOURCES << "examples/generated/msq-almost-sequential/*.log"
-# SOURCES << "examples/generated/*.log"
-# SOURCES << "examples/simple/.log*"
-
+SOURCES << "examples/simple/*.log"
 SOURCES << "examples/generated/my-sync-stack.*.log"
-# SOURCES << "examples/generated/my-sync-stack/*.log"
-# SOURCES << "examples/generated/my-unsafe-stack/*.log"
+SOURCES << "examples/generated/my-unsafe-stack/*.log"
+SOURCES << "examples/generated/bkq-very-concurrent/*.log"
+SOURCES << "examples/generated/msq-very-concurrent/*.log"
+SOURCES << "examples/generated/bkq-almost-sequential/*.log"
+SOURCES << "examples/generated/msq-almost-sequential/*.log"
 
-FLAGSS << "-a saturation"
-FLAGSS << "-a saturation -r"
-FLAGSS << "-a smt"
-FLAGSS << "-a smt -r"
-FLAGSS << "-a smt -i"
-FLAGSS << "-a smt -c"
-FLAGSS << "-a smt -c -i"
-FLAGSS << "-a lineup"
-FLAGSS << "-a lineup -c"
+FLAGSS << "-a saturate"
+FLAGSS << "-a saturate -r"
+FLAGSS << "-a symbolic"
+FLAGSS << "-a symbolic -r"
+FLAGSS << "-a symbolic -i"
+FLAGSS << "-a symbolic -c"
+FLAGSS << "-a symbolic -c -i"
+FLAGSS << "-a enumerate"
+FLAGSS << "-a enumerate -c"
 
 def stats(example, flags, output)
   v = (output.match(/VIOLATION: (.*)/) || ["","?"])[1].strip == "true"
