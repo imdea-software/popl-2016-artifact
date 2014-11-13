@@ -1,0 +1,17 @@
+# from Figure 11 of the draft
+# @object atomic-stack
+
+[1] call push(1)
+    [2] call push(2)
+[1] return
+        [3] call pop
+    [2] return
+[4] call pop
+[4] return 1
+[5] call push(3)
+[5] return
+[6] call pop
+        [3] return empty
+    [7] call pop
+[6] return 2
+    [7] return 3

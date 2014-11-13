@@ -1,4 +1,4 @@
-# from Figure 3 of the draft
+# from Figure 9 of the draft
 # @object atomic-stack
 
 [1] call push(1)
