@@ -17,6 +17,15 @@ Contents
 
 - `reports/` contains some previously-generated reports benchmarking the performance of each algorithm.
 
+Requirements
+------------
+
+- Z3: ensure a recent version of `libz3.{dylib,so,dll}` is in the `LIBRARY_PATH`
+
+- Ruby: we're using version 2.1.2
+
+- The `ffi` and `os` Ruby gems: run `gem install ffi os`
+
 Usage
 -----
 
