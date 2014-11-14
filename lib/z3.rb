@@ -75,7 +75,8 @@ module Z3
 
     def msg; Z3::get_smtlib_error(self) end
 
-    # TODO Parameters
+    def params; Z3::mk_params(self).cc(self) end
+
     # TODO ParameterDescriptions
 
     # Symbols
@@ -134,14 +135,39 @@ module Z3
 
     # Solvers
     def solver; Z3::mk_solver(self).cc(self) end
+    def simple_solver; Z3::mk_simple_solver(self).cc(self) end
   end
 
   class Parameters < FFI::AutoPointer
-    def self.release(pointer) end
+    include ContextualObject
+    def post_initialize
+      inc_ref
+    end
+    def self.release(pointer)
+      pointer.dec_ref
+    end
+    def inc_ref; Z3::params_inc_ref(@context,self) end
+    def dec_ref; Z3::params_dec_ref(@context,self) end
+    def set(str,val)
+      sym = @context.string_symbol(str)
+      if val.is_a?(TrueClass) || val.is_a?(FalseClass)
+        Z3::params_set_bool(@context,self,sym,val)
+      elsif val.is_a?(Fixnum)
+        Z3::params_set_uint(@context,self,sym,val)
+      elsif val.is_a?(Float)
+        Z3::params_set_double(@context,self,sym,val)
+      else
+        Z3::params_set_symbol(@context,self,sym,val)
+      end
+    end
+    def to_s; Z3::params_to_string(@context,self) end
+    def validate(descriptors); Z3::params_validate(@context,self,descriptors) end
   end
 
   class ParameterDescriptions < FFI::AutoPointer
+    include ContextualObject
     def self.release(pointer) end
+    def to_s; Z3::param_descrs_to_string(@context,self) end
   end
 
   class Symbol < FFI::AutoPointer
@@ -246,13 +272,26 @@ module Z3
     def_delegators :@context, :int2real, :real2int, :is_int
     def_delegators :@context, :forall, :exists
 
-    def self.release(pointer) end
     def post_initialize
+      inc_ref
       @sorts = [[]]
       @decls = [[]]
     end
+    def self.release(pointer)
+      pointer.dec_ref
+    end
 
-    def to_s()  Z3::solver_to_string(@context,self) end
+    def help; Z3::solver_get_help(@context,self) end
+    def param_descrs; Z3::solver_get_param_descrs(@context,self).cc(@context) end
+
+    def set_params(ps)
+      log.debug('z3') {"setting parameters: #{ps}"}
+      Z3::solver_set_params(@context,self,ps)
+    end
+    def inc_ref; Z3::solver_inc_ref(@context,self) end
+    def dec_ref; Z3::solver_dec_ref(@context,self) end
+    def stats; Z3::solver_get_statistics(@context,self).cc(@context) end
+    def to_s;  Z3::solver_to_string(@context,self) end
 
     def push()
       log.debug('z3') {"push"}
@@ -282,20 +321,13 @@ module Z3
 
     def check
       res = Z3::solver_check(@context,self).to_b
-      log.debug('z3') {"sat? #{res}"}
+      log.debug('z3') { res ? "sat\n#{model}" : "unsat"}
+      log.debug('z3') {"statistics\n#{stats}"}
       res
     end
 
-    # TODO JUST BREAKS EVERYTHING...
-    def model
-      Z3::solver_get_model(@context,self).cc(@context)
-    end
-
-    def proof
-      Z3::solver_get_proof(@context,self).cc(@context)
-    end
-
-    def get_help() Z3::solver_get_help(@context, self) end
+    def model; Z3::solver_get_model(@context,self).cc(@context) end
+    def proof; Z3::solver_get_proof(@context,self).cc(@context) end
 
     # Conversion through Hash ensures unique symbols
     def sorts; @sorts.flatten(1).to_h.to_a end
@@ -328,7 +360,9 @@ module Z3
   end
 
   class Statistics < FFI::AutoPointer
+    include ContextualObject
     def self.release(pointer) end
+    def to_s; Z3::stats_to_string(@context,self) end
   end
 
   class RealClosedField < FFI::AutoPointer
@@ -385,9 +419,19 @@ module Z3
   # attach_function :Z3_get_param_value, [Context, :string, :string_ptr], :bool_opt
   attach_function :Z3_interrupt, [Context], :void
 
-  # TODO Parameters
+  # Parameters
+  attach_function :Z3_mk_params, [Context], Parameters
+  attach_function :Z3_params_inc_ref, [Context, Parameters], :void
+  attach_function :Z3_params_dec_ref, [Context, Parameters], :void
+  attach_function :Z3_params_set_bool, [Context, Parameters, Symbol, :bool], :void
+  attach_function :Z3_params_set_uint, [Context, Parameters, Symbol, :uint], :void
+  attach_function :Z3_params_set_double, [Context, Parameters, Symbol, :double], :void
+  attach_function :Z3_params_set_symbol, [Context, Parameters, Symbol, Symbol], :void
+  attach_function :Z3_params_to_string, [Context, Parameters], :string
+  attach_function :Z3_params_validate, [Context, Parameters, ParameterDescriptions], :void
 
   # TODO Parameter Descriptions
+  attach_function :Z3_param_descrs_to_string, [Context, ParameterDescriptions], :string
 
   # Symbols
   attach_function :Z3_mk_int_symbol, [Context, :int], Symbol
@@ -566,7 +610,7 @@ module Z3
   attach_function :Z3_mk_solver_for_logic, [Context, Symbol], Solver
   attach_function :Z3_mk_solver_from_tactic, [Context, Tactic], Solver
   attach_function :Z3_solver_get_help, [Context, Solver], :string
-  # attach_function :Z3_solver_get_param_descrs, [Context, Solver], ParameterDescriptions
+  attach_function :Z3_solver_get_param_descrs, [Context, Solver], ParameterDescriptions
   attach_function :Z3_solver_set_params, [Context, Solver, Parameters], :void
   attach_function :Z3_solver_inc_ref, [Context, Solver], :void
   attach_function :Z3_solver_dec_ref, [Context, Solver], :void
@@ -587,6 +631,7 @@ module Z3
   attach_function :Z3_solver_to_string, [Context, Solver], :string
 
   # TODO Statistics
+  attach_function :Z3_stats_to_string, [Context, Statistics], :string
 
   # TODO Interpolation API
   # TODO Polynomails API

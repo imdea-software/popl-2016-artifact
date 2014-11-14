@@ -11,10 +11,21 @@ class SatisfactionChecker < HistoryChecker
 
   def initialize(object, matcher, history, completion, incremental)
     super(object, matcher, history, completion, incremental)
+
+    # THE EASY WAY
     @solver = Z3.context.solver
-    # configuration = Z3.config
-    # configuration.set("timeout",1)
-    # @solver = Z3.context(configuration).solver
+
+    # THE LONG WAY...
+    # @configuration = Z3.config
+    # # configuration.set("timeout","10")
+    # # configuration.set("model","true")
+    # @context = Z3.context(config: @configuration)
+    # @solver = @context.solver
+
+    # params = Z3.context.params
+    # params.set("max_conflicts",0)
+    # @solver.set_params(params)
+
     theories_for(object).each(&@solver.method(:theory))
     @solver.push if @incremental
     @refresh = false
