@@ -321,7 +321,11 @@ module Z3
 
     def check
       res = Z3::solver_check(@context,self).to_b
-      log.debug('z3') { res ? "sat\n#{model}" : "unsat"}
+      case res
+      when true;  log.debug('z3') {"sat\n#{model}"}
+      when false; log.debug('z3') {"unsat"}
+      else        log.debug('z3') {"unknown"}
+      end
       log.debug('z3') {"statistics\n#{stats}"}
       res
     end
