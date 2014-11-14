@@ -404,9 +404,9 @@ module Z3
   end
 
   # Configuration
-  # attach_function :Z3_global_param_set, [:string, :string], :void
-  # attach_function :Z3_global_param_reset_all, [], :void
-  # attach_function :Z3_global_param_get, [:string, :string], :bool
+  attach_function :Z3_global_param_set, [:string, :string], :void
+  attach_function :Z3_global_param_reset_all, [], :void
+  attach_function :Z3_global_param_get, [:string, :string], :bool
 
   # Create configuration
   attach_function :Z3_mk_config, [], Configuration
@@ -420,7 +420,6 @@ module Z3
   attach_function :Z3_inc_ref, [Context, Expr], :void
   attach_function :Z3_dec_ref, [Context, Expr], :void
   attach_function :Z3_update_param_value, [Context, :string, :string], :void
-  # attach_function :Z3_get_param_value, [Context, :string, :string_ptr], :bool_opt
   attach_function :Z3_interrupt, [Context], :void
 
   # Parameters
