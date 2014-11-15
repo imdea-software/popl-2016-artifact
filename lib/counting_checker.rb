@@ -31,14 +31,17 @@ class CountingChecker < HistoryChecker
     @return_happened = false
   end
 
-  def show_intervals
-    @completed.map do |intv,ops|
-      next if ops.empty?
-      i,j = intv
-      "[#{i},#{j}] #{ops * ", "}"
-    end.compact * "\n" + "\n" +
-    @pending.map do |id,i|
-      "[#{i},_] #{id}"
+  def show_intervals(scale: 2)
+    ops = @history.map{|id| [id,["[#{id}]",@history.label(id)]]}.to_h
+    id_j = ops.values.map{|id,_| id.length}.max
+    op_j = ops.values.map{|_,op| op.length}.max
+    @history.map do |id|
+      intv, _ = @completed.find{|intv,ops| ops.include?(id)}
+      i, j = intv if intv
+      (i = @pending[id]; j = @current) unless intv
+      i *= scale
+      j *= scale
+      "#{ops[id][0].ljust(id_j)} #{ops[id][1].ljust(op_j)}  #{' ' * i}#{'#' * (j-i+1)}"
     end * "\n"
   end
 
