@@ -133,9 +133,17 @@ module BasicTheories
       t.yield "(= (meth o#{id}) #{history.method_name(id)})"
       args.each_with_index {|x,idx| t.yield "(= (arg o#{id} #{idx}) v#{x})"}
       rets.each_with_index {|x,idx| t.yield "(= (ret o#{id} #{idx}) v#{x})"}
-      history.after(id).each do |a|
-        t.yield "(hb o#{id} o#{a})"
-      end
+
+    end
+  end
+
+  theory :history_order_theory do |history,t|
+    if history.is_a?(History)
+      history.each {|id| history.after(id).each {|a| t.yield "(hb o#{id} o#{a})"}}
+    elsif history.is_a?(Enumerator)
+      history.each {|id1,id2| t.yield "(hb o#{id1} o#{id2})"}
+    else
+      fail "Unexpected history or enumerator."
     end
   end
 

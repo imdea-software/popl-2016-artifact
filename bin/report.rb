@@ -13,6 +13,7 @@ SOURCES << "examples/generated/msq-very-concurrent/*.log"
 SOURCES << "examples/generated/bkq-almost-sequential/*.log"
 SOURCES << "examples/generated/msq-almost-sequential/*.log"
 
+FLAGSS << "-a counting"
 FLAGSS << "-a saturate"
 FLAGSS << "-a saturate -r"
 FLAGSS << "-a symbolic"

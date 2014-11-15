@@ -23,7 +23,7 @@ log.level = Logger::WARN
 @completion = false
 @incremental = false
 @obsolete_removal = false
-@checkers = [:enumerate, :symbolic, :saturate]
+@checkers = [:enumerate, :symbolic, :saturate, :counting]
 @step_limit = nil
 @time_limit = nil
 @frequency = nil
@@ -108,6 +108,7 @@ begin
   require_relative 'enumerate_checker'
   require_relative 'symbolic_checker'
   require_relative 'saturate_checker'
+  require_relative 'counting_checker'
   require_relative 'obsolete_remover'
 
   logrw = LogReaderWriter.new(execution_log)
@@ -118,6 +119,7 @@ begin
     when :enumerate;  EnumerateChecker
     when :symbolic;   SymbolicChecker
     when :saturate;   SaturateChecker
+    when :counting;   CountingChecker
     else              HistoryChecker
     end.new(logrw.object, matcher, history, @completion, @incremental)
 
