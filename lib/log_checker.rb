@@ -105,9 +105,9 @@ begin
   require_relative 'log_reader_writer'
   require_relative 'matching'
   require_relative 'history_checker'
-  require_relative 'lineup_checker'
-  require_relative 'satisfaction_checker'
-  require_relative 'saturation_checker'
+  require_relative 'enumerate_checker'
+  require_relative 'symbolic_checker'
+  require_relative 'saturate_checker'
   require_relative 'obsolete_remover'
 
   logrw = LogReaderWriter.new(execution_log)
@@ -115,9 +115,9 @@ begin
   matcher = Matcher.get(logrw.object, history)
   @checker =
     case @checker
-    when :enumerate;  LineUpChecker
-    when :symbolic;   SatisfactionChecker
-    when :saturate;   SaturationChecker
+    when :enumerate;  EnumerateChecker
+    when :symbolic;   SymbolicChecker
+    when :saturate;   SaturateChecker
     else              HistoryChecker
     end.new(logrw.object, matcher, history, @completion, @incremental)
 
