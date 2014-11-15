@@ -9,8 +9,8 @@ class SymbolicChecker < HistoryChecker
   extend Theories
   include BasicTheories
 
-  def initialize(object, matcher, history, completion, incremental)
-    super(object, matcher, history, completion, incremental)
+  def initialize(object, matcher, history, completion, incremental, opts)
+    super(object, matcher, history, completion, incremental, opts)
 
     # THE EASY WAY
     @solver = Z3.context.solver

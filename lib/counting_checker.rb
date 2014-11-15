@@ -9,7 +9,7 @@ class CountingChecker < HistoryChecker
   extend Theories
   include BasicTheories
 
-  def initialize(object, matcher, history, completion, incremental, bound: 3)
+  def initialize(object, matcher, history, completion, incremental, bound: 0)
     super(object, matcher, history, completion, incremental)
     @solver = Z3.context.solver
     theories_for(object).each(&@solver.method(:theory))

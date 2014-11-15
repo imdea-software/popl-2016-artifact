@@ -27,6 +27,7 @@ log.level = Logger::WARN
 @step_limit = nil
 @time_limit = nil
 @frequency = nil
+@extra = {}
 
 OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename $0} [options] FILE"
@@ -76,6 +77,13 @@ OptionParser.new do |opts|
   end
 
   opts.separator ""
+  opts.separator "Flags for the counting checker:"
+
+  opts.on("-b", "--interval-bound N", Integer, "") do |n|
+    @extra[:bound] = n
+  end
+
+  opts.separator ""
   opts.separator "And possibly some limits:"
 
   opts.on("-s", "--steps N", Integer, "Limit to N execution-log steps.") do |n|
@@ -121,7 +129,7 @@ begin
     when :saturate;   SaturateChecker
     when :counting;   CountingChecker
     else              HistoryChecker
-    end.new(logrw.object, matcher, history, @completion, @incremental)
+    end.new(logrw.object, matcher, history, @completion, @incremental, @extra)
 
   # NOTE be careful, order is important here...
   # should check the histories before removing obsolete operations

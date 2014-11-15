@@ -9,8 +9,8 @@ class EnumerateChecker < HistoryChecker
   extend Theories
   include BasicTheories
 
-  def initialize(object, matcher, history, completion, incremental)
-    super(object, matcher, history, completion, incremental)
+  def initialize(object, matcher, history, completion, incremental, opts)
+    super(object, matcher, history, completion, incremental, opts)
     # configuration = Z3.config
     # configuration.set("timeout",1)
     # @solver = Z3.context(configuration).solver
