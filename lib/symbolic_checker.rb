@@ -69,7 +69,7 @@ class SymbolicChecker < HistoryChecker
       @refresh = false
     end
     @solver.push
-    @solver.theory history_ops_theory(history) unless @incremental
+    @solver.theory history_labels_theory(history) unless @incremental
     @solver.theory history_order_theory(history) unless @incremental
     @solver.theory history_domains_theory(history)
     sat = @solver.check

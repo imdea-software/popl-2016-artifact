@@ -105,7 +105,7 @@ class CountingChecker < HistoryChecker
 
   def check_history(history)
     @solver.push
-    @solver.theory history_ops_theory(history)
+    @solver.theory history_labels_theory(history)
     @solver.theory history_order_theory(happens_before_pairs)
     @solver.theory history_domains_theory(history)
     sat = @solver.check

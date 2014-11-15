@@ -23,7 +23,8 @@ class EnumerateChecker < HistoryChecker
 
   def check_sequential_history(history,seq)
     @solver.push
-    @solver.theory seq_history_ops_theory(history,seq)
+    @solver.theory history_labels_theory(history)
+    @solver.theory history_order_theory(seq)
     @solver.theory history_domains_theory(history)
     sat = @solver.check
     @solver.pop

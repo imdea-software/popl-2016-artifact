@@ -120,7 +120,7 @@ module BasicTheories
     t.yield "(forall ((a1 id) (r1 id) (a2 id)) (=> (and (C a1) (C r1) (C a2) (match a1 r1) (unmatched a2) (not (= a1 a2))) (lb a1 a2)))"
   end
 
-  theory :history_ops_theory do |history,t|
+  theory :history_labels_theory do |history,t|
     ops = history.map{|id| id}
     vals = history.values | [:empty]
 
@@ -137,32 +137,15 @@ module BasicTheories
     end
   end
 
-  theory :history_order_theory do |history,t|
-    if history.is_a?(History)
-      history.each {|id| history.after(id).each {|a| t.yield "(hb o#{id} o#{a})"}}
-    elsif history.is_a?(Enumerator)
-      history.each {|id1,id2| t.yield "(hb o#{id1} o#{id2})"}
+  theory :history_order_theory do |order,t|
+    if order.is_a?(History)
+      order.each {|id| order.after(id).each {|a| t.yield "(hb o#{id} o#{a})"}}
+    elsif order.is_a?(Array)
+      order.each_cons(2) {|id1,id2| t.yield "(hb o#{id1} o#{id2})"}
+    elsif order.is_a?(Enumerable)
+      order.each {|id1,id2| t.yield "(hb o#{id1} o#{id2})"}
     else
       fail "Unexpected history or enumerator."
-    end
-  end
-
-  theory :seq_history_ops_theory do |history,seq,t|
-    ops = history
-    vals = history.values | [:empty]
-
-    ops.each {|id| t.yield "o#{id}", :id}
-    vals.each {|v| t.yield "v#{v}", :value}
-
-    seq.each_with_index do |id,idx|
-      args = history.arguments(id)
-      rets = history.returns(id) || []
-      t.yield "(= (meth o#{id}) #{history.method_name(id)})"
-      args.each_with_index {|x,idx| t.yield "(= (arg o#{id} #{idx}) v#{x})"}
-      rets.each_with_index {|x,idx| t.yield "(= (ret o#{id} #{idx}) v#{x})"}
-      seq.drop(idx+1).each do |a|
-        t.yield "(hb o#{id} o#{a})"
-      end
     end
   end
 
