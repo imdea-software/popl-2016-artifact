@@ -139,11 +139,23 @@ module BasicTheories
 
   theory :history_order_theory do |order,t|
     if order.is_a?(History)
-      order.each {|id| order.after(id).each {|a| t.yield "(hb o#{id} o#{a})"}}
+      order.each do |id|
+        order.after(id).each do |a|
+          t.yield "(hb o#{id} o#{a})"
+        end
+      end
+
     elsif order.is_a?(Array)
-      order.each_cons(2) {|id1,id2| t.yield "(hb o#{id1} o#{id2})"}
+      order.each_cons(2) do |id1,id2|
+        t.yield "(hb o#{id1} o#{id2})"
+        t.yield "(C o#{id1})" # TODO better organization
+      end
+
     elsif order.is_a?(Enumerable)
-      order.each {|id1,id2| t.yield "(hb o#{id1} o#{id2})"}
+      order.each do |id1,id2|
+        t.yield "(hb o#{id1} o#{id2})"
+      end
+
     else
       fail "Unexpected history or enumerator."
     end
