@@ -7,15 +7,18 @@ require_relative 'randomized_tester'
 require_relative 'log_reader_writer'
 require_relative 'impls/my_unsafe_stack'
 require_relative 'impls/my_sync_stack'
+require_relative 'impls/scal_object'
 
 OBJECTS = []
 DEST = "examples/generated/"
 
 # OBJECTS << MySyncStack
-OBJECTS << MyUnsafeStack
+# OBJECTS << MyUnsafeStack
+OBJECTS << [ScalObject,"msq"]
+# OBJECTS << [ScalObject,"bkq"]
 
-def generate(obj, file, num_threads, time_limit: nil)
-  RandomizedTester.new.run(
+def generate(tester, obj, file, num_threads, time_limit: nil)
+  tester.run(
     MonitoredObject.new(obj, LogReaderWriter.new(file, object: obj.class.spec)),
     num_threads,
     time_limit: time_limit
@@ -24,7 +27,7 @@ end
 
 @num_executions = 10
 @num_threads = 7
-@time_limit = 10
+@time_limit = 1
 
 OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename $0} [options] FILE"
@@ -54,14 +57,19 @@ OptionParser.new do |opts|
 end.parse!
 
 begin
-  OBJECTS.each do |obj_class|
-    print "Generating random #{@num_threads}-thread executions for #{obj_class} "
+  @tester = RandomizedTester.new
+  OBJECTS.each do |obj|
+    obj_class, *args = obj
+    print "Generating random #{@num_threads}-thread executions for #{obj_class}(#{args * ", "}) "
     print "[#{"." * @num_executions}]"
     print "\033[<#{@num_executions+1}>D" 
     @num_executions.times do |i|
+      dest = File.join(DEST,"#{obj * "-"}")
+      Dir.mkdir(dest) unless Dir.exists?(dest)
       generate(
-        obj = obj_class.new,
-        File.join(DEST, obj.to_s, "#{obj}.#{i}.log"),
+        @tester,
+        object = obj_class.new(*args),
+        File.join(dest, "#{obj * "-"}.#{i}.log"),
         @num_threads,
         time_limit: @time_limit
       )
