@@ -5,6 +5,8 @@ FLAGSS = []
 COLUMNS = { example: 1, flags: 1, step: 4, viol: 4, time: 10 }
 TIMEOUT = 5
 
+SOURCES << "examples/generated/ScalObject-bkq/*.log"
+SOURCES << "examples/generated/ScalObject-msq/*.log"
 SOURCES << "examples/simple/*.log"
 SOURCES << "examples/generated/my-sync-stack.*.log"
 SOURCES << "examples/generated/my-unsafe-stack/*.log"

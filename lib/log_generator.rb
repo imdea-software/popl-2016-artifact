@@ -12,10 +12,10 @@ require_relative 'impls/scal_object'
 OBJECTS = []
 DEST = "examples/generated/"
 
-# OBJECTS << MySyncStack
-# OBJECTS << MyUnsafeStack
+# OBJECTS << [MySyncStack]
+# OBJECTS << [MyUnsafeStack]
 OBJECTS << [ScalObject,"msq"]
-# OBJECTS << [ScalObject,"bkq"]
+OBJECTS << [ScalObject,"bkq"]
 
 def generate(tester, obj, file, num_threads, time_limit: nil)
   tester.run(
@@ -27,7 +27,7 @@ end
 
 @num_executions = 10
 @num_threads = 7
-@time_limit = 1
+@time_limit = 0.1
 
 OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename $0} [options] FILE"

@@ -2,6 +2,7 @@ class RandomizedTester
   MAX_DELAY = 0.1
 
   def initialize
+    # $DEBUG = true # without this exceptions in threads are invisible
     @unique_val = 0
     @thread_pool = []
     @object = nil
@@ -29,7 +30,6 @@ class RandomizedTester
   end
 
   def run(obj, num_threads, time_limit: nil)
-    $DEBUG = true
     (num_threads - @thread_pool.count).times {@thread_pool << randomized_thread}
 
     methods = obj.methods.

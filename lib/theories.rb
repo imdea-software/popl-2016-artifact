@@ -58,6 +58,7 @@ module BasicTheories
   theory :collection_theory do |t|
     t.yield :add, :method
     t.yield :rm, :method
+    t.yield :remove, :method
     t.yield :match, :id, :id, :bool
     t.yield :added, :value, :bool
     t.yield :removed, :value, :bool
@@ -66,6 +67,7 @@ module BasicTheories
     t.yield :vempty, :value
 
     t.yield "(distinct add rm)"
+    t.yield "(= remove rm)"
 
     # matching
     t.yield "(forall ((x id) (y id)) (= (match x y) (and (C x) (C y) (= (meth x) add) (= (meth y) rm) (= (arg x 0) (ret y 0)))))"

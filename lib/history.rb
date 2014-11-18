@@ -89,7 +89,7 @@ class History
 
   def to_s
     str = to_interval_s
-    extras = @ext_after.map{|a,ids| ids.map{|b| "#{a} < #{b}"} * ", "}.reject(&:empty?)
+    extras = @ext_after.map{|a,ids| "#{a} < #{ids * ", "}" unless ids.empty?}.compact
     str << "\n" + extras * "\n" unless extras.empty?
     str
   end
