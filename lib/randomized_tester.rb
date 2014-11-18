@@ -2,7 +2,7 @@ class RandomizedTester
   MAX_DELAY = 0.1
 
   def initialize
-    # $DEBUG = true # without this exceptions in threads are invisible
+    $DEBUG = true # without this exceptions in threads are invisible
     @unique_val = 0
     @thread_pool = []
     @object = nil
@@ -31,11 +31,11 @@ class RandomizedTester
 
   def run(obj, num_threads, time_limit: nil)
     (num_threads - @thread_pool.count).times {@thread_pool << randomized_thread}
-
-    methods = obj.methods.
-      reject{|m| Object.instance_methods.include? m}.
-      reject{|m| obj.methods.include?("#{m.to_s.chomp('=')}=".to_sym)}
-    @object = [obj] + methods
+    @object = [obj] + obj.methods.reject do |m|
+      next true if Object.instance_methods.include? m
+      next true if obj.methods.include?("#{m.to_s.chomp('=')}=".to_sym)
+      false
+    end
     @thread_pool.each {|t| t.run}
     sleep time_limit
     @object = nil

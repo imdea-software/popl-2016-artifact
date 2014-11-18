@@ -57,7 +57,7 @@ OptionParser.new do |opts|
 end.parse!
 
 begin
-  @tester = RandomizedTester.new
+  tester = RandomizedTester.new
   OBJECTS.each do |obj|
     obj_class, *args = obj
     print "Generating random #{@num_threads}-thread executions for #{obj_class}(#{args * ", "}) "
@@ -67,8 +67,8 @@ begin
       dest = File.join(DEST,"#{obj * "-"}")
       Dir.mkdir(dest) unless Dir.exists?(dest)
       generate(
-        @tester,
-        object = obj_class.new(*args),
+        tester,
+        obj_class.new(*args),
         File.join(dest, "#{obj * "-"}.#{i}.log"),
         @num_threads,
         time_limit: @time_limit

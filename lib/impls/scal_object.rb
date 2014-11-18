@@ -21,14 +21,18 @@ class ScalObject
   end
 
   CAPI::scal_initialize(8)
+  @@spec = "???"
 
   def initialize(object_id)
     @id = object_id
     @object = CAPI::scal_object_create(@id)
+    @name = CAPI::scal_object_name(@id) # TODO why does this need a warm-up?
+    @name = CAPI::scal_object_name(@id)
+    @@spec = CAPI::scal_object_spec(@id)
     @gen = Random.new
   end
 
-  def self.spec; CAPI::scal_object_spec(@id) end
+  def self.spec; @@spec end
   def to_s; CAPI::scal_object_name(@id) end
 
   def add(val)
