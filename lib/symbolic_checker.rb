@@ -6,14 +6,17 @@ require_relative 'z3'
 
 class SymbolicChecker < HistoryChecker
   include Z3
-  extend Theories
-  include BasicTheories
 
   def initialize(object, matcher, history, completion, incremental, opts)
     super(object, matcher, history, completion, incremental, opts)
 
+    context = Z3.context
+    @theories = Theories.new(context)
+
     # THE EASY WAY
-    @solver = Z3.context.solver
+    @solver = context.solver
+
+    @theories.on_init()
 
     # THE LONG WAY...
     # @configuration = Z3.config
@@ -25,55 +28,75 @@ class SymbolicChecker < HistoryChecker
     # params = Z3.context.params
     # params.set("max_conflicts",0)
     # @solver.set_params(params)
-
-    theories_for(object).each(&@solver.method(:theory))
-    @solver.push if @incremental
-    @refresh = false
   end
 
   def name; "Symbolic checker (Z3)" end
 
   def started!(id, method_name, *arguments)
-    return unless @incremental
-    ops = @history
-    vals = @history.values | [:empty]
-    @solver.decl "o#{id}", :id
-    @solver.assert "(= (meth o#{id}) #{method_name})"
-    arguments.each_with_index do |x,idx|
-      @solver.decl "v#{x}", :value
-      @solver.assert "(= (arg o#{id} #{idx}) v#{x})"
-    end
-    @history.before(id).each do |b|
-      @solver.assert "(hb o#{b} o#{id})"
-    end
+    @theories.on_call(id, @history, @solver)
   end
 
   def completed!(id, *returns)
-    return unless @incremental
-    returns.each_with_index do |x,idx|
-      @solver.decl "v#{x}", :value
-      @solver.assert "(= (ret o#{id} #{idx}) v#{x})"
-    end
+    @theories.on_return(id, @history, @solver)
   end
 
-  def removed!(id)
-    return unless @incremental
-    @refresh = true
-  end
+  # def started!(id, method_name, *arguments)
+  #   return unless @incremental
+  #   ops = @history
+  #   vals = @history.values | [:empty]
+  #   @solver.decl "o#{id}", :id
+  #   @solver.assert "(= (meth o#{id}) #{method_name})"
+  #   arguments.each_with_index do |x,idx|
+  #     @solver.decl "v#{x}", :value
+  #     @solver.assert "(= (arg o#{id} #{idx}) v#{x})"
+  #   end
+  #   @history.before(id).each do |b|
+  #     @solver.assert "(hb o#{b} o#{id})"
+  #   end
+  #   @solver.assert "(P o#{id})"
+  #
+  #   ops = @history.map{|id| id}
+  #   vals = @history.values | [:empty]
+  #   @solver.assert "(distinct #{ops.map{|id| "o#{id}"} * " "})" if ops.count > 1
+  #   @solver.assert "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
+  # end
+  #
+  # def completed!(id, *returns)
+  #   return unless @incremental
+  #   returns.each_with_index do |x,idx|
+  #     @solver.decl "v#{x}", :value
+  #     @solver.assert "(= (ret o#{id} #{idx}) v#{x})"
+  #     @solver.assert "(C o#{id})"
+  #   end
+  #   vals = @history.values | [:empty]
+  #   @solver.assert "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
+  # end
+  #
+  # def removed!(id)
+  #   return unless @incremental
+  #   @refresh = true
+  # end
 
   def check_history(history)
-    if @refresh
-      @solver.pop
-      @solver.push
-      @solver.theory history_ops_theory(@history)
-      @refresh = false
-    end
-    @solver.push
-    @solver.theory history_labels_theory(history) unless @incremental
-    @solver.theory history_order_theory(history) unless @incremental
-    @solver.theory history_domains_theory(history)
+
+    # if @refresh
+    #   @solver.pop
+    #   @solver.push
+    #   @solver.theory history_ops_theory(@history)
+    #   @refresh = false
+    # end
+    # # @solver.push
+    # @solver.theory history_labels_theory(history) unless @incremental
+    # @solver.theory history_order_theory(history) unless @incremental
+    # @solver.theory history_domains_theory(history) unless @incremental
+
+    # @theories.theory(history, @object).each do |th|
+    #   @solver.assert th
+    # end
     sat = @solver.check
-    @solver.pop
+    # @solver.reset
+
+    # @solver.pop
     return [sat, 1]
   end
 

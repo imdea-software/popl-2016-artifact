@@ -4,7 +4,10 @@ require_relative 'z3_c_interface'
 class Array
   def to_ptr()
     ptr = FFI::MemoryPointer.new(:pointer, count)
-    each_with_index {|x,i| ptr[i].put_pointer(0,x)}
+    each_with_index do |x,i|
+      fail "'#{x.class}' is not a pointer." unless x.is_a?(FFI::Pointer)
+      ptr[i].put_pointer(0,x)
+    end
     ptr
   end
 end
@@ -32,7 +35,11 @@ module Z3
   end
 
   def self.config()                                   Z3::mk_config() end
-  def self.context(config: default_configuration)     Z3::mk_context(config) end
+  def self.context(config: default_configuration)     
+    c = Z3::mk_context(config)
+    c.post_initialize
+    return c
+  end
   def self.context_rc(config: default_configuration)  Z3::mk_context_rc(config) end
 
   def self.default_configuration; @@default_configuration ||= self.config end
@@ -43,8 +50,32 @@ module Z3
     def set(param,val) Z3::set_param_value(self, param, val)  end
   end
 
-  class Context 
+  class Context
+    def post_initialize
+      @sorts = {}
+      @constants = {}
+      @sorts[:bool] = bool_sort
+      @sorts[:int] = int_sort
+      @sorts[:real] = real_sort
+    end
     def self.release(pointer) Z3::del_context(pointer) end
+
+    def resolve(sym)
+      @sorts[sym] || @constants[sym] || (fail "Unable to resolve symbol #{sym}.")
+    end
+
+    def decl_sort(sym, *args)
+      @sorts[sym] = ui_sort(sym)
+    end
+
+    def decl_const(sym, *sorts)
+      sorts = sorts.map(&method(:resolve))
+      if sorts.count > 1
+        @constants[sym] = func_decl(sym, *sorts)
+      else
+        @constants[sym] = const(sym, sorts.first)
+      end
+    end
 
     def inc_ref(expr)     Z3::inc_ref(self,expr) end
     def dec_ref(expr)     Z3::dec_ref(self,expr) end
@@ -98,7 +129,25 @@ module Z3
     alias :function :func_decl
     def app(decl, *args)    Z3::mk_app(self, decl, args.count, args.to_ptr).cc(self) end
     def const(sym, type)    Z3::mk_const(self, wrap_symbol(sym), type).cc(self) end
-    def int(num, type: nil) Z3::mk_int(self, num, type || int_sort).cc(self) end
+    def int(num, type: nil) Z3::mk_int(self, num, type || @sorts[:int]).cc(self) end
+
+    def expr(expr, *args)
+      expr = expr.to_sym if expr.is_a?(String)
+      case expr
+      when Fixnum
+        int(expr)
+      when ::Symbol
+        if args.empty?
+          resolve(expr)
+        else
+          decl = resolve(expr)
+          fail "XXX" unless decl && decl.is_a?(Function)
+          app(decl, *args)
+        end
+      else
+        fail "Unexpected expression: #{expr} of #{expr.class}."
+      end
+    end
 
     # Propositional Logic and Equality, Arithmetic: Integers and Reals
     [:true, :false, :eq, :not, :ite, :iff, :implies, :xor,
@@ -113,6 +162,10 @@ module Z3
         Kernel.const_get(:Z3).method("mk_#{f}").call(self,args.count,args.to_ptr).cc(self)
       end
     end
+    alias :tt :true
+    alias :ff :false
+    alias :conj :and
+    alias :disj :or
 
     # Quantifiers
     [:forall, :exists].each do |f|
@@ -174,6 +227,8 @@ module Z3
 
   class Function 
     include ContextualObject
+    def post_initialize
+    end
     def self.release(pointer) end
     def app(*args)  @context.app(self,*args) end
     def to_s;       Z3::func_decl_to_string(@context, self) end
@@ -186,29 +241,32 @@ module Z3
      :unary_minus, :add, :sub, :mul, :div, :mod, :rem, :power,
      :lt, :le, :gt, :ge].each do |f|
        define_method(f) do |*args|
-         @context.send(f, *args)
+         @context.send(f, self, *args)
        end
     end
     def to_s; Z3::ast_to_string(@context, self) end
 
-    def ==(e)  eq(self,e) end
-    def ===(e) iff(self,e) end
-    def !;     send(:not,self) end
-    def !=(e)  !(self == e) end
-    def ^;     xor(self,e) end
-    def -@;    unary_minus(self) end
-    def /(e)   div(self,e) end
-    def %(e)   mod(self,e) end
-    def **(e)  power(self,e) end
-    def <(e)   lt(self,e) end
-    def <=(e)  le(self,e) end
-    def >(e)   gt(self,e) end
-    def >=(e)  ge(self,e) end
-    def &(e)   send(:and,self,e) end
-    def |(e)   send(:or,self,e) end
-    def +(e)   add(self,e) end
-    def *(e)   mul(self,e) end
-    def -(e)   sub(self,e) end
+    alias :conj :and
+    alias :disj :or
+
+    def ==(e)  eq(e) end
+    def ===(e) iff(e) end
+    def !;     send(:not) end
+    def !=(e)  !(eq(e)) end
+    def ^;     xor(e) end
+    def -@;    unary_minus end
+    def /(e)   div(e) end
+    def %(e)   mod(e) end
+    def **(e)  power(e) end
+    def <(e)   lt(e) end
+    def <=(e)  le(e) end
+    def >(e)   gt(e) end
+    def >=(e)  ge(e) end
+    def &(e)   send(:and,e) end
+    def |(e)   send(:or,e) end
+    def +(e)   add(e) end
+    def *(e)   mul(e) end
+    def -(e)   sub(e) end
   end
 
   class Model 

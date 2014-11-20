@@ -242,6 +242,7 @@ module Z3CInterface
   attach_function :Z3_ast_to_string, [Context, Expr], :string
   attach_function :Z3_sort_to_string, [Context, Sort], :string
   attach_function :Z3_model_to_string, [Context, Model], :string
+  attach_function :Z3_func_decl_to_string, [Context, Function], :string
   # TODO many more...
 
   # TODO Parser interface

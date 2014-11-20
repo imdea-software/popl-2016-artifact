@@ -6,28 +6,32 @@ require_relative 'z3'
 
 class EnumerateChecker < HistoryChecker
   include Z3
-  extend Theories
-  include BasicTheories
 
   def initialize(object, matcher, history, completion, incremental, opts)
     super(object, matcher, history, completion, incremental, opts)
     # configuration = Z3.config
     # configuration.set("timeout",1)
     # @solver = Z3.context(configuration).solver
+    @theories = Theories.new(Z3.context)
     @solver = Z3.context.solver
-    theories_for(object).each(&@solver.method(:theory))
-    log.warn('Enumerate') {"I don't have an incremental mode."} if @incremental
+    # theories_for(object).each(&@solver.method(:theory))
+    # log.warn('Enumerate') {"I don't have an incremental mode."} if @incremental
   end
 
   def name; "Enumerate checker" end
 
   def check_sequential_history(history,seq)
-    @solver.push
-    @solver.theory history_labels_theory(history)
-    @solver.theory history_order_theory(seq)
-    @solver.theory history_domains_theory(history)
+    # @solver.push
+    # @solver.theory history_labels_theory(history)
+    # @solver.theory history_order_theory(seq)
+    # @solver.theory history_domains_theory(history)
+
+    @theories.theory(history, @object, order: seq).each do |th|
+      @solver.assert th
+    end
     sat = @solver.check
-    @solver.pop
+    @solver.reset
+
     return [sat,1]
   end
 

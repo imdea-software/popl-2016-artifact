@@ -1,184 +1,390 @@
-module Theories
-  def theory(name,&blk)
-    define_method(name) do |*args|
-      Enumerator.new do |y|
-        blk.call(*args,y)
+require 'forwardable'
+
+class Theories
+
+  extend Forwardable
+  def_delegators :@context, :decl_const, :decl_sort, :distinct, :expr
+  def_delegators :@context, :conj, :disj, :tt, :ff
+  alias :e :expr
+
+  def initialize(context)
+    @context = context
+  end
+
+  def op(id) "o#{id}".to_sym end
+  def val(v) "v#{v}".to_sym end
+
+  # generic predicates
+  def meth(id)      e(:mth, e(op(id))) end
+  def arg(id,i)     e(:arg, e(op(id)), e(i)) end
+  def ret(id,i)     e(:ret, e(op(id)), e(i)) end
+  def before?(i,j)  e(:bef, e(op(i)), e(op(j))) end
+
+  def call_label(id,h)
+    [(meth(id) == e(h.method_name(id)))] +
+    h.arguments(id).each_with_index.map{|v,i| arg(id,i) == e(val(v))}
+  end
+
+  def ret_label(id,h)
+    (h.returns(id) || []).each_with_index.map{|v,i| ret(id,i) == e(val(v))}
+  end
+
+  # collection predicates
+  def add?(id) meth(id) == e(:add) end
+  def rem?(id) meth(id) == e(:rmv) end
+  def match?(i,j) add?(i) & rem?(j) & (arg(i,0) == ret(j,0)) end
+  def unmatched?(i,ids) add?(i) & !exists?(ids-[i]) {|j| match?(i,j)} end
+  def empty?(id) rem?(id) & (ret(id,0) == e(val(:empty))) end
+
+  def dprod(a,k)
+    return a if k < 2
+    p = a.product(a).reject{|x,y| x == y}
+    (k-2).times do
+      p = p.product(a).map{|xs,y| xs+[y] unless xs.include?(y)}.compact
+    end
+    return p
+  end
+
+  def forall?(ids,&f) conj(*dprod(ids,f.arity).map{|*ids| f.call(*ids)}.compact) end
+  def exists?(ids,&f) disj(*dprod(ids,f.arity).map{|*ids| f.call(*ids)}.compact) end
+
+  def maybe_match?(i,j,h)
+    h.method_name(i) =~ /push/ &&
+    h.method_name(j) =~ /pop/ &&
+    (h.returns(j).nil? || h.returns(j).first == h.arguments(i).first)
+  end
+
+  def maybe_empty?(i,h)
+    h.method_name(i) =~ /pop/ &&
+    (h.returns(i).nil? || h.returns(i).first == :empty)
+  end
+
+  def maybe_nonempty?(i,h)
+    h.method_name(i) =~ /pop/ &&
+    (h.returns(i).nil? || h.returns(i).first != :empty)
+  end
+
+  def on_init()
+    decl_sort :id
+    decl_sort :method
+    decl_sort :value
+
+    decl_const :mth, :id, :method
+    decl_const :arg, :id, :int, :value
+    decl_const :ret, :id, :int, :value
+    decl_const :bef, :id, :id, :bool
+
+    decl_const :add, :method
+    decl_const :rmv, :method
+    decl_const :remove, :method
+    decl_const val(:empty), :value
+
+    decl_const :push, :method
+    decl_const :pop, :method
+  end
+
+  def on_call(id, history, solver)
+    ids = history.to_a
+    decl_const op(id), :id
+    history.arguments(id).each do |v|
+      decl_const val(v), :value
+      solver.assert call_label(id,history).reduce(:&)
+    end
+    history.before(id).each do |jd|
+      solver.assert before?(jd,id)
+    end
+    solver.assert distinct(*ids.map{|id| e(op(id))})
+    solver.assert distinct(*history.values.map{|v| e(val(v))}) unless history.arguments(id).empty?
+
+    # before is transitive
+    forall?(ids-[id]) do |j,k|
+      solver.assert (before?(id,j) & before?(j,k)).implies(before?(id,k)) unless history.before?(id,k) || history.before?(j,id) || history.before?(k,j)
+      solver.assert (before?(j,id) & before?(id,k)).implies(before?(j,k)) unless history.before?(j,k) || history.before?(id,j) || history.before?(k,id)
+      solver.assert (before?(j,k) & before?(k,id)).implies(before?(j,id)) unless history.before?(j,id) || history.before?(k,j) || history.before?(id,k)
+    end
+
+    # before is antisymmetric
+    forall?(ids-[id]) do |j|
+      solver.assert (before?(id,j) & before?(j,id)).implies(e(op(id)) == e(op(j)))
+    end
+
+    # before is total
+    forall?(ids-[id]) do |j|
+      next if history.before?(id,j)
+      next if history.before?(j,id)
+      solver.assert (before?(id,j) | before?(j,id))
+    end
+    
+    solver.assert (e(:remove) == e(:rmv))
+    solver.assert (e(:push) == e(:add))
+    solver.assert (e(:pop) == e(:rmv))
+
+    if history.method_name(id) =~ /push/
+
+      # adds before removes
+      forall?(ids-[id]) do |j|
+        next unless maybe_match?(id,j,history)
+        solver.assert match?(id,j).implies(before?(id,j))
+      end
+
+      # adds removed before empty
+      forall?(ids-[id]) do |e,p|
+        next unless maybe_empty?(e,history)
+        next unless maybe_match?(id,p,history)
+        next if history.before?(p,e)
+
+        solver.assert (empty?(e) & match?(id,p) & before?(id,e)).implies(before?(p,e))
+      end
+
+      # lifo order between two matches
+      forall?(ids-[id]) do |a1,r1,r2|
+        next unless maybe_match?(a1,r1,history)
+        next unless maybe_match?(id,r2,history)
+        
+        solver.assert (match?(a1,r1) & match?(id,r2) & before?(a1,id) & before?(r1,r2)).implies(before?(r1,a2)) unless history.before?(r1,id)
+        solver.assert (match?(id,r2) & match?(a1,r1) & before?(id,a1) & before?(r2,r1)).implies(before?(r2,a1)) unless history.before?(r2,a1)
+      end
+
+    elsif history.method_name(id) =~ /pop/
+
+      # an add for every remove
+      # TODO this is unsound, because the add might not yet exist
+      # solver.assert (empty?(id) | exists?(ids-[id]) {|j| match?(j,id)})
+
+      # adds before removes
+      forall?(ids-[id]) do |j|
+        next unless maybe_match?(j,id,history)
+        next if history.before?(j,id)
+
+        solver.assert match?(j,id).implies(before?(j,id))
+      end
+
+      # unique removes
+      forall?(ids-[id]) do |j|
+        next unless maybe_nonempty?(j,history)
+
+        solver.assert (empty?(id) | (ret(id,0) != ret(j,0)))
+      end
+
+      # adds removed before empty
+      forall?(ids-[id]) do |o,p|
+        next unless maybe_match?(o,p,history)
+        next if history.before?(p,id)
+
+        solver.assert (empty?(id) & match?(o,p) & before?(o,id)).implies(before?(p,id))
+      end
+
+      # unmatched adds removed after empty
+      forall?(ids-[id]) do |o|
+        next unless history.method_name(o) =~ /push/
+        # TODO how to be sound w/ unmatched?
+      end
+
+      # lifo order between two matches
+      forall?(ids-[id]) do |a1,r1,a2|
+        next unless maybe_match?(a1,r1,history)
+        next unless maybe_match?(a2,id,history)
+        
+        solver.assert (match?(a1,r1) & match?(a2,id) & before?(a1,a2) & before?(r1,id)).implies(before?(r1,a2)) unless history.before?(r1,a2)
+        solver.assert (match?(a2,id) & match?(a1,r1) & before?(a2,a1) & before?(id,r1)).implies(before?(id,a1)) unless history.before?(id,a1)
+      end
+
+      # lifo order between a match and unmatched
+      forall?(ids-[id]) do |a1,a2|
+        next unless maybe_match?(a1,id,history)
+        next if history.before?(id,a2)
+
+        # TODO how to reconcile completeness here?
+        # solver.assert (match?(a1,id) & unmatched?(a2,ids) & before?(a1,a2)).implies(before?(r1,a2))
       end
     end
+
   end
-end
 
-module BasicTheories
-  extend Theories
-
-  def theories_for(object)
-    ts = []
-    ts << basic_theory
-    ts << atomic_theory if @object =~ /atomic/
-    ts << collection_theory if @object =~ /stack|queue/
-    case @object
-    when /stack/
-      ts << lifo_theory
-      ts << stack_theory
-    when /queue/
-      ts << fifo_theory
-      ts << queue_theory
+  def on_return(id, history, solver)
+    history.returns(id).each do |v|
+      decl_const val(v), :value
+      solver.assert ret_label(id,history).reduce(:&)
     end
-    return ts
+    solver.assert distinct(*history.values.map{|v| e(val(v))}) unless history.returns(id).empty?
   end
 
-  theory :basic_theory do |t|
-    t.yield :id
-    t.yield :method
-    t.yield :value
-
-    t.yield :meth, :id, :method
-    t.yield :arg, :id, :int, :value
-    t.yield :ret, :id, :int, :value
-    t.yield :C, :id, :bool
-
-    t.yield :hb, :id, :id, :bool
-    t.yield :lb, :id, :id, :bool
-  
-    # "linearization order includes happens-before order"
-    t.yield "(forall ((x id) (y id)) (=> (and (C x) (C y) (hb x y)) (lb x y)))"
-
-    # linearization order is transitive
-    t.yield "(forall ((x id) (y id) (z id)) (=> (and (C x) (C y) (C z) (lb x y) (lb y z)) (lb x z)))"
-
-    # linearization order is anitsymmetric
-    t.yield "(forall ((x id) (y id)) (=> (and (C x) (C y) (lb x y) (lb y x)) (= x y)))"
+  def theory(history, object, order: nil)
+    ids = history.to_a
+    th = []
+    th.push *background_theory(history)
+    th.push *order_theory(history)
+    th.push *atomic_theory(history) if object =~ /atomic/
+    th.push *collection_theory(history) if object =~ /stack|queue/
+    th.push *lifo_theory(history) if object =~ /stack/
+    th.push *fifo_theory(ids) if object =~ /queue/
+    th.push *history_theory(history, order: order)
+    th
   end
 
-  theory :atomic_theory do |t|
-    # linearization order is total
-    t.yield "(forall ((x id) (y id)) (=> (and (C x) (C y)) (or (lb x y) (lb y x))))"
+  def background_theory(history)
+    decl_sort :id
+    decl_sort :method
+    decl_sort :value
+
+    decl_const :mth, :id, :method
+    decl_const :arg, :id, :int, :value
+    decl_const :ret, :id, :int, :value
+
+    history.each        {|id| decl_const op(id), :id}
+    history.values.each {|v|  decl_const val(v), :value}
+
+    th = []
+    th << distinct(*history.map{|id| e(op(id))})
+    th << distinct(*history.values.map{|v| e(val(v))})
+    th
   end
 
-  theory :collection_theory do |t|
-    t.yield :add, :method
-    t.yield :rm, :method
-    t.yield :remove, :method
-    t.yield :match, :id, :id, :bool
-    t.yield :added, :value, :bool
-    t.yield :removed, :value, :bool
-    t.yield :unmatched, :id, :bool
-    t.yield :emptyrm, :id, :bool
-    t.yield :vempty, :value
+  def order_theory(history)
+    ids = history.to_a
+    decl_const :bef, :id, :id, :bool
 
-    t.yield "(distinct add rm)"
-    t.yield "(= remove rm)"
+    th = []
 
-    # matching
-    t.yield "(forall ((x id) (y id)) (= (match x y) (and (C x) (C y) (= (meth x) add) (= (meth y) rm) (= (arg x 0) (ret y 0)))))"
+    # before is transitive
+    th << forall?(ids) {|o,p,q| (before?(o,p) & before?(p,q)).implies(before?(o,q)) unless history.before?(o,q)} if ids.count > 2
 
-    # unmatched
-    t.yield "(forall ((x id)) (= (unmatched x) (and (C x) (= (meth x) add) (not (exists ((y id)) (match x y))))))"
+    # before is antisymmetric
+    th << forall?(ids) {|o,p| (before?(o,p) & before?(p,o)).implies(e(op(o)) == e(op(p))) unless o == p} if ids.count > 1
 
-    # added & removed
-    t.yield "(forall ((x id)) (= (added (arg x 0)) (and (C x) (= (meth x) add))))"
-    t.yield "(forall ((x id)) (= (removed (ret x 0)) (and (C x) (= (meth x) rm))))"
-
-    # empty
-    t.yield "(forall ((x id)) (= (emptyrm x) (and (C x) (= (meth x) rm) (= (ret x 0) vempty))))"
-
-    # all popped elements are pushed
-    t.yield "(forall ((x id)) (=> (and (C x) (= (meth x) rm) (not (= (ret x 0) vempty))) (exists ((y id)) (and (C y) (= (meth y) add) (= (arg y 0) (ret x 0))))))"
-
-    # no two non-empty removes return the same value
-    t.yield "(forall ((x id) (y id)) (=> (and (C x) (C y) (= (meth x) rm) (= (meth y) rm) (not (= x y)) (not (= (ret x 0) vempty))) (not (= (ret x 0) (ret y 0)))))"
-
-    # adds before matched removes
-    t.yield "(forall ((x id) (y id)) (=> (and (C x) (C y) (match x y)) (lb x y)))"
-
-    # all adds removed before empty removes
-    t.yield "(forall ((x id) (y id) (z id)) (=> (and (C x) (C y) (C z) (match x y) (emptyrm z) (lb x z)) (lb y z)))"
-    t.yield "(forall ((x id) (z id)) (=> (and (C x) (C z) (unmatched x) (emptyrm z)) (lb z x)))"
+    th
   end
 
-  theory :stack_theory do |t|
-    t.yield :push, :method
-    t.yield :pop, :method
-    t.yield "(= push add)"
-    t.yield "(= pop rm)"
+  def atomic_theory(history)
+    ids = history.to_a
+    th = []
+    # before is total
+    th << forall?(ids) {|o,p| before?(o,p) | before?(p,o) unless history.before?(o,p) || history.before?(p,o)} if ids.count > 1
+    th
   end
 
-  theory :queue_theory do |t|
-    t.yield :enqueue, :method
-    t.yield :dequeue, :method
-    t.yield "(= enqueue add)"
-    t.yield "(= dequeue rm)"
+  def collection_theory(history)
+    ids = history.to_a
+    decl_const :add, :method
+    decl_const :rmv, :method
+    decl_const :remove, :method
+    decl_const val(:empty), :value
+
+    th = []
+
+    th << (e(:remove) == e(:rmv))
+
+    # an add for every remove
+    th << forall?(ids) do |o|
+      next unless history.method_name(o) == :pop
+      next unless (history.returns(o).nil? || history.returns(o).first != :empty)
+      (rem?(o) & !empty?(o)).implies(exists?(ids-[o]) do |p|
+        next unless history.method_name(p) == :push
+        match?(p,o)
+      end)
+    end if ids.count > 1
+
+    # adds before removes
+    th << forall?(ids) do |o,p|
+      next if history.before?(o,p)
+      next unless history.method_name(o) == :push 
+      next unless history.method_name(p) == :pop
+      next unless (history.returns(p).nil? || history.returns(p).first == history.arguments(o).first)
+
+      match?(o,p).implies(before?(o,p))
+    end if ids.count > 1
+
+    # unique removes
+    th << forall?(ids) do |o,p|
+      next unless history.method_name(o) == :pop
+      next unless history.method_name(p) == :pop
+      orets = history.returns(o)
+      prets = history.returns(p)
+      next if orets && orets.first == :empty
+      next if prets && prets.first == :empty
+      next if orets && prets && orets.first != prets.first
+
+      (rem?(o) & rem?(p) & !empty?(o)).implies(ret(o,0) != ret(p,0))
+    end if ids.count > 1
+
+    # adds removed before empty
+    th << forall?(ids) do |e,o,p|
+      next unless history.method_name(e) == :pop
+      next if history.returns(e) && history.returns(e).first != :empty
+      next unless history.method_name(o) == :push
+      next unless history.method_name(p) == :pop
+      next unless history.returns(p).nil? || history.returns(p).first == history.arguments(o).first
+      next if history.before?(p,e)
+
+      (empty?(e) & match?(o,p) & before?(o,e)).implies(before?(p,e))
+    end if ids.count > 2
+
+    th << forall?(ids) do |e,o|
+      next unless history.method_name(e) == :pop
+      next unless history.method_name(o) == :push
+      next if history.returns(e) && history.returns(e).first != :empty
+      next if history.before?(e,o)
+
+      (empty?(e) & unmatched?(o,ids-[o,e])).implies(before?(e,o))
+    end if ids.count > 1
+    th
   end
 
-  theory :lifo_theory do |t|
-    # LIFO order
-    t.yield "(forall ((a1 id) (r1 id) (a2 id) (r2 id)) (=> (and (C a1) (C r1) (C a2) (C r2) (match a1 r1) (match a2 r2) (not (= a1 a2)) (lb a1 a2) (lb r1 r2)) (lb r1 a2)))"
-    t.yield "(forall ((a1 id) (r1 id) (a2 id)) (=> (and (C a1) (C r1) (C a2) (match a1 r1) (unmatched a2) (not (= a1 a2)) (lb a1 a2)) (lb r1 a2)))"
+  def lifo_theory(history)
+    ids = history.to_a
+    decl_const :push, :method
+    decl_const :pop, :method
+
+    th = []
+    th << (e(:push) == e(:add))
+    th << (e(:pop) == e(:rmv))
+    th << forall?(ids) do |a1,r1,a2,r2|
+      next unless history.method_name(a1) == :push
+      next unless history.method_name(a2) == :push
+      next unless history.method_name(r1) == :pop
+      next unless history.method_name(r2) == :pop
+      next if history.returns(r1) && history.returns(r1).first != history.arguments(a1).first
+      next if history.returns(r2) && history.returns(r2).first != history.arguments(a2).first
+      next if history.before?(r1,a2)
+
+      (match?(a1,r1) & match?(a2,r2) & before?(a1,a2) & before?(r1,r2)).implies(before?(r1,a2))
+    end if ids.count > 3
+    th << forall?(ids) do |a1,r1,a2|
+      next unless history.method_name(a1) == :push
+      next unless history.method_name(a2) == :push
+      next unless history.method_name(r1) == :pop
+      next if history.returns(r1) && history.returns(r1).first != history.arguments(a1).first
+      next if history.before?(r1,a2)
+
+      (match?(a1,r1) & unmatched?(a2,ids) & before?(a1,a2)).implies(before?(r1,a2))
+    end if ids.count > 2
+    th
   end
 
-  theory :fifo_theory do |t|
-    # FIFO order
-    t.yield "(forall ((a1 id) (r1 id) (a2 id) (r2 id)) (=> (and (C a1) (C r1) (C a2) (C r2) (match a1 r1) (match a2 r2) (not (= a1 a2)) (lb a1 a2)) (lb r1 r2)))"
-    t.yield "(forall ((a1 id) (r1 id) (a2 id)) (=> (and (C a1) (C r1) (C a2) (match a1 r1) (unmatched a2) (not (= a1 a2))) (lb a1 a2)))"
+  def fifo_theory(ids)
+    decl_const :enqueue, :method
+    decl_const :dequeue, :method
+
+    th = []
+    th << (e(:enqueue) == e(:add))
+    th << (e(:dequeue) == e(:rmv))
+    th << forall?(ids) {|a1,r1,a2,r2| (match?(a1,r1) & match?(a2,r2) & before?(a1,a2)).implies(before?(r1,r2))} if ids.count > 3
+    th << forall?(ids) {|a1,r1,a2| (match?(a1,r1) & unmatched?(a2,ids-[a1,r1,a2])).implies(before?(a1,a2))} if ids.count > 2
+    th
   end
 
-  theory :history_labels_theory do |history,t|
-    ops = history.map{|id| id}
-    vals = history.values | [:empty]
-
-    ops.each {|id| t.yield "o#{id}", :id}
-    vals.each {|v| t.yield "v#{v}", :value}
-
+  def history_theory(history, order: nil)
+    th = []
     history.each do |id|
-      args = history.arguments(id)
-      rets = history.returns(id) || []
-      t.yield "(= (meth o#{id}) #{history.method_name(id)})"
-      args.each_with_index {|x,idx| t.yield "(= (arg o#{id} #{idx}) v#{x})"}
-      rets.each_with_index {|x,idx| t.yield "(= (ret o#{id} #{idx}) v#{x})"}
-
+      th.push *call_label(id,history)
+      th.push *ret_label(id,history) if history.completed?(id)
     end
-  end
-
-  theory :history_order_theory do |order,t|
-    if order.is_a?(History)
-      order.each do |id|
-        order.after(id).each do |a|
-          t.yield "(hb o#{id} o#{a})"
-        end
-      end
-
-    elsif order.is_a?(Array)
-      order.each_cons(2) do |id1,id2|
-        t.yield "(hb o#{id1} o#{id2})"
-        t.yield "(C o#{id1})" # TODO better organization
-      end
-
-    elsif order.is_a?(Enumerable)
-      order.each do |id1,id2|
-        t.yield "(hb o#{id1} o#{id2})"
-      end
-
-    else
-      fail "Unexpected history or enumerator."
+    th.push *case order
+    when Array;       order.each_cons(2).map {|i,j| before?(i,j)}
+    when Enumerable;  order.map {|i,j| before?(i,j)}
+    else history.map{|i| history.after(i).map {|j| before?(i,j)}}.flatten
     end
-  end
-
-  theory :history_domains_theory do |history,t|
-    ops = history.map{|id| id}
-    vals = history.values | [:empty]
-
-    t.yield "(distinct #{ops.map{|id| "o#{id}"} * " "})" if ops.count > 1
-    t.yield "(forall ((x id)) (or #{ops.map{|id| "(= x o#{id})"} * " "}))" if ops.count > 0
-    t.yield "(and #{ops.select(&history.method(:completed?)).map{|id| "(C o#{id})"} * " "})"
-    t.yield "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
-
-    # TODO this code should not depend the collection theory
-    if history.complete?
-      unremoved =
-        history.map{|id| history.arguments(id)}.flatten(1) -
-        history.map{|id| history.returns(id)||[]}.flatten(1)
-      unremoved.each {|v| t.yield "(not (removed v#{v}))"}
-    end
+    th
   end
 
 end

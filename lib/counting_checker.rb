@@ -6,18 +6,17 @@ require_relative 'z3'
 
 class CountingChecker < HistoryChecker
   include Z3
-  extend Theories
-  include BasicTheories
 
   def initialize(object, matcher, history, completion, incremental, bound: 0)
     super(object, matcher, history, completion, incremental)
+    @theories = Theories.new(Z3.context)
     @solver = Z3.context.solver
-    theories_for(object).each(&@solver.method(:theory))
-    @solver.push if @incremental
-    @refresh = false
-
-    # log.warn('Counting') {"I don't do completions."} if @completion
-    log.warn('Counting') {"I only do incremental."} unless @incremental
+    # theories_for(object).each(&@solver.method(:theory))
+    # @solver.push if @incremental
+    # @refresh = false
+    #
+    # # log.warn('Counting') {"I don't do completions."} if @completion
+    # log.warn('Counting') {"I only do incremental."} unless @incremental
 
     @bound = bound
     @completed = {}
@@ -107,12 +106,18 @@ class CountingChecker < HistoryChecker
   end
 
   def check_history(history)
-    @solver.push
-    @solver.theory history_labels_theory(history)
-    @solver.theory history_order_theory(happens_before_pairs)
-    @solver.theory history_domains_theory(history)
+    # @solver.push
+    # @solver.theory history_labels_theory(history)
+    # @solver.theory history_order_theory(happens_before_pairs)
+    # @solver.theory history_domains_theory(history)
+
+    @theories.theory(history, @object, order: happens_before_pairs).each do |th|
+      @solver.assert th
+    end
     sat = @solver.check
-    @solver.pop
+    @solver.reset
+
+    # @solver.pop
     return [sat, 1]
   end
 
