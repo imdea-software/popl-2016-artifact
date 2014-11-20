@@ -17,6 +17,9 @@ class SymbolicChecker < HistoryChecker
     @solver = context.solver
 
     @theories.on_init()
+    @theories.quantified_theory(object).each do |ax|
+      @solver.assert ax
+    end
 
     # THE LONG WAY...
     # @configuration = Z3.config

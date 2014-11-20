@@ -168,8 +168,12 @@ module Z3
     alias :disj :or
 
     # Quantifiers
+    def pattern(*exprs) Z3::mk_pattern(self,exprs.count,exprs.to_ptr).cc(self) end
+    def bound(idx, ty) Z3::mk_bound(self,idx,ty).cc(self) end
+
     [:forall, :exists].each do |f|
       define_method(f) do |*vars, body, weight:0, patterns:[]|
+        vars = vars.reverse
         names = vars.map(&:first).to_ptr
         sorts = vars.map{|v| v[1]}.to_ptr
         Kernel.const_get(:Z3).method("mk_#{f}").
@@ -267,6 +271,14 @@ module Z3
     def +(e)   add(e) end
     def *(e)   mul(e) end
     def -(e)   sub(e) end
+  end
+
+  class Pattern
+    include ContextualObject
+    def self.release(pointer) end
+    def to_s
+      Z3::pattern_to_string(@context,self)
+    end
   end
 
   class Model 
