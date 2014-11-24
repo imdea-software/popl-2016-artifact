@@ -36,11 +36,15 @@ class SymbolicChecker < HistoryChecker
   def name; "Symbolic checker (Z3)" end
 
   def started!(id, method_name, *arguments)
-    @theories.on_call(id, @history, @solver)
+    @theories.on_call(id, @history).each do |f|
+      @solver.assert f
+    end
   end
 
   def completed!(id, *returns)
-    @theories.on_return(id, @history, @solver)
+    @theories.on_return(id, @history).each do |f|
+      @solver.assert f
+    end
   end
 
   # def started!(id, method_name, *arguments)
@@ -96,7 +100,12 @@ class SymbolicChecker < HistoryChecker
     # @theories.theory(history, @object).each do |th|
     #   @solver.assert th
     # end
+
+    @solver.push
+    @solver.assert (@theories.only(history))
     sat = @solver.check
+    @solver.pop
+
     # @solver.reset
 
     # @solver.pop

@@ -10,6 +10,7 @@ class Theories
 
   def initialize(context)
     @context = context
+    @unique_id = 0
   end
 
   def op(id) "o#{id}".to_sym end
@@ -61,21 +62,24 @@ class Theories
   end
 
   # TODO unclear how to use the bound variables with nested quantifiers...
+  def bound_id
+    @context.bound(@unique_id += 1, @context.resolve(:id))
+  end
 
   def forall_ids(&f)
-    ids = f.arity.times.map {|i| @context.bound(i,@context.resolve(:id))}
+    xs = f.arity.times.map {bound_id()}
     forall(
-      *f.arity.times.map {|i| [@context.wrap_symbol(op(i)),@context.resolve(:id)]},
-      f.call(*ids),
-      patterns: [pattern(*ids.map{|o| c(o)})]
+      *f.arity.times.map {|i| [@context.wrap_symbol(op(i+1)),@context.resolve(:id)]},
+      f.call(*xs)
+      # patterns: [pattern(*xs.map{|o| c(o)})]
     )
   end
   def exists_ids(&f)
-    ids = f.arity.times.map {|i| @context.bound(i,@context.resolve(:id))}
+    xs = f.arity.times.map {bound_id()}
     exists(
-      *f.arity.times.map {|i| [@context.wrap_symbol(op(i)),@context.resolve(:id)]},
-      ids.map{|o| c(o)}.reduce(:&) & f.call(*ids),
-      patterns: [pattern(*ids.map{|o| p(o)})]
+      *f.arity.times.map {|i| [@context.wrap_symbol(op(i+1)),@context.resolve(:id)]},
+      xs.map{|o| c(o)}.reduce(:&) & f.call(*xs)
+      # patterns: [pattern(*xs.map{|o| p(o)})]
     )
   end
 
@@ -111,6 +115,7 @@ class Theories
     decl_const :add, :method
     decl_const :rmv, :method
     decl_const :remove, :method
+    decl_const :rm, :method
     decl_const val(:empty), :value
 
     decl_const :push, :method
@@ -135,6 +140,10 @@ class Theories
       end
 
       if object =~ /stack|queue/
+        y << (e(:add) != e(:rmv))
+        y << (e(:rm) == e(:rmv))
+        y << (e(:remove) == e(:rmv))
+
         # an add for every remove
         y << forall_ids {|r| (rem(r) & !empty(r)).implies(exists_ids {|a| match(a,r)})}
 
@@ -152,12 +161,24 @@ class Theories
       end
 
       if object =~ /queue/
+        decl_const :enqueue, :method
+        decl_const :dequeue, :method
+
+        y << (e(:enqueue) == e(:add))
+        y << (e(:dequeue) == e(:rm))
+
         # fifo order
         y << forall_ids {|a1,r1,a2,r2| (match(a1,r1) & match(a2,r2) & before(a1,a2)).implies(before(r1,r2))}
         y << forall_ids {|a1,r1,a2| (match(a1,r1) & unmatched(a2)).implies(before(a1,a2))}
       end
 
       if object =~ /stack/
+        decl_const :push, :method
+        decl_const :pop, :method
+
+        y << (e(:push) == e(:add))
+        y << (e(:pop) == e(:rm))
+
         # lifo order
         y << forall_ids {|a1,r1,a2,r2| (match(a1,r1) & match(a2,r2) & before(a1,a2) & before(r1,r2)).implies(before(r1,a2))}
         y << forall_ids {|a1,r1,a2| (match(a1,r1) & unmatched(a2) & before(a1,a2)).implies(before(r1,a2))}
@@ -166,130 +187,24 @@ class Theories
     end
   end
 
-  def on_call(id, history, solver)
-    ids = history.to_a
-    decl_const op(id), :id
-    history.arguments(id).each do |v|
-      decl_const val(v), :value
-      solver.assert call_label(id,history).reduce(:&)
+  def on_call(id, history)
+    decl_const "o#{id}", :id
+    history.arguments(id).each {|v| decl_const "v#{v}", :value}
+    Enumerator.new do |y|
+      history.each {|j| y << (e(op(id)) != e(op(j))) unless j == id}
+      history.before(id).each {|j| y << before(e(op(j)), e(op(id)))}
+      call_label(id, history).each {|f| y << f}
+      y << p(e(op(id)))
     end
-    history.before(id).each do |jd|
-      solver.assert before?(jd,id)
-    end
-    solver.assert distinct(*ids.map{|id| e(op(id))})
-    solver.assert distinct(*history.values.map{|v| e(val(v))}) unless history.arguments(id).empty?
-
-    # before is transitive
-    bounded_forall(ids-[id]) do |j,k|
-      solver.assert (before?(id,j) & before?(j,k)).implies(before?(id,k)) unless history.before?(id,k) || history.before?(j,id) || history.before?(k,j)
-      solver.assert (before?(j,id) & before?(id,k)).implies(before?(j,k)) unless history.before?(j,k) || history.before?(id,j) || history.before?(k,id)
-      solver.assert (before?(j,k) & before?(k,id)).implies(before?(j,id)) unless history.before?(j,id) || history.before?(k,j) || history.before?(id,k)
-    end
-
-    # before is antisymmetric
-    bounded_forall(ids-[id]) do |j|
-      solver.assert (before?(id,j) & before?(j,id)).implies(e(op(id)) == e(op(j)))
-    end
-
-    # before is total
-    bounded_forall(ids-[id]) do |j|
-      next if history.before?(id,j)
-      next if history.before?(j,id)
-      solver.assert (before?(id,j) | before?(j,id))
-    end
-    
-    solver.assert (e(:remove) == e(:rmv))
-    solver.assert (e(:push) == e(:add))
-    solver.assert (e(:pop) == e(:rmv))
-
-    if history.method_name(id) =~ /push/
-
-      # adds before removes
-      bounded_forall(ids-[id]) do |j|
-        next unless maybe_match?(id,j,history)
-        solver.assert match?(id,j).implies(before?(id,j))
-      end
-
-      # adds removed before empty
-      bounded_forall(ids-[id]) do |e,p|
-        next unless maybe_empty?(e,history)
-        next unless maybe_match?(id,p,history)
-        next if history.before?(p,e)
-
-        solver.assert (empty?(e) & match?(id,p) & before?(id,e)).implies(before?(p,e))
-      end
-
-      # lifo order between two matches
-      bounded_forall(ids-[id]) do |a1,r1,r2|
-        next unless maybe_match?(a1,r1,history)
-        next unless maybe_match?(id,r2,history)
-        
-        solver.assert (match?(a1,r1) & match?(id,r2) & before?(a1,id) & before?(r1,r2)).implies(before?(r1,a2)) unless history.before?(r1,id)
-        solver.assert (match?(id,r2) & match?(a1,r1) & before?(id,a1) & before?(r2,r1)).implies(before?(r2,a1)) unless history.before?(r2,a1)
-      end
-
-    elsif history.method_name(id) =~ /pop/
-
-      # an add for every remove
-      # TODO this is unsound, because the add might not yet exist
-      # solver.assert (empty?(id) | bounded_exists(ids-[id]) {|j| match?(j,id)})
-
-      # adds before removes
-      bounded_forall(ids-[id]) do |j|
-        next unless maybe_match?(j,id,history)
-        next if history.before?(j,id)
-
-        solver.assert match?(j,id).implies(before?(j,id))
-      end
-
-      # unique removes
-      bounded_forall(ids-[id]) do |j|
-        next unless maybe_nonempty?(j,history)
-
-        solver.assert (empty?(id) | (ret?(id,0) != ret?(j,0)))
-      end
-
-      # adds removed before empty
-      bounded_forall(ids-[id]) do |o,p|
-        next unless maybe_match?(o,p,history)
-        next if history.before?(p,id)
-
-        solver.assert (empty?(id) & match?(o,p) & before?(o,id)).implies(before?(p,id))
-      end
-
-      # unmatched adds removed after empty
-      bounded_forall(ids-[id]) do |o|
-        next unless history.method_name(o) =~ /push/
-        # TODO how to be sound w/ bounded_unmatched?
-      end
-
-      # lifo order between two matches
-      bounded_forall(ids-[id]) do |a1,r1,a2|
-        next unless maybe_match?(a1,r1,history)
-        next unless maybe_match?(a2,id,history)
-        
-        solver.assert (match?(a1,r1) & match?(a2,id) & before?(a1,a2) & before?(r1,id)).implies(before?(r1,a2)) unless history.before?(r1,a2)
-        solver.assert (match?(a2,id) & match?(a1,r1) & before?(a2,a1) & before?(id,r1)).implies(before?(id,a1)) unless history.before?(id,a1)
-      end
-
-      # lifo order between a match and unmatched
-      bounded_forall(ids-[id]) do |a1,a2|
-        next unless maybe_match?(a1,id,history)
-        next if history.before?(id,a2)
-
-        # TODO how to reconcile completeness here?
-        # solver.assert (match?(a1,id) & bounded_unmatched?(a2,ids) & before?(a1,a2)).implies(before?(r1,a2))
-      end
-    end
-
   end
 
-  def on_return(id, history, solver)
-    history.returns(id).each do |v|
-      decl_const val(v), :value
-      solver.assert ret_label(id,history).reduce(:&)
-    end
-    solver.assert distinct(*history.values.map{|v| e(val(v))}) unless history.returns(id).empty?
+  def on_return(id, history)
+    history.returns(id).each {|v| decl_const "v#{v}", :value}
+    ret_label(id, history) + [c(e(op(id)))]
+  end
+
+  def only(history)
+    forall_ids {|o| disj(*history.map{|j| o == e(op(j))})}
   end
 
   def theory(history, object, order: nil)
@@ -351,11 +266,13 @@ class Theories
     decl_const :add, :method
     decl_const :rmv, :method
     decl_const :remove, :method
+    decl_const :rm, :method
     decl_const val(:empty), :value
 
     th = []
 
     th << (e(:remove) == e(:rmv))
+    th << (e(:rm) == e(:rmv))
 
     # an add for every remove
     th << bounded_forall(ids) do |o|

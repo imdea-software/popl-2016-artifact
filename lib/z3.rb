@@ -69,6 +69,7 @@ module Z3
     end
 
     def decl_const(sym, *sorts)
+      sym = sym.to_sym if sym.respond_to?(:to_sym)
       sorts = sorts.map(&method(:resolve))
       if sorts.count > 1
         @constants[sym] = func_decl(sym, *sorts)
