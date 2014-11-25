@@ -26,6 +26,7 @@ module Z3CInterface
   class Sort < FFI::AutoPointer; def self.release(p) end end
   class Function < FFI::AutoPointer; def self.release(p) end end
   class Expr < FFI::AutoPointer; def self.release(p) end end
+  class Pattern < FFI::AutoPointer; def self.release(p) end end
   class Model < FFI::AutoPointer; def self.release(p) end end
   class Theory < FFI::AutoPointer; def self.release(p) end end
   class FixedPoint < FFI::AutoPointer; def self.release(p) end end
@@ -105,6 +106,7 @@ module Z3CInterface
   # Symbols
   attach_function :Z3_mk_int_symbol, [Context, :int], Symbol
   attach_function :Z3_mk_string_symbol, [Context, :string], Symbol
+  attach_function :Z3_get_symbol_string, [Context, Symbol], :string
 
   # Sorts
   attach_function :Z3_mk_uninterpreted_sort, [Context, Symbol], Sort
@@ -222,13 +224,18 @@ module Z3CInterface
   attach_function :Z3_mk_unsigned_int64, [Context, :uint64, Sort], Expr
 
   # Quantifiers
+  attach_function :Z3_mk_pattern, [Context, :uint, :ast_ary], Pattern
+  attach_function :Z3_mk_bound, [Context, :uint, Sort], Expr
   attach_function :Z3_mk_forall, [Context, :uint, :uint, :pattern_ary, :uint, :sort_ary, :symbol_ary, Expr], Expr
   attach_function :Z3_mk_exists, [Context, :uint, :uint, :pattern_ary, :uint, :sort_ary, :symbol_ary, Expr], Expr
+  attach_function :Z3_mk_forall_const, [Context, :uint, :uint, :ast_ary, :uint, :pattern_ary, Expr], Expr
+  attach_function :Z3_mk_exists_const, [Context, :uint, :uint, :ast_ary, :uint, :pattern_ary, Expr], Expr
   # TODO many more...
 
   # TODO Accessors
 
   # TODO Modifiers
+  attach_function :Z3_substitute_vars, [Context, Expr, :uint, :ast_ary], Expr
 
   # TODO Models
 
@@ -240,8 +247,10 @@ module Z3CInterface
 
   # String conversion
   attach_function :Z3_ast_to_string, [Context, Expr], :string
+  attach_function :Z3_pattern_to_string, [Context, Pattern], :string
   attach_function :Z3_sort_to_string, [Context, Sort], :string
   attach_function :Z3_model_to_string, [Context, Model], :string
+  attach_function :Z3_func_decl_to_string, [Context, Function], :string
   # TODO many more...
 
   # TODO Parser interface

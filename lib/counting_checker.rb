@@ -6,36 +6,35 @@ require_relative 'z3'
 
 class CountingChecker < HistoryChecker
   include Z3
-  extend Theories
-  include BasicTheories
 
-  def initialize(object, matcher, history, completion, incremental, bound: 0)
-    super(object, matcher, history, completion, incremental)
-    @solver = Z3.context.solver
-    theories_for(object).each(&@solver.method(:theory))
-    @solver.push if @incremental
-    @refresh = false
+  attr_reader :bound
 
-    # log.warn('Counting') {"I don't do completions."} if @completion
-    log.warn('Counting') {"I only do incremental."} unless @incremental
+  def initialize(*args)
+    super(*args)
 
-    @bound = bound
+    context = Z3.context
+    @theories = Theories.new(context)
+    @solver = context.solver
+
+    log.warn('Counting') {"I don't do completions."} if completion
+    log.warn('Counting') {"I only do incremental."} unless incremental
+
     @completed = {}
-    (@bound+1).times do |j|
+    (bound+1).times do |j|
       (j+1).times do |i|
         @completed[[i,j]] = []
       end
     end
     @pending = {}
     @current = 0
-    @return_happened = false
+    @removed = false
   end
 
   def show_intervals(scale: 2)
-    ops = @history.map{|id| [id,["[#{id}]",@history.label(id)]]}.to_h
+    ops = history.map{|id| [id,["[#{id}]",history.label(id)]]}.to_h
     id_j = ops.values.map{|id,_| id.length}.max
     op_j = ops.values.map{|_,op| op.length}.max
-    @history.map do |id|
+    history.map do |id|
       intv, _ = @completed.find{|intv,ops| ops.include?(id)}
       i, j = intv if intv
       (i = @pending[id]; j = @current) unless intv
@@ -46,7 +45,7 @@ class CountingChecker < HistoryChecker
   end
 
   def shift_intervals
-    (@bound+1).times do |j|
+    (bound+1).times do |j|
       (j+1).times do |i|
         next if i == 0 && j == 0
         ii = (i>0) ? (i-1) : i
@@ -62,11 +61,11 @@ class CountingChecker < HistoryChecker
 
   def happens_before_pairs
     Enumerator.new do |y|
-      @bound.times do |j|
+      bound.times do |j|
         (j+1).times do |i|
           @completed[[i,j]].each do |id1|
-            (j+1..@bound).each do |k|
-              (k..@bound).each do |l|
+            (j+1..bound).each do |k|
+              (k..bound).each do |l|
                 @completed[[k,l]].each do |id2|
                   y << [id1,id2]
                 end
@@ -81,16 +80,16 @@ class CountingChecker < HistoryChecker
     end    
   end
 
-  def name; "Counting checker (#{@bound})" end
+  def name; "Counting checker (#{bound})" end
 
   def started!(id, method_name, *arguments)
-    if @return_happened
-      if @current < @bound
+    if @removed
+      if @current < bound
         @current += 1
       else
         shift_intervals
       end
-      @return_happened = false
+      @removed = false
     end
     @pending[id] = @current
   end
@@ -98,7 +97,7 @@ class CountingChecker < HistoryChecker
   def completed!(id, *returns)
     @completed[[@pending[id],@current]] << id
     @pending.delete id
-    @return_happened = true
+    @removed = true
   end
 
   def removed!(id)
@@ -107,32 +106,26 @@ class CountingChecker < HistoryChecker
   end
 
   def check_history(history)
-    @solver.push
-    @solver.theory history_labels_theory(history)
-    @solver.theory history_order_theory(happens_before_pairs)
-    @solver.theory history_domains_theory(history)
+    @theories.theory(object).each(&@solver.method(:assert))
+    @theories.history(history, order: happens_before_pairs).each(&@solver.method(:assert))
     sat = @solver.check
-    @solver.pop
-    return [sat, 1]
-  end
-
-  def check_completions(history)
-    num_checked = 0
-    sat = false
-    history.completions(HistoryCompleter.get(@object)).each do |complete_history|
-      log.info('Counting') {"checking completion\n#{complete_history}"}
-      sat, n = check_history(complete_history)
-      num_checked += n
-      break if sat
-    end
-    return [sat, num_checked]
+    @solver.reset
+    return sat
   end
 
   def check()
     super()
-    log.info('Counting') {"checking history\n#{@history}"}
+    sat = false
+    log.info('Counting') {"checking history\n#{history}"}
     log.info('Counting') {"intervals:\n#{show_intervals}"}
-    sat, _ = @completion ? check_completions(@history) : check_history(@history)
+
+    if completion then history.completions(HistoryCompleter.get(object))
+    else [history]
+    end.each do |h|
+      log.info('Counting') {"checking completion\n#{h}"} if completion
+      break if (sat = check_history(h))
+    end
+
     log.info('Counting') {"result: #{sat ? "OK" : "violation"}"}
     flag_violation unless sat
   end

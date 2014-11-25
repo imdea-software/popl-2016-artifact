@@ -6,60 +6,48 @@ require_relative 'z3'
 
 class EnumerateChecker < HistoryChecker
   include Z3
-  extend Theories
-  include BasicTheories
 
-  def initialize(object, matcher, history, completion, incremental, opts)
-    super(object, matcher, history, completion, incremental, opts)
-    # configuration = Z3.config
-    # configuration.set("timeout",1)
-    # @solver = Z3.context(configuration).solver
-    @solver = Z3.context.solver
-    theories_for(object).each(&@solver.method(:theory))
-    log.warn('Enumerate') {"I don't have an incremental mode."} if @incremental
+  def initialize(*args)
+    super(*args)
+
+    context = Z3.context
+    @theories = Theories.new(context)
+    @solver = context.solver
+    log.warn('Enumerate') {"I don't have an incremental mode."} if incremental
   end
 
   def name; "Enumerate checker" end
 
-  def check_sequential_history(history,seq)
-    @solver.push
-    @solver.theory history_labels_theory(history)
-    @solver.theory history_order_theory(seq)
-    @solver.theory history_domains_theory(history)
+  def check_history(history, seq)
+    @theories.theory(object).each(&@solver.method(:assert))
+    @theories.history(history, order: seq).each(&@solver.method(:assert))
     sat = @solver.check
-    @solver.pop
-    return [sat,1]
-  end
-
-  def check_linearizations(history)
-    num_checked = 0
-    sat = false
-    history.linearizations.each do |seq|
-      log.info('Enumerate') {"checking linearization\n#{seq.map{|id| history.label(id)} * ", "}"}
-      sat, n = check_sequential_history(history,seq)
-      num_checked += n
-      break if sat
-    end
-    return [sat, num_checked]
-  end
-
-  def check_completions(history)
-    num_checked = 0
-    sat = false
-    history.completions(HistoryCompleter.get(@object)).each do |complete_history|
-      log.info('Enumerate') {"checking completion\n#{complete_history}"}
-      sat, n = check_linearizations(complete_history)
-      num_checked += n
-      break if sat
-    end
-    return [sat, num_checked]
+    @solver.reset
+    return sat
   end
 
   def check()
     super()
-    log.info('Enumerate') {"checking linearizations of history\n#{@history}"}
-    sat, n = @completion ? check_completions(@history) : check_linearizations(@history)
-    log.info('Enumerate') {"checked #{n} linearizations: #{sat ? "OK" : "violation"}"}
+    sat = false
+    num_checked = 0
+    log.info('Enumerate') {"checking linearizations of history\n#{history}"}
+
+    if completion then history.completions(HistoryCompleter.get(object))
+    else [history]
+    end.each do |h|
+      log.info('Enumerate') {"checking completion\n#{h}"} if completion
+
+      h.linearizations.each do |seq|
+        log.info('Enumerate') {"checking linearization\n#{seq.map(&h.method(:label)) * ", "}"}
+        sat = check_history(h,seq)
+        num_checked += 1
+        break if sat
+      end
+
+      break if sat
+    end
+
+    log.info('Enumerate') {"checked #{num_checked} linearizations: #{sat ? "OK" : "violation"}"}
     flag_violation unless sat
   end
 
