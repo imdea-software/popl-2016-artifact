@@ -102,7 +102,9 @@ class SymbolicChecker < HistoryChecker
     # end
 
     @solver.push
-    @solver.assert (@theories.only(history))
+    @theories.only(history).each do |f|
+      @solver.assert f
+    end
     sat = @solver.check
     @solver.pop
 
