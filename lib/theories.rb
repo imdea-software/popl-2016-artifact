@@ -12,6 +12,8 @@ class Theories
     @context = context
   end
 
+  def id_sort; @context.resolve :id end
+
   def op(id) "o#{id}".to_sym end
   def val(v) "v#{v}".to_sym end
 
@@ -28,32 +30,26 @@ class Theories
   def unmatched(a)  add(a) & !exists_ids {|r| c(r) & match(a,r)} end
   def empty(r)      rem(r) & (ret(r,0) == e(val(:empty))) end
 
-  def with_bound_ids(n)
-    # reset_var_index = @var_index.nil?
-    var_index = -1
-    x = yield n.times.map {@context.bound(var_index += 1, @context.resolve(:id))}
-    # @var_index = nil if reset_var_index
-    x
+  def with_ids(n)
+    reset = @id_number.nil?
+    @unique_id ||= 0
+    vars = n.times.map {@context.const("x#{@unique_id += 1}", id_sort)}
+    f = yield vars
+    @unique_id = nil if reset
+    f
   end
 
   def forall_ids(&f)
-    with_bound_ids(f.arity) do |xs|
-      forall(
-        *f.arity.times.map {|i| [@context.wrap_symbol("x#{i+1}"),@context.resolve(:id)]},
-        f.call(*xs)
-        # patterns: [pattern(*xs.map{|o| c(o)})]
-      )
+    with_ids(f.arity) do |xs|
+      forall(*xs, (conj(*xs.map{|x| c(x)})).implies(f.call(*xs)))
+      # patterns: [pattern(*xs.map{|o| c(o)})]
     end
   end
 
   def exists_ids(&f)
-    with_bound_ids(f.arity) do |xs|
-      exists(
-        *f.arity.times.map {|i| [@context.wrap_symbol("x#{i+1}"),@context.resolve(:id)]},
-        # xs.map{|o| c(o)}.reduce(:&) &
-        f.call(*xs)
-        # patterns: [pattern(*xs.map{|o| p(o)})]
-      )
+    with_ids(f.arity) do |xs|
+      exists(*xs, (conj(*xs.map{|x| c(x)})) & f.call(*xs))
+      # patterns: [pattern(*xs.map{|o| c(o)})]
     end
   end
 
@@ -101,26 +97,26 @@ class Theories
       
       if object =~ /atomic/
         # before is total
-        y << forall_ids {|i,j| before(i,j) | before(j,i)}
+        y << forall_ids {|i,j| (i == j) | before(i,j) | before(j,i)}
       end
 
       if object =~ /stack|queue/
         y << (e(:add) != e(:remove))
 
         # an add for every remove
-        y << forall_ids {|r| (c(r) & rem(r) & !empty(r)).implies(exists_ids {|a| add(a) & (arg(a,0) == ret(r,0))})}
+        y << forall_ids {|r| (rem(r) & !empty(r)).implies(exists_ids {|a| match(a,r)})}
 
         # adds before removes
-        y << forall_ids {|a,r| (c(a) & c(r) & match(a,r)).implies(before(a,r))}
+        y << forall_ids {|a,r| (match(a,r)).implies(before(a,r))}
 
         # unique removes
-        y << forall_ids {|r1,r2| (c(r1) & c(r2) & (r1 != r2) & rem(r1) & rem(r2) & !empty(r1)).implies(ret(r1,0) != ret(r2,0))}
+        y << forall_ids {|r1,r2| ((r1 != r2) & rem(r1) & rem(r2) & !empty(r1)).implies(ret(r1,0) != ret(r2,0))}
 
         # adds removed before empty
-        y << forall_ids {|a,r,e| (c(a) & c(r) & c(e) & match(a,r) & empty(e) & before(a,e)).implies(before(r,e))}
+        y << forall_ids {|a,r,e| (match(a,r) & empty(e) & before(a,e)).implies(before(r,e))}
 
         # unmatched adds before empty
-        # y << forall_ids {|a,e| (c(a) & c(e) & unmatched(a) & empty(e)).implies(before(e,a))}
+        y << forall_ids {|a,e| (unmatched(a) & empty(e)).implies(before(e,a))}
       end
 
       if object =~ /queue/
@@ -131,8 +127,8 @@ class Theories
         y << (e(:dequeue) == e(:remove))
 
         # fifo order
-        y << forall_ids {|a1,r1,a2,r2| (c(a1) & c(a1) & c(a2) & c(r2) & (a1 != a2) & match(a1,r1) & match(a2,r2) & before(a1,a2)).implies(before(r1,r2))}
-        y << forall_ids {|a1,r1,a2| (c(a1) & c(r1) & c(a2) & (a1 != a2) & match(a1,r1) & unmatched(a2)).implies(before(a1,a2))}
+        y << forall_ids {|a1,r1,a2,r2| ((a1 != a2) & match(a1,r1) & match(a2,r2) & before(a1,a2)).implies(before(r1,r2))}
+        y << forall_ids {|a1,r1,a2| ((a1 != a2) & match(a1,r1) & unmatched(a2)).implies(before(a1,a2))}
       end
 
       if object =~ /stack/

@@ -106,6 +106,7 @@ module Z3CInterface
   # Symbols
   attach_function :Z3_mk_int_symbol, [Context, :int], Symbol
   attach_function :Z3_mk_string_symbol, [Context, :string], Symbol
+  attach_function :Z3_get_symbol_string, [Context, Symbol], :string
 
   # Sorts
   attach_function :Z3_mk_uninterpreted_sort, [Context, Symbol], Sort
@@ -227,11 +228,14 @@ module Z3CInterface
   attach_function :Z3_mk_bound, [Context, :uint, Sort], Expr
   attach_function :Z3_mk_forall, [Context, :uint, :uint, :pattern_ary, :uint, :sort_ary, :symbol_ary, Expr], Expr
   attach_function :Z3_mk_exists, [Context, :uint, :uint, :pattern_ary, :uint, :sort_ary, :symbol_ary, Expr], Expr
+  attach_function :Z3_mk_forall_const, [Context, :uint, :uint, :ast_ary, :uint, :pattern_ary, Expr], Expr
+  attach_function :Z3_mk_exists_const, [Context, :uint, :uint, :ast_ary, :uint, :pattern_ary, Expr], Expr
   # TODO many more...
 
   # TODO Accessors
 
   # TODO Modifiers
+  attach_function :Z3_substitute_vars, [Context, Expr, :uint, :ast_ary], Expr
 
   # TODO Models
 

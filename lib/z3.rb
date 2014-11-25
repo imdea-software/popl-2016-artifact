@@ -174,11 +174,8 @@ module Z3
 
     [:forall, :exists].each do |f|
       define_method(f) do |*vars, body, weight:0, patterns:[]|
-        vars = vars.reverse
-        names = vars.map(&:first).to_ptr
-        sorts = vars.map{|v| v[1]}.to_ptr
-        Kernel.const_get(:Z3).method("mk_#{f}").
-          call(self,weight,patterns.count,patterns.to_ptr,vars.count,sorts,names,body).cc(self)
+        Kernel.const_get(:Z3).method("mk_#{f}_const").
+          call(self,weight,vars.count,vars.to_ptr,patterns.count,patterns.to_ptr,body).cc(self)
       end
     end
 
@@ -222,6 +219,7 @@ module Z3
   class Symbol 
     include ContextualObject
     def self.release(pointer) end
+    def to_s; Z3::get_symbol_string(@context,self) end
   end
 
   class Sort 
@@ -250,6 +248,12 @@ module Z3
        end
     end
     def to_s; Z3::ast_to_string(@context, self) end
+
+    def substitute_vars(exprs)
+      puts "Substituting #{exprs} in #{self}"
+      Z3::substitute_vars(@context, self, exprs.count, exprs.to_ptr)
+      self
+    end
 
     alias :conj :and
     alias :disj :or
