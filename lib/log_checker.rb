@@ -20,14 +20,16 @@ end
 log.level = Logger::WARN
 
 @checker = nil
-@completion = false
-@incremental = false
-@obsolete_removal = false
 @checkers = [:enumerate, :symbolic, :saturate, :counting]
-@step_limit = nil
-@time_limit = nil
-@frequency = nil
-@extra = {}
+
+@options = {}
+@options[:completion] = false
+@options[:incremental] = false
+@options[:obsolete_removal] = false
+@options[:step_limit] = nil
+@options[:time_limit] = nil
+@options[:frequency] = nil
+@options[:bound] = 0
 
 OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename $0} [options] FILE"
@@ -62,40 +64,40 @@ OptionParser.new do |opts|
   opts.separator "Plus any combination of these flags:"
 
   opts.on("-c", "--[no-]completion",
-    "History completion? (default #{@completion}).") do |c|
-    @completion = c
+    "History completion? (default #{@options[:completion]}).") do |c|
+    @options[:completion] = c
   end
 
   opts.on("-i", "--[no-]incremental",
-    "Incremental checking? (default #{@incremental}).") do |i|
-    @incremental = i
+    "Incremental checking? (default #{@options[:incremental]}).") do |i|
+    @options[:incremental] = i
   end
 
   opts.on("-r", "--[no-]remove-obsolete",
-    "Remove operations? (default #{@obsolete_removal}).") do |r|
-    @obsolete_removal = r
+    "Remove operations? (default #{@options[:obsolete_removal]}).") do |r|
+    @options[:obsolete_removal] = r
   end
 
   opts.separator ""
   opts.separator "Flags for the counting checker:"
 
   opts.on("-b", "--interval-bound N", Integer, "") do |n|
-    @extra[:bound] = n
+    @options[:bound] = n
   end
 
   opts.separator ""
   opts.separator "And possibly some limits:"
 
   opts.on("-s", "--steps N", Integer, "Limit to N execution-log steps.") do |n|
-    @step_limit = n
+    @options[:step_limit] = n
   end
 
   opts.on("-t", "--time N", Integer, "Limit to N seconds.") do |n|
-    @time_limit = n
+    @options[:time_limit] = n
   end
 
   opts.on("-f", "--frequency N", Integer, "Only check once every N times.") do |n|
-    @frequency = n
+    @options[:frequency] = n
   end
 end.parse!
 
@@ -120,8 +122,10 @@ begin
   require_relative 'obsolete_remover'
 
   logrw = LogReaderWriter.new(execution_log)
-  history = History.new
-  matcher = Matcher.get(logrw.object, history)
+  @options[:history] = history = History.new
+  @options[:object] = logrw.object
+  @options[:matcher] = matcher = Matcher.get(logrw.object, history)
+
   @checker =
     case @checker
     when :enumerate;  EnumerateChecker
@@ -129,13 +133,13 @@ begin
     when :saturate;   SaturateChecker
     when :counting;   CountingChecker
     else              HistoryChecker
-    end.new(logrw.object, matcher, history, @completion, @incremental, @extra)
+    end.new(@options)
 
   # NOTE be careful, order is important here...
   # should check the histories before removing obsolete operations
   history.add_observer(matcher)
   history.add_observer(@checker)
-  history.add_observer(ObsoleteRemover.new(history,matcher)) if @obsolete_removal
+  history.add_observer(ObsoleteRemover.new(history,matcher)) if @options[:obsolete_removal]
 
   num_steps = 0
   max_size = 0
@@ -153,10 +157,10 @@ begin
   start_time = Time.now
 
   begin
-    Timeout.timeout(@time_limit) do
+    Timeout.timeout(@options[:time_limit]) do
       logrw.read do |act, method_or_id, *values|
         raise ViolationFound if @checker.violation?
-        raise StepLimitReached if @step_limit && @step_limit <= num_steps
+        raise StepLimitReached if @options[:step_limit] && @options[:step_limit] <= num_steps
 
         size = history.count
         max_size = size if size > max_size
@@ -189,7 +193,7 @@ begin
 
   puts "OBJECT:     #{logrw.object || "?"}"
   puts "CHECKER:    #{@checker}"
-  puts "REMOVAL:    #{@obsolete_removal}"
+  puts "REMOVAL:    #{@options[:obsolete_removal]}"
   puts "VIOLATION:  #{@checker.violation?}"
   puts "STEPS:      #{num_steps}#{timeout}#{stepout}"
   puts "AVG SIZE:   #{(cum_size * 1.0 / num_steps).round(4)}"

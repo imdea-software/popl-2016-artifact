@@ -1,10 +1,11 @@
 class HistoryChecker
-  def initialize(object, matcher, history, completion, incremental, opts = {})
-    @object = object
-    @matcher = matcher
-    @history = history
-    @completion = completion
-    @incremental = incremental
+
+  attr_reader :object, :matcher, :history, :completion, :incremental
+
+  def initialize(options = {})
+    options.each do |k,v|
+      instance_variable_set("@#{k}",v) if respond_to?("#{k}")
+    end
     @num_checks = 0
     @violation = false
   end

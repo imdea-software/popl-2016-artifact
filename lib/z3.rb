@@ -89,7 +89,7 @@ module Z3
     # end
     def interrupt()       Z3::interrupt(self) end
 
-    def parse(str, sorts, decls)
+    def parse(str, sorts: @sorts, decls: @constants)
       Z3::parse_smtlib2_string(self, str,
         sorts.count, sorts.map{|n,_| wrap_symbol(n)}.to_ptr, sorts.map{|_,s| s}.to_ptr,
         decls.count, decls.map{|n,_| wrap_symbol(n)}.to_ptr, decls.map{|_,d| d}.to_ptr).
@@ -340,8 +340,6 @@ module Z3
 
     def post_initialize
       inc_ref
-      @sorts = [[]]
-      @decls = [[]]
     end
     def self.release(pointer)
       pointer.dec_ref
@@ -361,15 +359,11 @@ module Z3
 
     def push()
       log.debug('z3') {"push"}
-      @sorts.push []
-      @decls.push []
       Z3::solver_push(@context,self)
     end
 
     def pop(level: 1)
       log.debug('z3') {"pop(#{level})"}
-      @sorts.pop(level)
-      @decls.pop(level)
       Z3::solver_pop(@context,self,level)
     end
 
@@ -379,7 +373,7 @@ module Z3
     end
 
     def assert(expr)
-      expr = @context.parse("(assert #{expr})", sorts, decls) if expr.is_a?(String)
+      expr = @context.parse("(assert #{expr})") if expr.is_a?(String)
       fail "Unexpected expression type #{expr.class}" unless expr.is_a?(Expr)
       log.debug('z3') {"assert #{expr}"}
       Z3::solver_assert(@context,self,expr)
@@ -398,35 +392,6 @@ module Z3
 
     def model; Z3::solver_get_model(@context,self).cc(@context) end
     def proof; Z3::solver_get_proof(@context,self).cc(@context) end
-
-    # Conversion through Hash ensures unique symbols
-    def sorts; @sorts.flatten(1).to_h.to_a end
-    def decls; @decls.flatten(1).to_h.to_a end
-
-    def builtin_sorts; {bool: @context.bool_sort, int: @context.int_sort} end
-    def resolve_sort(s) s.is_a?(Sort) ? s : @sorts.flatten(1).to_h.merge(builtin_sorts)[s] end
-
-    def sort(s) @sorts.last.push [s.to_sym, @context.ui_sort(s)] end
-    def decl(name,*args,ret)
-      @decls.last.push [
-        name.to_sym,
-        @context.function(name,*args.map{|t| resolve_sort(t)},resolve_sort(ret))
-      ]
-    end
-
-    alias :<< :add
-    def add(arg,*args)
-      if arg.is_a?(Expr) || arg.is_a?(String) && arg.include?('(')
-                          assert arg
-      elsif args.empty?;  sort arg
-      else                decl arg, *args
-      end
-    end
-
-    def theory(t)
-      fail "Expected a \"theory\"." unless t.is_a?(Enumerable)
-      t.each{|*args| add(*args)}
-    end
   end
 
   class Statistics 

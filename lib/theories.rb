@@ -65,7 +65,7 @@ class Theories
   # def bounded_forall(ids,&f) conj(*dprod(ids,f.arity).map{|*ids| f.call(*ids)}.compact) end
   # def bounded_exists(ids,&f) disj(*dprod(ids,f.arity).map{|*ids| f.call(*ids)}.compact) end
 
-  def on_init()
+  def theory(object)
     decl_sort :id
     decl_sort :method
     decl_sort :value
@@ -84,9 +84,7 @@ class Theories
 
     decl_const :c, :id, :bool
     decl_const :p, :id, :bool
-  end
 
-  def quantified_theory(object)
     Enumerator.new do |y|
 
       # before is transitive
@@ -146,13 +144,36 @@ class Theories
     end
   end
 
-  def on_call(id, history)
+  def history(h, order: nil)
+    h.each {|id| decl_const "o#{id}", :id}
+    h.values.each {|v| decl_const "v#{v}", :value}
+    Enumerator.new do |y|
+      h.each do |id|
+        called(id,h).each(&y.method(:yield))
+        returned(id,h).each(&y.method(:yield)) if h.completed?(id)
+      end
+      domains(h).each(&y.method(:yield))
+
+      case order
+      when Array; order.each_cons(2)
+      when Enumerator; order
+      else []
+      end.each do |i,j|
+        y << c(e(op(i)))
+        y << before(e(op(i)),e(op(j)))
+      end
+    end
+  end
+
+  def called(id, history)
     decl_const "o#{id}", :id
     history.arguments(id).each {|v| decl_const "v#{v}", :value}
+
     Enumerator.new do |y|
       history.each {|j| y << (e(op(id)) != e(op(j))) unless j == id}
       y << (meth(e(op(id))) == e(history.method_name(id)))
       history.arguments(id).each_with_index.map do |v,i|
+        history.values.each {|u| y << (e(val(v)) != e(val(u))) unless u == v}
         y << (e(val(v)) != e(val(:empty)))
         y << (arg(e(op(id)),i) == e(val(v)))
       end
@@ -161,10 +182,12 @@ class Theories
     end
   end
 
-  def on_return(id, history)
+  def returned(id, history)
     history.returns(id).each {|v| decl_const "v#{v}", :value}
+
     Enumerator.new do |y|
       history.returns(id).each_with_index.map do |v,i|
+        history.values.each {|u| y << (e(val(v)) != e(val(u))) unless u == v}
         y << (e(val(v)) != e(val(:empty))) unless v == :empty
         y << (ret(e(op(id)),i) == e(val(v)))
       end
@@ -172,10 +195,9 @@ class Theories
     end
   end
 
-  def only(history)
+  def domains(history)
     Enumerator.new do |y|
       y << forall_ids {|o| disj(*history.map{|j| o == e(op(j))})}
-      y << distinct(*history.values.map{|v| e(val(v))})
     end
   end
 

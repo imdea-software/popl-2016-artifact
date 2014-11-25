@@ -105,52 +105,52 @@ class LifoOrderRule < Rule
 end
 
 class SaturateChecker < HistoryChecker
-  def initialize(object, matcher, history, completion, incremental, opts)
-    super(object, matcher, history, completion, incremental, opts)
+  def initialize(*args)
+    super(*args)
     @rules = {}
-    log.warn('Saturate') {"I don't do completions."} if @completion
-    log.warn('Saturate') {"I only do incremental."} unless @incremental
+    log.warn('Saturate') {"I don't do completions."} if completion
+    log.warn('Saturate') {"I only do incremental."} unless incremental
   end
 
   def name; "Saturate checker" end
 
   def see_match(id)
-    m1 = @matcher.match(id)
-    ops = @matcher.operations(m1)
+    m1 = matcher.match(id)
+    ops = matcher.operations(m1)
 
     # duplicate remove?
     flag_violation if ops.count > 2
 
     # unmatched remove?
-    flag_violation if @matcher.value?(m1) && ops.none? {|id| @matcher.add?(id)}
+    flag_violation if matcher.value?(m1) && ops.none? {|id| matcher.add?(id)}
 
     return if @rules.include?(m1)
     @rules[m1] = []
 
-    if @matcher.value?(m1)
-      @rules[m1].push AddRemoveOrderRule.new(@history, @matcher, m1)
+    if matcher.value?(m1)
+      @rules[m1].push AddRemoveOrderRule.new(history, matcher, m1)
 
-      @matcher.each do |m2,_|
+      matcher.each do |m2,_|
         next if m1 == m2
         next unless @rules[m2]
-        if @matcher.value?(m2)
-          r1 = LifoOrderRule.new(@history, @matcher, m1, m2) if @object =~ /stack/
-          r2 = LifoOrderRule.new(@history, @matcher, m2, m1) if @object =~ /stack/
-          r1 = FifoOrderRule.new(@history, @matcher, m1, m2) if @object =~ /queue/
-          r2 = FifoOrderRule.new(@history, @matcher, m2, m1) if @object =~ /queue/
+        if matcher.value?(m2)
+          r1 = LifoOrderRule.new(history, matcher, m1, m2) if object =~ /stack/
+          r2 = LifoOrderRule.new(history, matcher, m2, m1) if object =~ /stack/
+          r1 = FifoOrderRule.new(history, matcher, m1, m2) if object =~ /queue/
+          r2 = FifoOrderRule.new(history, matcher, m2, m1) if object =~ /queue/
           @rules[m1].push r1, r2
           @rules[m2].push r1, r2
         else
-          r = RemoveEmptyRule.new(@history, @matcher, m2, m1)
+          r = RemoveEmptyRule.new(history, matcher, m2, m1)
           @rules[m1].push r
           @rules[m2].push r
         end
       end
     else
-      @matcher.each do |m2,_|
-        next unless @matcher.value?(m2)
+      matcher.each do |m2,_|
+        next unless matcher.value?(m2)
         next unless @rules[m2]
-        r = RemoveEmptyRule.new(@history, @matcher, m1, m2)
+        r = RemoveEmptyRule.new(history, matcher, m1, m2)
         @rules[m1].push r
         @rules[m2].push r
       end
@@ -158,18 +158,18 @@ class SaturateChecker < HistoryChecker
   end
 
   def inconsistent?
-    @history.any? {|op| @history.ext_before?(op,op)}
+    history.any? {|op| history.ext_before?(op,op)}
   end
 
   def started!(id, method_name, *arguments)
-    see_match(id) if @matcher.add?(id)
+    see_match(id) if matcher.add?(id)
   end
 
   def completed!(id, *returns)
     see_match(id)
 
     worklist = Set.new
-    worklist << @matcher.match(id)
+    worklist << matcher.match(id)
     while !worklist.empty?
       m = worklist.first
       worklist.delete(m)
@@ -190,7 +190,7 @@ class SaturateChecker < HistoryChecker
   end
 
   def removed!(id)
-    m = @matcher.match(id)
+    m = matcher.match(id)
     @rules.delete m
     @rules.values.each {|rs| rs.reject! {|r| r.matches.include? m}}
     @rules.reject! {|_,rs| rs.empty?}
@@ -198,7 +198,7 @@ class SaturateChecker < HistoryChecker
 
   def check()
     super()
-    log.info('Saturate') {"checking history\n#{@history}"}
+    log.info('Saturate') {"checking history\n#{history}"}
     ok = !inconsistent?
     log.info('Saturate') {"result: #{ok ? "OK" : "violation"}"}
     flag_violation unless ok

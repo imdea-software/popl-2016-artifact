@@ -7,19 +7,15 @@ require_relative 'z3'
 class SymbolicChecker < HistoryChecker
   include Z3
 
-  def initialize(object, matcher, history, completion, incremental, opts)
-    super(object, matcher, history, completion, incremental, opts)
+  def initialize(*args)
+    super(*args)
 
     context = Z3.context
     @theories = Theories.new(context)
 
     # THE EASY WAY
     @solver = context.solver
-
-    @theories.on_init()
-    @theories.quantified_theory(object).each do |ax|
-      @solver.assert ax
-    end
+    @theories.theory(object).each(&@solver.method(:assert))
 
     # THE LONG WAY...
     # @configuration = Z3.config
@@ -31,105 +27,62 @@ class SymbolicChecker < HistoryChecker
     # params = Z3.context.params
     # params.set("max_conflicts",0)
     # @solver.set_params(params)
+
+    log.warn('Symbolic') {"I don't know how to handle incremental AND completion!"} \
+      if incremental && completion
+
+    @solver.push if incremental
+    @removed = false
   end
 
   def name; "Symbolic checker (Z3)" end
 
   def started!(id, method_name, *arguments)
-    @theories.on_call(id, @history).each do |f|
-      @solver.assert f
-    end
+    return unless incremental
+    @theories.called(id,history).each(&@solver.method(:assert))
   end
 
   def completed!(id, *returns)
-    @theories.on_return(id, @history).each do |f|
-      @solver.assert f
-    end
+    return unless incremental
+    @theories.returned(id,history).each(&@solver.method(:assert))
   end
 
-  # def started!(id, method_name, *arguments)
-  #   return unless @incremental
-  #   ops = @history
-  #   vals = @history.values | [:empty]
-  #   @solver.decl "o#{id}", :id
-  #   @solver.assert "(= (meth o#{id}) #{method_name})"
-  #   arguments.each_with_index do |x,idx|
-  #     @solver.decl "v#{x}", :value
-  #     @solver.assert "(= (arg o#{id} #{idx}) v#{x})"
-  #   end
-  #   @history.before(id).each do |b|
-  #     @solver.assert "(hb o#{b} o#{id})"
-  #   end
-  #   @solver.assert "(P o#{id})"
-  #
-  #   ops = @history.map{|id| id}
-  #   vals = @history.values | [:empty]
-  #   @solver.assert "(distinct #{ops.map{|id| "o#{id}"} * " "})" if ops.count > 1
-  #   @solver.assert "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
-  # end
-  #
-  # def completed!(id, *returns)
-  #   return unless @incremental
-  #   returns.each_with_index do |x,idx|
-  #     @solver.decl "v#{x}", :value
-  #     @solver.assert "(= (ret o#{id} #{idx}) v#{x})"
-  #     @solver.assert "(C o#{id})"
-  #   end
-  #   vals = @history.values | [:empty]
-  #   @solver.assert "(distinct #{vals.map{|v| "v#{v}"} * " "})" if vals.count > 1
-  # end
-  #
-  # def removed!(id)
-  #   return unless @incremental
-  #   @refresh = true
-  # end
+  def removed!(id)
+    @removed = true
+  end
+
+  def refresh
+    return unless incremental
+    @solver.pop
+    @solver.push
+    @theories.history(history).each(&@solver.method(:assert))
+    @removed = false
+  end
 
   def check_history(history)
-
-    # if @refresh
-    #   @solver.pop
-    #   @solver.push
-    #   @solver.theory history_ops_theory(@history)
-    #   @refresh = false
-    # end
-    # # @solver.push
-    # @solver.theory history_labels_theory(history) unless @incremental
-    # @solver.theory history_order_theory(history) unless @incremental
-    # @solver.theory history_domains_theory(history) unless @incremental
-
-    # @theories.theory(history, @object).each do |th|
-    #   @solver.assert th
-    # end
+    refresh if @removed
 
     @solver.push
-    @theories.only(history).each do |f|
-      @solver.assert f
-    end
+    if incremental then @theories.domains(history)
+    else                @theories.history(history)
+    end.each(&@solver.method(:assert))
     sat = @solver.check
     @solver.pop
-
-    # @solver.reset
-
-    # @solver.pop
-    return [sat, 1]
-  end
-
-  def check_completions(history)
-    num_checked = 0
-    sat = false
-    history.completions(HistoryCompleter.get(@object)).each do |complete_history|
-      log.info('Symbolic') {"checking completion\n#{complete_history}"}
-      sat, n = check_history(complete_history)
-      num_checked += n
-      break if sat
-    end
-    return [sat, num_checked]
+    return sat
   end
 
   def check()
     super()
-    log.info('Symbolic') {"checking history\n#{@history}"}
-    sat, _ = @completion ? check_completions(@history) : check_history(@history)
+    sat = false
+    log.info('Symbolic') {"checking history\n#{history}"}
+
+    if completion then history.completions(HistoryCompleter.get(object))
+    else [history]
+    end.each do |h|
+      log.info('Symbolic') {"checking completion\n#{h}"} if completion
+      break if (sat = check_history(h))
+    end
+
     log.info('Symbolic') {"result: #{sat ? "OK" : "violation"}"}
     flag_violation unless sat
   end
