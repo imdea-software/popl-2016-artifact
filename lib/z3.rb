@@ -47,7 +47,10 @@ module Z3
 
   class Configuration 
     def self.release(pointer) Z3::del_config(pointer) end
-    def set(param,val) Z3::set_param_value(self, param, val.to_s)  end
+    def set(param,val)
+      log.debug('z3') {"setting '#{param}' to '#{val}'"}
+      Z3::set_param_value(self, param, val.to_s)
+    end
   end
 
   class Context

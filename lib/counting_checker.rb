@@ -13,11 +13,19 @@ class CountingChecker < HistoryChecker
     super(options)
 
     configuration = Z3.config
-    configuration.set("timeout", options[:time_limit]) if options[:time_limit]
     context = Z3.context(config: configuration)
+    @solver = context.solver
+
+    if options[:time_limit]
+      # TODO come on Z3 give me a break!!
+      Z3.global_param_set("timeoutt", options[:time_limit].to_s)
+      configuration.set("timeout", options[:time_limit])
+      parameters = context.params
+      parameters.set("soft_timeout", options[:time_limit])
+      @solver.set_params(parameters)
+    end
 
     @theories = Theories.new(context)
-    @solver = context.solver
 
     log.warn('Counting') {"I don't do completions."} if completion
     log.warn('Counting') {"I only do incremental."} unless incremental
