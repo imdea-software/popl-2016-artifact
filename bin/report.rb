@@ -115,6 +115,30 @@ class AverageStepsUntilTimeoutDataObserver < DataObserver
   end
 end
 
+class NumberOfViolationsCoveredDataObserver < DataObserver
+  def initialize(file)
+    super(file || "num-violations-covered.csv")
+  end
+
+  def notify(stat)
+    object = stat[:example].split(".").first
+    algorithm = stat[:algorithm]
+    @data[object] ||= {}
+    @data[object][algorithm] ||= 0
+    @data[object][algorithm] += 1 if stat[:viol] =~ /\A\d+\z/
+  end
+
+  def write
+    algorithms = @data[@data.keys.first].keys
+    File.open(@file,'w') do |f|
+      f.puts "object, #{algorithms * ", "}"
+      @data.each do |object, algs|
+        f.puts "#{object}, #{algorithms.map{|a| algs[a]} * ", "}"
+      end
+    end
+  end
+end
+
 def parse_options
   options = OpenStruct.new
   FIELDS.each {|f| options.send("#{f}=",[])}

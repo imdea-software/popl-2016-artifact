@@ -21,7 +21,7 @@ set tic scale 0
 # set style line 2 lt rgb "#555555" lw 2
 
 plot 'data/avg-steps-until-timeout.csv' using 1:0 title "Enumerate"   with lines lt 1, \
-  'data/avg-steps-until-timeout.csv' using 2:0 title "Symoblic"    with lines lt 2, \
-  'data/avg-steps-until-timeout.csv' using 3:0 title "Symoblic -r" with lines lt 3, \
+  'data/avg-steps-until-timeout.csv' using 2:0 title "Symbolic"    with lines lt 2, \
+  'data/avg-steps-until-timeout.csv' using 3:0 title "Symbolic -r" with lines lt 3, \
   'data/avg-steps-until-timeout.csv' using 4:0 title "Saturate"    with lines lt 4, \
   'data/avg-steps-until-timeout.csv' using 5:0 title "Saturate -r" with lines lt 5
