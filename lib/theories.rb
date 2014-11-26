@@ -3,8 +3,8 @@ require 'forwardable'
 class Theories
 
   extend Forwardable
-  def_delegators :@context, :decl_const, :decl_sort, :distinct, :expr
-  def_delegators :@context, :conj, :disj, :tt, :ff
+  def_delegators :@context, :decl_const, :decl_sort, :resolve, :expr
+  def_delegators :@context, :conj, :disj, :tt, :ff, :const, :distinct
   def_delegators :@context, :pattern, :forall, :exists
   alias :e :expr
 
@@ -12,7 +12,7 @@ class Theories
     @context = context
   end
 
-  def id_sort; @context.resolve :id end
+  def id_sort; resolve :id end
 
   def op(id) "o#{id}".to_sym end
   def val(v) "v#{v}".to_sym end
@@ -33,7 +33,7 @@ class Theories
   def with_ids(n)
     reset = @id_number.nil?
     @unique_id ||= 0
-    vars = n.times.map {@context.const("x#{@unique_id += 1}", id_sort)}
+    vars = n.times.map {const("x#{@unique_id += 1}", id_sort)}
     f = yield vars
     @unique_id = nil if reset
     f
@@ -53,17 +53,22 @@ class Theories
     end
   end
 
-  # def dprod(a,k)
-  #   return a if k < 2
-  #   p = a.product(a).reject{|x,y| x == y}
-  #   (k-2).times do
-  #     p = p.product(a).map{|xs,y| xs+[y] unless xs.include?(y)}.compact
-  #   end
-  #   return p
-  # end
+  def product_of_distinct(a,k)
+    return a if k < 2
+    p = a.product(a).reject{|x,y| x == y}
+    (k-2).times do
+      p = p.product(a).map{|xs,y| xs+[y] unless xs.include?(y)}.compact
+    end
+    return p
+  end
 
-  # def bounded_forall(ids,&f) conj(*dprod(ids,f.arity).map{|*ids| f.call(*ids)}.compact) end
-  # def bounded_exists(ids,&f) disj(*dprod(ids,f.arity).map{|*ids| f.call(*ids)}.compact) end
+  def bounded_forall(ids,&f)
+    conj(*product_of_distinct(ids,f.arity).map{|*ids| f.call(*ids)}.compact)
+  end
+
+  def bounded_exists(ids,&f)
+    disj(*product_of_distinct(ids,f.arity).map{|*ids| f.call(*ids)}.compact)
+  end
 
   def theory(object)
     decl_sort :id
@@ -74,13 +79,6 @@ class Theories
     decl_const :arg, :id, :int, :value
     decl_const :ret, :id, :int, :value
     decl_const :bef, :id, :id, :bool
-
-    decl_const :add, :method
-    decl_const :remove, :method
-    decl_const val(:empty), :value
-
-    decl_const :push, :method
-    decl_const :pop, :method
 
     decl_const :c, :id, :bool
     decl_const :p, :id, :bool
@@ -99,6 +97,10 @@ class Theories
       end
 
       if object =~ /stack|queue/
+        decl_const :add, :method
+        decl_const :remove, :method
+        decl_const val(:empty), :value
+
         y << (e(:add) != e(:remove))
 
         # an add for every remove
@@ -147,6 +149,7 @@ class Theories
   def history(h, order: nil)
     h.each {|id| decl_const "o#{id}", :id}
     h.values.each {|v| decl_const "v#{v}", :value}
+
     Enumerator.new do |y|
       h.each do |id|
         called(id,h).each(&y.method(:yield))
