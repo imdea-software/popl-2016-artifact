@@ -105,8 +105,8 @@ class LifoOrderRule < Rule
 end
 
 class SaturateChecker < HistoryChecker
-  def initialize(*args)
-    super(*args)
+  def initialize(options)
+    super(options)
     @rules = {}
     log.warn('Saturate') {"I don't do completions."} if completion
     log.warn('Saturate') {"I only do incremental."} unless incremental

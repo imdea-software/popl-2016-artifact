@@ -7,26 +7,16 @@ require_relative 'z3'
 class SymbolicChecker < HistoryChecker
   include Z3
 
-  def initialize(*args)
-    super(*args)
+  def initialize(options)
+    super(options)
 
-    context = Z3.context
+    configuration = Z3.config
+    configuration.set("timeout", options[:time_limit]) if options[:time_limit]
+    context = Z3.context(config: configuration)
     @theories = Theories.new(context)
 
-    # THE EASY WAY
     @solver = context.solver
     @theories.theory(object).each(&@solver.method(:assert))
-
-    # THE LONG WAY...
-    # @configuration = Z3.config
-    # # configuration.set("timeout","10")
-    # # configuration.set("model","true")
-    # @context = Z3.context(config: @configuration)
-    # @solver = @context.solver
-
-    # params = Z3.context.params
-    # params.set("max_conflicts",0)
-    # @solver.set_params(params)
 
     log.warn('Symbolic') {"I don't know how to handle incremental AND completion!"} \
       if incremental && completion

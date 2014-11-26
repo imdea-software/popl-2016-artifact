@@ -9,10 +9,13 @@ class CountingChecker < HistoryChecker
 
   attr_reader :bound
 
-  def initialize(*args)
-    super(*args)
+  def initialize(options)
+    super(options)
 
-    context = Z3.context
+    configuration = Z3.config
+    configuration.set("timeout", options[:time_limit]) if options[:time_limit]
+    context = Z3.context(config: configuration)
+
     @theories = Theories.new(context)
     @solver = context.solver
 

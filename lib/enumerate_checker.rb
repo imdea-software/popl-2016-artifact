@@ -7,10 +7,13 @@ require_relative 'z3'
 class EnumerateChecker < HistoryChecker
   include Z3
 
-  def initialize(*args)
-    super(*args)
+  def initialize(options)
+    super(options)
 
-    context = Z3.context
+    configuration = Z3.config
+    configuration.set("timeout", options[:time_limit]) if options[:timeout]
+    context = Z3.context(config: configuration)
+
     @theories = Theories.new(context)
     @solver = context.solver
     log.warn('Enumerate') {"I don't have an incremental mode."} if incremental
