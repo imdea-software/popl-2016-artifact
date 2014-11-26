@@ -67,7 +67,7 @@ SOURCES.each do |source|
     FLAGSS.each do |flags|
       cmd = "#{File.dirname(__FILE__)}/logchecker.rb \"#{example}\" #{flags}"
       cmd << " -t #{TIMEOUT}" if TIMEOUT
-      output = `#{cmd}`
+      output = `caffeinate #{cmd}`
       puts format(stats(File.basename(example), flags, output))
     end
     puts sep
