@@ -46,6 +46,10 @@ def stats(example, timeout, algorithm, output)
   v = (output.match(/VIOLATION: (.*)/) || ["","?"])[1].strip == "true"
   s = (output.match(/STEPS: (.*)/) || ["","?"])[1].strip
   t = (output.match(/TIME: (.*)/) || ["","?"])[1].strip
+
+  # filter out the CHEATERS who exceeded the timeout substantially
+  v = s = t = "?" if timeout && t != "?" && (t.chomp("s").to_f - timeout > 1)
+
   { example: example,
     timeout: timeout,
     algorithm: algorithm,
