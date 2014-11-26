@@ -99,8 +99,10 @@ class Theories
       if object =~ /stack|queue/
         decl_const :add, :method
         decl_const :remove, :method
+        decl_const :rm, :method
         decl_const val(:empty), :value
 
+        y << (e(:rm) == e(:remove))
         y << (e(:add) != e(:remove))
 
         # an add for every remove
@@ -152,7 +154,7 @@ class Theories
 
     Enumerator.new do |y|
       h.each do |id|
-        called(id,h).each(&y.method(:yield))
+        called(id,h,order:order).each(&y.method(:yield))
         returned(id,h).each(&y.method(:yield)) if h.completed?(id)
       end
       domains(h).each(&y.method(:yield))
@@ -168,7 +170,7 @@ class Theories
     end
   end
 
-  def called(id, history)
+  def called(id, history, order: nil)
     decl_const "o#{id}", :id
     history.arguments(id).each {|v| decl_const "v#{v}", :value}
 
@@ -180,7 +182,7 @@ class Theories
         y << (e(val(v)) != e(val(:empty)))
         y << (arg(e(op(id)),i) == e(val(v)))
       end
-      history.before(id).each {|j| y << before(e(op(j)), e(op(id)))}
+      history.before(id).each {|j| y << before(e(op(j)), e(op(id)))} unless order
       y << p(e(op(id)))
     end
   end

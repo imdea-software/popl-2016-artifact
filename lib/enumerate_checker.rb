@@ -18,9 +18,6 @@ class EnumerateChecker < HistoryChecker
       # TODO come on Z3 give me a break!!
       Z3.global_param_set("timeout", options[:time_limit].to_s)
       configuration.set("timeout", options[:time_limit])
-      parameters = context.params
-      parameters.set("soft_timeout", options[:time_limit])
-      @solver.set_params(parameters)
     end
 
     @theories = Theories.new(context)

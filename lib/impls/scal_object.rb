@@ -8,7 +8,7 @@ class ScalObject
     def self.scal_lib
       ext = OS.windows? ? 'dll' : OS.mac? ? 'dylib' : 'so'
       path = ENV['LIBRARY_PATH'].split(':').find{|p| File.exists?(File.join(p,"libscal.#{ext}"))}
-      (log.fatal "Cannot find 'libscal.#{ext}' in \$LIBRARY_PATH."; exit) unless path
+      fail "Cannot find 'libscal.#{ext}' in \$LIBRARY_PATH." unless path
       File.join(path,"libscal.#{ext}")
     end
     ffi_lib scal_lib

@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'optparse'
+require 'ostruct'
 
 require_relative 'monitored_object'
 require_relative 'randomized_tester'
@@ -25,9 +26,10 @@ def generate(tester, obj, file, num_threads, time_limit: nil)
   )
 end
 
-@num_executions = 10
-@num_threads = 7
-@time_limit = 0.1
+@options = OpenStruct.new
+@options.num_executions = 10
+@options.num_threads = 7
+@options.time_limit = 0.1
 
 OptionParser.new do |opts|
   opts.banner = "Usage: #{File.basename $0} [options] FILE"
@@ -42,16 +44,16 @@ OptionParser.new do |opts|
   opts.separator ""
   opts.separator "Some useful limits:"
 
-  opts.on("-e", "--executions N", Integer, "Limit to N executions (default #{@num_executions}).") do |n|
-    @num_executions = n
+  opts.on("-e", "--executions N", Integer, "Limit to N executions (default #{@options.num_executions}).") do |n|
+    @options.num_executions = n
   end
 
-  opts.on("-n", "--threads N", Integer, "Limit to N threads (default #{@num_threads}).") do |n|
-    @num_threads = n
+  opts.on("-n", "--threads N", Integer, "Limit to N threads (default #{@options.num_threads}).") do |n|
+    @options.num_threads = n
   end
 
-  opts.on("-t", "--time N", Integer, "Limit to N seconds (default #{@time_limit}).") do |n|
-    @time_limit = n
+  opts.on("-t", "--time N", Float, "Limit to N seconds (default #{@options.time_limit}).") do |n|
+    @options.time_limit = n
   end
 
 end.parse!
@@ -60,18 +62,18 @@ begin
   tester = RandomizedTester.new
   OBJECTS.each do |obj|
     obj_class, *args = obj
-    print "Generating random #{@num_threads}-thread executions for #{obj_class}(#{args * ", "}) "
-    print "[#{"." * @num_executions}]"
-    print "\033[<#{@num_executions+1}>D" 
-    @num_executions.times do |i|
+    print "Generating random #{@options.num_threads}-thread executions for #{obj_class}(#{args * ", "}) "
+    print "[#{"." * @options.num_executions}]"
+    print "\033[<#{@options.num_executions+1}>D" 
+    @options.num_executions.times do |i|
       dest = File.join(DEST,"#{obj * "-"}")
       Dir.mkdir(dest) unless Dir.exists?(dest)
       generate(
         tester,
         obj_class.new(*args),
         File.join(dest, "#{obj * "-"}.#{i}.log"),
-        @num_threads,
-        time_limit: @time_limit
+        @options.num_threads,
+        time_limit: @options.time_limit
       )
       print "#"
     end

@@ -1,0 +1,29 @@
+# @object atomic-queue
+[1] call add(476)
+[2] call remove
+[3] call add(477)
+[4] call add(478)
+[5] call remove
+[6] call remove
+[7] call remove
+[1] return
+[2] return 476
+[3] return
+[5] return 477
+[4] return
+[6] return 478
+[8] call remove
+[7] return empty
+[9] call remove
+[10] call remove
+[11] call add(479)
+[12] call add(480)
+[13] call remove
+[14] call add(481)
+[8] return empty
+[9] return empty
+[10] return empty
+[11] return
+[12] return
+[13] return 479
+[14] return

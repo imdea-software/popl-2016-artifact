@@ -48,7 +48,7 @@ def stats(example, timeout, algorithm, output)
   t = (output.match(/TIME: (.*)/) || ["","?"])[1].strip
 
   # filter out the CHEATERS who exceeded the timeout substantially
-  v = s = t = "?" if timeout && t != "?" && (t.chomp("s").to_f - timeout > 1)
+  v = s = t = "?" if timeout && t != "?" && (t.chomp("s").to_f - timeout > 2)
 
   { example: example,
     timeout: timeout,
@@ -80,6 +80,8 @@ class DataObserver
     case d
     when /steps-until-timeout/
       AverageStepsUntilTimeoutDataObserver.new(file)
+    when /violations-covered/
+      ViolationsCoveredDataObserver.new(file)
     else fail "Unexpected data observer: #{d}"
     end
   end
@@ -92,32 +94,35 @@ class AverageStepsUntilTimeoutDataObserver < DataObserver
   def name; "Average Steps Until Timeout" end
 
   def notify(stat)
-    @data[stat[:timeout]] ||= {}
-    @data[stat[:timeout]][stat[:algorithm]] ||= []
-    @data[stat[:timeout]][stat[:algorithm]] << stat[:step].chomp("*")
+    key = [stat[:example].split(".").first, stat[:timeout]]
+    algorithm = stat[:algorithm]
+    @data[key] ||= {}
+    @data[key][algorithm] ||= []
+    @data[key][algorithm] << stat[:step].chomp("*")
   end
 
   def write
     algorithms = @data[@data.keys.first].keys
-    @data.each do |timeout, algs|
+    @data.each do |key, algs|
       algs.each do |algorithm, step_counts|
-        @data[timeout][algorithm] = 
+        @data[key][algorithm] = 
           (step_counts.map{|c| c.to_i if c =~ /\A\d+\z/}.reduce(:+).to_f /
           step_counts.count).round(1)
       end
     end
     File.open(@file,'w') do |f|
-      f.puts "timeout, #{algorithms * ", "}"
-      @data.each do |timeout, algs|
-        f.puts "#{timeout}, #{algorithms.map{|a| algs[a]} * ", "}"
+      f.puts "object, timeout, #{algorithms * ", "}"
+      @data.each do |key, algs|
+        object, timeout = key
+        f.puts "#{object}, #{timeout}, #{algorithms.map{|a| algs[a]} * ", "}"
       end
     end
   end
 end
 
-class NumberOfViolationsCoveredDataObserver < DataObserver
+class ViolationsCoveredDataObserver < DataObserver
   def initialize(file)
-    super(file || "num-violations-covered.csv")
+    super(file || "violations-covered.csv")
   end
 
   def notify(stat)
