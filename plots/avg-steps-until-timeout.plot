@@ -2,6 +2,7 @@
 reset
 set terminal pdf size 3, 2
 set output 'data/avg-steps-until-timeout.pdf'
+set datafile separator ","
 set termoption dash
 
 set title "Average Steps Until Timeout"
@@ -25,9 +26,5 @@ set style line 5 lt 5 lw 3 lc rgb "black" pt 8 pi -1 ps 1.2
 set style line 6 lt 5 lw 3 lc rgb "black" pt 9 pi -1 ps 1.2
 set pointintervalbox 3
 
-plot 'data/avg-steps-until-timeout.csv' \
-     using 3:2 with linespoints ls 5 title "Enumerate", \
-  '' using 4:2 with linespoints ls 1 title "Symbolic", \
-  '' using 5:2 with linespoints ls 2 title "Symbolic -r", \
-  '' using 6:2 with linespoints ls 3 title "Saturate", \
-  '' using 7:2 with linespoints ls 4 title "Saturate -r"
+plot for [COL=3:7] 'data/avg-steps-until-timeout.csv' \
+   using COL:2 with linespoints ls COL-1 title columnheader(COL)

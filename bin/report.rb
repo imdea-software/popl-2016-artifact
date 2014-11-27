@@ -124,6 +124,7 @@ class ViolationsCoveredDataObserver < DataObserver
   def initialize(file)
     super(file || "violations-covered.csv")
   end
+  def name; "Violations Covered" end
 
   def notify(stat)
     object = stat[:example].split(".").first

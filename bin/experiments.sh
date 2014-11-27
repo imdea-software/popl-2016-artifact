@@ -10,21 +10,24 @@
 #
 # gnuplot plots/avg-steps-until-timeout.plot
 
+
 # TODO create better benchmarks
 # Scalobject-bkq-small is too hard, and contains too few errors
 # bkq-almost-sequential is too obviously errorneous -- even counting-0 gets it
 
+# TODO add more objects...
+# -s "examples/generated/ScalObject-xxx-small/*.log" \
+# -s "examples/generated/ScalObject-yyy-small/*.log" \
+
 caffeinate ./bin/report.rb \
-  -s "examples/generated/ScalObject-bkq-small/*.log" \
-  -s "examples/generated/ScalObject-xxx-small/*.log" \
-  -s "examples/generated/ScalObject-yyy-small/*.log" \
+  -s "examples/generated/ScalObject-bkq-small/ScalObject-bkq.00.log" \
   -a "enumerate -c" \
   -a "symbolic" -a "symbolic -r" \
   -a "saturate" -a "saturate -r" \
   -a "counting -b 4" -a "counting -b 4 -r" \
   -a "counting -b 2" -a "counting -b 2 -r" \
   -a "counting -b 0" -a "counting -b 0 -r" \
-  -t 5 \
+  -t 10 \
   -d violations-covered,data/violations-covered.csv
 
 gnuplot plots/violations-covered.plot
@@ -32,8 +35,6 @@ gnuplot plots/violations-covered.plot
 
 caffeinate ./bin/report.rb \
   -s "examples/generated/ScalObject-msq-big/*.log" \
-  -s "examples/generated/ScalObject-xxx-big/*.log" \
-  -s "examples/generated/ScalObject-yyy-big/*.log" \
   -a "enumerate -c" \
   -a "symbolic" -a "symbolic -r" \
   -a "saturate" -a "saturate -r" \
