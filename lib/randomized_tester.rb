@@ -1,15 +1,10 @@
 class RandomizedTester
-  MAX_DELAY = 0.1
+
+  PASS_BOUND = 3
 
   def initialize
     $DEBUG = true # without this exceptions in threads are invisible
-    @unique_val = 0
     @thread_pool = []
-    @object = nil
-  end
-
-  def unique_val
-    @unique_val += 1
   end
 
   def randomized_thread
@@ -18,27 +13,41 @@ class RandomizedTester
       loop do
         Thread.stop
         loop do
-          object, *methods = @object
-          break unless object
-          Thread.pass
-          m = object.method(methods[gen.rand(methods.count)])
-          args = m.arity.times.map { unique_val }
+          break unless @operation_count > 0
+          @operation_count -= 1 # FIXME this ought to be atomic!
+
+          gen.rand(PASS_BOUND).times { Thread.pass } # give others a chance
+
+          m = @object.method(@methods[gen.rand(@methods.count)])
+          args = m.arity.times.map { @unique_val += 1 }
           m.call(*args)
         end
       end
     end
   end
 
-  def run(obj, num_threads, time_limit: nil)
-    (num_threads - @thread_pool.count).times {@thread_pool << randomized_thread}
-    @object = [obj] + obj.methods.reject do |m|
+  def run(object, thread_count, operation_limit: Float::INFINITY, time_limit: nil)
+    (thread_count - @thread_pool.count).times {@thread_pool << randomized_thread}
+
+    @object = object
+    @methods = object.methods.reject do |m|
       next true if Object.instance_methods.include? m
-      next true if obj.methods.include?("#{m.to_s.chomp('=')}=".to_sym)
+      next true if object.methods.include?("#{m.to_s.chomp('=')}=".to_sym)
       false
     end
-    @thread_pool.each {|t| t.run}
-    sleep time_limit
-    @object = nil
+    @unique_val = 0
+    @operation_count = operation_limit
+
+    @thread_pool.each(&:run)
+
+    if time_limit
+      sleep time_limit
+      @operation_count = 0
+
+    elsif @operation_count < Float::INFINITY
+      loop while @operation_count > 0
+
+    end
     loop until @thread_pool.all? {|t| t.status == "sleep"}
   end
 end
