@@ -20,7 +20,7 @@ class ScalObject
     attach_function :scal_object_get, [:pointer], :int
   end
 
-  CAPI::scal_initialize(8)
+  CAPI::scal_initialize(20)
   @@spec = "???"
 
   def initialize(object_id)
@@ -36,16 +36,12 @@ class ScalObject
   def to_s; CAPI::scal_object_name(@id) end
 
   def add(val)
-    Thread.pass
     CAPI::scal_object_put(@object,val)
-    Thread.pass
     nil
   end
 
   def remove
-    Thread.pass
     val = CAPI::scal_object_get(@object)
-    Thread.pass
     return val == -1 ? :empty : val
   end
 end

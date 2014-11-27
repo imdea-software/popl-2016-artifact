@@ -191,7 +191,7 @@ begin
 
   @options.sources.each do |source|
     COLUMNS[:example] = Dir.glob(source).map{|f| File.basename(f).length}.max
-    COLUMNS[:algorithm] = @options.algorithms.map(&:length).max
+    COLUMNS[:algorithm] = (["algorithm"] + @options.algorithms).map(&:length).max
 
     @options.timeouts.each do |timeout|
       puts sep(joint: "-")

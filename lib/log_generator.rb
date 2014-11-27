@@ -72,7 +72,7 @@ begin
   obj_class, *args = @options.object
   tester = RandomizedTester.new
 
-  print "Generating random #{@options.num_threads}-thread executions for #{obj_class}(#{args * ", "}) "
+  print "Generating random #{@options.num_threads}-thread (max) executions for #{obj_class}(#{args * ", "}) "
   print "[#{"." * @options.num_executions}]"
   print "\033[<#{@options.num_executions+1}>D"
 
