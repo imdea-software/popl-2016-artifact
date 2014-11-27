@@ -105,9 +105,9 @@ class AverageStepsUntilTimeoutDataObserver < DataObserver
     algorithms = @data[@data.keys.first].keys
     @data.each do |key, algs|
       algs.each do |algorithm, step_counts|
+        step_counts = step_counts.map{|c| c.to_i if c =~ /\A\d+\z/}.compact
         @data[key][algorithm] = 
-          (step_counts.map{|c| c.to_i if c =~ /\A\d+\z/}.reduce(:+).to_f /
-          step_counts.count).round(1)
+          (step_counts.reduce(:+).to_f / step_counts.count).round(1)
       end
     end
     File.open(@file,'w') do |f|
