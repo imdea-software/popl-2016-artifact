@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
-# caffeinate ./bin/report.rb \
-#   -s "examples/generated/ScalObject-msq-big/*.log" \
-#   -a "enumerate -c" \
-#   -a "symbolic" -a "symbolic -r" \
-#   -a "saturate" -a "saturate -r" \
-#   -t 5 -t 25 -t 50 -t 75 -t 100 \
-#   -d steps-until-timeout,data/avg-steps-until-timeout.csv
-#
-# gnuplot plots/avg-steps-until-timeout.plot
+caffeinate ./bin/report.rb \
+  -s "examples/generated/ScalObject-msq-big/*.log" \
+  -a "enumerate -c" \
+  -a "counting -b 4" -a "counting -b 4 -r" \
+  -a "symbolic" -a "symbolic -r" \
+  -a "saturate" -a "saturate -r" \
+  -t 5 -t 25 -t 50 -t 75 -t 100 \
+  -d steps-until-timeout,data/avg-steps-until-timeout.csv
+
+gnuplot plots/avg-steps-until-timeout.plot
 
 
 # TODO create better benchmarks
@@ -16,11 +17,12 @@
 # bkq-almost-sequential is too obviously errorneous -- even counting-0 gets it
 
 # TODO add more objects...
-# -s "examples/generated/ScalObject-xxx-small/*.log" \
-# -s "examples/generated/ScalObject-yyy-small/*.log" \
+# -s "examples/generated/ScalObject-xxx-small/*.log"
+# -s "examples/generated/ScalObject-yyy-small/*.log"
+
 
 caffeinate ./bin/report.rb \
-  -s "examples/generated/ScalObject-bkq-small/ScalObject-bkq.00.log" \
+  -s "examples/generated/ScalObject-bkq-small/*.log" \
   -a "enumerate -c" \
   -a "symbolic" -a "symbolic -r" \
   -a "saturate" -a "saturate -r" \

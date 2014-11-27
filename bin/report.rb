@@ -40,7 +40,7 @@ DEFAULT_ALGORITHMS << "enumerate -r"
 
 DEFAULT_TIMEOUTS << 5
 
-COLUMNS = { example: 1, algorithm: 1, step: 4, viol: 4, time: 10 }
+COLUMNS = { example: 1, algorithm: 1, step: 5, viol: 4, time: 10 }
 
 def stats(example, timeout, algorithm, output)
   v = (output.match(/VIOLATION: (.*)/) || ["","?"])[1].strip == "true"

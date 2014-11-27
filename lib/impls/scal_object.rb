@@ -20,7 +20,7 @@ class ScalObject
     attach_function :scal_object_get, [:pointer], :int
   end
 
-  CAPI::scal_initialize(20)
+  CAPI::scal_initialize(20) # FIXME this is the thread limit...
   @@spec = "???"
 
   def initialize(object_id)
