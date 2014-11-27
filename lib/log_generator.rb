@@ -78,7 +78,7 @@ begin
 
   dest_dir = File.join(DEST,"#{@options.object * "-"}")
   Dir.mkdir(dest_dir) unless Dir.exists?(dest_dir)
-  idx_width = @options.num_executions.to_s.length
+  idx_width = (@options.num_executions - 1).to_s.length
 
   @options.num_executions.times do |i|
     object = obj_class.new(*args)

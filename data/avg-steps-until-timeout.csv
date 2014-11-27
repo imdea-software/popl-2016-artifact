@@ -1,0 +1,6 @@
+object, timeout, enumerate -c, symbolic, symbolic -r, saturate, saturate -r
+ScalObject-msq, 5, 22.5, 33.7, 83.8, 325.3, 1498.0
+ScalObject-msq, 25, 25.5, 47.2, 217.2, 541.0, 2767.5
+ScalObject-msq, 50, 26.6, 47.7, 288.9, 653.9, 3067.2
+ScalObject-msq, 75, 28.0, 51.7, 341.3, 737.7, 3288.0
+ScalObject-msq, 100, 29.0, NaN, 440.8, 794.6, 3400.1
