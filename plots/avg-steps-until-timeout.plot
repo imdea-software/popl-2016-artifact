@@ -14,7 +14,7 @@ set key out horiz center bottom
 set grid y
 set grid x
 set yrange [0:100]
-set xrange [10:5000]
+set xrange [10:]
 set ytics 0, 25, 100
 set logscale x
 
@@ -27,5 +27,5 @@ set style line 6 lt 5 lw 3 lc rgb "black" pt 8 pi -1 ps 1.2
 set style line 7 lt 5 lw 3 lc rgb "black" pt 9 pi -1 ps 1.2
 set pointintervalbox 3
 
-plot for [COL=3:7] 'data/avg-steps-until-timeout.csv' \
+plot for [COL=3:9] 'data/avg-steps-until-timeout.csv' \
    using COL:2 with linespoints ls COL-2 title columnheader(COL)

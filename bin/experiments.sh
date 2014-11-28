@@ -24,11 +24,11 @@ gnuplot plots/avg-steps-until-timeout.plot
 caffeinate ./bin/report.rb \
   -s "examples/generated/ScalObject-bkq-small/*.log" \
   -a "enumerate -c" \
-  -a "symbolic" -a "symbolic -r" \
-  -a "saturate" -a "saturate -r" \
   -a "counting -b 4" -a "counting -b 4 -r" \
   -a "counting -b 2" -a "counting -b 2 -r" \
   -a "counting -b 0" -a "counting -b 0 -r" \
+  -a "symbolic" -a "symbolic -r" \
+  -a "saturate" -a "saturate -r" \
   -t 10 \
   -d violations-covered,data/violations-covered.csv
 
@@ -38,11 +38,11 @@ gnuplot plots/violations-covered.plot
 caffeinate ./bin/report.rb \
   -s "examples/generated/ScalObject-msq-big/*.log" \
   -a "enumerate -c" \
-  -a "symbolic" -a "symbolic -r" \
-  -a "saturate" -a "saturate -r" \
   -a "counting -b 4" -a "counting -b 4 -r" \
   -a "counting -b 2" -a "counting -b 2 -r" \
   -a "counting -b 0" -a "counting -b 0 -r" \
+  -a "symbolic" -a "symbolic -r" \
+  -a "saturate" -a "saturate -r" \
   -t 20 \
   -d steps-until-timeout,data/avg-steps-until-fixed-timeout.csv
 
