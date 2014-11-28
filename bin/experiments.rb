@@ -3,9 +3,11 @@
 BRANCH_NAME = 'master'
 report_file = Time.now.strftime("data/report-%h-%d-%Y-%Hh%M.txt")
 
-abort "Expected clean working directory." unless `git status` =~ /working directory clean/
+# abort "Expected clean working directory." unless `git status` =~ /working directory clean/
 abort "Should be on #{BRANCH_NAME} branch." unless `git status` =~ /On branch #{BRANCH_NAME}/
-abort "Unable to caffeinate." unless system("caffeinate -w #{Process.pid}")
+abort "Unable to caffeinate." unless system("caffeinate -w #{Process.pid} &")
+
+File.open(report_file, 'a') {|f| f.puts "# #{report_file}" }
 
 system(%w{
 ./bin/report.rb
@@ -17,9 +19,9 @@ system(%w{
   -t 5 -t 25 -t 50 -t 75 -t 100
   -d steps-until-timeout,data/avg-steps-until-timeout.csv
 
-} * ' ', out: report_file, err: :out)
+} * ' ', out: [report_file,'a'], err: :out)
 
-system("gnuplot plots/avg-steps-until-timeout.plot", out: report_file, err: :out)
+system("gnuplot plots/avg-steps-until-timeout.plot", out: [report_file,'a'], err: :out)
 
 # TODO create better benchmarks
 # Scalobject-bkq-small is too hard, and contains too few errors
@@ -40,9 +42,9 @@ system(%w{
   -a "saturate" -a "saturate -r"
   -t 10
   -d violations-covered,data/violations-covered.csv
-} * ' ', out: report_file, err: :out)
+} * ' ', out: [report_file,'a'], err: :out)
 
-system("gnuplot plots/violations-covered.plot", out: report_file, err: out)
+system("gnuplot plots/violations-covered.plot", out: [report_file,'a'], err: out)
 
 
 system(%w{
@@ -56,9 +58,9 @@ system(%w{
   -a "saturate" -a "saturate -r"
   -t 20
   -d steps-until-timeout,data/avg-steps-until-fixed-timeout.csv
-} * ' ', out: report_file, err: :out)
+} * ' ', out: [report_file,'a'], err: :out)
 
-system("gnuplot plots/avg-steps-until-fixed-timeout.plot", out: report_file, err: out)
+system("gnuplot plots/avg-steps-until-fixed-timeout.plot", out: [report_file,'a'], err: out)
 
 abort "Unable to add report."     unless system("git add #{report_file}")
 abort "Unable to commit report."  unless system("git commit -a")
