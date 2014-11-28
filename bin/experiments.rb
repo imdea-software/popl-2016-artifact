@@ -5,6 +5,7 @@ report_file = Time.now.strftime("data/report-%h-%d-%Y-%Hh%M.txt")
 
 abort "Expected clean working directory." unless `git status` =~ /working directory clean/
 abort "Should be on #{BRANCH_NAME} branch." unless `git status` =~ /On branch #{BRANCH_NAME}/
+abort "Unable to caffeinate." unless system("caffeinate -w #{Process.pid}")
 
 system(%w{
 ./bin/report.rb
