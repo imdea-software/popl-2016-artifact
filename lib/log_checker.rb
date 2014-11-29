@@ -25,7 +25,7 @@ log.level = Logger::WARN
 @options = {}
 @options[:completion] = false
 @options[:incremental] = false
-@options[:obsolete_removal] = false
+@options[:removal] = false
 @options[:step_limit] = nil
 @options[:time_limit] = nil
 @options[:frequency] = nil
@@ -74,8 +74,8 @@ OptionParser.new do |opts|
   end
 
   opts.on("-r", "--[no-]remove-obsolete",
-    "Remove operations? (default #{@options[:obsolete_removal]}).") do |r|
-    @options[:obsolete_removal] = r
+    "Remove operations? (default #{@options[:removal]}).") do |r|
+    @options[:removal] = r
   end
 
   opts.separator ""
@@ -139,7 +139,7 @@ begin
   # should check the histories before removing obsolete operations
   history.add_observer(matcher)
   history.add_observer(@checker)
-  history.add_observer(ObsoleteRemover.new(history,matcher)) if @options[:obsolete_removal]
+  history.add_observer(ObsoleteRemover.new(history,matcher)) if @options[:removal]
 
   num_steps = 0
   max_size = 0
@@ -191,9 +191,10 @@ begin
 
   end_time = Time.now
 
+  puts "HISTORY:    #{execution_log}"
   puts "OBJECT:     #{logrw.object || "?"}"
-  puts "CHECKER:    #{@checker}"
-  puts "REMOVAL:    #{@options[:obsolete_removal]}"
+  puts "ALGORITHM:  #{@checker}"
+  puts "REMOVAL:    #{@options[:removal]}"
   puts "VIOLATION:  #{@checker.violation?}"
   puts "STEPS:      #{num_steps}#{timeout}#{stepout}"
   puts "AVG SIZE:   #{(cum_size * 1.0 / num_steps).round(4)}"

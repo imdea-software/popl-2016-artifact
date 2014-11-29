@@ -3,11 +3,9 @@
 require 'optparse'
 require 'ostruct'
 
-FIELDS = [:sources, :algorithms, :timeouts, :data_observers]
+FIELDS = [:sources, :algorithms, :timeouts]
 FIELDS.each {|f| self.class.const_set("DEFAULT_#{f.upcase}", [])}
 
-DEFAULT_SOURCES << "examples/generated/ScalObject-bkq/*.log"
-DEFAULT_SOURCES << "examples/generated/ScalObject-msq/*.log"
 DEFAULT_SOURCES << "examples/simple/*.log"
 DEFAULT_SOURCES << "examples/generated/my-sync-stack.*.log"
 DEFAULT_SOURCES << "examples/generated/my-unsafe-stack/*.log"
@@ -31,7 +29,6 @@ DEFAULT_ALGORITHMS << "counting -b 4 -r"
 DEFAULT_ALGORITHMS << "symbolic"
 DEFAULT_ALGORITHMS << "symbolic -r"
 DEFAULT_ALGORITHMS << "symbolic -c"
-DEFAULT_ALGORITHMS << "symbolic -r -r"
 DEFAULT_ALGORITHMS << "symbolic -i"
 DEFAULT_ALGORITHMS << "symbolic -i -r"
 DEFAULT_ALGORITHMS << "enumerate"
@@ -40,113 +37,47 @@ DEFAULT_ALGORITHMS << "enumerate -r"
 
 DEFAULT_TIMEOUTS << 5
 
-COLUMNS = { example: 1, algorithm: 1, step: 5, viol: 4, time: 10 }
+COLUMNS = [:history, :object, :algorithm, :steps, :time, :violation]
+DISPLAY = { history: 1, algorithm: 13, steps: 5, time: 10, violation: 1 }
 
-def stats(example, timeout, algorithm, output)
-  v = (output.match(/VIOLATION: (.*)/) || ["","?"])[1].strip == "true"
-  s = (output.match(/STEPS: (.*)/) || ["","?"])[1].strip
-  t = (output.match(/TIME: (.*)/) || ["","?"])[1].strip
-
-  # filter out the CHEATERS who exceeded the timeout substantially
-  v = s = t = "?" if timeout && t != "?" && (t.chomp("s").to_f - timeout > 2)
-
-  { example: example,
-    timeout: timeout,
-    algorithm: algorithm,
-    step: s,
-    viol: v && s,
-    time: t
-  }
+def extract_record(output)
+  rec = {}
+  COLUMNS.map do |key|
+    m = output.match(/#{key.upcase}:\s+(.*)/)
+    rec[key] = m ? m[1].strip : "?"
+  end
+  rec
 end
 
-def format(stats)
-  COLUMNS.map {|title,width| (stats[title] || "-").ljust(width)} * " | "
+def display_record(rec)
+  DISPLAY.map do |key,width|
+    case rec[key]
+    when /true/;  "√"
+    when /false/; "-"
+    when /\?/;    "?"
+    else          rec[key]
+    end.ljust(width)
+  end * " | "
 end
 
-def sep(sym: "-", joint: "+")
-  COLUMNS.map {|_,width| sym * width} * "#{sym}#{joint}#{sym}"
+def separator(sym: "-", joint: "+")
+  DISPLAY.map {|_,width| sym * width} * "#{sym}#{joint}#{sym}"
 end
 
-class DataObserver
+class DataWriter
   def initialize(file)
-    @data = {}
     @file = file
-  end
-  def to_s; name    end
-  def notify(stat)  end
-  def write;        end  
-
-  def self.get(d,file)
-    case d
-    when /steps-until-timeout/
-      AverageStepsUntilTimeoutDataObserver.new(file)
-    when /violations-covered/
-      ViolationsCoveredDataObserver.new(file)
-    else fail "Unexpected data observer: #{d}"
-    end
-  end
-end
-
-class AverageStepsUntilTimeoutDataObserver < DataObserver
-  def initialize(file)
-    super(file || "avg-steps-until-timeout.csv")
-  end
-  def name; "Average Steps Until Timeout" end
-
-  def notify(stat)
-    key = [stat[:example].split(".").first, stat[:timeout]]
-    algorithm = stat[:algorithm]
-    @data[key] ||= {}
-    @data[key][algorithm] ||= []
-    @data[key][algorithm] << stat[:step].chomp("*")
+    File.open(@file,'w') {|f| f.puts(COLUMNS * "\t")}
   end
 
-  def write
-    algorithms = @data[@data.keys.first].keys
-    @data.each do |key, algs|
-      algs.each do |algorithm, step_counts|
-        step_counts = step_counts.map{|c| c.to_i if c =~ /\A\d+\z/}.compact
-        @data[key][algorithm] = 
-          (step_counts.reduce(:+).to_f / step_counts.count).round(1)
-      end
-    end
-    File.open(@file,'w') do |f|
-      f.puts "object, timeout, #{algorithms * ", "}"
-      @data.each do |key, algs|
-        object, timeout = key
-        f.puts "#{object}, #{timeout}, #{algorithms.map{|a| algs[a]} * ", "}"
-      end
-    end
-  end
-end
-
-class ViolationsCoveredDataObserver < DataObserver
-  def initialize(file)
-    super(file || "violations-covered.csv")
-  end
-  def name; "Violations Covered" end
-
-  def notify(stat)
-    object = stat[:example].split(".").first
-    algorithm = stat[:algorithm]
-    @data[object] ||= {}
-    @data[object][algorithm] ||= 0
-    @data[object][algorithm] += 1 if stat[:viol] =~ /\A\d+\z/
-  end
-
-  def write
-    algorithms = @data[@data.keys.first].keys
-    File.open(@file,'w') do |f|
-      f.puts "object, #{algorithms * ", "}"
-      @data.each do |object, algs|
-        f.puts "#{object}, #{algorithms.map{|a| algs[a]} * ", "}"
-      end
-    end
+  def notify(record)
+    File.open(@file,'a') {|f| f.puts(COLUMNS.map{|k| record[k]} * "\t")}
   end
 end
 
 def parse_options
   options = OpenStruct.new
+  options.data_file = nil
   FIELDS.each {|f| options.send("#{f}=",[])}
 
   OptionParser.new do |opts|
@@ -172,8 +103,8 @@ def parse_options
       options.timeouts << n
     end
 
-    opts.on("-d", "--data-observer D,FILE", Array, "Add a data observer, e.g. 'steps-until-timeout'") do |d,f|
-      options.data_observers << DataObserver.get(d,f)
+    opts.on("-f", "--data-file FILE", "Write data to file.") do |f|
+      options.data_file = f
     end
   end.parse!
 
@@ -189,34 +120,30 @@ begin
   @options = parse_options
 
   puts "Generating reports for #{@options.sources * ", "}"
+  data = DataWriter.new(@options.data_file) if @options.data_file
 
   @options.sources.each do |source|
-    COLUMNS[:example] = Dir.glob(source).map{|f| File.basename(f).length}.max
-    COLUMNS[:algorithm] = (["algorithm"] + @options.algorithms).map(&:length).max
+    DISPLAY[:history] = Dir.glob(source).map{|f| File.basename(f).length}.max || 1
 
     @options.timeouts.each do |timeout|
-      puts sep(joint: "-")
-      puts "#{source} (timeout #{timeout || "-"}s)".center(sep.length)
-      puts sep(joint: "-")
-      puts COLUMNS.map {|title,width| title.to_s.ljust(width)} * " | "
-      puts sep
+      puts separator(joint: "-")
+      puts "#{source} (timeout #{timeout || "-"}s)".center(separator.length)
+      puts separator(joint: "-")
+      puts DISPLAY.map {|key,width| key.to_s[0,width].ljust(width)} * " | "
+      puts separator
   
-      Dir.glob(source) do |example|
+      Dir.glob(source) do |history|
         @options.algorithms.each do |algorithm|
-          cmd = "#{File.dirname(__FILE__)}/logchecker.rb \"#{example}\" -a #{algorithm}"
+          cmd = "#{File.dirname(__FILE__)}/logchecker.rb \"#{history}\" -a #{algorithm}"
           cmd << " -t #{timeout}" if timeout
           output = `#{cmd}`
-          puts format(s = stats(File.basename(example), timeout, algorithm, output))
-          @options.data_observers.each {|d| d.notify s}
+          rec = extract_record(output)
+          rec[:history] = File.basename(rec[:history])
+          puts display_record(rec)
+          data.notify(rec) if data
         end
-        puts sep
+        puts separator
       end
     end
   end
-
-  @options.data_observers.each do |d|
-    puts "Writing data from observer: #{d}."
-    d.write
-  end
-
 end

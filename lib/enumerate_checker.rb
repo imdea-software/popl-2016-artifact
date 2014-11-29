@@ -25,7 +25,7 @@ class EnumerateChecker < HistoryChecker
     log.warn('Enumerate') {"I don't have an incremental mode."} if incremental
   end
 
-  def name; "Enumerate checker" end
+  def name; "Enumerate#{"+C" if @completion}" end
 
   def check_history(history, seq)
     @theories.theory(object).each(&@solver.method(:assert))

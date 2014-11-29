@@ -112,7 +112,7 @@ class SaturateChecker < HistoryChecker
     log.warn('Saturate') {"I only do incremental."} unless incremental
   end
 
-  def name; "Saturate checker" end
+  def name; "Saturate" end
 
   def see_match(id)
     m1 = matcher.match(id)

@@ -30,7 +30,7 @@ class SymbolicChecker < HistoryChecker
     @removed = false
   end
 
-  def name; "Symbolic checker (Z3)" end
+  def name; "Symbolic#{"+I" if @incremental}#{"+C" if @completion}" end
 
   def started!(id, method_name, *arguments)
     return unless incremental

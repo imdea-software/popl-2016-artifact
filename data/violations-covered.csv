@@ -1,2 +1,2 @@
-object, enumerate -c, counting -b 4, counting -b 4 -r, counting -b 2, counting -b 2 -r, counting -b 0, counting -b 0 -r, symbolic, symbolic -r, saturate, saturate -r
+object,enumerate -c,counting -b 4,counting -b 4 -r,counting -b 2,counting -b 2 -r,counting -b 0,counting -b 0 -r,symbolic,symbolic -r,saturate, saturate -r
 ScalObject-bkq, 30, 30, 30, 19, 19, 0, 0, 32, 32, 32, 31
