@@ -1,0 +1,3 @@
+# @object atomic-stack
+[1] call add(1)
+[1] return

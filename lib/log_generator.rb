@@ -16,6 +16,7 @@ def get_object(object)
   (puts "Must specify an object."; exit) unless object
   case object
   when /\A(bkq|dq|dtsq|lbq|msq|fcq|ks|rdq|sl|ts|tsd|tsq|tss|ukq|wfq11|wfq12)\z/
+    ScalObject.initialize(@options.num_threads)
     [ScalObject, object]
   else
     puts "Unknown object: #{object}"
