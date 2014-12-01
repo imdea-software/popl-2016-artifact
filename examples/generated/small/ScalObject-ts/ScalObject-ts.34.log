@@ -5,17 +5,13 @@
 [2] return
 [3] call add(2)
 [3] return
-[4] call remove
-[4] return 2
+[4] call add(3)
+[4] return
 [5] call remove
-[5] return 1
-[6] call add(3)
+[6] call add(4)
 [6] return
 [7] call remove
-[7] return 3
-[8] call remove
-[8] return empty
-[9] call remove
-[9] return empty
-[10] call add(4)
-[10] return
+[7] return 4
+[5] return 3
+[8] call add(5)
+[9] call add(6)

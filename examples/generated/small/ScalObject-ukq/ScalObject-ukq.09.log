@@ -1,21 +1,21 @@
 # @object atomic-queue
-[1] call remove
-[1] return empty
-[2] call remove
-[2] return empty
+[1] call add(1)
+[1] return
+[2] call add(2)
 [3] call remove
-[3] return empty
-[4] call add(1)
-[4] return
-[5] call add(2)
+[3] return 2
+[4] call remove
+[2] return
+[5] call add(3)
 [5] return
 [6] call remove
-[6] return 2
-[7] call remove
-[7] return 1
-[8] call remove
-[8] return empty
-[9] call add(3)
-[9] return
-[10] call add(4)
+[6] return 3
+[7] call add(4)
+[7] return
+[8] call add(5)
+[8] return
+[4] return 1
+[9] call remove
+[9] return 4
+[10] call add(6)
 [10] return

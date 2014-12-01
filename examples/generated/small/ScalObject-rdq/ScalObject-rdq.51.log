@@ -10,12 +10,12 @@
 [5] call remove
 [5] return 2
 [6] call remove
-[6] return empty
 [7] call add(3)
 [7] return
 [8] call add(4)
 [8] return
-[9] call remove
-[9] return 3
-[10] call add(5)
+[9] call add(5)
+[10] call add(6)
 [10] return
+[9] return
+[6] return empty

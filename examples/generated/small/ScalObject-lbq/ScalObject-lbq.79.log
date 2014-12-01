@@ -16,6 +16,6 @@
 [8] call add(3)
 [8] return
 [9] call remove
+[10] call add(4)
+[10] return
 [9] return 3
-[10] call remove
-[10] return empty

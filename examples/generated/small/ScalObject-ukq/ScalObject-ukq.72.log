@@ -6,16 +6,16 @@
 [3] call remove
 [3] return empty
 [4] call add(1)
-[4] return
 [5] call remove
 [5] return 1
 [6] call remove
 [6] return empty
-[7] call add(2)
-[7] return
+[7] call remove
+[7] return empty
 [8] call remove
-[8] return 2
-[9] call add(3)
+[8] return empty
+[4] return
+[9] call add(2)
 [9] return
-[10] call add(4)
+[10] call add(3)
 [10] return

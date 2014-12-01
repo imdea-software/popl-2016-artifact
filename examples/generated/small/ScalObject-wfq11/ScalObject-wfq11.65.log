@@ -4,18 +4,18 @@
 [2] call add(1)
 [2] return
 [3] call remove
+[4] call add(2)
 [3] return 1
-[4] call remove
-[4] return empty
 [5] call remove
-[5] return empty
+[4] return
 [6] call remove
 [6] return empty
-[7] call add(2)
+[7] call add(3)
+[8] call remove
+[9] call add(4)
+[5] return 2
 [7] return
-[8] call add(3)
-[8] return
-[9] call remove
-[9] return 2
+[8] return 3
 [10] call remove
-[10] return 3
+[10] return 4
+[9] return

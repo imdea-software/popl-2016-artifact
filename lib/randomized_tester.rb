@@ -17,7 +17,7 @@ class RandomizedTester
           break unless @operation_count > 0
           @operation_count -= 1
 
-          # gen.rand(PASS_BOUND).times { Thread.pass } # give others a chance
+          gen.rand(2).times { Thread.pass } # give others a chance
 
           m = @object.method(@methods[gen.rand(@methods.count)])
           args = m.arity.times.map { @unique_val += 1 }
@@ -28,7 +28,8 @@ class RandomizedTester
   end
 
   def run(object, thread_count, operation_limit: Float::INFINITY, time_limit: nil)
-    thread_count = @gen.rand(thread_count) + 1
+
+    thread_count = @gen.rand(2..thread_count) if thread_count > 1
     (thread_count - @thread_pool.count).times {@thread_pool << randomized_thread}
 
     @object = object

@@ -7,15 +7,15 @@
 [3] return
 [4] call remove
 [4] return 2
-[5] call remove
-[5] return empty
-[6] call add(3)
+[5] call add(3)
+[5] return
+[6] call add(4)
 [6] return
-[7] call add(4)
+[7] call add(5)
 [7] return
-[8] call add(5)
-[8] return
+[8] call remove
 [9] call remove
-[9] return 3
-[10] call add(6)
-[10] return
+[9] return 4
+[8] return 3
+[10] call remove
+[10] return 5

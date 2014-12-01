@@ -3,19 +3,19 @@
 [1] return empty
 [2] call add(1)
 [2] return
-[3] call add(2)
-[3] return
-[4] call remove
-[4] return 1
-[5] call remove
-[5] return 2
+[3] call remove
+[3] return 1
+[4] call add(2)
+[4] return
+[5] call add(3)
+[5] return
 [6] call remove
-[6] return empty
-[7] call add(3)
+[6] return 2
+[7] call add(4)
 [7] return
-[8] call add(4)
+[8] call add(5)
 [8] return
-[9] call add(5)
-[9] return
-[10] call add(6)
-[10] return
+[9] call remove
+[9] return 3
+[10] call remove
+[10] return 4

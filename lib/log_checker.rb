@@ -17,6 +17,19 @@ module Kernel
   end
 end
 
+module Enumerable
+  def mean
+    inject(&:+) / length.to_f
+  end
+  def sample_variance
+    m = mean
+    inject(0){|sum,i| sum + (i-m)**2} / (length-1).to_f
+  end
+  def standard_deviation
+    Math.sqrt(sample_variance)
+  end
+end
+
 log.level = Logger::WARN
 
 @checker = nil
@@ -141,9 +154,9 @@ begin
   history.add_observer(@checker)
   history.add_observer(ObsoleteRemover.new(history,matcher)) if @options[:removal]
 
+  size = []
+  concurrency = []
   num_steps = 0
-  max_size = 0
-  cum_size = 0
   max_rss = 0
 
   # measure memory usage in a separate thread, since a relatively expensive
@@ -162,9 +175,8 @@ begin
         raise ViolationFound if @checker.violation?
         raise StepLimitReached if @options[:step_limit] && @options[:step_limit] <= num_steps
 
-        size = history.count
-        max_size = size if size > max_size
-        cum_size += size
+        size << history.count
+        concurrency << history.pending.count + (act == :call ? 1 : 0)
         num_steps += 1
 
         case act
@@ -191,18 +203,18 @@ begin
 
   end_time = Time.now
 
-  puts "HISTORY:    #{execution_log}"
-  puts "OBJECT:     #{@options[:object] || "?"}"
-  puts "ALGORITHM:  #{@checker}"
-  puts "REMOVAL:    #{@options[:removal]}"
-  puts "VIOLATION:  #{@checker.violation?}"
-  puts "STEPS:      #{num_steps}#{timeout}#{stepout}"
-  puts "AVG SIZE:   #{(cum_size * 1.0 / num_steps).round(4)}"
-  puts "MAX SIZE:   #{max_size}"
-  puts "CHECKS:     #{@checker.num_checks}"
-  puts "MEMORY:     #{(max_rss / 1024.0).round(4)}KB"
-  puts "TIME:       #{(end_time - start_time).round(4)}s#{timeout}#{stepout}"
-  puts "TIME/CHECK: #{((end_time - start_time)/@checker.num_checks).round(4)}s"
+  puts "HISTORY:      #{execution_log}"
+  puts "OBJECT:       #{@options[:object] || "?"}"
+  puts "ALGORITHM:    #{@checker}"
+  puts "REMOVAL:      #{@options[:removal]}"
+  puts "VIOLATION:    #{@checker.violation?}"
+  puts "STEPS:        #{num_steps}#{timeout}#{stepout}"
+  puts "CONCURRENCY:  #{concurrency.mean.round(1)}±#{concurrency.standard_deviation.round(1)}"
+  puts "SIZE:         #{size.mean.round(1)} (avg), #{size.max} (max)"
+  puts "CHECKS:       #{@checker.num_checks}"
+  puts "MEMORY:       #{(max_rss / 1024.0).round(4)}KB"
+  puts "TIME:         #{(end_time - start_time).round(4)}s#{timeout}#{stepout}"
+  puts "TIME/CHECK:   #{((end_time - start_time)/@checker.num_checks).round(4)}s"
 ensure
   log.close
 end

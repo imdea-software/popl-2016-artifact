@@ -3,6 +3,8 @@ require 'os'
 
 class ScalObject
 
+  PASS_BOUND = 3
+
   module CAPI
     extend FFI::Library
     def self.scal_lib

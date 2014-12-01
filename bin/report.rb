@@ -37,8 +37,8 @@ DEFAULT_ALGORITHMS << "enumerate -r"
 
 DEFAULT_TIMEOUTS << 5
 
-COLUMNS = [:history, :object, :algorithm, :steps, :time, :violation]
-DISPLAY = { history: 1, algorithm: 13, steps: 5, time: 10, violation: 1 }
+COLUMNS = [:history, :object, :algorithm, :steps, :concurrency, :time, :violation]
+DISPLAY = { history: 1, algorithm: 13, steps: 5, concurrency: 11, time: 10, violation: 1 }
 
 def extract_record(output)
   rec = {}

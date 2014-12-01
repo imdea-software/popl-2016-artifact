@@ -4,9 +4,9 @@
 [2] call add(1)
 [2] return
 [3] call remove
-[3] return 1
 [4] call add(2)
 [4] return
+[3] return 1
 [5] call remove
 [5] return 2
 [6] call add(3)
