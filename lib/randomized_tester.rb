@@ -15,7 +15,7 @@ class RandomizedTester
         Thread.stop
         loop do
           break unless @operation_count > 0
-          @operation_count -= 1 # FIXME this ought to be atomic!
+          @operation_count -= 1
 
           # gen.rand(PASS_BOUND).times { Thread.pass } # give others a chance
 
@@ -37,6 +37,7 @@ class RandomizedTester
       next true if object.methods.include?("#{m.to_s.chomp('=')}=".to_sym)
       false
     end
+
     @unique_val = 0
     @operation_count = operation_limit
 

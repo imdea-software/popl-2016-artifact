@@ -1,0 +1,21 @@
+# @object atomic-stack
+[1] call remove
+[1] return empty
+[2] call add(1)
+[2] return
+[3] call remove
+[3] return 1
+[4] call add(2)
+[4] return
+[5] call add(3)
+[5] return
+[6] call add(4)
+[6] return
+[7] call remove
+[7] return 4
+[8] call add(5)
+[8] return
+[9] call remove
+[9] return 5
+[10] call remove
+[10] return 3

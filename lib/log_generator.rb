@@ -10,8 +10,6 @@ require_relative 'impls/my_unsafe_stack'
 require_relative 'impls/my_sync_stack'
 require_relative 'impls/scal_object'
 
-DEST = "examples/generated/"
-
 def get_object(object)
   (puts "Must specify an object."; exit) unless object
   case object
@@ -26,6 +24,7 @@ end
 
 def parse_options
   options = OpenStruct.new
+  options.destination = "examples/generated/"
   options.objects = []
   options.num_executions = 10
   options.num_threads = 7
@@ -40,6 +39,10 @@ def parse_options
     opts.on("-h", "--help", "Show this message.") do
       puts opts
       exit
+    end
+
+    opts.on("-d", "--destination DIR", "Where to put the files.") do |d|
+      options.destination = d
     end
 
     opts.separator ""
@@ -73,11 +76,11 @@ begin
   obj_class, *args = @options.object
   tester = RandomizedTester.new
 
-  print "Generating random #{@options.num_threads}-thread (max) executions for #{obj_class}(#{args * ", "}) "
+  puts "Generating random #{@options.num_threads}-thread (max) executions for #{obj_class}(#{args * ", "}) "
   print "[#{"." * @options.num_executions}]"
   print "\033[<#{@options.num_executions+1}>D"
 
-  dest_dir = File.join(DEST,"#{@options.object * "-"}")
+  dest_dir = File.join(@options.destination, "#{@options.object * "-"}")
   Dir.mkdir(dest_dir) unless Dir.exists?(dest_dir)
   idx_width = (@options.num_executions - 1).to_s.length
 
