@@ -1,6 +1,0 @@
-object, timeout, enumerate -c, counting -b 4, counting -b 4 -r, symbolic, symbolic -r, saturate, saturate -r
-ScalObject-msq, 5, 26.1, 30.7, 83.6, 37.6, 147.8, 300.0, 1515.7
-ScalObject-msq, 25, 28.6, 40.8, 263.7, 56.8, 404.6, 512.7, 2759.3
-ScalObject-msq, 50, 33.2, NaN, 297.5, NaN, 271.8, 646.7, 3911.6
-ScalObject-msq, 75, 28.6, NaN, 399.0, 69.0, 304.2, 734.9, 4611.9
-ScalObject-msq, 100, 36.8, 54.0, 832.5, NaN, 596.0, 795.7, 5077.3

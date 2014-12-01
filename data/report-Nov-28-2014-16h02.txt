@@ -1,0 +1,1635 @@
+# data/report-Nov-28-2014-16h02.txt
+Generating reports for examples/generated/ScalObject-msq-big/*.log
+-------------------------------------------------------------------
+     examples/generated/ScalObject-msq-big/*.log (timeout 5s)      
+-------------------------------------------------------------------
+example              | algorithm        | step  | viol | time      
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.0.log | enumerate -c     | 33*   | -    | 5.0934s*  
+ScalObject-msq.0.log | counting -b 4    | 33*   | -    | 5.4702s*  
+ScalObject-msq.0.log | counting -b 4 -r | 33*   | -    | 5.5856s*  
+ScalObject-msq.0.log | symbolic         | 38*   | -    | 6.523s*   
+ScalObject-msq.0.log | symbolic -r      | 38*   | -    | 6.4212s*  
+ScalObject-msq.0.log | saturate         | 301*  | -    | 5.0038s*  
+ScalObject-msq.0.log | saturate -r      | 2782* | -    | 5.0025s*  
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.1.log | enumerate -c     | 17*   | -    | 5.0064s*  
+ScalObject-msq.1.log | counting -b 4    | 31*   | -    | 5.2534s*  
+ScalObject-msq.1.log | counting -b 4 -r | 59*   | -    | 6.211s*   
+ScalObject-msq.1.log | symbolic         | 34*   | -    | 6.7632s*  
+ScalObject-msq.1.log | symbolic -r      | 74*   | -    | 5.0925s*  
+ScalObject-msq.1.log | saturate         | 300*  | -    | 5.0013s*  
+ScalObject-msq.1.log | saturate -r      | 1000* | -    | 5.0032s*  
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.2.log | enumerate -c     | 18*   | -    | 5.0044s*  
+ScalObject-msq.2.log | counting -b 4    | 31*   | -    | 5.6176s*  
+ScalObject-msq.2.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.2.log | symbolic         | 32*   | -    | 5.4233s*  
+ScalObject-msq.2.log | symbolic -r      | 85*   | -    | 5.8725s*  
+ScalObject-msq.2.log | saturate         | 312*  | -    | 5.0045s*  
+ScalObject-msq.2.log | saturate -r      | 1250* | -    | 5.0037s*  
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.3.log | enumerate -c     | 48*   | -    | 5.402s*   
+ScalObject-msq.3.log | counting -b 4    | 30*   | -    | 5.3336s*  
+ScalObject-msq.3.log | counting -b 4 -r | 252*  | -    | 5.0072s*  
+ScalObject-msq.3.log | symbolic         | 50*   | -    | 5.751s*   
+ScalObject-msq.3.log | symbolic -r      | 778*  | -    | 5.0176s*  
+ScalObject-msq.3.log | saturate         | 298*  | -    | 5.0071s*  
+ScalObject-msq.3.log | saturate -r      | 1285* | -    | 5.0033s*  
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.4.log | enumerate -c     | 48*   | -    | 5.0787s*  
+ScalObject-msq.4.log | counting -b 4    | 32*   | -    | 5.2005s*  
+ScalObject-msq.4.log | counting -b 4 -r | 126*  | -    | 5.4994s*  
+ScalObject-msq.4.log | symbolic         | 50*   | -    | 5.662s*   
+ScalObject-msq.4.log | symbolic -r      | 168*  | -    | 5.0958s*  
+ScalObject-msq.4.log | saturate         | 302*  | -    | 5.0058s*  
+ScalObject-msq.4.log | saturate -r      | 1927* | -    | 5.0011s*  
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.5.log | enumerate -c     | 32*   | -    | 5.002s*   
+ScalObject-msq.5.log | counting -b 4    | 34*   | -    | 6.6293s*  
+ScalObject-msq.5.log | counting -b 4 -r | 70*   | -    | 5.3755s*  
+ScalObject-msq.5.log | symbolic         | 38*   | -    | 6.6042s*  
+ScalObject-msq.5.log | symbolic -r      | 82*   | -    | 5.0326s*  
+ScalObject-msq.5.log | saturate         | 312*  | -    | 5.0053s*  
+ScalObject-msq.5.log | saturate -r      | 1184* | -    | 5.0054s*  
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.6.log | enumerate -c     | 17*   | -    | 5.0071s*  
+ScalObject-msq.6.log | counting -b 4    | 28*   | -    | 5.5951s*  
+ScalObject-msq.6.log | counting -b 4 -r | 28*   | -    | 5.6s*     
+ScalObject-msq.6.log | symbolic         | 31*   | -    | 5.5263s*  
+ScalObject-msq.6.log | symbolic -r      | 31*   | -    | 5.5366s*  
+ScalObject-msq.6.log | saturate         | 291*  | -    | 5.0055s*  
+ScalObject-msq.6.log | saturate -r      | 1230* | -    | 5.0069s*  
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.7.log | enumerate -c     | 17*   | -    | 5.0186s*  
+ScalObject-msq.7.log | counting -b 4    | 30*   | -    | 5.0697s*  
+ScalObject-msq.7.log | counting -b 4 -r | 68*   | -    | 5.3605s*  
+ScalObject-msq.7.log | symbolic         | 34*   | -    | 5.3937s*  
+ScalObject-msq.7.log | symbolic -r      | 74*   | -    | 5.4946s*  
+ScalObject-msq.7.log | saturate         | 314*  | -    | 5.0022s*  
+ScalObject-msq.7.log | saturate -r      | 1160* | -    | 5.0054s*  
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.8.log | enumerate -c     | 15*   | -    | 5.0051s*  
+ScalObject-msq.8.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.8.log | counting -b 4 -r | 76*   | -    | 5.6746s*  
+ScalObject-msq.8.log | symbolic         | 33*   | -    | 5.9699s*  
+ScalObject-msq.8.log | symbolic -r      | 95*   | -    | 5.0215s*  
+ScalObject-msq.8.log | saturate         | 287*  | -    | 5.0034s*  
+ScalObject-msq.8.log | saturate -r      | 1152* | -    | 5.0015s*  
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.9.log | enumerate -c     | 18*   | -    | 5.0015s*  
+ScalObject-msq.9.log | counting -b 4    | 31*   | -    | 6.0723s*  
+ScalObject-msq.9.log | counting -b 4 -r | 52*   | -    | 5.7967s*  
+ScalObject-msq.9.log | symbolic         | 36*   | -    | 5.9256s*  
+ScalObject-msq.9.log | symbolic -r      | 71*   | -    | 5.0178s*  
+ScalObject-msq.9.log | saturate         | 299*  | -    | 5.0038s*  
+ScalObject-msq.9.log | saturate -r      | 2240* | -    | 5.0062s*  
+---------------------+------------------+-------+------+-----------
+-------------------------------------------------------------------
+     examples/generated/ScalObject-msq-big/*.log (timeout 25s)     
+-------------------------------------------------------------------
+example              | algorithm        | step  | viol | time      
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.0.log | enumerate -c     | 36*   | -    | 25.0056s* 
+ScalObject-msq.0.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.0.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.0.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.0.log | symbolic -r      | 145*  | -    | 25.0028s* 
+ScalObject-msq.0.log | saturate         | 488*  | -    | 25.0082s* 
+ScalObject-msq.0.log | saturate -r      | 4209* | -    | 25.0038s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.1.log | enumerate -c     | 17*   | -    | 25.0042s* 
+ScalObject-msq.1.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.1.log | counting -b 4 -r | 222*  | -    | 25.1055s* 
+ScalObject-msq.1.log | symbolic         | 45*   | -    | 26.858s*  
+ScalObject-msq.1.log | symbolic -r      | 287*  | -    | 25.2517s* 
+ScalObject-msq.1.log | saturate         | 495*  | -    | 25.0047s* 
+ScalObject-msq.1.log | saturate -r      | 2268* | -    | 25.0059s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.2.log | enumerate -c     | 19*   | -    | 25.0063s* 
+ScalObject-msq.2.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.2.log | counting -b 4 -r | 106*  | -    | 26.7942s* 
+ScalObject-msq.2.log | symbolic         | 46*   | -    | 25.7494s* 
+ScalObject-msq.2.log | symbolic -r      | 214*  | -    | 26.1885s* 
+ScalObject-msq.2.log | saturate         | 528*  | -    | 25.0041s* 
+ScalObject-msq.2.log | saturate -r      | 1482* | -    | 25.0039s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.3.log | enumerate -c     | ?     | ?    | ?         
+ScalObject-msq.3.log | counting -b 4    | 42*   | -    | 26.511s*  
+ScalObject-msq.3.log | counting -b 4 -r | 992*  | -    | 25.0255s* 
+ScalObject-msq.3.log | symbolic         | 68*   | -    | 25.0516s* 
+ScalObject-msq.3.log | symbolic -r      | ?     | ?    | ?         
+ScalObject-msq.3.log | saturate         | 498*  | -    | 25.0055s* 
+ScalObject-msq.3.log | saturate -r      | 1841* | -    | 25.0046s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.4.log | enumerate -c     | 68*   | -    | 25.9794s* 
+ScalObject-msq.4.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.4.log | counting -b 4 -r | 166*  | -    | 25.1825s* 
+ScalObject-msq.4.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.4.log | symbolic -r      | 1474* | -    | 25.1123s* 
+ScalObject-msq.4.log | saturate         | 506*  | -    | 25.0048s* 
+ScalObject-msq.4.log | saturate -r      | 2469* | -    | 25.0047s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.5.log | enumerate -c     | 39*   | -    | 25.0202s* 
+ScalObject-msq.5.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.5.log | counting -b 4 -r | 95*   | -    | 25.7782s* 
+ScalObject-msq.5.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.5.log | symbolic -r      | 132*  | -    | 25.0374s* 
+ScalObject-msq.5.log | saturate         | 520*  | -    | 25.0015s* 
+ScalObject-msq.5.log | saturate -r      | 1452* | -    | 25.0036s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.6.log | enumerate -c     | 17*   | -    | 25.0065s* 
+ScalObject-msq.6.log | counting -b 4    | 39*   | -    | 26.7712s* 
+ScalObject-msq.6.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.6.log | symbolic         | 50*   | -    | 25.6255s* 
+ScalObject-msq.6.log | symbolic -r      | ?     | ?    | ?         
+ScalObject-msq.6.log | saturate         | 493*  | -    | 25.0008s* 
+ScalObject-msq.6.log | saturate -r      | 1823* | -    | 25.0104s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.7.log | enumerate -c     | 18*   | -    | 25.0078s* 
+ScalObject-msq.7.log | counting -b 4    | 41*   | -    | 26.4114s* 
+ScalObject-msq.7.log | counting -b 4 -r | 85*   | -    | 26.5792s* 
+ScalObject-msq.7.log | symbolic         | 48*   | -    | 26.295s*  
+ScalObject-msq.7.log | symbolic -r      | 168*  | -    | 25.0119s* 
+ScalObject-msq.7.log | saturate         | 530*  | -    | 25.0103s* 
+ScalObject-msq.7.log | saturate -r      | 4059* | -    | 25.006s*  
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.8.log | enumerate -c     | 17*   | -    | 25.0068s* 
+ScalObject-msq.8.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.8.log | counting -b 4 -r | 202*  | -    | 25.93s*   
+ScalObject-msq.8.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.8.log | symbolic -r      | 217*  | -    | 26.6299s* 
+ScalObject-msq.8.log | saturate         | 517*  | -    | 25.0105s* 
+ScalObject-msq.8.log | saturate -r      | 3743* | -    | 25.0049s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.9.log | enumerate -c     | 24*   | -    | 25.0011s* 
+ScalObject-msq.9.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.9.log | counting -b 4 -r | 140*  | -    | 25.107s*  
+ScalObject-msq.9.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.9.log | symbolic -r      | 262*  | -    | 25.0076s* 
+ScalObject-msq.9.log | saturate         | 518*  | -    | 25.0029s* 
+ScalObject-msq.9.log | saturate -r      | 2752* | -    | 25.0069s* 
+---------------------+------------------+-------+------+-----------
+-------------------------------------------------------------------
+     examples/generated/ScalObject-msq-big/*.log (timeout 50s)     
+-------------------------------------------------------------------
+example              | algorithm        | step  | viol | time      
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.0.log | enumerate -c     | 36*   | -    | 50.0103s* 
+ScalObject-msq.0.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.0.log | counting -b 4 -r | 141*  | -    | 50.7333s* 
+ScalObject-msq.0.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.0.log | symbolic -r      | 197*  | -    | 50.1505s* 
+ScalObject-msq.0.log | saturate         | 631*  | -    | 50.0104s* 
+ScalObject-msq.0.log | saturate -r      | 7142* | -    | 50.0019s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.1.log | enumerate -c     | 29*   | -    | 50.0102s* 
+ScalObject-msq.1.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.1.log | counting -b 4 -r | 292*  | -    | 50.7251s* 
+ScalObject-msq.1.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.1.log | symbolic -r      | 342*  | -    | 50.6377s* 
+ScalObject-msq.1.log | saturate         | 645*  | -    | 50.005s*  
+ScalObject-msq.1.log | saturate -r      | 2795* | -    | 50.0041s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.2.log | enumerate -c     | 32*   | -    | 50.0051s* 
+ScalObject-msq.2.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.2.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.2.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.2.log | symbolic -r      | 230*  | -    | 51.7702s* 
+ScalObject-msq.2.log | saturate         | 678*  | -    | 50.0101s* 
+ScalObject-msq.2.log | saturate -r      | 1608* | -    | 50.0031s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.3.log | enumerate -c     | 80*   | -    | 51.4212s* 
+ScalObject-msq.3.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.3.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.3.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.3.log | symbolic -r      | ?     | ?    | ?         
+ScalObject-msq.3.log | saturate         | 634*  | -    | 50.001s*  
+ScalObject-msq.3.log | saturate -r      | 2907* | -    | 50.0103s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.4.log | enumerate -c     | ?     | ?    | ?         
+ScalObject-msq.4.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.4.log | counting -b 4 -r | 686*  | -    | 50.0694s* 
+ScalObject-msq.4.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.4.log | symbolic -r      | 1505* | -    | 51.488s*  
+ScalObject-msq.4.log | saturate         | 622*  | -    | 50.0045s* 
+ScalObject-msq.4.log | saturate -r      | 3551* | -    | 50.0103s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.5.log | enumerate -c     | 39*   | -    | 50.0057s* 
+ScalObject-msq.5.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.5.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.5.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.5.log | symbolic -r      | 380*  | -    | 50.2525s* 
+ScalObject-msq.5.log | saturate         | 657*  | -    | 50.0067s* 
+ScalObject-msq.5.log | saturate -r      | 2102* | -    | 50.1114s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.6.log | enumerate -c     | 17*   | -    | 50.0081s* 
+ScalObject-msq.6.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.6.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.6.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.6.log | symbolic -r      | ?     | ?    | ?         
+ScalObject-msq.6.log | saturate         | 629*  | -    | 50.0116s* 
+ScalObject-msq.6.log | saturate -r      | 1979* | -    | 50.0095s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.7.log | enumerate -c     | 19*   | -    | 50.012s*  
+ScalObject-msq.7.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.7.log | counting -b 4 -r | 202*  | -    | 50.5176s* 
+ScalObject-msq.7.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.7.log | symbolic -r      | 220*  | -    | 51.7406s* 
+ScalObject-msq.7.log | saturate         | 667*  | -    | 50.0056s* 
+ScalObject-msq.7.log | saturate -r      | 8047* | -    | 50.0064s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.8.log | enumerate -c     | 19*   | -    | 50.0124s* 
+ScalObject-msq.8.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.8.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.8.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.8.log | symbolic -r      | 264*  | -    | 50.6275s* 
+ScalObject-msq.8.log | saturate         | 647*  | -    | 50.0006s* 
+ScalObject-msq.8.log | saturate -r      | 5366* | -    | 50.0103s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.9.log | enumerate -c     | 28*   | -    | 50.0062s* 
+ScalObject-msq.9.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.9.log | counting -b 4 -r | 246*  | -    | 50.3518s* 
+ScalObject-msq.9.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.9.log | symbolic -r      | ?     | ?    | ?         
+ScalObject-msq.9.log | saturate         | 628*  | -    | 50.0066s* 
+ScalObject-msq.9.log | saturate -r      | 3457* | -    | 50.0029s* 
+---------------------+------------------+-------+------+-----------
+-------------------------------------------------------------------
+     examples/generated/ScalObject-msq-big/*.log (timeout 75s)     
+-------------------------------------------------------------------
+example              | algorithm        | step  | viol | time      
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.0.log | enumerate -c     | 38*   | -    | 75.0035s* 
+ScalObject-msq.0.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.0.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.0.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.0.log | symbolic -r      | 310*  | -    | 75.2054s* 
+ScalObject-msq.0.log | saturate         | 734*  | -    | 75.0046s* 
+ScalObject-msq.0.log | saturate -r      | 8278* | -    | 75.0118s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.1.log | enumerate -c     | 31*   | -    | 75.0133s* 
+ScalObject-msq.1.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.1.log | counting -b 4 -r | 297*  | -    | 75.0763s* 
+ScalObject-msq.1.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.1.log | symbolic -r      | 381*  | -    | 76.3752s* 
+ScalObject-msq.1.log | saturate         | 736*  | -    | 75.0102s* 
+ScalObject-msq.1.log | saturate -r      | 5151* | -    | 75.0046s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.2.log | enumerate -c     | 32*   | -    | 75.0021s* 
+ScalObject-msq.2.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.2.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.2.log | symbolic         | 60*   | -    | 76.7353s* 
+ScalObject-msq.2.log | symbolic -r      | ?     | ?    | ?         
+ScalObject-msq.2.log | saturate         | 749*  | -    | 75.0006s* 
+ScalObject-msq.2.log | saturate -r      | 1692* | -    | 75.0094s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.3.log | enumerate -c     | ?     | ?    | ?         
+ScalObject-msq.3.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.3.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.3.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.3.log | symbolic -r      | ?     | ?    | ?         
+ScalObject-msq.3.log | saturate         | 728*  | -    | 75.0104s* 
+ScalObject-msq.3.log | saturate -r      | 3351* | -    | 75.0094s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.4.log | enumerate -c     | ?     | ?    | ?         
+ScalObject-msq.4.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.4.log | counting -b 4 -r | 874*  | -    | 75.0109s* 
+ScalObject-msq.4.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.4.log | symbolic -r      | ?     | ?    | ?         
+ScalObject-msq.4.log | saturate         | 696*  | -    | 75.0071s* 
+ScalObject-msq.4.log | saturate -r      | 3899* | -    | 75.0073s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.5.log | enumerate -c     | 41*   | -    | 75.0071s* 
+ScalObject-msq.5.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.5.log | counting -b 4 -r | 212*  | -    | 75.0283s* 
+ScalObject-msq.5.log | symbolic         | 59*   | -    | 76.1192s* 
+ScalObject-msq.5.log | symbolic -r      | ?     | ?    | ?         
+ScalObject-msq.5.log | saturate         | 736*  | -    | 75.0085s* 
+ScalObject-msq.5.log | saturate -r      | 2613* | -    | 75.0053s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.6.log | enumerate -c     | 17*   | -    | 75.0136s* 
+ScalObject-msq.6.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.6.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.6.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.6.log | symbolic -r      | ?     | ?    | ?         
+ScalObject-msq.6.log | saturate         | 729*  | -    | 75.0029s* 
+ScalObject-msq.6.log | saturate -r      | 2439* | -    | 75.0081s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.7.log | enumerate -c     | 23*   | -    | 75.0016s* 
+ScalObject-msq.7.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.7.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.7.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.7.log | symbolic -r      | 302*  | -    | 76.0765s* 
+ScalObject-msq.7.log | saturate         | 758*  | -    | 75.0088s* 
+ScalObject-msq.7.log | saturate -r      | 9027* | -    | 75.0054s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.8.log | enumerate -c     | ?     | -    | ?         
+ScalObject-msq.8.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.8.log | counting -b 4 -r | 217*  | -    | 76.5892s* 
+ScalObject-msq.8.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.8.log | symbolic -r      | 270*  | -    | 76.2343s* 
+ScalObject-msq.8.log | saturate         | 750*  | -    | 75.0019s* 
+ScalObject-msq.8.log | saturate -r      | 6041* | -    | 75.0021s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.9.log | enumerate -c     | 28*   | -    | 75.0093s* 
+ScalObject-msq.9.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.9.log | counting -b 4 -r | 278*  | -    | 76.003s*  
+ScalObject-msq.9.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.9.log | symbolic -r      | 324*  | -    | 76.2795s* 
+ScalObject-msq.9.log | saturate         | 715*  | -    | 75.0101s* 
+ScalObject-msq.9.log | saturate -r      | 3621* | -    | 75.0099s* 
+---------------------+------------------+-------+------+-----------
+-------------------------------------------------------------------
+    examples/generated/ScalObject-msq-big/*.log (timeout 100s)     
+-------------------------------------------------------------------
+example              | algorithm        | step  | viol | time      
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.0.log | enumerate -c     | 40*   | -    | 100.1805s*
+ScalObject-msq.0.log | counting -b 4    | 54*   | -    | 100.36s*  
+ScalObject-msq.0.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.0.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.0.log | symbolic -r      | 405*  | -    | 101.7793s*
+ScalObject-msq.0.log | saturate         | 796*  | -    | 100.0079s*
+ScalObject-msq.0.log | saturate -r      | 8784* | -    | 100.003s* 
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.1.log | enumerate -c     | 31*   | -    | 100.0034s*
+ScalObject-msq.1.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.1.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.1.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.1.log | symbolic -r      | 398*  | -    | 101.0436s*
+ScalObject-msq.1.log | saturate         | 790*  | -    | 100.0095s*
+ScalObject-msq.1.log | saturate -r      | 5612* | -    | 100.0083s*
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.2.log | enumerate -c     | 33*   | -    | 100.2458s*
+ScalObject-msq.2.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.2.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.2.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.2.log | symbolic -r      | ?     | ?    | ?         
+ScalObject-msq.2.log | saturate         | 815*  | -    | 100.0006s*
+ScalObject-msq.2.log | saturate -r      | 2656* | -    | 100.0025s*
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.3.log | enumerate -c     | ?     | ?    | ?         
+ScalObject-msq.3.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.3.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.3.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.3.log | symbolic -r      | ?     | ?    | ?         
+ScalObject-msq.3.log | saturate         | 782*  | -    | 100.0023s*
+ScalObject-msq.3.log | saturate -r      | 3489* | -    | 100.0075s*
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.4.log | enumerate -c     | 92*   | -    | 101.9634s*
+ScalObject-msq.4.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.4.log | counting -b 4 -r | 1440* | -    | 100.179s* 
+ScalObject-msq.4.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.4.log | symbolic -r      | 1515* | -    | 101.3604s*
+ScalObject-msq.4.log | saturate         | 774*  | -    | 100.0026s*
+ScalObject-msq.4.log | saturate -r      | 4033* | -    | 100.0099s*
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.5.log | enumerate -c     | 41*   | -    | 100.0055s*
+ScalObject-msq.5.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.5.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.5.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.5.log | symbolic -r      | 415*  | -    | 101.0429s*
+ScalObject-msq.5.log | saturate         | 795*  | -    | 100.0005s*
+ScalObject-msq.5.log | saturate -r      | 2904* | -    | 100.0071s*
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.6.log | enumerate -c     | 17*   | -    | 100.0043s*
+ScalObject-msq.6.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.6.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.6.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.6.log | symbolic -r      | ?     | ?    | ?         
+ScalObject-msq.6.log | saturate         | 795*  | -    | 100.0096s*
+ScalObject-msq.6.log | saturate -r      | 2799* | -    | 100.0017s*
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.7.log | enumerate -c     | 30*   | -    | 100.0359s*
+ScalObject-msq.7.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.7.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.7.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.7.log | symbolic -r      | ?     | ?    | ?         
+ScalObject-msq.7.log | saturate         | 815*  | -    | 100.0076s*
+ScalObject-msq.7.log | saturate -r      | 9720* | -    | 100.0104s*
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.8.log | enumerate -c     | ?     | -    | ?         
+ScalObject-msq.8.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.8.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.8.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.8.log | symbolic -r      | ?     | ?    | ?         
+ScalObject-msq.8.log | saturate         | 794*  | -    | 100.0027s*
+ScalObject-msq.8.log | saturate -r      | 6429* | -    | 100.0054s*
+---------------------+------------------+-------+------+-----------
+ScalObject-msq.9.log | enumerate -c     | 28*   | -    | 100.0291s*
+ScalObject-msq.9.log | counting -b 4    | ?     | ?    | ?         
+ScalObject-msq.9.log | counting -b 4 -r | ?     | ?    | ?         
+ScalObject-msq.9.log | symbolic         | ?     | ?    | ?         
+ScalObject-msq.9.log | symbolic -r      | 359*  | -    | 101.4791s*
+ScalObject-msq.9.log | saturate         | 790*  | -    | 100.0094s*
+ScalObject-msq.9.log | saturate -r      | 3721* | -    | 100.0093s*
+---------------------+------------------+-------+------+-----------
+Writing data from observer: Average Steps Until Timeout.
+Generating reports for examples/generated/ScalObject-bkq-small/*.log
+--------------------------------------------------------------------
+    examples/generated/ScalObject-bkq-small/*.log (timeout 10s)     
+--------------------------------------------------------------------
+example               | algorithm        | step  | viol | time      
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.00.log | enumerate -c     | 20    | -    | 0.3385s   
+ScalObject-bkq.00.log | counting -b 4    | 20    | -    | 0.6025s   
+ScalObject-bkq.00.log | counting -b 4 -r | 20    | -    | 0.2004s   
+ScalObject-bkq.00.log | counting -b 2    | 20    | -    | 0.7957s   
+ScalObject-bkq.00.log | counting -b 2 -r | 20    | -    | 0.2069s   
+ScalObject-bkq.00.log | counting -b 0    | 20    | -    | 0.9804s   
+ScalObject-bkq.00.log | counting -b 0 -r | 20    | -    | 0.2297s   
+ScalObject-bkq.00.log | symbolic         | 20    | -    | 0.3395s   
+ScalObject-bkq.00.log | symbolic -r      | 20    | -    | 0.0554s   
+ScalObject-bkq.00.log | saturate         | 20    | -    | 0.0101s   
+ScalObject-bkq.00.log | saturate -r      | 20    | -    | 0.009s    
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.01.log | enumerate -c     | 16*   | -    | 10.0052s* 
+ScalObject-bkq.01.log | counting -b 4    | 16    | 16   | 0.2296s   
+ScalObject-bkq.01.log | counting -b 4 -r | 16    | 16   | 0.1828s   
+ScalObject-bkq.01.log | counting -b 2    | 16    | 16   | 0.2266s   
+ScalObject-bkq.01.log | counting -b 2 -r | 16    | 16   | 0.1807s   
+ScalObject-bkq.01.log | counting -b 0    | 20    | -    | 1.2653s   
+ScalObject-bkq.01.log | counting -b 0 -r | 20    | -    | 0.5912s   
+ScalObject-bkq.01.log | symbolic         | 16    | 16   | 0.1164s   
+ScalObject-bkq.01.log | symbolic -r      | 16    | 16   | 0.0786s   
+ScalObject-bkq.01.log | saturate         | 18    | 18   | 0.0107s   
+ScalObject-bkq.01.log | saturate -r      | 18    | 18   | 0.012s    
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.02.log | enumerate -c     | 20*   | -    | 10.0198s* 
+ScalObject-bkq.02.log | counting -b 4    | 20    | -    | 0.5927s   
+ScalObject-bkq.02.log | counting -b 4 -r | 20    | -    | 0.3771s   
+ScalObject-bkq.02.log | counting -b 2    | 20    | -    | 0.6314s   
+ScalObject-bkq.02.log | counting -b 2 -r | 20    | -    | 0.3687s   
+ScalObject-bkq.02.log | counting -b 0    | 20    | -    | 0.7446s   
+ScalObject-bkq.02.log | counting -b 0 -r | 20    | -    | 0.4147s   
+ScalObject-bkq.02.log | symbolic         | 20    | -    | 0.3706s   
+ScalObject-bkq.02.log | symbolic -r      | 20    | -    | 0.2102s   
+ScalObject-bkq.02.log | saturate         | 20    | -    | 0.0133s   
+ScalObject-bkq.02.log | saturate -r      | 20    | -    | 0.0101s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.03.log | enumerate -c     | 20    | -    | 4.1449s   
+ScalObject-bkq.03.log | counting -b 4    | 20    | -    | 1.0004s   
+ScalObject-bkq.03.log | counting -b 4 -r | 20    | -    | 0.3782s   
+ScalObject-bkq.03.log | counting -b 2    | 20    | -    | 1.2472s   
+ScalObject-bkq.03.log | counting -b 2 -r | 20    | -    | 0.4198s   
+ScalObject-bkq.03.log | counting -b 0    | 20    | -    | 1.7985s   
+ScalObject-bkq.03.log | counting -b 0 -r | 20    | -    | 0.4653s   
+ScalObject-bkq.03.log | symbolic         | 20    | -    | 0.5963s   
+ScalObject-bkq.03.log | symbolic -r      | 20    | -    | 0.2031s   
+ScalObject-bkq.03.log | saturate         | 20    | -    | 0.0097s   
+ScalObject-bkq.03.log | saturate -r      | 20    | -    | 0.0076s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.04.log | enumerate -c     | 19    | 19   | 4.0537s   
+ScalObject-bkq.04.log | counting -b 4    | 20    | -    | 0.6899s   
+ScalObject-bkq.04.log | counting -b 4 -r | 20    | -    | 0.3063s   
+ScalObject-bkq.04.log | counting -b 2    | 20    | -    | 0.9981s   
+ScalObject-bkq.04.log | counting -b 2 -r | 20    | -    | 0.3125s   
+ScalObject-bkq.04.log | counting -b 0    | 20    | -    | 1.0807s   
+ScalObject-bkq.04.log | counting -b 0 -r | 20    | -    | 0.3216s   
+ScalObject-bkq.04.log | symbolic         | 19    | 19   | 0.2177s   
+ScalObject-bkq.04.log | symbolic -r      | 19    | 19   | 0.1031s   
+ScalObject-bkq.04.log | saturate         | 20    | 20   | 0.0129s   
+ScalObject-bkq.04.log | saturate -r      | 20    | 20   | 0.0111s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.05.log | enumerate -c     | 20    | -    | 0.3158s   
+ScalObject-bkq.05.log | counting -b 4    | 20    | -    | 0.5319s   
+ScalObject-bkq.05.log | counting -b 4 -r | 20    | -    | 0.1539s   
+ScalObject-bkq.05.log | counting -b 2    | 20    | -    | 0.7163s   
+ScalObject-bkq.05.log | counting -b 2 -r | 20    | -    | 0.1564s   
+ScalObject-bkq.05.log | counting -b 0    | 20    | -    | 0.8064s   
+ScalObject-bkq.05.log | counting -b 0 -r | 20    | -    | 0.1602s   
+ScalObject-bkq.05.log | symbolic         | 20    | -    | 0.1492s   
+ScalObject-bkq.05.log | symbolic -r      | 20    | -    | 0.0199s   
+ScalObject-bkq.05.log | saturate         | 20    | -    | 0.0039s   
+ScalObject-bkq.05.log | saturate -r      | 20    | -    | 0.0044s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.06.log | enumerate -c     | 14    | 14   | 0.1587s   
+ScalObject-bkq.06.log | counting -b 4    | 14    | 14   | 0.158s    
+ScalObject-bkq.06.log | counting -b 4 -r | 14    | 14   | 0.1331s   
+ScalObject-bkq.06.log | counting -b 2    | 20    | -    | 0.7898s   
+ScalObject-bkq.06.log | counting -b 2 -r | 20    | -    | 0.2112s   
+ScalObject-bkq.06.log | counting -b 0    | 20    | -    | 1.0621s   
+ScalObject-bkq.06.log | counting -b 0 -r | 20    | -    | 0.2214s   
+ScalObject-bkq.06.log | symbolic         | 14    | 14   | 0.0488s   
+ScalObject-bkq.06.log | symbolic -r      | 14    | 14   | 0.0275s   
+ScalObject-bkq.06.log | saturate         | 14    | 14   | 0.0083s   
+ScalObject-bkq.06.log | saturate -r      | 14    | 14   | 0.0078s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.07.log | enumerate -c     | 20    | -    | 4.5794s   
+ScalObject-bkq.07.log | counting -b 4    | 20    | -    | 0.9105s   
+ScalObject-bkq.07.log | counting -b 4 -r | 20    | -    | 0.5154s   
+ScalObject-bkq.07.log | counting -b 2    | 20    | -    | 1.1101s   
+ScalObject-bkq.07.log | counting -b 2 -r | 20    | -    | 0.5481s   
+ScalObject-bkq.07.log | counting -b 0    | 20    | -    | 1.5491s   
+ScalObject-bkq.07.log | counting -b 0 -r | 20    | -    | 0.8707s   
+ScalObject-bkq.07.log | symbolic         | 20    | -    | 0.5085s   
+ScalObject-bkq.07.log | symbolic -r      | 20    | -    | 0.2821s   
+ScalObject-bkq.07.log | saturate         | 20    | -    | 0.0104s   
+ScalObject-bkq.07.log | saturate -r      | 20    | -    | 0.0117s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.08.log | enumerate -c     | 20    | -    | 0.3087s   
+ScalObject-bkq.08.log | counting -b 4    | 20    | -    | 0.505s    
+ScalObject-bkq.08.log | counting -b 4 -r | 20    | -    | 0.2169s   
+ScalObject-bkq.08.log | counting -b 2    | 20    | -    | 0.6433s   
+ScalObject-bkq.08.log | counting -b 2 -r | 20    | -    | 0.2368s   
+ScalObject-bkq.08.log | counting -b 0    | 20    | -    | 0.6713s   
+ScalObject-bkq.08.log | counting -b 0 -r | 20    | -    | 0.2727s   
+ScalObject-bkq.08.log | symbolic         | 20    | -    | 0.1617s   
+ScalObject-bkq.08.log | symbolic -r      | 20    | -    | 0.0705s   
+ScalObject-bkq.08.log | saturate         | 20    | -    | 0.0078s   
+ScalObject-bkq.08.log | saturate -r      | 20    | -    | 0.0092s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.09.log | enumerate -c     | 12    | 12   | 0.2265s   
+ScalObject-bkq.09.log | counting -b 4    | 12    | 12   | 0.1396s   
+ScalObject-bkq.09.log | counting -b 4 -r | 12    | 12   | 0.1118s   
+ScalObject-bkq.09.log | counting -b 2    | 12    | 12   | 0.1361s   
+ScalObject-bkq.09.log | counting -b 2 -r | 12    | 12   | 0.1103s   
+ScalObject-bkq.09.log | counting -b 0    | 20    | -    | 1.1152s   
+ScalObject-bkq.09.log | counting -b 0 -r | 20    | -    | 0.2073s   
+ScalObject-bkq.09.log | symbolic         | 12    | 12   | 0.0481s   
+ScalObject-bkq.09.log | symbolic -r      | 12    | 12   | 0.0214s   
+ScalObject-bkq.09.log | saturate         | 12    | 12   | 0.0037s   
+ScalObject-bkq.09.log | saturate -r      | 12    | 12   | 0.0041s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.10.log | enumerate -c     | 18*   | -    | 10.0138s* 
+ScalObject-bkq.10.log | counting -b 4    | 18    | 18   | 0.3916s   
+ScalObject-bkq.10.log | counting -b 4 -r | 18    | 18   | 0.2692s   
+ScalObject-bkq.10.log | counting -b 2    | 18    | 18   | 0.4473s   
+ScalObject-bkq.10.log | counting -b 2 -r | 18    | 18   | 0.2774s   
+ScalObject-bkq.10.log | counting -b 0    | 20    | -    | 1.4643s   
+ScalObject-bkq.10.log | counting -b 0 -r | 20    | -    | 0.4968s   
+ScalObject-bkq.10.log | symbolic         | 18    | 18   | 0.2517s   
+ScalObject-bkq.10.log | symbolic -r      | 18    | 18   | 0.1472s   
+ScalObject-bkq.10.log | saturate         | 20    | 20   | 0.0116s   
+ScalObject-bkq.10.log | saturate -r      | 20    | 20   | 0.01s     
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.11.log | enumerate -c     | 20    | -    | 0.6845s   
+ScalObject-bkq.11.log | counting -b 4    | 20    | -    | 0.6055s   
+ScalObject-bkq.11.log | counting -b 4 -r | 20    | -    | 0.2703s   
+ScalObject-bkq.11.log | counting -b 2    | 20    | -    | 0.6413s   
+ScalObject-bkq.11.log | counting -b 2 -r | 20    | -    | 0.2838s   
+ScalObject-bkq.11.log | counting -b 0    | 20    | -    | 0.9083s   
+ScalObject-bkq.11.log | counting -b 0 -r | 20    | -    | 0.338s    
+ScalObject-bkq.11.log | symbolic         | 20    | -    | 0.3241s   
+ScalObject-bkq.11.log | symbolic -r      | 20    | -    | 0.093s    
+ScalObject-bkq.11.log | saturate         | 20    | -    | 0.0043s   
+ScalObject-bkq.11.log | saturate -r      | 20    | -    | 0.0072s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.12.log | enumerate -c     | 20    | -    | 2.4557s   
+ScalObject-bkq.12.log | counting -b 4    | 20    | -    | 0.5745s   
+ScalObject-bkq.12.log | counting -b 4 -r | 20    | -    | 0.2454s   
+ScalObject-bkq.12.log | counting -b 2    | 20    | -    | 0.7344s   
+ScalObject-bkq.12.log | counting -b 2 -r | 20    | -    | 0.2571s   
+ScalObject-bkq.12.log | counting -b 0    | 20    | -    | 1.5551s   
+ScalObject-bkq.12.log | counting -b 0 -r | 20    | -    | 0.2836s   
+ScalObject-bkq.12.log | symbolic         | 20    | -    | 0.4247s   
+ScalObject-bkq.12.log | symbolic -r      | 20    | -    | 0.1018s   
+ScalObject-bkq.12.log | saturate         | 20    | -    | 0.0099s   
+ScalObject-bkq.12.log | saturate -r      | 20    | -    | 0.0089s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.13.log | enumerate -c     | 20    | -    | 5.65s     
+ScalObject-bkq.13.log | counting -b 4    | 20    | -    | 0.8168s   
+ScalObject-bkq.13.log | counting -b 4 -r | 20    | -    | 0.6478s   
+ScalObject-bkq.13.log | counting -b 2    | 20    | -    | 1.0483s   
+ScalObject-bkq.13.log | counting -b 2 -r | 20    | -    | 0.7858s   
+ScalObject-bkq.13.log | counting -b 0    | 20    | -    | 1.4259s   
+ScalObject-bkq.13.log | counting -b 0 -r | 20    | -    | 0.9984s   
+ScalObject-bkq.13.log | symbolic         | 20    | -    | 0.468s    
+ScalObject-bkq.13.log | symbolic -r      | 20    | -    | 0.3575s   
+ScalObject-bkq.13.log | saturate         | 20    | -    | 0.0096s   
+ScalObject-bkq.13.log | saturate -r      | 20    | -    | 0.0086s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.14.log | enumerate -c     | 20    | -    | 8.8107s   
+ScalObject-bkq.14.log | counting -b 4    | 20    | -    | 0.7207s   
+ScalObject-bkq.14.log | counting -b 4 -r | 20    | -    | 0.3731s   
+ScalObject-bkq.14.log | counting -b 2    | 20    | -    | 0.8786s   
+ScalObject-bkq.14.log | counting -b 2 -r | 20    | -    | 0.4253s   
+ScalObject-bkq.14.log | counting -b 0    | 20    | -    | 1.173s    
+ScalObject-bkq.14.log | counting -b 0 -r | 20    | -    | 0.4658s   
+ScalObject-bkq.14.log | symbolic         | 20    | -    | 0.3922s   
+ScalObject-bkq.14.log | symbolic -r      | 20    | -    | 0.1996s   
+ScalObject-bkq.14.log | saturate         | 20    | -    | 0.011s    
+ScalObject-bkq.14.log | saturate -r      | 20    | -    | 0.0097s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.15.log | enumerate -c     | 18*   | -    | 10.0077s* 
+ScalObject-bkq.15.log | counting -b 4    | 20    | -    | 0.8593s   
+ScalObject-bkq.15.log | counting -b 4 -r | 20    | -    | 0.7494s   
+ScalObject-bkq.15.log | counting -b 2    | 20    | -    | 0.9091s   
+ScalObject-bkq.15.log | counting -b 2 -r | 20    | -    | 0.8163s   
+ScalObject-bkq.15.log | counting -b 0    | 20    | -    | 1.4205s   
+ScalObject-bkq.15.log | counting -b 0 -r | 20    | -    | 0.9073s   
+ScalObject-bkq.15.log | symbolic         | 20    | -    | 0.5166s   
+ScalObject-bkq.15.log | symbolic -r      | 20    | -    | 0.482s    
+ScalObject-bkq.15.log | saturate         | 20    | -    | 0.0097s   
+ScalObject-bkq.15.log | saturate -r      | 20    | -    | 0.0097s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.16.log | enumerate -c     | 18    | 18   | 2.7515s   
+ScalObject-bkq.16.log | counting -b 4    | 18    | 18   | 0.4819s   
+ScalObject-bkq.16.log | counting -b 4 -r | 18    | 18   | 0.4734s   
+ScalObject-bkq.16.log | counting -b 2    | 20    | -    | 0.8388s   
+ScalObject-bkq.16.log | counting -b 2 -r | 20    | -    | 0.5105s   
+ScalObject-bkq.16.log | counting -b 0    | 20    | -    | 1.494s    
+ScalObject-bkq.16.log | counting -b 0 -r | 20    | -    | 0.7934s   
+ScalObject-bkq.16.log | symbolic         | 18    | 18   | 0.2321s   
+ScalObject-bkq.16.log | symbolic -r      | 18    | 18   | 0.2299s   
+ScalObject-bkq.16.log | saturate         | 18    | 18   | 0.0093s   
+ScalObject-bkq.16.log | saturate -r      | 18    | 18   | 0.0101s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.17.log | enumerate -c     | 20    | -    | 6.4771s   
+ScalObject-bkq.17.log | counting -b 4    | 20    | -    | 0.8506s   
+ScalObject-bkq.17.log | counting -b 4 -r | 20    | -    | 0.7588s   
+ScalObject-bkq.17.log | counting -b 2    | 20    | -    | 0.9515s   
+ScalObject-bkq.17.log | counting -b 2 -r | 20    | -    | 0.7752s   
+ScalObject-bkq.17.log | counting -b 0    | 20    | -    | 1.4433s   
+ScalObject-bkq.17.log | counting -b 0 -r | 20    | -    | 1.1374s   
+ScalObject-bkq.17.log | symbolic         | 20    | -    | 0.5064s   
+ScalObject-bkq.17.log | symbolic -r      | 20    | -    | 0.4453s   
+ScalObject-bkq.17.log | saturate         | 20    | -    | 0.0094s   
+ScalObject-bkq.17.log | saturate -r      | 20    | -    | 0.0109s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.18.log | enumerate -c     | 10    | 10   | 0.092s    
+ScalObject-bkq.18.log | counting -b 4    | 10    | 10   | 0.0962s   
+ScalObject-bkq.18.log | counting -b 4 -r | 10    | 10   | 0.0976s   
+ScalObject-bkq.18.log | counting -b 2    | 10    | 10   | 0.0944s   
+ScalObject-bkq.18.log | counting -b 2 -r | 10    | 10   | 0.0901s   
+ScalObject-bkq.18.log | counting -b 0    | 20    | -    | 0.9281s   
+ScalObject-bkq.18.log | counting -b 0 -r | 20    | -    | 0.2734s   
+ScalObject-bkq.18.log | symbolic         | 10    | 10   | 0.0269s   
+ScalObject-bkq.18.log | symbolic -r      | 10    | 10   | 0.0249s   
+ScalObject-bkq.18.log | saturate         | 10    | 10   | 0.0081s   
+ScalObject-bkq.18.log | saturate -r      | 10    | 10   | 0.0081s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.19.log | enumerate -c     | 20    | -    | 0.4838s   
+ScalObject-bkq.19.log | counting -b 4    | 20    | -    | 0.5868s   
+ScalObject-bkq.19.log | counting -b 4 -r | 20    | -    | 0.3588s   
+ScalObject-bkq.19.log | counting -b 2    | 20    | -    | 0.6624s   
+ScalObject-bkq.19.log | counting -b 2 -r | 20    | -    | 0.3738s   
+ScalObject-bkq.19.log | counting -b 0    | 20    | -    | 1.1087s   
+ScalObject-bkq.19.log | counting -b 0 -r | 20    | -    | 0.5079s   
+ScalObject-bkq.19.log | symbolic         | 20    | -    | 0.3023s   
+ScalObject-bkq.19.log | symbolic -r      | 20    | -    | 0.1509s   
+ScalObject-bkq.19.log | saturate         | 20    | -    | 0.0072s   
+ScalObject-bkq.19.log | saturate -r      | 20    | -    | 0.0081s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.20.log | enumerate -c     | 20    | -    | 0.3328s   
+ScalObject-bkq.20.log | counting -b 4    | 20    | -    | 0.596s    
+ScalObject-bkq.20.log | counting -b 4 -r | 20    | -    | 0.1866s   
+ScalObject-bkq.20.log | counting -b 2    | 20    | -    | 0.8185s   
+ScalObject-bkq.20.log | counting -b 2 -r | 20    | -    | 0.1878s   
+ScalObject-bkq.20.log | counting -b 0    | 20    | -    | 1.1521s   
+ScalObject-bkq.20.log | counting -b 0 -r | 20    | -    | 0.2024s   
+ScalObject-bkq.20.log | symbolic         | 20    | -    | 0.1655s   
+ScalObject-bkq.20.log | symbolic -r      | 20    | -    | 0.039s    
+ScalObject-bkq.20.log | saturate         | 20    | -    | 0.0086s   
+ScalObject-bkq.20.log | saturate -r      | 20    | -    | 0.0089s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.21.log | enumerate -c     | 16    | 16   | 0.1975s   
+ScalObject-bkq.21.log | counting -b 4    | 16    | 16   | 0.209s    
+ScalObject-bkq.21.log | counting -b 4 -r | 16    | 16   | 0.1489s   
+ScalObject-bkq.21.log | counting -b 2    | 20    | -    | 0.8723s   
+ScalObject-bkq.21.log | counting -b 2 -r | 20    | -    | 0.2561s   
+ScalObject-bkq.21.log | counting -b 0    | 20    | -    | 0.7607s   
+ScalObject-bkq.21.log | counting -b 0 -r | 20    | -    | 0.2755s   
+ScalObject-bkq.21.log | symbolic         | 16    | 16   | 0.0702s   
+ScalObject-bkq.21.log | symbolic -r      | 16    | 16   | 0.0378s   
+ScalObject-bkq.21.log | saturate         | 16    | 16   | 0.0091s   
+ScalObject-bkq.21.log | saturate -r      | 16    | 16   | 0.0094s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.22.log | enumerate -c     | 20    | 20   | 3.2966s   
+ScalObject-bkq.22.log | counting -b 4    | 20    | 20   | 0.6587s   
+ScalObject-bkq.22.log | counting -b 4 -r | 20    | 20   | 0.4144s   
+ScalObject-bkq.22.log | counting -b 2    | 20    | 20   | 0.7179s   
+ScalObject-bkq.22.log | counting -b 2 -r | 20    | 20   | 0.4644s   
+ScalObject-bkq.22.log | counting -b 0    | 20    | -    | 1.4665s   
+ScalObject-bkq.22.log | counting -b 0 -r | 20    | -    | 0.5606s   
+ScalObject-bkq.22.log | symbolic         | 20    | 20   | 0.3339s   
+ScalObject-bkq.22.log | symbolic -r      | 20    | 20   | 0.2243s   
+ScalObject-bkq.22.log | saturate         | 20    | 20   | 0.0077s   
+ScalObject-bkq.22.log | saturate -r      | 20    | 20   | 0.0093s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.23.log | enumerate -c     | 20    | -    | 0.7977s   
+ScalObject-bkq.23.log | counting -b 4    | 20    | -    | 0.5909s   
+ScalObject-bkq.23.log | counting -b 4 -r | 20    | -    | 0.2046s   
+ScalObject-bkq.23.log | counting -b 2    | 20    | -    | 1.2066s   
+ScalObject-bkq.23.log | counting -b 2 -r | 20    | -    | 0.2158s   
+ScalObject-bkq.23.log | counting -b 0    | 20    | -    | 1.2998s   
+ScalObject-bkq.23.log | counting -b 0 -r | 20    | -    | 0.2201s   
+ScalObject-bkq.23.log | symbolic         | 20    | -    | 0.3055s   
+ScalObject-bkq.23.log | symbolic -r      | 20    | -    | 0.0602s   
+ScalObject-bkq.23.log | saturate         | 20    | -    | 0.0098s   
+ScalObject-bkq.23.log | saturate -r      | 20    | -    | 0.0087s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.24.log | enumerate -c     | 11    | 11   | 0.6345s   
+ScalObject-bkq.24.log | counting -b 4    | 11    | 11   | 0.1167s   
+ScalObject-bkq.24.log | counting -b 4 -r | 11    | 11   | 0.1088s   
+ScalObject-bkq.24.log | counting -b 2    | 11    | 11   | 0.1217s   
+ScalObject-bkq.24.log | counting -b 2 -r | 11    | 11   | 0.1097s   
+ScalObject-bkq.24.log | counting -b 0    | 20    | -    | 1.6238s   
+ScalObject-bkq.24.log | counting -b 0 -r | 20    | -    | 0.7806s   
+ScalObject-bkq.24.log | symbolic         | 11    | 11   | 0.0447s   
+ScalObject-bkq.24.log | symbolic -r      | 11    | 11   | 0.0325s   
+ScalObject-bkq.24.log | saturate         | 13    | 13   | 0.0075s   
+ScalObject-bkq.24.log | saturate -r      | 13    | 13   | 0.008s    
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.25.log | enumerate -c     | 20    | -    | 0.2963s   
+ScalObject-bkq.25.log | counting -b 4    | 20    | -    | 0.4599s   
+ScalObject-bkq.25.log | counting -b 4 -r | 20    | -    | 0.1966s   
+ScalObject-bkq.25.log | counting -b 2    | 20    | -    | 0.5s      
+ScalObject-bkq.25.log | counting -b 2 -r | 20    | -    | 0.1939s   
+ScalObject-bkq.25.log | counting -b 0    | 20    | -    | 0.6713s   
+ScalObject-bkq.25.log | counting -b 0 -r | 20    | -    | 0.1949s   
+ScalObject-bkq.25.log | symbolic         | 20    | -    | 0.291s    
+ScalObject-bkq.25.log | symbolic -r      | 20    | -    | 0.0486s   
+ScalObject-bkq.25.log | saturate         | 20    | -    | 0.0042s   
+ScalObject-bkq.25.log | saturate -r      | 20    | -    | 0.0043s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.26.log | enumerate -c     | 8     | 8    | 0.0735s   
+ScalObject-bkq.26.log | counting -b 4    | 8     | 8    | 0.0797s   
+ScalObject-bkq.26.log | counting -b 4 -r | 8     | 8    | 0.0739s   
+ScalObject-bkq.26.log | counting -b 2    | 20    | -    | 0.7941s   
+ScalObject-bkq.26.log | counting -b 2 -r | 20    | -    | 0.2536s   
+ScalObject-bkq.26.log | counting -b 0    | 20    | -    | 1.0868s   
+ScalObject-bkq.26.log | counting -b 0 -r | 20    | -    | 0.2547s   
+ScalObject-bkq.26.log | symbolic         | 8     | 8    | 0.0185s   
+ScalObject-bkq.26.log | symbolic -r      | 8     | 8    | 0.0185s   
+ScalObject-bkq.26.log | saturate         | 8     | 8    | 0.004s    
+ScalObject-bkq.26.log | saturate -r      | 8     | 8    | 0.0042s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.27.log | enumerate -c     | 20    | -    | 0.3493s   
+ScalObject-bkq.27.log | counting -b 4    | 20    | -    | 0.6076s   
+ScalObject-bkq.27.log | counting -b 4 -r | 20    | -    | 0.4959s   
+ScalObject-bkq.27.log | counting -b 2    | 20    | -    | 0.7518s   
+ScalObject-bkq.27.log | counting -b 2 -r | 20    | -    | 0.6151s   
+ScalObject-bkq.27.log | counting -b 0    | 20    | -    | 1.4124s   
+ScalObject-bkq.27.log | counting -b 0 -r | 20    | -    | 1.0086s   
+ScalObject-bkq.27.log | symbolic         | 20    | -    | 0.3896s   
+ScalObject-bkq.27.log | symbolic -r      | 20    | -    | 0.3036s   
+ScalObject-bkq.27.log | saturate         | 20    | -    | 0.0078s   
+ScalObject-bkq.27.log | saturate -r      | 20    | -    | 0.0091s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.28.log | enumerate -c     | 20    | -    | 0.495s    
+ScalObject-bkq.28.log | counting -b 4    | 20    | -    | 0.6656s   
+ScalObject-bkq.28.log | counting -b 4 -r | 20    | -    | 0.2631s   
+ScalObject-bkq.28.log | counting -b 2    | 20    | -    | 0.7209s   
+ScalObject-bkq.28.log | counting -b 2 -r | 20    | -    | 0.2538s   
+ScalObject-bkq.28.log | counting -b 0    | 20    | -    | 1.3323s   
+ScalObject-bkq.28.log | counting -b 0 -r | 20    | -    | 0.308s    
+ScalObject-bkq.28.log | symbolic         | 20    | -    | 0.4278s   
+ScalObject-bkq.28.log | symbolic -r      | 20    | -    | 0.0857s   
+ScalObject-bkq.28.log | saturate         | 20    | -    | 0.0091s   
+ScalObject-bkq.28.log | saturate -r      | 20    | -    | 0.0091s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.29.log | enumerate -c     | 12    | 12   | 0.2397s   
+ScalObject-bkq.29.log | counting -b 4    | 12    | 12   | 0.1355s   
+ScalObject-bkq.29.log | counting -b 4 -r | 12    | 12   | 0.1444s   
+ScalObject-bkq.29.log | counting -b 2    | 12    | 12   | 0.1397s   
+ScalObject-bkq.29.log | counting -b 2 -r | 12    | 12   | 0.1416s   
+ScalObject-bkq.29.log | counting -b 0    | 20    | -    | 1.2381s   
+ScalObject-bkq.29.log | counting -b 0 -r | 20    | -    | 0.3874s   
+ScalObject-bkq.29.log | symbolic         | 12    | 12   | 0.0499s   
+ScalObject-bkq.29.log | symbolic -r      | 12    | 12   | 0.0499s   
+ScalObject-bkq.29.log | saturate         | 12    | 12   | 0.0088s   
+ScalObject-bkq.29.log | saturate -r      | 12    | 12   | 0.0091s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.30.log | enumerate -c     | 20    | -    | 6.1574s   
+ScalObject-bkq.30.log | counting -b 4    | 20    | -    | 0.762s    
+ScalObject-bkq.30.log | counting -b 4 -r | 20    | -    | 0.7665s   
+ScalObject-bkq.30.log | counting -b 2    | 20    | -    | 1.0659s   
+ScalObject-bkq.30.log | counting -b 2 -r | 20    | -    | 1.054s    
+ScalObject-bkq.30.log | counting -b 0    | 20    | -    | 1.409s    
+ScalObject-bkq.30.log | counting -b 0 -r | 20    | -    | 1.4132s   
+ScalObject-bkq.30.log | symbolic         | 20    | -    | 0.4334s   
+ScalObject-bkq.30.log | symbolic -r      | 20    | -    | 0.4387s   
+ScalObject-bkq.30.log | saturate         | 20    | -    | 0.008s    
+ScalObject-bkq.30.log | saturate -r      | 20    | -    | 0.0087s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.31.log | enumerate -c     | 20    | -    | 0.7008s   
+ScalObject-bkq.31.log | counting -b 4    | 20    | -    | 0.849s    
+ScalObject-bkq.31.log | counting -b 4 -r | 20    | -    | 0.3218s   
+ScalObject-bkq.31.log | counting -b 2    | 20    | -    | 0.885s    
+ScalObject-bkq.31.log | counting -b 2 -r | 20    | -    | 0.3636s   
+ScalObject-bkq.31.log | counting -b 0    | 20    | -    | 1.1395s   
+ScalObject-bkq.31.log | counting -b 0 -r | 20    | -    | 0.4346s   
+ScalObject-bkq.31.log | symbolic         | 20    | -    | 0.379s    
+ScalObject-bkq.31.log | symbolic -r      | 20    | -    | 0.1595s   
+ScalObject-bkq.31.log | saturate         | 20    | -    | 0.0043s   
+ScalObject-bkq.31.log | saturate -r      | 20    | -    | 0.008s    
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.32.log | enumerate -c     | 14    | 14   | 1.2723s   
+ScalObject-bkq.32.log | counting -b 4    | 14    | 14   | 0.2789s   
+ScalObject-bkq.32.log | counting -b 4 -r | 14    | 14   | 0.2818s   
+ScalObject-bkq.32.log | counting -b 2    | 20    | -    | 0.767s    
+ScalObject-bkq.32.log | counting -b 2 -r | 20    | -    | 0.3487s   
+ScalObject-bkq.32.log | counting -b 0    | 20    | -    | 1.2872s   
+ScalObject-bkq.32.log | counting -b 0 -r | 20    | -    | 0.4536s   
+ScalObject-bkq.32.log | symbolic         | 14    | 14   | 0.1311s   
+ScalObject-bkq.32.log | symbolic -r      | 14    | 14   | 0.1322s   
+ScalObject-bkq.32.log | saturate         | 14    | 14   | 0.009s    
+ScalObject-bkq.32.log | saturate -r      | 14    | 14   | 0.0085s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.33.log | enumerate -c     | 20*   | -    | 10.0122s* 
+ScalObject-bkq.33.log | counting -b 4    | 20    | -    | 0.6576s   
+ScalObject-bkq.33.log | counting -b 4 -r | 20    | -    | 0.422s    
+ScalObject-bkq.33.log | counting -b 2    | 20    | -    | 0.8451s   
+ScalObject-bkq.33.log | counting -b 2 -r | 20    | -    | 0.4506s   
+ScalObject-bkq.33.log | counting -b 0    | 20    | -    | 1.2775s   
+ScalObject-bkq.33.log | counting -b 0 -r | 20    | -    | 0.5226s   
+ScalObject-bkq.33.log | symbolic         | 20    | -    | 0.5816s   
+ScalObject-bkq.33.log | symbolic -r      | 20    | -    | 0.2387s   
+ScalObject-bkq.33.log | saturate         | 20    | -    | 0.0128s   
+ScalObject-bkq.33.log | saturate -r      | 20    | -    | 0.0118s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.34.log | enumerate -c     | 20    | -    | 1.7884s   
+ScalObject-bkq.34.log | counting -b 4    | 20    | -    | 0.8057s   
+ScalObject-bkq.34.log | counting -b 4 -r | 20    | -    | 0.6296s   
+ScalObject-bkq.34.log | counting -b 2    | 20    | -    | 0.9747s   
+ScalObject-bkq.34.log | counting -b 2 -r | 20    | -    | 0.7229s   
+ScalObject-bkq.34.log | counting -b 0    | 20    | -    | 1.4423s   
+ScalObject-bkq.34.log | counting -b 0 -r | 20    | -    | 0.995s    
+ScalObject-bkq.34.log | symbolic         | 20    | -    | 0.3628s   
+ScalObject-bkq.34.log | symbolic -r      | 20    | -    | 0.2921s   
+ScalObject-bkq.34.log | saturate         | 20    | -    | 0.0045s   
+ScalObject-bkq.34.log | saturate -r      | 20    | -    | 0.008s    
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.35.log | enumerate -c     | 20    | -    | 0.8376s   
+ScalObject-bkq.35.log | counting -b 4    | 20    | -    | 0.7399s   
+ScalObject-bkq.35.log | counting -b 4 -r | 20    | -    | 0.2688s   
+ScalObject-bkq.35.log | counting -b 2    | 20    | -    | 0.8805s   
+ScalObject-bkq.35.log | counting -b 2 -r | 20    | -    | 0.2751s   
+ScalObject-bkq.35.log | counting -b 0    | 20    | -    | 0.9818s   
+ScalObject-bkq.35.log | counting -b 0 -r | 20    | -    | 0.3025s   
+ScalObject-bkq.35.log | symbolic         | 20    | -    | 0.4285s   
+ScalObject-bkq.35.log | symbolic -r      | 20    | -    | 0.1136s   
+ScalObject-bkq.35.log | saturate         | 20    | -    | 0.0096s   
+ScalObject-bkq.35.log | saturate -r      | 20    | -    | 0.0097s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.36.log | enumerate -c     | 18*   | -    | 10.0192s* 
+ScalObject-bkq.36.log | counting -b 4    | 20    | -    | 1.1955s   
+ScalObject-bkq.36.log | counting -b 4 -r | 20    | -    | 1.1814s   
+ScalObject-bkq.36.log | counting -b 2    | 20    | -    | 1.1386s   
+ScalObject-bkq.36.log | counting -b 2 -r | 20    | -    | 1.1344s   
+ScalObject-bkq.36.log | counting -b 0    | 20    | -    | 1.2705s   
+ScalObject-bkq.36.log | counting -b 0 -r | 20    | -    | 1.2825s   
+ScalObject-bkq.36.log | symbolic         | 20    | -    | 0.6324s   
+ScalObject-bkq.36.log | symbolic -r      | 20    | -    | 0.6358s   
+ScalObject-bkq.36.log | saturate         | 20    | -    | 0.0098s   
+ScalObject-bkq.36.log | saturate -r      | 20    | -    | 0.0124s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.37.log | enumerate -c     | 20    | -    | 1.0188s   
+ScalObject-bkq.37.log | counting -b 4    | 20    | -    | 0.6466s   
+ScalObject-bkq.37.log | counting -b 4 -r | 20    | -    | 0.2596s   
+ScalObject-bkq.37.log | counting -b 2    | 20    | -    | 0.8827s   
+ScalObject-bkq.37.log | counting -b 2 -r | 20    | -    | 0.2676s   
+ScalObject-bkq.37.log | counting -b 0    | 20    | -    | 1.345s    
+ScalObject-bkq.37.log | counting -b 0 -r | 20    | -    | 0.2782s   
+ScalObject-bkq.37.log | symbolic         | 20    | -    | 0.3917s   
+ScalObject-bkq.37.log | symbolic -r      | 20    | -    | 0.1118s   
+ScalObject-bkq.37.log | saturate         | 20    | -    | 0.0095s   
+ScalObject-bkq.37.log | saturate -r      | 20    | -    | 0.0083s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.38.log | enumerate -c     | 20    | -    | 0.3551s   
+ScalObject-bkq.38.log | counting -b 4    | 20    | -    | 0.5832s   
+ScalObject-bkq.38.log | counting -b 4 -r | 20    | -    | 0.2785s   
+ScalObject-bkq.38.log | counting -b 2    | 20    | -    | 0.8887s   
+ScalObject-bkq.38.log | counting -b 2 -r | 20    | -    | 0.282s    
+ScalObject-bkq.38.log | counting -b 0    | 20    | -    | 1.1843s   
+ScalObject-bkq.38.log | counting -b 0 -r | 20    | -    | 0.3094s   
+ScalObject-bkq.38.log | symbolic         | 20    | -    | 0.3717s   
+ScalObject-bkq.38.log | symbolic -r      | 20    | -    | 0.1115s   
+ScalObject-bkq.38.log | saturate         | 20    | -    | 0.0114s   
+ScalObject-bkq.38.log | saturate -r      | 20    | -    | 0.0082s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.39.log | enumerate -c     | 20    | -    | 0.5592s   
+ScalObject-bkq.39.log | counting -b 4    | 20    | -    | 0.6078s   
+ScalObject-bkq.39.log | counting -b 4 -r | 20    | -    | 0.3138s   
+ScalObject-bkq.39.log | counting -b 2    | 20    | -    | 0.8987s   
+ScalObject-bkq.39.log | counting -b 2 -r | 20    | -    | 0.3741s   
+ScalObject-bkq.39.log | counting -b 0    | 20    | -    | 1.258s    
+ScalObject-bkq.39.log | counting -b 0 -r | 20    | -    | 0.3426s   
+ScalObject-bkq.39.log | symbolic         | 20    | -    | 0.4237s   
+ScalObject-bkq.39.log | symbolic -r      | 20    | -    | 0.1571s   
+ScalObject-bkq.39.log | saturate         | 20    | -    | 0.0115s   
+ScalObject-bkq.39.log | saturate -r      | 20    | -    | 0.0105s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.40.log | enumerate -c     | 11    | 11   | 0.9884s   
+ScalObject-bkq.40.log | counting -b 4    | 11    | 11   | 0.1349s   
+ScalObject-bkq.40.log | counting -b 4 -r | 11    | 11   | 0.1041s   
+ScalObject-bkq.40.log | counting -b 2    | 11    | 11   | 0.1311s   
+ScalObject-bkq.40.log | counting -b 2 -r | 11    | 11   | 0.1027s   
+ScalObject-bkq.40.log | counting -b 0    | 20    | -    | 1.1634s   
+ScalObject-bkq.40.log | counting -b 0 -r | 20    | -    | 0.277s    
+ScalObject-bkq.40.log | symbolic         | 11    | 11   | 0.0453s   
+ScalObject-bkq.40.log | symbolic -r      | 11    | 11   | 0.0309s   
+ScalObject-bkq.40.log | saturate         | 12    | 12   | 0.0078s   
+ScalObject-bkq.40.log | saturate -r      | 12    | 12   | 0.0085s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.41.log | enumerate -c     | 20    | -    | 2.6604s   
+ScalObject-bkq.41.log | counting -b 4    | 20    | -    | 0.6894s   
+ScalObject-bkq.41.log | counting -b 4 -r | 20    | -    | 0.4247s   
+ScalObject-bkq.41.log | counting -b 2    | 20    | -    | 0.9177s   
+ScalObject-bkq.41.log | counting -b 2 -r | 20    | -    | 0.4922s   
+ScalObject-bkq.41.log | counting -b 0    | 20    | -    | 1.0519s   
+ScalObject-bkq.41.log | counting -b 0 -r | 20    | -    | 0.5302s   
+ScalObject-bkq.41.log | symbolic         | 20    | -    | 0.2831s   
+ScalObject-bkq.41.log | symbolic -r      | 20    | -    | 0.1901s   
+ScalObject-bkq.41.log | saturate         | 20    | -    | 0.0119s   
+ScalObject-bkq.41.log | saturate -r      | 20    | -    | 0.0122s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.42.log | enumerate -c     | 20    | -    | 7.8546s   
+ScalObject-bkq.42.log | counting -b 4    | 20    | -    | 0.9797s   
+ScalObject-bkq.42.log | counting -b 4 -r | 20    | -    | 0.5656s   
+ScalObject-bkq.42.log | counting -b 2    | 20    | -    | 1.3564s   
+ScalObject-bkq.42.log | counting -b 2 -r | 20    | -    | 0.5805s   
+ScalObject-bkq.42.log | counting -b 0    | 20    | -    | 1.3169s   
+ScalObject-bkq.42.log | counting -b 0 -r | 20    | -    | 0.4597s   
+ScalObject-bkq.42.log | symbolic         | 20    | -    | 0.4919s   
+ScalObject-bkq.42.log | symbolic -r      | 20    | -    | 0.256s    
+ScalObject-bkq.42.log | saturate         | 20    | -    | 0.0096s   
+ScalObject-bkq.42.log | saturate -r      | 20    | -    | 0.0107s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.43.log | enumerate -c     | 20    | -    | 0.3008s   
+ScalObject-bkq.43.log | counting -b 4    | 20    | -    | 0.4714s   
+ScalObject-bkq.43.log | counting -b 4 -r | 20    | -    | 0.1765s   
+ScalObject-bkq.43.log | counting -b 2    | 20    | -    | 0.5463s   
+ScalObject-bkq.43.log | counting -b 2 -r | 20    | -    | 0.1629s   
+ScalObject-bkq.43.log | counting -b 0    | 20    | -    | 0.6277s   
+ScalObject-bkq.43.log | counting -b 0 -r | 20    | -    | 0.1587s   
+ScalObject-bkq.43.log | symbolic         | 20    | -    | 0.135s    
+ScalObject-bkq.43.log | symbolic -r      | 20    | -    | 0.0218s   
+ScalObject-bkq.43.log | saturate         | 20    | -    | 0.0046s   
+ScalObject-bkq.43.log | saturate -r      | 20    | -    | 0.0042s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.44.log | enumerate -c     | 20    | -    | 0.3154s   
+ScalObject-bkq.44.log | counting -b 4    | 20    | -    | 0.7019s   
+ScalObject-bkq.44.log | counting -b 4 -r | 20    | -    | 0.2689s   
+ScalObject-bkq.44.log | counting -b 2    | 20    | -    | 0.7347s   
+ScalObject-bkq.44.log | counting -b 2 -r | 20    | -    | 0.2883s   
+ScalObject-bkq.44.log | counting -b 0    | 20    | -    | 1.0329s   
+ScalObject-bkq.44.log | counting -b 0 -r | 20    | -    | 0.295s    
+ScalObject-bkq.44.log | symbolic         | 20    | -    | 0.4453s   
+ScalObject-bkq.44.log | symbolic -r      | 20    | -    | 0.1152s   
+ScalObject-bkq.44.log | saturate         | 20    | -    | 0.0076s   
+ScalObject-bkq.44.log | saturate -r      | 20    | -    | 0.0083s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.45.log | enumerate -c     | 20    | -    | 0.6839s   
+ScalObject-bkq.45.log | counting -b 4    | 20    | -    | 0.6548s   
+ScalObject-bkq.45.log | counting -b 4 -r | 20    | -    | 0.3096s   
+ScalObject-bkq.45.log | counting -b 2    | 20    | -    | 0.8246s   
+ScalObject-bkq.45.log | counting -b 2 -r | 20    | -    | 0.3103s   
+ScalObject-bkq.45.log | counting -b 0    | 20    | -    | 1.3831s   
+ScalObject-bkq.45.log | counting -b 0 -r | 20    | -    | 0.3532s   
+ScalObject-bkq.45.log | symbolic         | 20    | -    | 0.3527s   
+ScalObject-bkq.45.log | symbolic -r      | 20    | -    | 0.1201s   
+ScalObject-bkq.45.log | saturate         | 20    | -    | 0.0108s   
+ScalObject-bkq.45.log | saturate -r      | 20    | -    | 0.0091s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.46.log | enumerate -c     | 15    | 15   | 0.7866s   
+ScalObject-bkq.46.log | counting -b 4    | 15    | 15   | 0.1703s   
+ScalObject-bkq.46.log | counting -b 4 -r | 15    | 15   | 0.1746s   
+ScalObject-bkq.46.log | counting -b 2    | 15    | 15   | 0.2411s   
+ScalObject-bkq.46.log | counting -b 2 -r | 15    | 15   | 0.2489s   
+ScalObject-bkq.46.log | counting -b 0    | 20    | -    | 1.0147s   
+ScalObject-bkq.46.log | counting -b 0 -r | 20    | -    | 0.75s     
+ScalObject-bkq.46.log | symbolic         | 15    | 15   | 0.0684s   
+ScalObject-bkq.46.log | symbolic -r      | 15    | 15   | 0.0707s   
+ScalObject-bkq.46.log | saturate         | 20    | 20   | 0.0126s   
+ScalObject-bkq.46.log | saturate -r      | 20    | -    | 0.0096s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.47.log | enumerate -c     | 20    | 20   | 0.7096s   
+ScalObject-bkq.47.log | counting -b 4    | 20    | 20   | 0.4295s   
+ScalObject-bkq.47.log | counting -b 4 -r | 20    | 20   | 0.4329s   
+ScalObject-bkq.47.log | counting -b 2    | 20    | -    | 0.8579s   
+ScalObject-bkq.47.log | counting -b 2 -r | 20    | -    | 0.691s    
+ScalObject-bkq.47.log | counting -b 0    | 20    | -    | 0.8444s   
+ScalObject-bkq.47.log | counting -b 0 -r | 20    | -    | 0.6306s   
+ScalObject-bkq.47.log | symbolic         | 20    | 20   | 0.2404s   
+ScalObject-bkq.47.log | symbolic -r      | 20    | 20   | 0.2266s   
+ScalObject-bkq.47.log | saturate         | 20    | 20   | 0.0086s   
+ScalObject-bkq.47.log | saturate -r      | 20    | 20   | 0.0087s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.48.log | enumerate -c     | 18    | 18   | 1.7034s   
+ScalObject-bkq.48.log | counting -b 4    | 18    | 18   | 0.4644s   
+ScalObject-bkq.48.log | counting -b 4 -r | 18    | 18   | 0.2087s   
+ScalObject-bkq.48.log | counting -b 2    | 20    | -    | 0.8735s   
+ScalObject-bkq.48.log | counting -b 2 -r | 20    | -    | 0.2901s   
+ScalObject-bkq.48.log | counting -b 0    | 20    | -    | 1.4141s   
+ScalObject-bkq.48.log | counting -b 0 -r | 20    | -    | 0.2794s   
+ScalObject-bkq.48.log | symbolic         | 18    | 18   | 0.2224s   
+ScalObject-bkq.48.log | symbolic -r      | 18    | 18   | 0.0735s   
+ScalObject-bkq.48.log | saturate         | 18    | 18   | 0.0111s   
+ScalObject-bkq.48.log | saturate -r      | 18    | 18   | 0.0104s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.49.log | enumerate -c     | 20    | -    | 0.4817s   
+ScalObject-bkq.49.log | counting -b 4    | 20    | -    | 0.6145s   
+ScalObject-bkq.49.log | counting -b 4 -r | 20    | -    | 0.2415s   
+ScalObject-bkq.49.log | counting -b 2    | 20    | -    | 0.7647s   
+ScalObject-bkq.49.log | counting -b 2 -r | 20    | -    | 0.2665s   
+ScalObject-bkq.49.log | counting -b 0    | 20    | -    | 0.936s    
+ScalObject-bkq.49.log | counting -b 0 -r | 20    | -    | 0.2593s   
+ScalObject-bkq.49.log | symbolic         | 20    | -    | 0.4223s   
+ScalObject-bkq.49.log | symbolic -r      | 20    | -    | 0.0934s   
+ScalObject-bkq.49.log | saturate         | 20    | -    | 0.0106s   
+ScalObject-bkq.49.log | saturate -r      | 20    | -    | 0.0086s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.50.log | enumerate -c     | 12    | 12   | 0.8008s   
+ScalObject-bkq.50.log | counting -b 4    | 12    | 12   | 0.1789s   
+ScalObject-bkq.50.log | counting -b 4 -r | 12    | 12   | 0.1502s   
+ScalObject-bkq.50.log | counting -b 2    | 12    | 12   | 0.1793s   
+ScalObject-bkq.50.log | counting -b 2 -r | 12    | 12   | 0.1485s   
+ScalObject-bkq.50.log | counting -b 0    | 20    | -    | 1.6541s   
+ScalObject-bkq.50.log | counting -b 0 -r | 20    | -    | 0.2557s   
+ScalObject-bkq.50.log | symbolic         | 12    | 12   | 0.0731s   
+ScalObject-bkq.50.log | symbolic -r      | 12    | 12   | 0.0476s   
+ScalObject-bkq.50.log | saturate         | 12    | 12   | 0.0073s   
+ScalObject-bkq.50.log | saturate -r      | 12    | 12   | 0.0079s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.51.log | enumerate -c     | 20    | -    | 3.5251s   
+ScalObject-bkq.51.log | counting -b 4    | 20    | -    | 0.7436s   
+ScalObject-bkq.51.log | counting -b 4 -r | 20    | -    | 0.4244s   
+ScalObject-bkq.51.log | counting -b 2    | 20    | -    | 0.8752s   
+ScalObject-bkq.51.log | counting -b 2 -r | 20    | -    | 0.5112s   
+ScalObject-bkq.51.log | counting -b 0    | 20    | -    | 1.4956s   
+ScalObject-bkq.51.log | counting -b 0 -r | 20    | -    | 0.5792s   
+ScalObject-bkq.51.log | symbolic         | 20    | -    | 0.4306s   
+ScalObject-bkq.51.log | symbolic -r      | 20    | -    | 0.2165s   
+ScalObject-bkq.51.log | saturate         | 20    | -    | 0.0089s   
+ScalObject-bkq.51.log | saturate -r      | 20    | -    | 0.0082s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.52.log | enumerate -c     | 20    | -    | 1.0643s   
+ScalObject-bkq.52.log | counting -b 4    | 20    | -    | 0.8449s   
+ScalObject-bkq.52.log | counting -b 4 -r | 20    | -    | 0.2757s   
+ScalObject-bkq.52.log | counting -b 2    | 20    | -    | 0.9834s   
+ScalObject-bkq.52.log | counting -b 2 -r | 20    | -    | 0.2938s   
+ScalObject-bkq.52.log | counting -b 0    | 20    | -    | 1.5504s   
+ScalObject-bkq.52.log | counting -b 0 -r | 20    | -    | 0.343s    
+ScalObject-bkq.52.log | symbolic         | 20    | -    | 0.4959s   
+ScalObject-bkq.52.log | symbolic -r      | 20    | -    | 0.1373s   
+ScalObject-bkq.52.log | saturate         | 20    | -    | 0.0075s   
+ScalObject-bkq.52.log | saturate -r      | 20    | -    | 0.0086s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.53.log | enumerate -c     | 20    | -    | 6.9339s   
+ScalObject-bkq.53.log | counting -b 4    | 20    | -    | 0.8917s   
+ScalObject-bkq.53.log | counting -b 4 -r | 20    | -    | 0.5619s   
+ScalObject-bkq.53.log | counting -b 2    | 20    | -    | 0.9395s   
+ScalObject-bkq.53.log | counting -b 2 -r | 20    | -    | 0.6563s   
+ScalObject-bkq.53.log | counting -b 0    | 20    | -    | 1.2506s   
+ScalObject-bkq.53.log | counting -b 0 -r | 20    | -    | 0.8633s   
+ScalObject-bkq.53.log | symbolic         | 20    | -    | 0.5317s   
+ScalObject-bkq.53.log | symbolic -r      | 20    | -    | 0.347s    
+ScalObject-bkq.53.log | saturate         | 20    | -    | 0.0082s   
+ScalObject-bkq.53.log | saturate -r      | 20    | -    | 0.0088s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.54.log | enumerate -c     | 9     | 9    | 0.2433s   
+ScalObject-bkq.54.log | counting -b 4    | 9     | 9    | 0.0917s   
+ScalObject-bkq.54.log | counting -b 4 -r | 9     | 9    | 0.0867s   
+ScalObject-bkq.54.log | counting -b 2    | 20    | -    | 0.9235s   
+ScalObject-bkq.54.log | counting -b 2 -r | 20    | -    | 0.5027s   
+ScalObject-bkq.54.log | counting -b 0    | 20    | -    | 1.5284s   
+ScalObject-bkq.54.log | counting -b 0 -r | 20    | -    | 0.6966s   
+ScalObject-bkq.54.log | symbolic         | 9     | 9    | 0.0288s   
+ScalObject-bkq.54.log | symbolic -r      | 9     | 9    | 0.0311s   
+ScalObject-bkq.54.log | saturate         | 11    | 11   | 0.0068s   
+ScalObject-bkq.54.log | saturate -r      | 11    | 11   | 0.0077s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.55.log | enumerate -c     | 20    | -    | 0.6319s   
+ScalObject-bkq.55.log | counting -b 4    | 20    | -    | 0.6681s   
+ScalObject-bkq.55.log | counting -b 4 -r | 20    | -    | 0.3552s   
+ScalObject-bkq.55.log | counting -b 2    | 20    | -    | 1.04s     
+ScalObject-bkq.55.log | counting -b 2 -r | 20    | -    | 0.4613s   
+ScalObject-bkq.55.log | counting -b 0    | 20    | -    | 1.2811s   
+ScalObject-bkq.55.log | counting -b 0 -r | 20    | -    | 0.6604s   
+ScalObject-bkq.55.log | symbolic         | 20    | -    | 0.2718s   
+ScalObject-bkq.55.log | symbolic -r      | 20    | -    | 0.1478s   
+ScalObject-bkq.55.log | saturate         | 20    | -    | 0.0072s   
+ScalObject-bkq.55.log | saturate -r      | 20    | -    | 0.0093s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.56.log | enumerate -c     | 20    | -    | 0.326s    
+ScalObject-bkq.56.log | counting -b 4    | 20    | -    | 0.5293s   
+ScalObject-bkq.56.log | counting -b 4 -r | 20    | -    | 0.1813s   
+ScalObject-bkq.56.log | counting -b 2    | 20    | -    | 0.7845s   
+ScalObject-bkq.56.log | counting -b 2 -r | 20    | -    | 0.1955s   
+ScalObject-bkq.56.log | counting -b 0    | 20    | -    | 1.1844s   
+ScalObject-bkq.56.log | counting -b 0 -r | 20    | -    | 0.2157s   
+ScalObject-bkq.56.log | symbolic         | 20    | -    | 0.1712s   
+ScalObject-bkq.56.log | symbolic -r      | 20    | -    | 0.0399s   
+ScalObject-bkq.56.log | saturate         | 20    | -    | 0.0091s   
+ScalObject-bkq.56.log | saturate -r      | 20    | -    | 0.0088s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.57.log | enumerate -c     | 10    | 10   | 0.1981s   
+ScalObject-bkq.57.log | counting -b 4    | 10    | 10   | 0.1126s   
+ScalObject-bkq.57.log | counting -b 4 -r | 10    | 10   | 0.105s    
+ScalObject-bkq.57.log | counting -b 2    | 10    | 10   | 0.1141s   
+ScalObject-bkq.57.log | counting -b 2 -r | 10    | 10   | 0.1041s   
+ScalObject-bkq.57.log | counting -b 0    | 20    | -    | 1.007s    
+ScalObject-bkq.57.log | counting -b 0 -r | 20    | -    | 0.2055s   
+ScalObject-bkq.57.log | symbolic         | 10    | 10   | 0.0374s   
+ScalObject-bkq.57.log | symbolic -r      | 10    | 10   | 0.0297s   
+ScalObject-bkq.57.log | saturate         | 10    | 10   | 0.0048s   
+ScalObject-bkq.57.log | saturate -r      | 10    | 10   | 0.0081s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.58.log | enumerate -c     | 16    | 16   | 0.329s    
+ScalObject-bkq.58.log | counting -b 4    | 20    | -    | 0.5255s   
+ScalObject-bkq.58.log | counting -b 4 -r | 20    | -    | 0.2378s   
+ScalObject-bkq.58.log | counting -b 2    | 20    | -    | 0.6516s   
+ScalObject-bkq.58.log | counting -b 2 -r | 20    | -    | 0.2769s   
+ScalObject-bkq.58.log | counting -b 0    | 20    | -    | 0.9583s   
+ScalObject-bkq.58.log | counting -b 0 -r | 20    | -    | 0.276s    
+ScalObject-bkq.58.log | symbolic         | 16    | 16   | 0.1098s   
+ScalObject-bkq.58.log | symbolic -r      | 16    | 16   | 0.0495s   
+ScalObject-bkq.58.log | saturate         | 16    | 16   | 0.0098s   
+ScalObject-bkq.58.log | saturate -r      | 16    | 16   | 0.0086s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.59.log | enumerate -c     | 20    | -    | 0.3182s   
+ScalObject-bkq.59.log | counting -b 4    | 20    | -    | 0.5502s   
+ScalObject-bkq.59.log | counting -b 4 -r | 20    | -    | 0.1576s   
+ScalObject-bkq.59.log | counting -b 2    | 20    | -    | 0.7581s   
+ScalObject-bkq.59.log | counting -b 2 -r | 20    | -    | 0.1681s   
+ScalObject-bkq.59.log | counting -b 0    | 20    | -    | 0.8892s   
+ScalObject-bkq.59.log | counting -b 0 -r | 20    | -    | 0.1621s   
+ScalObject-bkq.59.log | symbolic         | 20    | -    | 0.154s    
+ScalObject-bkq.59.log | symbolic -r      | 20    | -    | 0.0187s   
+ScalObject-bkq.59.log | saturate         | 20    | -    | 0.0046s   
+ScalObject-bkq.59.log | saturate -r      | 20    | -    | 0.0046s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.60.log | enumerate -c     | 10    | 10   | 0.1932s   
+ScalObject-bkq.60.log | counting -b 4    | 10    | 10   | 0.1071s   
+ScalObject-bkq.60.log | counting -b 4 -r | 10    | 10   | 0.0946s   
+ScalObject-bkq.60.log | counting -b 2    | 10    | 10   | 0.1079s   
+ScalObject-bkq.60.log | counting -b 2 -r | 10    | 10   | 0.1027s   
+ScalObject-bkq.60.log | counting -b 0    | 20    | -    | 1.2664s   
+ScalObject-bkq.60.log | counting -b 0 -r | 20    | -    | 0.2307s   
+ScalObject-bkq.60.log | symbolic         | 10    | 10   | 0.0352s   
+ScalObject-bkq.60.log | symbolic -r      | 10    | 10   | 0.0286s   
+ScalObject-bkq.60.log | saturate         | 10    | 10   | 0.0036s   
+ScalObject-bkq.60.log | saturate -r      | 10    | 10   | 0.0041s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.61.log | enumerate -c     | 20    | -    | 0.4026s   
+ScalObject-bkq.61.log | counting -b 4    | 20    | -    | 0.7318s   
+ScalObject-bkq.61.log | counting -b 4 -r | 20    | -    | 0.2935s   
+ScalObject-bkq.61.log | counting -b 2    | 20    | -    | 0.894s    
+ScalObject-bkq.61.log | counting -b 2 -r | 20    | -    | 0.3031s   
+ScalObject-bkq.61.log | counting -b 0    | 20    | -    | 1.2153s   
+ScalObject-bkq.61.log | counting -b 0 -r | 20    | -    | 0.3044s   
+ScalObject-bkq.61.log | symbolic         | 20    | -    | 0.4735s   
+ScalObject-bkq.61.log | symbolic -r      | 20    | -    | 0.1297s   
+ScalObject-bkq.61.log | saturate         | 20    | -    | 0.0112s   
+ScalObject-bkq.61.log | saturate -r      | 20    | -    | 0.0094s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.62.log | enumerate -c     | 20    | -    | 2.9572s   
+ScalObject-bkq.62.log | counting -b 4    | 20    | -    | 0.6876s   
+ScalObject-bkq.62.log | counting -b 4 -r | 20    | -    | 0.2563s   
+ScalObject-bkq.62.log | counting -b 2    | 20    | -    | 1.2769s   
+ScalObject-bkq.62.log | counting -b 2 -r | 20    | -    | 0.2844s   
+ScalObject-bkq.62.log | counting -b 0    | 20    | -    | 1.4368s   
+ScalObject-bkq.62.log | counting -b 0 -r | 20    | -    | 0.285s    
+ScalObject-bkq.62.log | symbolic         | 20    | -    | 0.3581s   
+ScalObject-bkq.62.log | symbolic -r      | 20    | -    | 0.1033s   
+ScalObject-bkq.62.log | saturate         | 20    | -    | 0.0113s   
+ScalObject-bkq.62.log | saturate -r      | 20    | -    | 0.0097s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.63.log | enumerate -c     | 20    | -    | 0.9035s   
+ScalObject-bkq.63.log | counting -b 4    | 20    | -    | 0.6129s   
+ScalObject-bkq.63.log | counting -b 4 -r | 20    | -    | 0.2411s   
+ScalObject-bkq.63.log | counting -b 2    | 20    | -    | 0.7619s   
+ScalObject-bkq.63.log | counting -b 2 -r | 20    | -    | 0.2423s   
+ScalObject-bkq.63.log | counting -b 0    | 20    | -    | 1.0424s   
+ScalObject-bkq.63.log | counting -b 0 -r | 20    | -    | 0.2588s   
+ScalObject-bkq.63.log | symbolic         | 20    | -    | 0.3442s   
+ScalObject-bkq.63.log | symbolic -r      | 20    | -    | 0.082s    
+ScalObject-bkq.63.log | saturate         | 20    | -    | 0.009s    
+ScalObject-bkq.63.log | saturate -r      | 20    | -    | 0.0083s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.64.log | enumerate -c     | 20    | -    | 0.9245s   
+ScalObject-bkq.64.log | counting -b 4    | 20    | -    | 0.7461s   
+ScalObject-bkq.64.log | counting -b 4 -r | 20    | -    | 0.2652s   
+ScalObject-bkq.64.log | counting -b 2    | 20    | -    | 1.0598s   
+ScalObject-bkq.64.log | counting -b 2 -r | 20    | -    | 0.2773s   
+ScalObject-bkq.64.log | counting -b 0    | 20    | -    | 1.4499s   
+ScalObject-bkq.64.log | counting -b 0 -r | 20    | -    | 0.3014s   
+ScalObject-bkq.64.log | symbolic         | 20    | -    | 0.5153s   
+ScalObject-bkq.64.log | symbolic -r      | 20    | -    | 0.1142s   
+ScalObject-bkq.64.log | saturate         | 20    | -    | 0.0098s   
+ScalObject-bkq.64.log | saturate -r      | 20    | -    | 0.0089s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.65.log | enumerate -c     | 20    | 20   | 0.9624s   
+ScalObject-bkq.65.log | counting -b 4    | 20    | 20   | 0.4249s   
+ScalObject-bkq.65.log | counting -b 4 -r | 20    | 20   | 0.2777s   
+ScalObject-bkq.65.log | counting -b 2    | 20    | -    | 0.6207s   
+ScalObject-bkq.65.log | counting -b 2 -r | 20    | -    | 0.3523s   
+ScalObject-bkq.65.log | counting -b 0    | 20    | -    | 0.7527s   
+ScalObject-bkq.65.log | counting -b 0 -r | 20    | -    | 0.3844s   
+ScalObject-bkq.65.log | symbolic         | 20    | 20   | 0.2184s   
+ScalObject-bkq.65.log | symbolic -r      | 20    | 20   | 0.1076s   
+ScalObject-bkq.65.log | saturate         | 20    | 20   | 0.0138s   
+ScalObject-bkq.65.log | saturate -r      | 20    | 20   | 0.0125s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.66.log | enumerate -c     | 20    | -    | 1.4794s   
+ScalObject-bkq.66.log | counting -b 4    | 20    | -    | 0.6852s   
+ScalObject-bkq.66.log | counting -b 4 -r | 20    | -    | 0.2783s   
+ScalObject-bkq.66.log | counting -b 2    | 20    | -    | 1.0848s   
+ScalObject-bkq.66.log | counting -b 2 -r | 20    | -    | 0.2797s   
+ScalObject-bkq.66.log | counting -b 0    | 20    | -    | 1.6727s   
+ScalObject-bkq.66.log | counting -b 0 -r | 20    | -    | 0.2957s   
+ScalObject-bkq.66.log | symbolic         | 20    | -    | 0.4113s   
+ScalObject-bkq.66.log | symbolic -r      | 20    | -    | 0.1189s   
+ScalObject-bkq.66.log | saturate         | 20    | -    | 0.0105s   
+ScalObject-bkq.66.log | saturate -r      | 20    | -    | 0.0075s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.67.log | enumerate -c     | 20    | -    | 0.3695s   
+ScalObject-bkq.67.log | counting -b 4    | 20    | -    | 0.6008s   
+ScalObject-bkq.67.log | counting -b 4 -r | 20    | -    | 0.1913s   
+ScalObject-bkq.67.log | counting -b 2    | 20    | -    | 0.8729s   
+ScalObject-bkq.67.log | counting -b 2 -r | 20    | -    | 0.18s     
+ScalObject-bkq.67.log | counting -b 0    | 20    | -    | 1.319s    
+ScalObject-bkq.67.log | counting -b 0 -r | 20    | -    | 0.1895s   
+ScalObject-bkq.67.log | symbolic         | 20    | -    | 0.3868s   
+ScalObject-bkq.67.log | symbolic -r      | 20    | -    | 0.0386s   
+ScalObject-bkq.67.log | saturate         | 20    | -    | 0.0084s   
+ScalObject-bkq.67.log | saturate -r      | 20    | -    | 0.0072s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.68.log | enumerate -c     | 20    | -    | 1.1002s   
+ScalObject-bkq.68.log | counting -b 4    | 20    | -    | 0.6711s   
+ScalObject-bkq.68.log | counting -b 4 -r | 20    | -    | 0.2869s   
+ScalObject-bkq.68.log | counting -b 2    | 20    | -    | 1.0346s   
+ScalObject-bkq.68.log | counting -b 2 -r | 20    | -    | 0.3096s   
+ScalObject-bkq.68.log | counting -b 0    | 20    | -    | 0.7891s   
+ScalObject-bkq.68.log | counting -b 0 -r | 20    | -    | 0.344s    
+ScalObject-bkq.68.log | symbolic         | 20    | -    | 0.3963s   
+ScalObject-bkq.68.log | symbolic -r      | 20    | -    | 0.1465s   
+ScalObject-bkq.68.log | saturate         | 20    | -    | 0.0084s   
+ScalObject-bkq.68.log | saturate -r      | 20    | -    | 0.0091s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.69.log | enumerate -c     | 20    | -    | 0.7547s   
+ScalObject-bkq.69.log | counting -b 4    | 20    | -    | 0.7701s   
+ScalObject-bkq.69.log | counting -b 4 -r | 20    | -    | 0.3934s   
+ScalObject-bkq.69.log | counting -b 2    | 20    | -    | 1.0252s   
+ScalObject-bkq.69.log | counting -b 2 -r | 20    | -    | 0.4478s   
+ScalObject-bkq.69.log | counting -b 0    | 20    | -    | 1.427s    
+ScalObject-bkq.69.log | counting -b 0 -r | 20    | -    | 0.5092s   
+ScalObject-bkq.69.log | symbolic         | 20    | -    | 0.4188s   
+ScalObject-bkq.69.log | symbolic -r      | 20    | -    | 0.1585s   
+ScalObject-bkq.69.log | saturate         | 20    | -    | 0.0098s   
+ScalObject-bkq.69.log | saturate -r      | 20    | -    | 0.0094s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.70.log | enumerate -c     | 20    | 20   | 1.6312s   
+ScalObject-bkq.70.log | counting -b 4    | 20    | 20   | 0.5794s   
+ScalObject-bkq.70.log | counting -b 4 -r | 20    | 20   | 0.302s    
+ScalObject-bkq.70.log | counting -b 2    | 20    | -    | 0.7219s   
+ScalObject-bkq.70.log | counting -b 2 -r | 20    | -    | 0.4306s   
+ScalObject-bkq.70.log | counting -b 0    | 20    | -    | 0.7555s   
+ScalObject-bkq.70.log | counting -b 0 -r | 20    | -    | 0.4587s   
+ScalObject-bkq.70.log | symbolic         | 20    | 20   | 0.2493s   
+ScalObject-bkq.70.log | symbolic -r      | 20    | 20   | 0.1323s   
+ScalObject-bkq.70.log | saturate         | 20    | 20   | 0.0112s   
+ScalObject-bkq.70.log | saturate -r      | 20    | 20   | 0.009s    
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.71.log | enumerate -c     | 12    | 12   | 2.6086s   
+ScalObject-bkq.71.log | counting -b 4    | 12    | 12   | 0.1402s   
+ScalObject-bkq.71.log | counting -b 4 -r | 12    | 12   | 0.1165s   
+ScalObject-bkq.71.log | counting -b 2    | 12    | 12   | 0.1265s   
+ScalObject-bkq.71.log | counting -b 2 -r | 12    | 12   | 0.1096s   
+ScalObject-bkq.71.log | counting -b 0    | 20    | -    | 1.2576s   
+ScalObject-bkq.71.log | counting -b 0 -r | 20    | -    | 0.847s    
+ScalObject-bkq.71.log | symbolic         | 12    | 12   | 0.0543s   
+ScalObject-bkq.71.log | symbolic -r      | 12    | 12   | 0.0394s   
+ScalObject-bkq.71.log | saturate         | 16    | 16   | 0.0094s   
+ScalObject-bkq.71.log | saturate -r      | 16    | 16   | 0.0084s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.72.log | enumerate -c     | 20    | -    | 1.0717s   
+ScalObject-bkq.72.log | counting -b 4    | 20    | -    | 0.6249s   
+ScalObject-bkq.72.log | counting -b 4 -r | 20    | -    | 0.2625s   
+ScalObject-bkq.72.log | counting -b 2    | 20    | -    | 0.9373s   
+ScalObject-bkq.72.log | counting -b 2 -r | 20    | -    | 0.2706s   
+ScalObject-bkq.72.log | counting -b 0    | 20    | -    | 1.5461s   
+ScalObject-bkq.72.log | counting -b 0 -r | 20    | -    | 0.3085s   
+ScalObject-bkq.72.log | symbolic         | 20    | -    | 0.2759s   
+ScalObject-bkq.72.log | symbolic -r      | 20    | -    | 0.0983s   
+ScalObject-bkq.72.log | saturate         | 20    | -    | 0.0096s   
+ScalObject-bkq.72.log | saturate -r      | 20    | -    | 0.0086s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.73.log | enumerate -c     | 18    | 18   | 1.0646s   
+ScalObject-bkq.73.log | counting -b 4    | 18    | 18   | 0.4389s   
+ScalObject-bkq.73.log | counting -b 4 -r | 18    | 18   | 0.2488s   
+ScalObject-bkq.73.log | counting -b 2    | 20    | -    | 1.0713s   
+ScalObject-bkq.73.log | counting -b 2 -r | 20    | -    | 0.315s    
+ScalObject-bkq.73.log | counting -b 0    | 20    | -    | 1.1053s   
+ScalObject-bkq.73.log | counting -b 0 -r | 20    | -    | 0.3694s   
+ScalObject-bkq.73.log | symbolic         | 18    | 18   | 0.2209s   
+ScalObject-bkq.73.log | symbolic -r      | 18    | 18   | 0.097s    
+ScalObject-bkq.73.log | saturate         | 18    | 18   | 0.0091s   
+ScalObject-bkq.73.log | saturate -r      | 18    | 18   | 0.0091s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.74.log | enumerate -c     | 20    | -    | 0.7474s   
+ScalObject-bkq.74.log | counting -b 4    | 20    | -    | 0.7584s   
+ScalObject-bkq.74.log | counting -b 4 -r | 20    | -    | 0.2332s   
+ScalObject-bkq.74.log | counting -b 2    | 20    | -    | 1.1893s   
+ScalObject-bkq.74.log | counting -b 2 -r | 20    | -    | 0.2486s   
+ScalObject-bkq.74.log | counting -b 0    | 20    | -    | 1.3409s   
+ScalObject-bkq.74.log | counting -b 0 -r | 20    | -    | 0.2425s   
+ScalObject-bkq.74.log | symbolic         | 20    | -    | 0.4964s   
+ScalObject-bkq.74.log | symbolic -r      | 20    | -    | 0.0754s   
+ScalObject-bkq.74.log | saturate         | 20    | -    | 0.0103s   
+ScalObject-bkq.74.log | saturate -r      | 20    | -    | 0.0092s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.75.log | enumerate -c     | 20    | -    | 0.3184s   
+ScalObject-bkq.75.log | counting -b 4    | 20    | -    | 0.5555s   
+ScalObject-bkq.75.log | counting -b 4 -r | 20    | -    | 0.1905s   
+ScalObject-bkq.75.log | counting -b 2    | 20    | -    | 0.5949s   
+ScalObject-bkq.75.log | counting -b 2 -r | 20    | -    | 0.1825s   
+ScalObject-bkq.75.log | counting -b 0    | 20    | -    | 0.7202s   
+ScalObject-bkq.75.log | counting -b 0 -r | 20    | -    | 0.1972s   
+ScalObject-bkq.75.log | symbolic         | 20    | -    | 0.3089s   
+ScalObject-bkq.75.log | symbolic -r      | 20    | -    | 0.0405s   
+ScalObject-bkq.75.log | saturate         | 20    | -    | 0.0042s   
+ScalObject-bkq.75.log | saturate -r      | 20    | -    | 0.0072s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.76.log | enumerate -c     | 20    | -    | 0.7078s   
+ScalObject-bkq.76.log | counting -b 4    | 20    | -    | 0.6336s   
+ScalObject-bkq.76.log | counting -b 4 -r | 20    | -    | 0.2332s   
+ScalObject-bkq.76.log | counting -b 2    | 20    | -    | 0.8946s   
+ScalObject-bkq.76.log | counting -b 2 -r | 20    | -    | 0.2605s   
+ScalObject-bkq.76.log | counting -b 0    | 20    | -    | 0.9402s   
+ScalObject-bkq.76.log | counting -b 0 -r | 20    | -    | 0.2325s   
+ScalObject-bkq.76.log | symbolic         | 20    | -    | 0.2753s   
+ScalObject-bkq.76.log | symbolic -r      | 20    | -    | 0.0848s   
+ScalObject-bkq.76.log | saturate         | 20    | -    | 0.009s    
+ScalObject-bkq.76.log | saturate -r      | 20    | -    | 0.0076s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.77.log | enumerate -c     | 20    | -    | 0.3103s   
+ScalObject-bkq.77.log | counting -b 4    | 20    | -    | 0.5257s   
+ScalObject-bkq.77.log | counting -b 4 -r | 20    | -    | 0.1771s   
+ScalObject-bkq.77.log | counting -b 2    | 20    | -    | 0.6576s   
+ScalObject-bkq.77.log | counting -b 2 -r | 20    | -    | 0.1685s   
+ScalObject-bkq.77.log | counting -b 0    | 20    | -    | 0.7096s   
+ScalObject-bkq.77.log | counting -b 0 -r | 20    | -    | 0.1822s   
+ScalObject-bkq.77.log | symbolic         | 20    | -    | 0.2704s   
+ScalObject-bkq.77.log | symbolic -r      | 20    | -    | 0.0347s   
+ScalObject-bkq.77.log | saturate         | 20    | -    | 0.0074s   
+ScalObject-bkq.77.log | saturate -r      | 20    | -    | 0.0071s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.78.log | enumerate -c     | 20    | -    | 1.3174s   
+ScalObject-bkq.78.log | counting -b 4    | 20    | -    | 0.6094s   
+ScalObject-bkq.78.log | counting -b 4 -r | 20    | -    | 0.2626s   
+ScalObject-bkq.78.log | counting -b 2    | 20    | -    | 1.0399s   
+ScalObject-bkq.78.log | counting -b 2 -r | 20    | -    | 0.2971s   
+ScalObject-bkq.78.log | counting -b 0    | 20    | -    | 1.1217s   
+ScalObject-bkq.78.log | counting -b 0 -r | 20    | -    | 0.2966s   
+ScalObject-bkq.78.log | symbolic         | 20    | -    | 0.3094s   
+ScalObject-bkq.78.log | symbolic -r      | 20    | -    | 0.1029s   
+ScalObject-bkq.78.log | saturate         | 20    | -    | 0.0045s   
+ScalObject-bkq.78.log | saturate -r      | 20    | -    | 0.0078s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.79.log | enumerate -c     | 20    | -    | 0.408s    
+ScalObject-bkq.79.log | counting -b 4    | 20    | -    | 0.7115s   
+ScalObject-bkq.79.log | counting -b 4 -r | 20    | -    | 0.2062s   
+ScalObject-bkq.79.log | counting -b 2    | 20    | -    | 0.7051s   
+ScalObject-bkq.79.log | counting -b 2 -r | 20    | -    | 0.2149s   
+ScalObject-bkq.79.log | counting -b 0    | 20    | -    | 1.2957s   
+ScalObject-bkq.79.log | counting -b 0 -r | 20    | -    | 0.2175s   
+ScalObject-bkq.79.log | symbolic         | 20    | -    | 0.4707s   
+ScalObject-bkq.79.log | symbolic -r      | 20    | -    | 0.0649s   
+ScalObject-bkq.79.log | saturate         | 20    | -    | 0.0093s   
+ScalObject-bkq.79.log | saturate -r      | 20    | -    | 0.0083s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.80.log | enumerate -c     | 20    | -    | 2.603s    
+ScalObject-bkq.80.log | counting -b 4    | 20    | -    | 0.5944s   
+ScalObject-bkq.80.log | counting -b 4 -r | 20    | -    | 0.2528s   
+ScalObject-bkq.80.log | counting -b 2    | 20    | -    | 0.7806s   
+ScalObject-bkq.80.log | counting -b 2 -r | 20    | -    | 0.2495s   
+ScalObject-bkq.80.log | counting -b 0    | 20    | -    | 1.4338s   
+ScalObject-bkq.80.log | counting -b 0 -r | 20    | -    | 0.2572s   
+ScalObject-bkq.80.log | symbolic         | 20    | -    | 0.3905s   
+ScalObject-bkq.80.log | symbolic -r      | 20    | -    | 0.0924s   
+ScalObject-bkq.80.log | saturate         | 20    | -    | 0.011s    
+ScalObject-bkq.80.log | saturate -r      | 20    | -    | 0.0088s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.81.log | enumerate -c     | 20    | -    | 0.3318s   
+ScalObject-bkq.81.log | counting -b 4    | 20    | -    | 0.589s    
+ScalObject-bkq.81.log | counting -b 4 -r | 20    | -    | 0.1834s   
+ScalObject-bkq.81.log | counting -b 2    | 20    | -    | 0.8352s   
+ScalObject-bkq.81.log | counting -b 2 -r | 20    | -    | 0.2019s   
+ScalObject-bkq.81.log | counting -b 0    | 20    | -    | 0.9495s   
+ScalObject-bkq.81.log | counting -b 0 -r | 20    | -    | 0.217s    
+ScalObject-bkq.81.log | symbolic         | 20    | -    | 0.1775s   
+ScalObject-bkq.81.log | symbolic -r      | 20    | -    | 0.0373s   
+ScalObject-bkq.81.log | saturate         | 20    | -    | 0.0092s   
+ScalObject-bkq.81.log | saturate -r      | 20    | -    | 0.0096s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.82.log | enumerate -c     | 20    | -    | 0.5484s   
+ScalObject-bkq.82.log | counting -b 4    | 20    | -    | 0.7469s   
+ScalObject-bkq.82.log | counting -b 4 -r | 20    | -    | 0.2965s   
+ScalObject-bkq.82.log | counting -b 2    | 20    | -    | 0.8885s   
+ScalObject-bkq.82.log | counting -b 2 -r | 20    | -    | 0.3387s   
+ScalObject-bkq.82.log | counting -b 0    | 20    | -    | 1.3948s   
+ScalObject-bkq.82.log | counting -b 0 -r | 20    | -    | 0.408s    
+ScalObject-bkq.82.log | symbolic         | 20    | -    | 0.3973s   
+ScalObject-bkq.82.log | symbolic -r      | 20    | -    | 0.1193s   
+ScalObject-bkq.82.log | saturate         | 20    | -    | 0.0099s   
+ScalObject-bkq.82.log | saturate -r      | 20    | -    | 0.0102s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.83.log | enumerate -c     | 20    | -    | 5.3843s   
+ScalObject-bkq.83.log | counting -b 4    | 20    | -    | 0.9221s   
+ScalObject-bkq.83.log | counting -b 4 -r | 20    | -    | 0.7321s   
+ScalObject-bkq.83.log | counting -b 2    | 20    | -    | 1.147s    
+ScalObject-bkq.83.log | counting -b 2 -r | 20    | -    | 0.9575s   
+ScalObject-bkq.83.log | counting -b 0    | 20    | -    | 1.5803s   
+ScalObject-bkq.83.log | counting -b 0 -r | 20    | -    | 1.1438s   
+ScalObject-bkq.83.log | symbolic         | 20    | -    | 0.4847s   
+ScalObject-bkq.83.log | symbolic -r      | 20    | -    | 0.4127s   
+ScalObject-bkq.83.log | saturate         | 20    | -    | 0.0094s   
+ScalObject-bkq.83.log | saturate -r      | 20    | -    | 0.0113s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.84.log | enumerate -c     | 20    | -    | 4.2116s   
+ScalObject-bkq.84.log | counting -b 4    | 20    | -    | 0.7585s   
+ScalObject-bkq.84.log | counting -b 4 -r | 20    | -    | 0.3706s   
+ScalObject-bkq.84.log | counting -b 2    | 20    | -    | 0.8199s   
+ScalObject-bkq.84.log | counting -b 2 -r | 20    | -    | 0.3571s   
+ScalObject-bkq.84.log | counting -b 0    | 20    | -    | 0.9926s   
+ScalObject-bkq.84.log | counting -b 0 -r | 20    | -    | 0.3495s   
+ScalObject-bkq.84.log | symbolic         | 20    | -    | 0.4365s   
+ScalObject-bkq.84.log | symbolic -r      | 20    | -    | 0.1547s   
+ScalObject-bkq.84.log | saturate         | 20    | -    | 0.0078s   
+ScalObject-bkq.84.log | saturate -r      | 20    | -    | 0.0094s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.85.log | enumerate -c     | 20    | -    | 5.8507s   
+ScalObject-bkq.85.log | counting -b 4    | 20    | -    | 0.7205s   
+ScalObject-bkq.85.log | counting -b 4 -r | 20    | -    | 0.5862s   
+ScalObject-bkq.85.log | counting -b 2    | 20    | -    | 0.8359s   
+ScalObject-bkq.85.log | counting -b 2 -r | 20    | -    | 0.637s    
+ScalObject-bkq.85.log | counting -b 0    | 20    | -    | 1.0249s   
+ScalObject-bkq.85.log | counting -b 0 -r | 20    | -    | 0.8708s   
+ScalObject-bkq.85.log | symbolic         | 20    | -    | 0.3859s   
+ScalObject-bkq.85.log | symbolic -r      | 20    | -    | 0.3182s   
+ScalObject-bkq.85.log | saturate         | 20    | -    | 0.0152s   
+ScalObject-bkq.85.log | saturate -r      | 20    | -    | 0.0148s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.86.log | enumerate -c     | 20    | -    | 1.1049s   
+ScalObject-bkq.86.log | counting -b 4    | 20    | -    | 0.7439s   
+ScalObject-bkq.86.log | counting -b 4 -r | 20    | -    | 0.4515s   
+ScalObject-bkq.86.log | counting -b 2    | 20    | -    | 0.9737s   
+ScalObject-bkq.86.log | counting -b 2 -r | 20    | -    | 0.5647s   
+ScalObject-bkq.86.log | counting -b 0    | 20    | -    | 1.1819s   
+ScalObject-bkq.86.log | counting -b 0 -r | 20    | -    | 0.6325s   
+ScalObject-bkq.86.log | symbolic         | 20    | -    | 0.4042s   
+ScalObject-bkq.86.log | symbolic -r      | 20    | -    | 0.2582s   
+ScalObject-bkq.86.log | saturate         | 20    | -    | 0.0111s   
+ScalObject-bkq.86.log | saturate -r      | 20    | -    | 0.0133s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.87.log | enumerate -c     | 20    | -    | 0.3656s   
+ScalObject-bkq.87.log | counting -b 4    | 20    | -    | 0.5668s   
+ScalObject-bkq.87.log | counting -b 4 -r | 20    | -    | 0.1941s   
+ScalObject-bkq.87.log | counting -b 2    | 20    | -    | 0.6172s   
+ScalObject-bkq.87.log | counting -b 2 -r | 20    | -    | 0.1852s   
+ScalObject-bkq.87.log | counting -b 0    | 20    | -    | 0.712s    
+ScalObject-bkq.87.log | counting -b 0 -r | 20    | -    | 0.1981s   
+ScalObject-bkq.87.log | symbolic         | 20    | -    | 0.3733s   
+ScalObject-bkq.87.log | symbolic -r      | 20    | -    | 0.05s     
+ScalObject-bkq.87.log | saturate         | 20    | -    | 0.0074s   
+ScalObject-bkq.87.log | saturate -r      | 20    | -    | 0.0071s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.88.log | enumerate -c     | 20    | -    | 1.798s    
+ScalObject-bkq.88.log | counting -b 4    | 20    | -    | 0.7876s   
+ScalObject-bkq.88.log | counting -b 4 -r | 20    | -    | 0.4552s   
+ScalObject-bkq.88.log | counting -b 2    | 20    | -    | 0.9707s   
+ScalObject-bkq.88.log | counting -b 2 -r | 20    | -    | 0.5369s   
+ScalObject-bkq.88.log | counting -b 0    | 20    | -    | 1.291s    
+ScalObject-bkq.88.log | counting -b 0 -r | 20    | -    | 0.529s    
+ScalObject-bkq.88.log | symbolic         | 20    | -    | 0.5349s   
+ScalObject-bkq.88.log | symbolic -r      | 20    | -    | 0.2849s   
+ScalObject-bkq.88.log | saturate         | 20    | -    | 0.0097s   
+ScalObject-bkq.88.log | saturate -r      | 20    | -    | 0.009s    
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.89.log | enumerate -c     | 20    | 20   | 1.7009s   
+ScalObject-bkq.89.log | counting -b 4    | 20    | 20   | 0.5335s   
+ScalObject-bkq.89.log | counting -b 4 -r | 20    | 20   | 0.3302s   
+ScalObject-bkq.89.log | counting -b 2    | 20    | 20   | 0.6639s   
+ScalObject-bkq.89.log | counting -b 2 -r | 20    | 20   | 0.405s    
+ScalObject-bkq.89.log | counting -b 0    | 20    | -    | 1.5985s   
+ScalObject-bkq.89.log | counting -b 0 -r | 20    | -    | 0.4777s   
+ScalObject-bkq.89.log | symbolic         | 20    | 20   | 0.2441s   
+ScalObject-bkq.89.log | symbolic -r      | 20    | 20   | 0.14s     
+ScalObject-bkq.89.log | saturate         | 20    | 20   | 0.0095s   
+ScalObject-bkq.89.log | saturate -r      | 20    | 20   | 0.0089s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.90.log | enumerate -c     | 8     | 8    | 0.0742s   
+ScalObject-bkq.90.log | counting -b 4    | 8     | 8    | 0.0722s   
+ScalObject-bkq.90.log | counting -b 4 -r | 8     | 8    | 0.0651s   
+ScalObject-bkq.90.log | counting -b 2    | 8     | 8    | 0.0733s   
+ScalObject-bkq.90.log | counting -b 2 -r | 8     | 8    | 0.066s    
+ScalObject-bkq.90.log | counting -b 0    | 20    | -    | 1.2077s   
+ScalObject-bkq.90.log | counting -b 0 -r | 20    | -    | 0.207s    
+ScalObject-bkq.90.log | symbolic         | 8     | 8    | 0.0141s   
+ScalObject-bkq.90.log | symbolic -r      | 8     | 8    | 0.0138s   
+ScalObject-bkq.90.log | saturate         | 8     | 8    | 0.0035s   
+ScalObject-bkq.90.log | saturate -r      | 8     | 8    | 0.0034s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.91.log | enumerate -c     | 11    | 11   | 0.5676s   
+ScalObject-bkq.91.log | counting -b 4    | 11    | 11   | 0.1151s   
+ScalObject-bkq.91.log | counting -b 4 -r | 11    | 11   | 0.0975s   
+ScalObject-bkq.91.log | counting -b 2    | 11    | 11   | 0.1215s   
+ScalObject-bkq.91.log | counting -b 2 -r | 11    | 11   | 0.0952s   
+ScalObject-bkq.91.log | counting -b 0    | 20    | -    | 1.2789s   
+ScalObject-bkq.91.log | counting -b 0 -r | 20    | -    | 0.3681s   
+ScalObject-bkq.91.log | symbolic         | 11    | 11   | 0.0506s   
+ScalObject-bkq.91.log | symbolic -r      | 11    | 11   | 0.0299s   
+ScalObject-bkq.91.log | saturate         | 13    | 13   | 0.0041s   
+ScalObject-bkq.91.log | saturate -r      | 13    | 13   | 0.0072s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.92.log | enumerate -c     | 20    | -    | 6.8365s   
+ScalObject-bkq.92.log | counting -b 4    | 20    | -    | 0.7163s   
+ScalObject-bkq.92.log | counting -b 4 -r | 20    | -    | 0.445s    
+ScalObject-bkq.92.log | counting -b 2    | 20    | -    | 1.1707s   
+ScalObject-bkq.92.log | counting -b 2 -r | 20    | -    | 0.4078s   
+ScalObject-bkq.92.log | counting -b 0    | 20    | -    | 1.1172s   
+ScalObject-bkq.92.log | counting -b 0 -r | 20    | -    | 0.5579s   
+ScalObject-bkq.92.log | symbolic         | 20    | -    | 0.3818s   
+ScalObject-bkq.92.log | symbolic -r      | 20    | -    | 0.2105s   
+ScalObject-bkq.92.log | saturate         | 20    | -    | 0.0112s   
+ScalObject-bkq.92.log | saturate -r      | 20    | -    | 0.0127s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.93.log | enumerate -c     | 6     | 6    | 0.0536s   
+ScalObject-bkq.93.log | counting -b 4    | 6     | 6    | 0.0536s   
+ScalObject-bkq.93.log | counting -b 4 -r | 6     | 6    | 0.0514s   
+ScalObject-bkq.93.log | counting -b 2    | 6     | 6    | 0.0523s   
+ScalObject-bkq.93.log | counting -b 2 -r | 6     | 6    | 0.054s    
+ScalObject-bkq.93.log | counting -b 0    | 20    | -    | 1.2101s   
+ScalObject-bkq.93.log | counting -b 0 -r | 20    | -    | 0.1839s   
+ScalObject-bkq.93.log | symbolic         | 6     | 6    | 0.0101s   
+ScalObject-bkq.93.log | symbolic -r      | 6     | 6    | 0.0122s   
+ScalObject-bkq.93.log | saturate         | 6     | 6    | 0.0032s   
+ScalObject-bkq.93.log | saturate -r      | 6     | 6    | 0.0031s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.94.log | enumerate -c     | 20    | -    | 8.8654s   
+ScalObject-bkq.94.log | counting -b 4    | 20    | -    | 0.65s     
+ScalObject-bkq.94.log | counting -b 4 -r | 20    | -    | 0.336s    
+ScalObject-bkq.94.log | counting -b 2    | 20    | -    | 0.7959s   
+ScalObject-bkq.94.log | counting -b 2 -r | 20    | -    | 0.3845s   
+ScalObject-bkq.94.log | counting -b 0    | 20    | -    | 0.874s    
+ScalObject-bkq.94.log | counting -b 0 -r | 20    | -    | 0.4046s   
+ScalObject-bkq.94.log | symbolic         | 20    | -    | 0.4204s   
+ScalObject-bkq.94.log | symbolic -r      | 20    | -    | 0.1941s   
+ScalObject-bkq.94.log | saturate         | 20    | -    | 0.0126s   
+ScalObject-bkq.94.log | saturate -r      | 20    | -    | 0.0104s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.95.log | enumerate -c     | 8     | 8    | 0.0765s   
+ScalObject-bkq.95.log | counting -b 4    | 8     | 8    | 0.0762s   
+ScalObject-bkq.95.log | counting -b 4 -r | 8     | 8    | 0.0732s   
+ScalObject-bkq.95.log | counting -b 2    | 8     | 8    | 0.069s    
+ScalObject-bkq.95.log | counting -b 2 -r | 8     | 8    | 0.0777s   
+ScalObject-bkq.95.log | counting -b 0    | 20    | -    | 1.8693s   
+ScalObject-bkq.95.log | counting -b 0 -r | 20    | -    | 0.3402s   
+ScalObject-bkq.95.log | symbolic         | 8     | 8    | 0.0159s   
+ScalObject-bkq.95.log | symbolic -r      | 8     | 8    | 0.0171s   
+ScalObject-bkq.95.log | saturate         | 8     | 8    | 0.004s    
+ScalObject-bkq.95.log | saturate -r      | 8     | 8    | 0.0041s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.96.log | enumerate -c     | 20    | -    | 1.1148s   
+ScalObject-bkq.96.log | counting -b 4    | 20    | -    | 0.714s    
+ScalObject-bkq.96.log | counting -b 4 -r | 20    | -    | 0.2768s   
+ScalObject-bkq.96.log | counting -b 2    | 20    | -    | 0.9938s   
+ScalObject-bkq.96.log | counting -b 2 -r | 20    | -    | 0.306s    
+ScalObject-bkq.96.log | counting -b 0    | 20    | -    | 1.4358s   
+ScalObject-bkq.96.log | counting -b 0 -r | 20    | -    | 0.3571s   
+ScalObject-bkq.96.log | symbolic         | 20    | -    | 0.3341s   
+ScalObject-bkq.96.log | symbolic -r      | 20    | -    | 0.1095s   
+ScalObject-bkq.96.log | saturate         | 20    | -    | 0.0045s   
+ScalObject-bkq.96.log | saturate -r      | 20    | -    | 0.0069s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.97.log | enumerate -c     | 20*   | -    | 10.0186s* 
+ScalObject-bkq.97.log | counting -b 4    | 20    | -    | 1.0839s   
+ScalObject-bkq.97.log | counting -b 4 -r | 20    | -    | 0.644s    
+ScalObject-bkq.97.log | counting -b 2    | 20    | -    | 1.4025s   
+ScalObject-bkq.97.log | counting -b 2 -r | 20    | -    | 0.6508s   
+ScalObject-bkq.97.log | counting -b 0    | 20    | -    | 1.248s    
+ScalObject-bkq.97.log | counting -b 0 -r | 20    | -    | 0.6862s   
+ScalObject-bkq.97.log | symbolic         | 20    | -    | 0.6325s   
+ScalObject-bkq.97.log | symbolic -r      | 20    | -    | 0.3721s   
+ScalObject-bkq.97.log | saturate         | 20    | -    | 0.0117s   
+ScalObject-bkq.97.log | saturate -r      | 20    | -    | 0.0095s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.98.log | enumerate -c     | 20    | -    | 6.9635s   
+ScalObject-bkq.98.log | counting -b 4    | 20    | -    | 0.7309s   
+ScalObject-bkq.98.log | counting -b 4 -r | 20    | -    | 0.348s    
+ScalObject-bkq.98.log | counting -b 2    | 20    | -    | 0.8016s   
+ScalObject-bkq.98.log | counting -b 2 -r | 20    | -    | 0.4511s   
+ScalObject-bkq.98.log | counting -b 0    | 20    | -    | 1.4357s   
+ScalObject-bkq.98.log | counting -b 0 -r | 20    | -    | 0.5211s   
+ScalObject-bkq.98.log | symbolic         | 20    | -    | 0.4265s   
+ScalObject-bkq.98.log | symbolic -r      | 20    | -    | 0.1911s   
+ScalObject-bkq.98.log | saturate         | 20    | -    | 0.0112s   
+ScalObject-bkq.98.log | saturate -r      | 20    | -    | 0.0103s   
+----------------------+------------------+-------+------+-----------
+ScalObject-bkq.99.log | enumerate -c     | 10    | 10   | 2.9793s   
+ScalObject-bkq.99.log | counting -b 4    | 10    | 10   | 0.0889s   
+ScalObject-bkq.99.log | counting -b 4 -r | 10    | 10   | 0.0852s   
+ScalObject-bkq.99.log | counting -b 2    | 10    | 10   | 0.0865s   
+ScalObject-bkq.99.log | counting -b 2 -r | 10    | 10   | 0.0926s   
+ScalObject-bkq.99.log | counting -b 0    | 17    | -    | 0.6358s   
+ScalObject-bkq.99.log | counting -b 0 -r | 17    | -    | 0.5727s   
+ScalObject-bkq.99.log | symbolic         | 10    | 10   | 0.0324s   
+ScalObject-bkq.99.log | symbolic -r      | 10    | 10   | 0.0302s   
+ScalObject-bkq.99.log | saturate         | 15    | 15   | 0.0083s   
+ScalObject-bkq.99.log | saturate -r      | 15    | 15   | 0.0084s   
+----------------------+------------------+-------+------+-----------
+Writing data from observer: Violations Covered.

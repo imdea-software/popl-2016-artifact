@@ -17,11 +17,9 @@ system(%w{
   -a "symbolic" -a "symbolic -r"
   -a "saturate" -a "saturate -r"
   -t 5 -t 25 -t 50 -t 75 -t 100
-  -d steps-until-timeout,data/avg-steps-until-timeout.csv
-
+  -f data/avg-steps-until-timeout.tsv
 } * ' ', out: [report_file,'a'], err: :out)
 
-system("gnuplot plots/avg-steps-until-timeout.plot", out: [report_file,'a'], err: :out)
 
 # TODO create better benchmarks
 # Scalobject-bkq-small is too hard, and contains too few errors
@@ -41,10 +39,8 @@ system(%w{
   -a "symbolic" -a "symbolic -r"
   -a "saturate" -a "saturate -r"
   -t 10
-  -d violations-covered,data/violations-covered.csv
+  -f data/violations-covered.tsv
 } * ' ', out: [report_file,'a'], err: :out)
-
-system("gnuplot plots/violations-covered.plot", out: [report_file,'a'], err: out)
 
 
 system(%w{
@@ -57,10 +53,9 @@ system(%w{
   -a "symbolic" -a "symbolic -r"
   -a "saturate" -a "saturate -r"
   -t 20
-  -d steps-until-timeout,data/avg-steps-until-fixed-timeout.csv
+  -f data/avg-steps-until-fixed-timeout.tsv
 } * ' ', out: [report_file,'a'], err: :out)
 
-system("gnuplot plots/avg-steps-until-fixed-timeout.plot", out: [report_file,'a'], err: out)
 
 abort "Unable to add report."     unless system("git add #{report_file}")
 abort "Unable to commit report."  unless system("git commit -a")
