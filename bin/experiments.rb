@@ -58,5 +58,5 @@ system(%w{
 
 
 abort "Unable to add report."     unless system("git add #{report_file}")
-abort "Unable to commit report."  unless system("git commit -a")
+abort "Unable to commit report."  unless system("git commit -a -m 'Auto-generated #{report_file}.")
 abort "Unable to push report."    unless system("git push")
