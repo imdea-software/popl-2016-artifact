@@ -11,27 +11,7 @@ File.open(report_file, 'a') {|f| f.puts "# #{report_file}" }
 
 system(%w{
 ./bin/report.rb
-  -s "examples/generated/ScalObject-msq-big/*.log"
-  -a "enumerate -c"
-  -a "counting -b 4" -a "counting -b 4 -r"
-  -a "symbolic" -a "symbolic -r"
-  -a "saturate" -a "saturate -r"
-  -t 5 -t 25 -t 50 -t 75 -t 100
-  -f data/avg-steps-until-timeout.tsv
-} * ' ', out: [report_file,'a'], err: :out)
-
-
-# TODO create better benchmarks
-# Scalobject-bkq-small is too hard, and contains too few errors
-# bkq-almost-sequential is too obviously errorneous -- even counting-0 gets it
-
-# TODO add more objects...
-# -s "examples/generated/ScalObject-xxx-small/*.log"
-# -s "examples/generated/ScalObject-yyy-small/*.log"
-
-system(%w{
-./bin/report.rb
-  -s "examples/generated/ScalObject-bkq-small/*.log"
+  -s "examples/generated/small/**/*.log"
   -a "enumerate -c"
   -a "counting -b 4" -a "counting -b 4 -r"
   -a "counting -b 2" -a "counting -b 2 -r"
@@ -42,20 +22,16 @@ system(%w{
   -f data/violations-covered.tsv
 } * ' ', out: [report_file,'a'], err: :out)
 
-
 system(%w{
 ./bin/report.rb
-  -s "examples/generated/ScalObject-msq-big/*.log"
+  -s "examples/generated/big/**/*.log"
   -a "enumerate -c"
   -a "counting -b 4" -a "counting -b 4 -r"
-  -a "counting -b 2" -a "counting -b 2 -r"
-  -a "counting -b 0" -a "counting -b 0 -r"
   -a "symbolic" -a "symbolic -r"
   -a "saturate" -a "saturate -r"
-  -t 20
-  -f data/avg-steps-until-fixed-timeout.tsv
+  -t 5 -t 25 -t 50 -t 75 -t 100
+  -f data/avg-steps-until-timeout.tsv
 } * ' ', out: [report_file,'a'], err: :out)
-
 
 abort "Unable to add report."     unless system("git add #{report_file}")
 abort "Unable to commit report."  unless system("git commit -a -m 'Auto-generated #{report_file}.")
