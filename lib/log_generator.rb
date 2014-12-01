@@ -15,8 +15,8 @@ DEST = "examples/generated/"
 def get_object(object)
   (puts "Must specify an object."; exit) unless object
   case object
-  when /msq/; [ScalObject, 'msq']
-  when /bkq/; [ScalObject, 'bkq']
+  when /\A(bkq|dq|dtsq|lbq|msq|fcq|ks|rdq|sl|ts|tsd|tsq|tss|ukq|wfq11|wfq12)\z/
+    [ScalObject, object]
   else
     puts "Unknown object: #{object}"
     exit
@@ -84,13 +84,14 @@ begin
     object = obj_class.new(*args)
     log_file = File.join(dest_dir, "#{@options.object * "-"}.#{i.to_s.rjust(idx_width,'0')}.log")
 
-    tester.run(
-      MonitoredObject.new(object, LogReaderWriter.new(log_file, object: object.class.spec)),
-      @options.num_threads,
-      operation_limit: @options.operation_limit,
-      time_limit: @options.time_limit
-    )
-
+    LogReaderWriter.new(log_file, object.class.spec) do |logger|
+      tester.run(
+        MonitoredObject.new(object, logger),
+        @options.num_threads,
+        operation_limit: @options.operation_limit,
+        time_limit: @options.time_limit
+      )
+    end
     print "#"
   end
   puts "]"

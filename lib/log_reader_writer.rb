@@ -1,13 +1,32 @@
 class LogReaderWriter
-  def initialize(file, object: nil)
-    @file = file
-    @object = object
+
+  def initialize(file, object)
+    @queue = Queue.new
+    Thread.new do
+      File.open(file,'w') do |f|
+        f.puts "# @object #{object}"
+        loop do
+          line = @queue.pop
+          break unless line
+          f.puts line
+        end
+      end
+    end
+    yield self
+    @queue << nil
   end
 
-  def extract_metadata(name)
-    File.open(@file) do |f|
+  def update(msg, *args)
+    case msg
+    when :start;    @queue << self.class.call!(*args)
+    when :complete; @queue << self.class.return!(*args)
+    end
+  end
+
+  def self.extract_metadata(key, file)
+    File.open(file) do |f|
       f.each do |line|
-        line.match(/@#{name} (?'obj'.*)/) do |m|
+        line.match(/@#{key} (?'obj'.*)/) do |m|
           return m[:obj].strip
         end
       end
@@ -15,17 +34,17 @@ class LogReaderWriter
     return nil
   end
 
-  def object; extract_metadata(:object) end
+  def self.object(file); extract_metadata(:object, file) end
 
-  def call!(id, method_name, *values)
+  def self.call!(id, method_name, *values)
     "[#{id}] call #{method_name}#{"(#{values * ", "})" unless values.empty?}"
   end
 
-  def return!(id, *values)
+  def self.return!(id, *values)
     "[#{id}] return#{" #{values * ", "}" unless values.empty?}"
   end
 
-  def call?(str)
+  def self.call?(str)
     str.match(/\A\[(?'id'\d+)\]\s*call \s*(?'method'\w+)(\((?'values'\w+(\s*,\s*\w+)*)?\))?\Z/) do |m|
       yield(
         m[:id].to_i,
@@ -36,7 +55,7 @@ class LogReaderWriter
     false
   end
 
-  def return?(str)
+  def self.return?(str)
     str.match(/\A\[(?'id'\d+)\]\s*ret(urn)?\s*(?'values' \w+(\s*,\s*\w+)*)?\Z/) do |m|
       yield(
         m[:id].to_i,
@@ -46,20 +65,9 @@ class LogReaderWriter
     false
   end
 
-  def update(msg, *args)
-    unless @file.is_a?(IO)
-      @file = File.open(@file, 'w', autoclose: true)
-      @file.puts "# @object #{@object}"
-    end
-    case msg
-    when :start;    @file.puts call!(*args)
-    when :complete; @file.puts return!(*args)
-    end
-  end
-
-  def read
+  def self.read(file)
     ids = {}
-    File.open(@file) do |f|
+    File.open(file) do |f|
       f.each do |line|
 
         # strip comments and whitespace

@@ -121,10 +121,10 @@ begin
   require_relative 'counting_checker'
   require_relative 'obsolete_remover'
 
-  logrw = LogReaderWriter.new(execution_log)
+  object = LogReaderWriter.object(execution_log)
   @options[:history] = history = History.new
-  @options[:object] = logrw.object
-  @options[:matcher] = matcher = Matcher.get(logrw.object, history)
+  @options[:object] = object
+  @options[:matcher] = matcher = Matcher.get(object, history)
 
   @checker =
     case @checker
@@ -158,7 +158,7 @@ begin
 
   begin
     Timeout.timeout(@options[:time_limit]) do
-      logrw.read do |act, method_or_id, *values|
+      LogReaderWriter.read(execution_log) do |act, method_or_id, *values|
         raise ViolationFound if @checker.violation?
         raise StepLimitReached if @options[:step_limit] && @options[:step_limit] <= num_steps
 
@@ -192,7 +192,7 @@ begin
   end_time = Time.now
 
   puts "HISTORY:    #{execution_log}"
-  puts "OBJECT:     #{logrw.object || "?"}"
+  puts "OBJECT:     #{@options[:object] || "?"}"
   puts "ALGORITHM:  #{@checker}"
   puts "REMOVAL:    #{@options[:removal]}"
   puts "VIOLATION:  #{@checker.violation?}"
