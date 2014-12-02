@@ -209,7 +209,7 @@ begin
   puts "REMOVAL:      #{@options[:removal]}"
   puts "VIOLATION:    #{@checker.violation?}"
   puts "STEPS:        #{num_steps}#{timeout}#{stepout}"
-  puts "CONCURRENCY:  #{concurrency.mean.round(1)}±#{concurrency.standard_deviation.round(1)}"
+  puts "CONCURRENCY:  #{concurrency.mean.round(1)} ± #{concurrency.standard_deviation.round(1)}"
   puts "SIZE:         #{size.mean.round(1)} (avg), #{size.max} (max)"
   puts "CHECKS:       #{@checker.num_checks}"
   puts "MEMORY:       #{(max_rss / 1024.0).round(4)}KB"

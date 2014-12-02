@@ -50,8 +50,12 @@
   shape-rendering: crispEdges;
 }
 
-.key {
-  font: 12px sans-serif;
+text {
+  font: 10px sans-serif;
+}
+
+.object text {
+  font: 8px sans-serif;
 }
 
 </style>
@@ -66,7 +70,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 500 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
-steps_until_timeout_plot("../data/data.tsv", width, height, margin)
+steps_until_timeout_plot("../data/avg-steps-until-timeout.tsv", width, height, margin)
 violations_covered_plot("../data/violations-covered.tsv", width, height, margin)
 
 </script>
