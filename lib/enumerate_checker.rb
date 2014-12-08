@@ -10,6 +10,9 @@ class EnumerateChecker < HistoryChecker
   def initialize(options)
     super(options)
 
+    # TODO try to use an actual object implementation
+    @reference_impl = nil
+
     configuration = Z3.config
     context = Z3.context(config: configuration)
     @solver = context.solver
@@ -28,11 +31,22 @@ class EnumerateChecker < HistoryChecker
   def name; "Enumerate#{"+C" if @completion}" end
 
   def check_history(history, seq)
-    @theories.theory(object).each(&@solver.method(:assert))
-    @theories.history(history, order: seq).each(&@solver.method(:assert))
-    sat = @solver.check
-    @solver.reset
-    return sat
+    if @reference_impl
+      @reference_impl.reset
+      seq.all? do |op|
+        @reference_impl.send(history.method_name(op), *history.arguments(op)) == history.returns(op)
+      end
+
+    elsif @solver
+      @solver.reset
+      @theories.theory(object).each(&@solver.method(:assert))
+      @theories.history(history, order: seq).each(&@solver.method(:assert))
+      @solver.check
+
+    else
+      log.fatal('Enumerate') {"I don't have a checker"}
+      exit
+    end
   end
 
   def check()
