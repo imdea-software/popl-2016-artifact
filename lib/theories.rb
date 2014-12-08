@@ -14,8 +14,11 @@ class Theories
 
   def id_sort; resolve :id end
 
-  def op(id) "o#{id}".to_sym end
+  # TODO rethink this predicate
   def val(v) "v#{v}".to_sym end
+
+  def default_op(id) "o#{id}".to_sym end
+  def default_val(v) "v#{v}".to_sym end
 
   def p(o)          e(:p, o) end
   def c(o)          e(:c, o) end
@@ -148,14 +151,34 @@ class Theories
     end
   end
 
-  def history(h, order: nil)
-    h.each {|id| decl_const "o#{id}", :id}
-    h.values.each {|v| decl_const "v#{v}", :value}
+  def rename(o) e(:g, o) end
+  def dom(o) e(:domain_g, o) end
+  def range(o) e(:range_g, o) end
+
+  def weaker_than(h1, h2)
+    decl_const :g, :id, :id
+    Enumerator.new do |y|
+      op2 = Proc.new {|id| "p#{id}".to_sym}
+      history(h1).each(&y.method(:yield))
+      history(h2, op:op2).each(&y.method(:yield))
+
+      # TODO assert the matching facts
+
+      h2.each {|id| y << dom(e(op2(id))); y << range(rename(e(op2(id)))) }
+      y << forall_ids {|i,j| (rename(i) == rename(j)).implies(i == j)}
+      y << forall_ids {|i,j| (dom(i) & dom(j) & match(rename(i),rename(j))).implies(match(i,j))}
+      y << forall_ids {|i,j| (dom(i) & dom(j) & before(rename(i),rename(j))).implies(before(i,j))}
+    end
+  end
+
+  def history(h, order: nil, op: method(:default_op), val: method(:default_val))
+    h.each {|id| decl_const op.call(id), :id}
+    h.values.each {|v| decl_const val.call(v), :value}
 
     Enumerator.new do |y|
       h.each do |id|
-        called(id,h,order:order).each(&y.method(:yield))
-        returned(id,h).each(&y.method(:yield)) if h.completed?(id)
+        called(id, h, order:order, op:op, val:val).each(&y.method(:yield))
+        returned(id,h, op:op, val:val).each(&y.method(:yield)) if h.completed?(id)
       end
       domains(h).each(&y.method(:yield))
 
@@ -164,45 +187,45 @@ class Theories
       when Enumerator; order
       else []
       end.each do |i,j|
-        y << c(e(op(i)))
-        y << before(e(op(i)),e(op(j)))
+        y << c(e(op.call(i)))
+        y << before(e(op.call(i)),e(op.call(j)))
       end
     end
   end
 
-  def called(id, history, order: nil)
-    decl_const "o#{id}", :id
-    history.arguments(id).each {|v| decl_const "v#{v}", :value}
+  def called(id, history, order: nil, op: method(:default_op), val: method(:default_val))
+    decl_const op.call(id), :id
+    history.arguments(id).each {|v| decl_const val.call(v), :value}
 
     Enumerator.new do |y|
-      history.each {|j| y << (e(op(id)) != e(op(j))) unless j == id}
-      y << (meth(e(op(id))) == e(history.method_name(id)))
+      history.each {|j| y << (e(op.call(id)) != e(op.call(j))) unless j == id}
+      y << (meth(e(op.call(id))) == e(history.method_name(id)))
       history.arguments(id).each_with_index.map do |v,i|
-        history.values.each {|u| y << (e(val(v)) != e(val(u))) unless u == v}
-        y << (e(val(v)) != e(val(:empty)))
-        y << (arg(e(op(id)),i) == e(val(v)))
+        history.values.each {|u| y << (e(val.call(v)) != e(val.call(u))) unless u == v}
+        y << (e(val.call(v)) != e(val.call(:empty)))
+        y << (arg(e(op.call(id)),i) == e(val.call(v)))
       end
-      history.before(id).each {|j| y << before(e(op(j)), e(op(id)))} unless order
-      y << p(e(op(id)))
+      history.before(id).each {|j| y << before(e(op.call(j)), e(op.call(id)))} unless order
+      y << p(e(op.call(id)))
     end
   end
 
-  def returned(id, history)
-    history.returns(id).each {|v| decl_const "v#{v}", :value}
+  def returned(id, history, op: method(:default_op), val: method(:default_val))
+    history.returns(id).each {|v| decl_const val.call(v), :value}
 
     Enumerator.new do |y|
       history.returns(id).each_with_index.map do |v,i|
-        history.values.each {|u| y << (e(val(v)) != e(val(u))) unless u == v}
-        y << (e(val(v)) != e(val(:empty))) unless v == :empty
-        y << (ret(e(op(id)),i) == e(val(v)))
+        history.values.each {|u| y << (e(val.call(v)) != e(val.call(u))) unless u == v}
+        y << (e(val.call(v)) != e(val.call(:empty))) unless v == :empty
+        y << (ret(e(op.call(id)),i) == e(val.call(v)))
       end
-      y << c(e(op(id)))
+      y << c(e(op.call(id)))
     end
   end
 
-  def domains(history)
+  def domains(history, op: method(:default_op), val: method(:default_val))
     Enumerator.new do |y|
-      y << forall_ids {|o| disj(*history.map{|j| o == e(op(j))})}
+      y << forall_ids {|o| disj(*history.map{|j| o == e(op.call(j))})}
     end
   end
 
