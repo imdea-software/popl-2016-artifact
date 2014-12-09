@@ -78,11 +78,21 @@ class History
   def start(m,*args)      h = clone; id = h.start!(m,*args); [h,id] end
   def complete(id,*rets)  clone.complete!(id,*rets) end
   def remove(id)          clone.remove!(id) end
+  def uncomplete(id)      clone.uncomplete!(id) end
+  def unorder(i1,i2)      clone.unorder!(i1,i2) end
+
+  def self.from_enum(e)
+    h = self.new
+    e.each do |meth, args, rets|
+      h.complete!(h.start!(meth, *args), *rets)
+    end
+    h
+  end
 
   def update(act,*args)
     case act
-    when :start;      start!(args[0], args.drop(1))
-    when :complete;   complete!(args[0], args.drop(1))
+    when :start;      start!(*args)
+    when :complete;   complete!(*args)
     else              fail "Unexpected history update."
     end
   end
@@ -195,6 +205,26 @@ class History
     self
   end
 
+  def uncomplete!(id)
+    fail "Operation #{id} not present." unless include?(id)
+    fail "Operation #{id} already pending." if pending?(id)
+    @pending << id
+    @completed.delete id
+    @returns[id] = nil
+    @before.each {|_,ops| ops.delete id}
+    @after[id] = []
+    @dependencies[id] = [] # TODO correct those depending on self?
+    self
+  end
+
+  def unorder!(x,y)
+    return self unless before?(x,y)
+    return self if any? {|id| before?(x,id) && before?(id,y)}
+    @before[y].delete x
+    @after[x].delete y
+    self
+  end
+
   def order!(x,y)
     return self if ext_before?(x,y)
     @ext_before[y] << x
@@ -248,6 +278,29 @@ class History
         end
       end
     end
+  end
+
+  def weaken_once(p)
+    completed do |id|
+      w = uncomplete(id)
+      return w if p.call(w)
+    end
+    each do |x|
+      after(x).each do |y|
+        next if any? {|id| before?(x,id) && before?(id,y)}
+        w = unorder(x,y)
+        return w if p.call(w)
+      end
+    end
+    return nil
+  end
+
+  def weakening(&blk)
+    h = self
+    fail "Expected predicate block." unless block_given?
+    fail "History does not satisfy predicate." unless yield(h)
+    while w = h.weaken_once(blk) do h = w end
+    return h
   end
 
 end
