@@ -9,18 +9,18 @@ class ObsoleteRemover
     case msg
     when :complete
       log.info('operation-remover') {"checking for obsolete operations..."}
-      m = @matcher.match(id)
-      @dependencies[m] = @history.pending.clone
+      g = @matcher.group_of(id)
+      @dependencies[g] = @history.pending.clone
       @dependencies.values.each{|ids| ids.delete id}
-      obsolete = @dependencies.select {|m,ids| @matcher.complete?(m) && ids.empty?}.keys
+      obsolete = @dependencies.select {|g,ids| @matcher.complete?(g) && ids.empty?}.keys
       return if obsolete.empty?
       log.info('operation-remover') {
-        "removing #{obsolete.map(&@matcher.method(:operations)).flatten * ", "}"
+        "removing #{obsolete.map{|g| @matcher.members(g)}.flatten * ", "}"
       }
-      obsolete.each do |m|
-        ids = @matcher.operations(m).clone
+      obsolete.each do |g|
+        ids = @matcher.members(g).clone
         ids.each{|id| @history.remove! id}
-        @dependencies.delete m
+        @dependencies.delete g
       end
     end
   end

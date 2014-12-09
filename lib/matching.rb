@@ -1,79 +1,136 @@
-module Matcher
+require 'set'
+
+class Matcher
+  include Enumerable
+
   def self.get(object, history)
     case object
     when /stack|queue/
       CollectionMatcher.new(history)
     else
-      # log.warn "Defaulting to the UNSOUND generic remover."
-      # GenericObsoleteRemover.new(history)
-      log.warn "I don't know how to match operations for #{object || "unknown"} objects."
-      log.warn "Disabling operation matching."
+      log.warn('Matcher') {"I don't know about #{object || "unknown"}'s operations."}
+      log.warn('Matcher') {"operation matching disabled."}
       nil
     end
   end
-end
-
-class CollectionMatcher
-  include Enumerable
 
   def initialize(history)
+    @group = {}   # id -> group
+    @groups = {}  # group -> ids
     @history = history
-    @operations = {}
+    @history.each {|id| members(group_of(id)) << id}
   end
 
-  def to_s
-    @operations.map{|m,ops| "#{m} (#{m.class}): {#{ops * ", "}}"} * "\n"
+  def classify(id)
+    log.fatal('Matcher') {"classify method must be overridden."}
+    exit
+  end
+
+  def source?(id)
+    log.fatal('Matcher') {"source method must be overridden."}
+    exit
+  end
+
+  def complete?(g)
+    log.fatal('Matcher') {"complete? method must be overridden."}
+    exit
   end
 
   def each(&block)
     if block_given?
-      @operations.each(&block)
+      @groups.each(&block)
       self
     else
       to_enum
     end
   end
 
-  def add?(id) @history.method_name(id) =~ /add|push|enqueue/ end
-  def rem?(id) @history.method_name(id) =~ /rm|remove|pop|dequeue/ end
-  def value?(m)
-    @operations[m].find do |id|
-      add?(id) || @history.completed?(id) && @history.returns(id).first != :empty
-    end
+  def to_s; @groups.map{|g,ids| "#{g}: #{ids.to_a * ", "}"} * "\n" end
+
+  def group_of(id)
+    @group[id] ||= classify(id)
   end
 
-  def operations(m) @operations[m] end
-  def add(m) @operations[m].find(&method(:add?)) end
-  def rem(m) @operations[m].find(&method(:rem?)) end
-
-  def match(id)
-    m = if add?(id) then @history.arguments(id).first
-        elsif rem?(id) && @history.completed?(id) && @history.returns(id).first != :empty
-          then @history.returns(id).first
-        else id
-        end
-    @operations[m] ||= []
-    m
+  def groups
+    @groups.keys
   end
 
-  def complete?(m)
-    @operations[m].all?(&@history.method(:completed?)) &&
-    (add(m) && rem(m) || !value?(m))
+  def members(g)
+    @groups[g] ||= Set.new
+  end
+
+  def remove(id)
+    @groups.values.each {|ids| ids.delete id}
+    @groups.reject! {|_,ids| ids.empty?}
+    @group.delete id
   end
 
   def update(msg, id, *values)
     case msg
     when :start
-      if add?(id)
-        @operations[match(id)] << id
-      end      
+      members(group_of(id)) << id
     when :complete
-      if rem?(id)
-        @operations[match(id)] << id
-      end
+      remove(id) # *RE*CLASSIFY
+      members(group_of(id)) << id
     when :remove
-      @operations.values.each {|ids| ids.delete id}
-      @operations.reject! {|_,ids| ids.empty?}
+      remove(id)
+    end
+  end
+
+end
+
+class CollectionMatcher < Matcher
+  def initialize(history)
+    @values = {}
+    @empties = {}
+    @unknown = {}
+    @unique_id = 0
+    super(history)
+  end
+
+  def add?(id) @history.method_name(id) =~ /add|push|enqueue/ end
+  def rem?(id) @history.method_name(id) =~ /rm|remove|pop|dequeue/ end
+  def value?(g)
+    members(g).any? do |id|
+      add?(id) || @history.returns(id) && @history.returns(id).first != :empty
+    end
+  end
+  
+  def add(g) @groups[g].find {|id| add?(id)} end
+  def rem(g) @groups[g].find {|id| rem?(id)} end
+
+  def classify(id)
+    if add?(id)
+      @values[@history.arguments(id).first] ||= (@unique_id += 1)
+      
+    elsif rem?(id) && @history.returns(id) && @history.returns(id).first != :empty
+      @unknown.delete id
+      @values[@history.returns(id).first] ||= (@unique_id += 1)
+      
+    elsif rem?(id) && @history.returns(id)
+      @unknown.delete id
+      @empties[id] ||= (@unique_id += 1)
+
+    else
+      @unknown[id] ||= (@unique_id += 1)
+    end
+  end
+
+  def source?(id)
+    add?(id)
+  end
+
+  def complete?(g)
+    @groups[g].all? {|id| @history.completed?(id)} &&
+    (@groups[g].all? {|id| @empties[id]} || add(g) && rem(g))
+  end
+
+  def update(msg, id, *values)
+    super(msg, id, *values)
+    case msg
+    when :remove
+      @empties.delete id
+      @unknown.delete id
     end
   end
 end

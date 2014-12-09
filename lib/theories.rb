@@ -20,17 +20,20 @@ class Theories
   def default_op(id) "o#{id}".to_sym end
   def default_val(v) "v#{v}".to_sym end
 
-  def p(o)          e(:p, o) end
-  def c(o)          e(:c, o) end
-  def meth(o)       e(:mth, o) end
-  def arg(o,i)      e(:arg, o, e(i)) end
-  def ret(o,i)      e(:ret, o, e(i)) end
-  def before(o,p)   e(:bef, o, p) end
+  def p(o)            e(:p, o) end
+  def c(o)            e(:c, o) end
+  def meth(o)         e(:mth, o) end
+  def arg(o,i)        e(:arg, o, e(i)) end
+  def ret(o,i)        e(:ret, o, e(i)) end
+  def before(o,p)     e(:bef, o, p) end
+
+  def match(o,p)      e(:match, o, p) end
+  def unmatched(o)    e(:unmatched, o) end
+  def match_group(o)  e(:grp, o) end
+  def match_source(o) e(:src, o) end
 
   def add(a)        meth(a) == e(:add) end
   def rem(a)        meth(a) == e(:remove) end
-  def match(a,r)    add(a) & rem(r) & (arg(a,0) == ret(r,0)) end
-  def unmatched(a)  add(a) & !exists_ids {|r| c(r) & match(a,r)} end
   def empty(r)      rem(r) & (ret(r,0) == e(val(:empty))) end
 
   def with_ids(n)
@@ -77,11 +80,17 @@ class Theories
     decl_sort :id
     decl_sort :method
     decl_sort :value
+    decl_sort :group
 
     decl_const :mth, :id, :method
     decl_const :arg, :id, :int, :value
     decl_const :ret, :id, :int, :value
     decl_const :bef, :id, :id, :bool
+
+    decl_const :match, :id, :id, :bool
+    decl_const :unmatched, :id, :bool
+    decl_const :grp, :id, :group
+    decl_const :src, :id, :bool
 
     decl_const :c, :id, :bool
     decl_const :p, :id, :bool
@@ -94,6 +103,10 @@ class Theories
       # before is antisymmetric
       y << forall_ids {|i,j| (before(i,j) & before(j,i)).implies(i == j)}
       
+      # something about matching
+      y << forall_ids {|i,j| match(i,j) == ((match_group(i) == match_group(j)) & match_source(i) & !match_source(j))}
+      y << forall_ids {|i| unmatched(i) == (match_source(i) & !exists_ids{|j| c(j) & match(i,j)})}
+
       if object =~ /atomic/
         # before is total
         y << forall_ids {|i,j| (i == j) | before(i,j) | before(j,i)}
@@ -151,11 +164,12 @@ class Theories
     end
   end
 
-  def rename(o) e(:g, o) end
-  def dom(o) e(:domain_g, o) end
-  def range(o) e(:range_g, o) end
+  def omap(o) e(:omap, o) end
+  def odom(o) e(:odom, o) end
+  def gmap(g) e(:gmap, g) end
+  def gdom(g) e(:gdom, g) end
 
-  def weaker_than(h1, h2)
+  def weaker_than(h1, h2, object: nil)
     decl_sort :id
     decl_sort :method
     decl_sort :value
@@ -173,32 +187,53 @@ class Theories
     decl_const :rm, :method
     decl_const val(:empty), :value
 
-    decl_const :g, :id, :id
-    decl_const :domain_g, :id, :bool
-    decl_const :range_g, :id, :bool
+    decl_const :omap, :id, :id
+    decl_const :odom, :id, :bool
+    decl_const :gmap, :group, :group
+    decl_const :gdom, :group, :bool
 
     Enumerator.new do |y|
       op2 = Proc.new {|id| "p#{id}".to_sym}
-      history(h1).each(&y.method(:yield))
-      history(h2, op:op2).each(&y.method(:yield))
+      gp2 = Proc.new {|g| "f#{g}".to_sym}
 
-      # TODO assert the matching facts
+      m1 = Matcher.new(object, h1)
+      m2 = Matcher.new(object, h2)
 
-      h2.each {|id| y << dom(e(op2.call(id))); y << range(rename(e(op2.call(id)))) }
-      y << forall_ids {|i,j| (rename(i) == rename(j)).implies(i == j)}
-      y << forall_ids {|i,j| (dom(i) & dom(j) & match(rename(i),rename(j))).implies(match(i,j))}
-      y << forall_ids {|i,j| (dom(i) & dom(j) & before(rename(i),rename(j))).implies(before(i,j))}
+      puts "CHECKING WEAKER_THAN\n#{h1}\n#{m1}\n#{h2}\n#{m2}"
+
+      history(h1, matcher: m1).each(&y.method(:yield))
+      history(h2, op:op2, matcher: m2).each(&y.method(:yield))
+
+      h2.each do |id|
+        y << odom(e(op2.call(id)))
+        y << gdom(e(gp2.call(m2.group_of(id)))) if m2.source?(id) || h2.completed?(id)
+      end
+
+      # injective operation mapping
+      y << forall_ids {|i,j| (odom(i) & odom(j) & (omap(i) == omap(j))).implies(i == j)}
+
+      # injective group mapping
+      y << forall_ids {|i,j| (odom(i) & odom(j) & (match_group(omap(i)) == match_group(omap(j)))).implies(match_group(i) == match_group(j))}
+
+      # operation mapping consistent with grouping
+      y << forall_ids {|i| odom(i).implies(gmap(match_group(i)) == match_group(omap(i)))}
+
+      # operation mapping consistent with matching
+      y << forall_ids {|i,j| (odom(i) & odom(j) & match(omap(i),omap(j))).implies(match(i,j))}
+
+      # operation mapping consistent with order
+      y << forall_ids {|i,j| (odom(i) & odom(j) & before(omap(i),omap(j))).implies(before(i,j))}
     end
   end
 
-  def history(h, order: nil, op: method(:default_op), val: method(:default_val))
+  def history(h, order: nil, op: method(:default_op), val: method(:default_val), matcher: nil)
     h.each {|id| decl_const op.call(id), :id}
     h.values.each {|v| decl_const val.call(v), :value}
 
     Enumerator.new do |y|
       h.each do |id|
-        called(id, h, order:order, op:op, val:val).each(&y.method(:yield))
-        returned(id,h, op:op, val:val).each(&y.method(:yield)) if h.completed?(id)
+        called(id, h, order:order, op:op, val:val, matcher:matcher).each(&y.method(:yield))
+        returned(id,h, op:op, val:val, matcher:matcher).each(&y.method(:yield)) if h.completed?(id)
       end
       domains(h, op:op, val:val).each(&y.method(:yield))
 
@@ -213,7 +248,7 @@ class Theories
     end
   end
 
-  def called(id, history, order: nil, op: method(:default_op), val: method(:default_val))
+  def called(id, history, order: nil, op: method(:default_op), val: method(:default_val), matcher: nil)
     decl_const op.call(id), :id
     history.arguments(id).each {|v| decl_const val.call(v), :value}
 
@@ -221,25 +256,40 @@ class Theories
       history.each {|j| y << (e(op.call(id)) != e(op.call(j))) unless j == id}
       y << (meth(e(op.call(id))) == e(history.method_name(id)))
       history.arguments(id).each_with_index.map do |v,i|
-        history.values.each {|u| y << (e(val.call(v)) != e(val.call(u))) unless u == v}
-        y << (e(val.call(v)) != e(val.call(:empty)))
+        history.values.each {|u| y << (e(val.call(v)) != e(val.call(u))) unless u == v} # TODO collection specific
+        y << (e(val.call(v)) != e(val.call(:empty))) # TODO collection specific
         y << (arg(e(op.call(id)),i) == e(val.call(v)))
       end
       history.before(id).each {|j| y << before(e(op.call(j)), e(op.call(id)))} unless order
       y << p(e(op.call(id)))
+      if matcher
+        g = grp.call(matcher.group_of(id))
+        if matcher.source?(id)
+          decl_const g, :group
+          y << match_group(e(op.call(id))) == e(g)
+          y << match_source(e(op.call(id)))
+        else
+          y << !match_source(e(op.call(id)))
+        end
+      end
     end
   end
 
-  def returned(id, history, op: method(:default_op), val: method(:default_val))
+  def returned(id, history, op: method(:default_op), val: method(:default_val), matcher: nil)
     history.returns(id).each {|v| decl_const val.call(v), :value}
 
     Enumerator.new do |y|
       history.returns(id).each_with_index.map do |v,i|
-        history.values.each {|u| y << (e(val.call(v)) != e(val.call(u))) unless u == v}
-        y << (e(val.call(v)) != e(val.call(:empty))) unless v == :empty
+        history.values.each {|u| y << (e(val.call(v)) != e(val.call(u))) unless u == v} # TODO collection specific
+        y << (e(val.call(v)) != e(val.call(:empty))) unless v == :empty # TODO collection specific
         y << (ret(e(op.call(id)),i) == e(val.call(v)))
       end
       y << c(e(op.call(id)))
+      if matcher && !matcher.source?(id)
+        g = grp.call(matcher.group_of(id))
+        decl_const g, :group
+        y << match_group(e(op.call(id))) == e(g)
+      end
     end
   end
 

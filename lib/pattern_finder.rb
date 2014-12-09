@@ -145,21 +145,21 @@ end
 
 def weaker_than?(h1,h2)
   @solver.reset
-  @theories.weaker_than(h1,h2).each(&@solver.method(:assert))
+  @theories.weaker_than(h1,h2,object:@object).each(&@solver.method(:assert))
   @solver.check
 end
 
 begin
   @options = parse_options
-  @options.object = get_object(ARGV.first)
+  @options.impl = get_object(ARGV.first)
 
   puts "Generating negative patterns..."
   @patterns = []
   
-  obj_class, obj_args = @options.object
-  test_obj = obj_class.new(*obj_args)
+  obj_class, obj_args = @options.impl
+  @object = obj_class.new(*obj_args).class.spec
 
-  @checker = EnumerateChecker.new(reference_impl: @options.object, object: test_obj.class.spec, completion: true)
+  @checker = EnumerateChecker.new(reference_impl: @options.impl, object: @object, completion: true)
   context = Z3.context
   @solver = context.solver
   @theories = Theories.new(context)
