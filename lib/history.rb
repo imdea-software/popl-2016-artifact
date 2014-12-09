@@ -295,7 +295,7 @@ class History
     return nil
   end
 
-  def weakening(&blk)
+  def weaken(&blk)
     h = self
     fail "Expected predicate block." unless block_given?
     fail "History does not satisfy predicate." unless yield(h)

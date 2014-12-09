@@ -156,7 +156,27 @@ class Theories
   def range(o) e(:range_g, o) end
 
   def weaker_than(h1, h2)
+    decl_sort :id
+    decl_sort :method
+    decl_sort :value
+
+    decl_const :mth, :id, :method
+    decl_const :arg, :id, :int, :value
+    decl_const :ret, :id, :int, :value
+    decl_const :bef, :id, :id, :bool
+
+    decl_const :c, :id, :bool
+    decl_const :p, :id, :bool
+
+    decl_const :add, :method
+    decl_const :remove, :method
+    decl_const :rm, :method
+    decl_const val(:empty), :value
+
     decl_const :g, :id, :id
+    decl_const :domain_g, :id, :bool
+    decl_const :range_g, :id, :bool
+
     Enumerator.new do |y|
       op2 = Proc.new {|id| "p#{id}".to_sym}
       history(h1).each(&y.method(:yield))
@@ -164,7 +184,7 @@ class Theories
 
       # TODO assert the matching facts
 
-      h2.each {|id| y << dom(e(op2(id))); y << range(rename(e(op2(id)))) }
+      h2.each {|id| y << dom(e(op2.call(id))); y << range(rename(e(op2.call(id)))) }
       y << forall_ids {|i,j| (rename(i) == rename(j)).implies(i == j)}
       y << forall_ids {|i,j| (dom(i) & dom(j) & match(rename(i),rename(j))).implies(match(i,j))}
       y << forall_ids {|i,j| (dom(i) & dom(j) & before(rename(i),rename(j))).implies(before(i,j))}
@@ -180,7 +200,7 @@ class Theories
         called(id, h, order:order, op:op, val:val).each(&y.method(:yield))
         returned(id,h, op:op, val:val).each(&y.method(:yield)) if h.completed?(id)
       end
-      domains(h).each(&y.method(:yield))
+      domains(h, op:op, val:val).each(&y.method(:yield))
 
       case order
       when Array; order.each_cons(2)

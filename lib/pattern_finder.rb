@@ -20,7 +20,10 @@ end
 log.level = Logger::WARN
 
 require_relative 'history'
+require_relative 'theories'
+require_relative 'z3'
 require_relative 'enumerate_checker'
+
 require_relative 'impls/my_unsafe_stack'
 require_relative 'impls/my_sync_stack'
 require_relative 'impls/scal_object'
@@ -54,8 +57,16 @@ def parse_options
       exit
     end
 
-    opts.on("-d", "--destination DIR", "Where to put the files.") do |d|
-      options.destination = d
+    opts.on('-q', "--quiet", "Display only error messages.") do |q|
+      log.level = Logger::ERROR
+    end
+
+    opts.on("-v", "--verbose", "Display informative messages too.") do |v|
+      log.level = Logger::INFO
+    end
+
+    opts.on("-d", "--debug", "Display debugging messages too.") do |d|
+      log.level = Logger::DEBUG
     end
 
     opts.separator ""
@@ -88,7 +99,7 @@ def negative_examples(obj_class, *obj_args)
       unique_val = 0
       seq = sequences.shift
 
-      # puts "Testing sequence: #{seq * "; "}"
+      log.debug('pattern-finder') {"Testing sequence: #{seq * "; "}"}
 
       result = []
 
@@ -101,7 +112,7 @@ def negative_examples(obj_class, *obj_args)
 
         result << [method_name, args, rets]
 
-        # puts "#{method_name}(#{args * ", "})#{rets.empty? ? "" : " => #{rets * ", "}"}"
+        log.debug('pattern-finder') {"#{method_name}(#{args * ", "})#{rets.empty? ? "" : " => #{rets * ", "}"}"}
       end
 
       values = Set.new result.map{|_,args,rets| args + rets}.flatten
@@ -132,30 +143,43 @@ def negative_examples(obj_class, *obj_args)
   end
 end
 
+def weaker_than?(h1,h2)
+  @solver.reset
+  @theories.weaker_than(h1,h2).each(&@solver.method(:assert))
+  @solver.check
+end
+
 begin
   @options = parse_options
   @options.object = get_object(ARGV.first)
 
   puts "Generating negative patterns..."
-  patterns = []
+  @patterns = []
   
   obj_class, obj_args = @options.object
   test_obj = obj_class.new(*obj_args)
 
-  checker = EnumerateChecker.new(reference_impl: @options.object, object: test_obj.class.spec, completion: true)
+  @checker = EnumerateChecker.new(reference_impl: @options.object, object: test_obj.class.spec, completion: true)
+  context = Z3.context
+  @solver = context.solver
+  @theories = Theories.new(context)
 
   negative_examples(*@options.object).each do |h|
-    # puts "EXCLUDED\n#{h}"
-    w = h.weakening {|w| !checker.linearizable?(w)}
-    # puts "WEAKENED\n#{w}"
+    w = h.weaken {|w| !@checker.linearizable?(w)}
 
-    # TODO add to patterns only if uncomparable to existing pattern
-    patterns << w
-  end
+    if @patterns.any? {|p| weaker_than?(p,w)}
+      log.warn('pattern-finder') {"redundant pattern\n#{w}"}
 
-  # puts "PATTERNS"
-  patterns.each do |h|
-    puts "PATTERN"
-    puts h
+    elsif idx = @patterns.find_index {|p| weaker_than?(w,p)}
+      log.warn('pattern-finder') {"weaker pattern\n#{w}"}
+      @patterns[idx] = w
+
+    else
+      log.warn('pattern-finder') {"new pattern\n#{w}"}
+      @patterns << w
+
+    end
   end
+  
+  log.warn('pattern-finder') {"found #{@patterns.count} patterns\n#{@patterns * "\n--\n"}"}
 end
