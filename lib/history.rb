@@ -281,7 +281,7 @@ class History
   end
 
   def weaken_once(p)
-    completed do |id|
+    completed.each do |id|
       w = uncomplete(id)
       return w if p.call(w)
     end

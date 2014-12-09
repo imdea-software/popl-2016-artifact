@@ -145,15 +145,15 @@ begin
   checker = EnumerateChecker.new(reference_impl: @options.object, object: test_obj.class.spec, completion: true)
 
   negative_examples(*@options.object).each do |h|
-    puts "EXCLUDED\n#{h}"
+    # puts "EXCLUDED\n#{h}"
     w = h.weakening {|w| !checker.linearizable?(w)}
-    puts "WEAKENED\n#{w}"
+    # puts "WEAKENED\n#{w}"
 
     # TODO add to patterns only if uncomparable to existing pattern
     patterns << w
   end
 
-  puts "PATTERNS"
+  # puts "PATTERNS"
   patterns.each do |h|
     puts "PATTERN"
     puts h
