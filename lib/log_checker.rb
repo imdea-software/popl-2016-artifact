@@ -137,7 +137,6 @@ begin
   object = LogReaderWriter.object(execution_log)
   @options[:history] = history = History.new
   @options[:object] = object
-  @options[:matcher] = matcher = Matcher.get(object, history)
 
   @checker =
     case @checker
@@ -150,9 +149,8 @@ begin
 
   # NOTE be careful, order is important here...
   # should check the histories before removing obsolete operations
-  history.add_observer(matcher)
   history.add_observer(@checker)
-  history.add_observer(ObsoleteRemover.new(history,matcher)) if @options[:removal]
+  history.add_observer(ObsoleteRemover.new(history)) if @options[:removal]
 
   size = []
   concurrency = []

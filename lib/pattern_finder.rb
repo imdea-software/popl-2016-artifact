@@ -144,6 +144,7 @@ def negative_examples(obj_class, *obj_args)
 end
 
 def weaker_than?(h1,h2)
+  return false
   @solver.reset
   @theories.weaker_than(h1,h2,object:@object).each(&@solver.method(:assert))
   @solver.check
@@ -164,7 +165,7 @@ begin
   @solver = context.solver
   @theories = Theories.new(context)
 
-  negative_examples(*@options.object).each do |h|
+  negative_examples(*@options.impl).each do |h|
     w = h.weaken {|w| !@checker.linearizable?(w)}
 
     if @patterns.any? {|p| weaker_than?(p,w)}

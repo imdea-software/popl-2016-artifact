@@ -1,7 +1,6 @@
 class ObsoleteRemover
-  def initialize(history, matcher)
+  def initialize(history)
     @history = history
-    @matcher = matcher
     @dependencies = {}
   end
 
@@ -9,6 +8,9 @@ class ObsoleteRemover
     case msg
     when :complete
       log.info('operation-remover') {"checking for obsolete operations..."}
+
+      # TODO REWORK THIS WITH NEW MATCHING SCHEME
+
       g = @matcher.group_of(id)
       @dependencies[g] = @history.pending.clone
       @dependencies.values.each{|ids| ids.delete id}

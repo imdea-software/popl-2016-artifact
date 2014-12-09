@@ -13,6 +13,7 @@ class History
     @ext_before = {}
     @ext_after = {}
     @dependencies = {}
+    @match = {}
     @observers = []
   end
 
@@ -34,6 +35,7 @@ class History
     @ext_after.each {|id,ops| @ext_after[id] = ops.clone}
     @dependencies = @dependencies.clone
     @dependencies.each {|id,ops| @dependencies[id] = ops.clone}
+    @match = @match.clone
     @observers = []
   end
 
@@ -71,6 +73,8 @@ class History
   def ext_before?(i1,i2)  ext_before(i2).include?(i1) end
   def ext_before(id)      @before[id] + @ext_before[id] end
   def ext_after(id)       @after[id] + @ext_after[id] end
+
+  def match(id)           @match[id] end
 
   def minimals;           select {|id| before(id).empty? } end
   def maximals;           select {|id| after(id).empty? } end
@@ -133,7 +137,7 @@ class History
   def to_interval_s(scale: 2)
     # fail "Not an interval order." unless interval_order?
     n, imap = intervals
-    ops = each.map{|id| [id,["[#{id}]",label(id)]]}.to_h
+    ops = each.map{|id| [id,["[#{id}#{match(id) ? ":#{match(id)}" : ""}]",label(id)]]}.to_h
     id_j = ops.values.map{|id,_| id.length}.max
     op_j = ops.values.map{|_,op| op.length}.max
     each.map do |id|
@@ -180,6 +184,7 @@ class History
     @returns[id] = rets
     @dependencies[id] = @pending.clone
     @dependencies.each {|_,ops| ops.delete id}
+    @match[id] = Matching.get(self,id)
     notify_observers :complete, id, *rets
     self
   end
@@ -202,6 +207,8 @@ class History
     @ext_after.each {|_,ops| ops.delete id}
     @dependencies.delete id
     @dependencies.each {|_,ops| ops.delete id}
+    @match.delete id
+    @match.reject! {|_,m| m == id}
     self
   end
 
@@ -214,6 +221,7 @@ class History
     @before.each {|_,ops| ops.delete id}
     @after[id] = []
     @dependencies[id] = [] # TODO correct those depending on self?
+    @match.delete id
     self
   end
 

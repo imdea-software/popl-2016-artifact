@@ -3,29 +3,26 @@ require_relative 'history'
 require_relative 'history_checker'
 
 class Rule
-  def initialize(history, matcher, *groups)
+  def initialize(history, *ids)
     @history = history
-    @matcher = matcher
-    @groups = groups
+    @ids = ids
   end
-  def to_s; "#{name}(#{@groups * ","})" end
-  def groups; @groups end
+  def to_s; "#{name}(#{@ids * ","})" end
+  def ids; @ids end
   def before?(o1,o2)
     o1 && (!o2 && @history.ext_completed?(o1) || o2 && @history.ext_before?(o1,o2))
   end
 end
 
 class AddRemoveOrderRule < Rule
-  def initialize(history, matcher, gval)
-    super(history, matcher, gval)
+  def initialize(history, add, rem)
+    super(history, add, rem)
   end
   def name; "AR" end
   def apply!
-    g = @groups.first
-    a = @matcher.add(g)
-    r = @matcher.rem(g)
-    if a && r
-      @history.order!(a,r)
+    add, rem = @ids
+    if add && rem
+      @history.order!(add,rem)
       true
     else
       false
@@ -34,20 +31,17 @@ class AddRemoveOrderRule < Rule
 end
 
 class RemoveEmptyRule < Rule
-  def initialize(history, matcher, gemp, gval)
-    super(history, matcher, gemp, gval)
+  def initialize(history, emp, add, rem)
+    super(history, emp, add, rem)
   end
   def name; "EMPTY" end
   def apply!
-    gemp, gval = @groups
-    e = @matcher.operations(gemp).first
-    a = @matcher.add(gval)
-    r = @matcher.rem(gval)
-    if before?(a,e) && r
-      @history.order!(r,e)
+    emp, add, rem = @ids
+    if before?(add,emp) && rem
+      @history.order!(rem,emp)
       true
-    elsif before?(e,r) && a
-      @history.order!(e,a)
+    elsif before?(emp,rem) && add
+      @history.order!(emp,add)
       true
     else
       false
@@ -56,16 +50,12 @@ class RemoveEmptyRule < Rule
 end
 
 class FifoOrderRule < Rule
-  def initialize(history, matcher, g1, g2)
-    super(history, matcher, g1, g2)
+  def initialize(history, a1, r1, a2, r2)
+    super(history, a1, r1, a2, r2)
   end
   def name; "FIFO" end
   def apply!
-    g1, g2 = @groups
-    a1 = @matcher.add(g1)
-    r1 = @matcher.rem(g1)
-    a2 = @matcher.add(g2)
-    r2 = @matcher.rem(g2)
+    a1, r1, a2, r2 = @ids
     if before?(a1,a2) && r1 && r2
       @history.order!(r1,r2)
       true
@@ -79,16 +69,12 @@ class FifoOrderRule < Rule
 end
 
 class LifoOrderRule < Rule
-  def initialize(history, matcher, g1, g2)
-    super(history, matcher, g1, g2)
+  def initialize(history, a1, r1, a2, r2)
+    super(history, a1, r1, a2, r2)
   end
   def name; "LIFO" end
   def apply!
-    g1, g2 = @groups
-    a1 = @matcher.add(g1)
-    r1 = @matcher.rem(g1)
-    a2 = @matcher.add(g2)
-    r2 = @matcher.rem(g2)
+    a1, r1, a2, r2 = @ids
     if before?(a1,a2) && before?(r1,r2) && a2
       @history.order!(r1,a2)
       true
@@ -114,20 +100,28 @@ class SaturateChecker < HistoryChecker
 
   def name; "Saturate" end
 
-  def see_match(id)
-    g1 = matcher.group_of(id)
-    ops = matcher.members(g1)
+  def see_value(v)
+
+    ### TODO FINISH FIXING THIS WITH THE NEW MATCHING SCHEME
 
     # duplicate remove?
-    flag_violation if ops.count > 2
+    flag_violation if history.completed.select{|id| history.returns(id).include?(v)}.count > 1
 
     # unmatched remove?
-    flag_violation if matcher.value?(g1) && ops.none?{|id| matcher.add?(id)}
+    flag_violation if history.none?{|id| history.arguments(id).include?(v)}
     
-    return if @rules.include?(g1)
-    @rules[g1] = []
+    return if @rules.include?(v)
+    @rules[v] = []
 
-    if matcher.value?(g1)
+    if v == :empty
+      matcher.each do |g2,_|
+        next unless matcher.value?(g2)
+        next unless @rules[g2]
+        r = RemoveEmptyRule.new(history, matcher, g1, g2)
+        @rules[g1].push r
+        @rules[g2].push r
+      end
+    else
       @rules[g1].push AddRemoveOrderRule.new(history, matcher, g1)
 
       matcher.each do |g2,_|
@@ -145,14 +139,6 @@ class SaturateChecker < HistoryChecker
           @rules[g1].push r
           @rules[g2].push r
         end
-      end
-    else
-      matcher.each do |g2,_|
-        next unless matcher.value?(g2)
-        next unless @rules[g2]
-        r = RemoveEmptyRule.new(history, matcher, g1, g2)
-        @rules[g1].push r
-        @rules[g2].push r
       end
     end
   end
