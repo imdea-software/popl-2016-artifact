@@ -1,3 +1,5 @@
+require_relative 'matching'
+
 class History
   include Enumerable
 
@@ -108,8 +110,8 @@ class History
     str
   end
 
-  def method_names; map{|id| method_name(id)}.uniq end
-  def values; map{|id| arguments(id)+(returns(id)||[])}.flatten(1).uniq end
+  def method_names; @method_names.values.uniq end
+  def values; (@arguments.values + @returns.values).flatten(1).uniq end
 
   def interval_order?
     @before.values.sort_by(&:count).each_cons(2).all?{|p,q| (p-q).empty?}
@@ -169,6 +171,7 @@ class History
         @ext_after[b] << id
         @ext_before[id] << b
       end
+      @match[c] = id if @match[c].nil? && Matching.get(self,c) == id
     end
 
     notify_observers :start, id, m, *args

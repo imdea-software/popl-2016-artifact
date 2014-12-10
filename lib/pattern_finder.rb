@@ -144,9 +144,8 @@ def negative_examples(obj_class, *obj_args)
 end
 
 def weaker_than?(h1,h2)
-  return false
   @solver.reset
-  @theories.weaker_than(h1,h2,object:@object).each(&@solver.method(:assert))
+  @theories.weaker_than(h1,h2).each(&@solver.method(:assert))
   @solver.check
 end
 
