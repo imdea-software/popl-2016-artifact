@@ -140,12 +140,12 @@ begin
 
   @checker =
     case @checker
-    when :enumerate;  EnumerateChecker
-    when :symbolic;   SymbolicChecker
-    when :saturate;   SaturateChecker
-    when :counting;   CountingChecker
-    else              HistoryChecker
-    end.new(@options)
+    when :enumerate;  EnumerateChecker.new(@options)
+    when :symbolic;   SymbolicChecker.new(@options)
+    when :saturate;   SaturateChecker.get(@options)
+    when :counting;   CountingChecker.new(@options)
+    else              HistoryChecker.new(@options)
+    end
 
   # NOTE be careful, order is important here...
   # should check the histories before removing obsolete operations
