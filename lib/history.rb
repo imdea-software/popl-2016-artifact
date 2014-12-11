@@ -139,7 +139,10 @@ class History
   def to_interval_s(scale: 2)
     # fail "Not an interval order." unless interval_order?
     n, imap = intervals
-    ops = each.map{|id| [id,["[#{id}#{match(id) ? ":#{match(id)}" : ""}]",label(id)]]}.to_h
+    ops = each.map do |id|
+      m = match(id)
+      [id,["[#{id}#{m.nil? ? ":_" : m != :none ? ":#{m}" : ""}]",label(id)]]
+    end.to_h
     id_j = ops.values.map{|id,_| id.length}.max
     op_j = ops.values.map{|_,op| op.length}.max
     each.map do |id|
@@ -173,7 +176,7 @@ class History
       end
       @match[c] = id if @match[c].nil? && Matching.get(self,c) == id
     end
-
+    @match[id] = Matching.get(self,id)
     notify_observers :start, id, m, *args
     id
   end

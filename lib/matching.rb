@@ -6,6 +6,8 @@ module Matching
 
   def self.get(history,id)
     case history.method_name(id)
+    when ADD_PATTERN
+      :none
     when REM_PATTERN
       if history.returns(id).nil?
         nil

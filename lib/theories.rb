@@ -41,8 +41,9 @@ class Theories
   def ret(o,i)        e(:ret, o, e(i)) end
   def before(o,p)     e(:bef, o, p) end
 
-  def match(o,p)      e(:match, o, p) end
-  def unmatched(o)    e(:unmatched, o) end
+  def match(o,p)      o == e(:match, p) end
+  def sink(o)         !match(e(:no_match),o) end
+  def unmatched(o)    !sink(o) & !exists_ids_c {|p| match(o,p)} end
 
   def add(a)        meth(a) == e(:add) end
   def rem(a)        meth(a) == e(:remove) end
@@ -102,8 +103,8 @@ class Theories
     decl_const :ret, :id, :int, :value
     decl_const :bef, :id, :id, :bool
 
-    decl_const :match, :id, :id, :bool
-    decl_const :unmatched, :id, :bool
+    decl_const :match, :id, :id
+    decl_const :no_match, :id
 
     decl_const :c, :id, :bool
     decl_const :p, :id, :bool
@@ -114,6 +115,9 @@ class Theories
     declarations
 
     Enumerator.new do |y|
+
+      y << !p(e(:no_match))
+      y << !c(e(:no_match))
 
       # before is transitive
       y << forall_ids_c {|i,j,k| (before(i,j) & before(j,k)).implies(before(i,k))}
@@ -136,7 +140,7 @@ class Theories
 
         # every remove is matched (with an add, or itself)
         y << forall_ids_c do |r|
-          (meth(r) == e(n.method(:remove))).implies(exists_ids_c {|a| match(a,r)})
+          sink(r).implies(exists_ids_c {|a| match(a,r)})
         end
 
         # matches are ordered
@@ -144,11 +148,7 @@ class Theories
 
         # unique removes
         y << forall_ids_c do |r1,r2|
-          ( (meth(r1) == e(n.method(:remove))) &
-            (meth(r2) == e(n.method(:remove))) &
-            (r1 != r2) &
-            !match(r1,r1)
-          ).implies(ret(r1,0) != ret(r2,0))
+          ((r1 != r2) & sink(r1) & sink(r2)).implies(e(:match,r1) != e(:match,r2))
         end
 
         # adds removed before empty
@@ -167,8 +167,6 @@ class Theories
 
         # fifo order
         y << forall_ids_c {|a1,r1,a2,r2| (match(a1,r1) & match(a2,r2) & before(a1,a2)).implies(before(r1,r2))}
-
-        # TODO REVIEW THIS IN LIGHT OF EMPTY/MATCH
         y << forall_ids_c {|a1,r1,a2| ((a1 != a2) & match(a1,r1) & unmatched(a2)).implies(before(a1,a2))}
       end
 
@@ -180,9 +178,13 @@ class Theories
         y << (e(:pop) == e(:remove))
 
         # lifo order
-        # TODO REVIEW THESE IN LIGHT OF EMPTY/MATCH
-        y << forall_ids_c {|a1,r1,a2,r2| (match(a1,r1) & match(a2,r2) & before(a1,a2) & before(r1,r2)).implies(before(r1,a2))}
-        y << forall_ids_c {|a1,r1,a2| (match(a1,r1) & unmatched(a2) & before(a1,a2)).implies(before(r1,a2))}
+        y << forall_ids_c do |a1,r1,a2,r2|
+          (match(a1,r1) & match(a2,r2) & before(a1,a2) & before(r1,r2)).implies(before(r1,a2))
+        end
+        y << forall_ids_c do |a1,r1,a2|
+          (match(a1,r1) & unmatched(a2) & before(a1,a2)).implies(before(r1,a2))
+        end
+
       end
 
     end
@@ -260,32 +262,28 @@ class Theories
 
   def called(id, history, order: nil, naming: default_naming)
     n = naming
+    m = history.match(id)
     decl_const n.id(id), :id
     history.arguments(id).each {|v| decl_const n.value(v), :value}
 
     Enumerator.new do |y|
       history.each {|j| y << (e(n.id(id)) != e(n.id(j))) unless j == id}
+      y << (e(n.id(id)) != e(:no_match))
       y << (meth(e(n.id(id))) == e(n.method(history.method_name(id))))
       history.arguments(id).each_with_index.map do |v,i|
         # TODO assert distinct values?
         y << (arg(e(n.id(id)),i) == e(n.value(v)))
       end
       history.before(id).each {|j| y << before(e(n.id(j)), e(n.id(id)))} unless order
-
-      # TODO not good enough for lifo-violation-dhk-2.log
-      history.each do |j|
-        if history.match(j) == id
-          y << match(e(n.id(id)), e(n.id(j)))
-        elsif history.completed?(j)
-          y << !match(e(n.id(id)), e(n.id(j)))
-        end
-      end
+      y << match(e(m == :none ? :no_match : n.id(m)), e(n.id(id))) if m
+      y << !match(e(:no_match), e(n.id(id))) unless m
       y << p(e(n.id(id)))
     end
   end
 
   def returned(id, history, naming: default_naming)
     n = naming
+    m = history.match(id)
     history.returns(id).each {|v| decl_const n.value(v), :value}
 
     Enumerator.new do |y|
@@ -293,14 +291,11 @@ class Theories
         # TODO assert distinct values?
         y << (ret(e(n.id(id)),i) == e(n.value(v)))
       end
-
-      # TODO not good enough for lifo-violation-dhk-2.log
-      history.each do |j|
-        if history.match(id) == j
-          y << match(e(n.id(j)), e(n.id(id)))
-        else
-          y << !match(e(n.id(j)), e(n.id(id)))
-        end
+      if m
+        y << match(e(m == :none ? :no_match : n.id(m)), e(n.id(id)))
+      else
+        y << !match(e(:no_match), e(n.id(id)))
+        history.each {|j| y << !match(e(n.id(j)),e(n.id(id)))}
       end
       y << c(e(n.id(id)))
     end
