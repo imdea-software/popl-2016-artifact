@@ -1,6 +1,15 @@
 class HistoryChecker
-
   attr_reader :object, :matcher, :history, :completion, :incremental, :removal
+
+  def self.get(options = {})
+    case options[:checker]
+    when :enumerate;  EnumerateChecker.new(options)
+    when :symbolic;   SymbolicChecker.new(options)
+    when :saturate;   SaturateChecker.get(options)
+    when :counting;   CountingChecker.new(options)
+    else              self.new(options)
+    end
+  end
 
   def initialize(options = {})
     options.each do |k,v|
@@ -34,3 +43,8 @@ class HistoryChecker
     end
   end
 end
+
+require_relative 'enumerate_checker'
+require_relative 'symbolic_checker'
+require_relative 'saturate_checker'
+require_relative 'counting_checker'

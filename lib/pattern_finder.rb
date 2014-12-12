@@ -1,23 +1,8 @@
 #!/usr/bin/env ruby
 
-require 'logger'
-require 'optparse'
-require 'ostruct'
 require 'set'
 
-module Kernel
-  def log
-    @@logger ||= (
-      l = Logger.new(STDOUT,'daily')
-      l.formatter = proc do |severity, datetime, progname, msg|
-        "[#{progname || severity}] #{msg}\n"
-      end
-      l
-    )
-  end
-end
-
-log.level = Logger::WARN
+require_relative 'prelude'
 
 require_relative 'history'
 require_relative 'theories'
@@ -28,11 +13,11 @@ require_relative 'impls/my_unsafe_stack'
 require_relative 'impls/my_sync_stack'
 require_relative 'impls/scal_object'
 
-def get_object(object)
+def get_object(options, object)
   (puts "Must specify an object."; exit) unless object
   case object
   when /\A(bkq|dq|dtsq|lbq|msq|fcq|ks|rdq|sl|ts|tsd|tsq|tss|ukq|wfq11|wfq12)\z/
-    ScalObject.initialize(@options.num_threads)
+    ScalObject.initialize(options.num_threads)
     [ScalObject, object]
   else
     puts "Unknown object: #{object}"
@@ -84,7 +69,7 @@ def parse_options
   options
 end
 
-def negative_examples(obj_class, *obj_args)
+def negative_examples(obj_class, *obj_args, op_limit)
   Enumerator.new do |y|
     object = obj_class.new(*obj_args)
     methods = object.methods.reject do |m|
@@ -134,7 +119,7 @@ def negative_examples(obj_class, *obj_args)
         y << History.from_enum(seq)
       end
 
-      if seq.length < @options.operation_limit then
+      if seq.length < op_limit then
         methods.each do |m|
           sequences << (seq + [m])
         end
@@ -150,36 +135,36 @@ def weaker_than?(h1,h2)
 end
 
 begin
-  @options = parse_options
-  @options.impl = get_object(ARGV.first)
+  options = parse_options
+  options.impl = get_object(options,ARGV.first)
 
   puts "Generating negative patterns..."
-  @patterns = []
+  patterns = []
   
-  obj_class, obj_args = @options.impl
-  @object = obj_class.new(*obj_args).class.spec
+  obj_class, obj_args = options.impl
+  object = obj_class.new(*obj_args).class.spec
 
-  @checker = EnumerateChecker.new(reference_impl: @options.impl, object: @object, completion: true)
+  checker = EnumerateChecker.new(reference_impl: options.impl, object: object, completion: true)
   context = Z3.context
   @solver = context.solver
   @theories = Theories.new(context)
 
-  negative_examples(*@options.impl).each do |h|
-    w = h.weaken {|w| !@checker.linearizable?(w)}
+  negative_examples(*options.impl, options.operation_limit).each do |h|
+    w = h.weaken {|w| !checker.linearizable?(w)}
 
-    if @patterns.any? {|p| weaker_than?(p,w)}
+    if patterns.any? {|p| weaker_than?(p,w)}
       log.warn('pattern-finder') {"redundant pattern\n#{w}"}
 
-    elsif idx = @patterns.find_index {|p| weaker_than?(w,p)}
+    elsif idx = patterns.find_index {|p| weaker_than?(w,p)}
       log.warn('pattern-finder') {"weaker pattern\n#{w}"}
-      @patterns[idx] = w
+      patterns[idx] = w
 
     else
       log.warn('pattern-finder') {"new pattern\n#{w}"}
-      @patterns << w
+      patterns << w
 
     end
   end
   
-  log.warn('pattern-finder') {"found #{@patterns.count} patterns\n#{@patterns * "\n--\n"}"}
+  log.warn('pattern-finder') {"found #{patterns.count} patterns\n#{patterns * "\n--\n"}"}
 end
