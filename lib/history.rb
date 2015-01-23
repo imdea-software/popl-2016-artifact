@@ -120,7 +120,9 @@ class History
   def intervals
     past = @before.values.map(&:count).uniq.sort.map.with_index.to_h
     future = @after.values.map(&:count).uniq.sort.reverse.map.with_index.to_h
-    fail "Uh oh..." unless (n = past.count) == future.count
+    unless (n = past.count) == future.count
+      fail "PROBLEM: #PASTS != #FUTURES\nbefore: #{@before}\nafter: #{@after}"
+    end
     [n, each.map{|id| [id,[past[before(id).count], future[after(id).count]]]}.to_h]
   end
 

@@ -190,6 +190,60 @@ class Theories
     end
   end
 
+  def more_matches(h1, h2)
+    Enumerator.new do |y|
+      n1 = default_naming
+      n2 = alternate_naming
+
+      declarations
+      decl_const :g, :id, :id
+      decl_const :dom, :id, :bool
+      decl_const :rng, :id, :bool
+      decl_const :codom, :id, :bool
+
+      methods = (h1.method_names + h2.method_names).uniq
+      methods.each {|m| decl_const m, :method}
+      methods.each {|m1| methods.each {|m2| y << (e(m1) != e(m2)) if m1 != m2}}
+
+      history(h1, naming:n1, alone:false).each(&y.method(:yield))
+      history(h2, naming:n2, alone:false).each(&y.method(:yield))
+
+      h1.each do |id|
+        y << e(:codom, e(n1.id(id)))
+        y << (h1.completed?(id) ? c(e(n1.id(id))) : !c(e(n1.id(id))))
+      end
+      h2.each do |id|
+        y << e(:dom, e(n2.id(id)))
+        y << (h2.completed?(id) ? c(e(n2.id(id))) : !c(e(n2.id(id))))
+      end
+      y << forall_ids {|o| e(:dom,o).implies(disj(*h2.map{|id| o == e(n2.id(id))}))}
+      y << forall_ids {|o| e(:codom,o).implies(disj(*h1.map{|id| o == e(n1.id(id))}))}
+      y << forall_ids {|o| e(:rng,o).implies(e(:codom,o))}
+
+      y << forall_ids {|o| e(:dom,o).implies(e(:rng,e(:g,o)))}
+      y << forall_ids {|o| e(:rng,o).implies(disj(*h2.map{|id| o == e(:g,e(n2.id(id)))}))}
+
+      # mapping is injective
+      y << forall_ids {|o,p| (e(:dom,o) & e(:dom,p) & (e(:g,o) == e(:g,p))).implies(o == p)}
+
+      # mapping is consistent with method naming (?)
+      y << forall_ids {|i| e(:dom,i).implies(meth(i) == meth(e(:g,i)))}
+
+      # mapping is consistent with completed operations
+      y << forall_ids {|i| e(:dom,i).implies(c(i) === c(e(:g,i)))}
+
+      # mapping takes entire match groups
+      y << forall_ids {|i,j| (e(:rng,i) & e(:codom,j) & match(i,j)).implies(e(:rng,j))}
+      y << forall_ids {|i,j| (e(:codom,i) & e(:rng,j) & match(i,j)).implies(e(:rng,i))}
+
+      # mapping is consistent with matching
+      y << forall_ids {|i,j| (e(:dom,i) & e(:dom,j)).implies(match(i,j) === match(e(:g,i),e(:g,j)))}
+
+      # mapping is consistent with order
+      y << forall_ids {|i,j| (e(:dom,i) & e(:dom,j)).implies(before(i,j) === before(e(:g,i),e(:g,j)))}
+    end
+  end
+
   def weaker_than(h1, h2)
     Enumerator.new do |y|
       n1 = default_naming

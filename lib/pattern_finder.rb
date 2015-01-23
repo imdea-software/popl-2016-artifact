@@ -128,6 +128,12 @@ def negative_examples(obj_class, *obj_args, op_limit)
   end
 end
 
+def more_matches?(h1,h2)
+  @solver.reset
+  @theories.more_matches(h1,h2).each(&@solver.method(:assert))
+  @solver.check
+end
+
 def weaker_than?(h1,h2)
   @solver.reset
   @theories.weaker_than(h1,h2).each(&@solver.method(:assert))
@@ -152,11 +158,11 @@ begin
   negative_examples(*options.impl, options.operation_limit).each do |h|
     w = h.weaken {|w| !checker.linearizable?(w)}
 
-    if patterns.any? {|p| weaker_than?(p,w)}
+    if patterns.any? {|p| more_matches?(w,p) }
       log.warn('pattern-finder') {"redundant pattern\n#{w}"}
 
-    elsif idx = patterns.find_index {|p| weaker_than?(w,p)}
-      log.warn('pattern-finder') {"weaker pattern\n#{w}"}
+    elsif idx = patterns.find_index {|p| more_matches?(p,w)}
+      log.warn('pattern-finder') {"better pattern\n#{w}"}
       patterns[idx] = w
 
     else
