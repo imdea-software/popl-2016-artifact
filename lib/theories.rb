@@ -205,16 +205,32 @@ class Theories
       methods.each {|m| decl_const m, :method}
       methods.each {|m1| methods.each {|m2| y << (e(m1) != e(m2)) if m1 != m2}}
 
-      history(h1, naming:n1, alone:false).each(&y.method(:yield))
-      history(h2, naming:n2, alone:false).each(&y.method(:yield))
+      history(h1, naming:n1, alone:false, order:false).each(&y.method(:yield))
+      history(h2, naming:n2, alone:false, order:false).each(&y.method(:yield))
 
       h1.each do |id|
         y << e(:codom, e(n1.id(id)))
         y << (h1.completed?(id) ? c(e(n1.id(id))) : !c(e(n1.id(id))))
+        h1.each do |jd|
+          next if id == jd
+          if h1.before?(id,jd)
+            y << before(e(n1.id(id)),e(n1.id(jd)))
+          else
+            y << !before(e(n1.id(id)),e(n1.id(jd)))
+          end
+        end
       end
       h2.each do |id|
         y << e(:dom, e(n2.id(id)))
         y << (h2.completed?(id) ? c(e(n2.id(id))) : !c(e(n2.id(id))))
+        h2.each do |jd|
+          next if id == jd
+          if h2.before?(id,jd)
+            y << before(e(n2.id(id)),e(n2.id(jd)))
+          else
+            y << !before(e(n2.id(id)),e(n2.id(jd)))
+          end
+        end
       end
       y << forall_ids {|o| e(:dom,o).implies(disj(*h2.map{|id| o == e(n2.id(id))}))}
       y << forall_ids {|o| e(:codom,o).implies(disj(*h1.map{|id| o == e(n1.id(id))}))}
