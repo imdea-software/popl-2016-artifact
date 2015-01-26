@@ -296,26 +296,30 @@ class History
     end
   end
 
-  def weaken_once(p)
+  def uncomplete_once
     completed.each do |id|
       w = uncomplete(id)
-      return w if p.call(w)
+      return w if yield(w)
     end
+    return nil
+  end
+
+  def unorder_once
     each do |x|
       after(x).each do |y|
         next if any? {|id| before?(x,id) && before?(id,y)}
         w = unorder(x,y)
-        return w if p.call(w)
+        return w if yield(w)
       end
     end
     return nil
   end
 
-  def weaken(&blk)
+  def weaken(make_pending: false, &blk)
     h = self
     fail "Expected predicate block." unless block_given?
     fail "History does not satisfy predicate." unless yield(h)
-    while w = h.weaken_once(blk) do h = w end
+    while (make_pending && w = h.uncomplete_once(&blk)) || w = h.unorder_once(&blk) do h = w end
     return h
   end
 
