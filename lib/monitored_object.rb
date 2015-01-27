@@ -11,6 +11,7 @@ class MonitoredObject
     @unique_id = 0
     object.methods.each do |m|
       next if Object.instance_methods.include? m
+      next if FFI::AutoPointer.instance_methods.include? m
       next if object.methods.include?("#{m.to_s.chomp('=')}=".to_sym)
       (class << self; self; end).class_eval do
         case object.method(m).arity

@@ -1,6 +1,9 @@
 require 'ffi'
 require 'os'
 
+
+class ScalObject < FFI::AutoPointer; def self.release(p) end end
+
 class ScalObject
 
   PASS_BOUND = 3
@@ -14,39 +17,46 @@ class ScalObject
       File.join(path,"libscal.#{ext}")
     end
     ffi_lib scal_lib
-    attach_function :scal_initialize, [:uint], :void
-    attach_function :scal_object_create, [:string], :pointer
     attach_function :scal_object_name, [:string], :string
     attach_function :scal_object_spec, [:string], :string
-    attach_function :scal_object_put, [:pointer, :int], :void
-    attach_function :scal_object_get, [:pointer], :int
+
+    attach_function :scal_initialize, [:uint], :void
+
+    attach_function :scal_object_create, [:string], ScalObject
+    attach_function :scal_object_delete, [ScalObject], :void
+    attach_function :scal_object_put, [ScalObject, :int], :void
+    attach_function :scal_object_get, [ScalObject], :int
   end
 
   @@spec = "???"
 
-  def self.initialize(num_threads)
-    CAPI::scal_initialize(num_threads)
+  def self.initialize(num_threads) CAPI::scal_initialize(num_threads) end
+  def self.create(id)
+    obj = CAPI::scal_object_create(id)
+    obj.send(:post_initialize,id)
+    obj
   end
+  def self.release(pointer) CAPI::scal_object_delete(pointer) end
+  def self.spec; @@spec end
 
-  def initialize(object_id)
+  def post_initialize(object_id)
     @id = object_id
-    @object = CAPI::scal_object_create(@id)
     @name = CAPI::scal_object_name(@id) # TODO why does this need a warm-up?
     @name = CAPI::scal_object_name(@id)
     @@spec = CAPI::scal_object_spec(@id)
     @gen = Random.new
   end
+  private :post_initialize
 
-  def self.spec; @@spec end
   def to_s; CAPI::scal_object_name(@id) end
 
   def add(val)
-    CAPI::scal_object_put(@object,val)
+    CAPI::scal_object_put(self,val)
     nil
   end
 
   def remove
-    val = CAPI::scal_object_get(@object)
+    val = CAPI::scal_object_get(self)
     return val == -1 ? :empty : val
   end
 end

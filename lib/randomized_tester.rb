@@ -35,6 +35,7 @@ class RandomizedTester
     @object = object
     @methods = object.methods.reject do |m|
       next true if Object.instance_methods.include? m
+      next true if FFI::AutoPointer.instance_methods.include? m
       next true if object.methods.include?("#{m.to_s.chomp('=')}=".to_sym)
       false
     end

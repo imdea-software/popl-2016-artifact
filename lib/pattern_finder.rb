@@ -71,16 +71,17 @@ end
 
 def negative_examples(obj_class, *obj_args, op_limit)
   Enumerator.new do |y|
-    object = obj_class.new(*obj_args)
+    object = obj_class.create(*obj_args)
     methods = object.methods.reject do |m|
       next true if Object.instance_methods.include? m
+      next true if FFI::AutoPointer.instance_methods.include? m
       next true if object.methods.include?("#{m.to_s.chomp('=')}=".to_sym)
       false
     end
 
     sequences = [[]]
     until sequences.empty? do
-      object = obj_class.new(*obj_args)
+      object = obj_class.create(*obj_args)
       unique_val = 0
       seq = sequences.shift
 
@@ -148,7 +149,7 @@ begin
   patterns = []
   
   obj_class, obj_args = options.impl
-  object = obj_class.new(*obj_args).class.spec
+  object = obj_class.create(*obj_args).class.spec
 
   checker = EnumerateChecker.new(reference_impl: options.impl, object: object, completion: true)
   context = Z3.context
@@ -171,6 +172,6 @@ begin
 
     end
   end
-  
+rescue SystemExit, Interrupt
   log.warn('pattern-finder') {"found #{patterns.count} patterns\n#{patterns * "\n--\n"}"}
 end

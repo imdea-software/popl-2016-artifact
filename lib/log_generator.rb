@@ -84,7 +84,7 @@ begin
   idx_width = (options.num_executions - 1).to_s.length
 
   options.num_executions.times do |i|
-    object = obj_class.new(*args)
+    object = obj_class.create(*args)
     log_file = File.join(dest_dir, "#{options.object * "-"}.#{i.to_s.rjust(idx_width,'0')}.log")
 
     LogReaderWriter.new(log_file, object.class.spec) do |logger|
