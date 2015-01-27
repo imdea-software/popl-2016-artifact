@@ -142,6 +142,7 @@ def weaker_than?(h1,h2)
 end
 
 begin
+  log_filter(/pattern/)
   options = parse_options
   options.impl = get_object(options,ARGV.first)
 
@@ -160,18 +161,26 @@ begin
     w = h.weaken {|w| !checker.linearizable?(w)}
 
     if patterns.any? {|p| more_matches?(w,p) }
-      log.warn('pattern-finder') {"redundant pattern\n#{w}"}
+      log.info('pattern-finder') {"redundant pattern\n#{w}"}
+      print "." if log.level > Logger::INFO
 
     elsif idx = patterns.find_index {|p| more_matches?(p,w)}
-      log.warn('pattern-finder') {"better pattern\n#{w}"}
+      log.info('pattern-finder') {"better pattern\n#{w}"}
+      print "+" if log.level > Logger::INFO
       patterns[idx] = w
 
     else
-      log.warn('pattern-finder') {"new pattern\n#{w}"}
+      log.info('pattern-finder') {"new pattern\n#{w}"}
+      print "#" if log.level > Logger::INFO
       patterns << w
 
     end
   end
 rescue SystemExit, Interrupt
-  log.warn('pattern-finder') {"found #{patterns.count} patterns\n#{patterns * "\n--\n"}"}
+
+ensure
+  puts if log.level > Logger::INFO
+  if patterns
+    log.warn('pattern-finder') {"found #{patterns.count} patterns\n#{patterns * "\n--\n"}"}
+  end
 end
