@@ -173,6 +173,22 @@ class History
     end * "\n"
   end
 
+  def to_logic_s
+    to_s + "\n--\n" +
+    map do |id|
+      m = match(id)
+      literals = []
+      literals << "METHOD(o#{id}) == #{method_name(id)}"
+      if m
+        literals << "MATCH(o#{m == :none ? id : m},o#{id})"
+      else
+        literals << "UNMATCHED(o#{id})"
+      end
+      literals.push *after(id).map {|j| "BEFORE(o#{id},o#{j})"}
+      literals
+    end.flatten * "\n&& "
+  end
+
   def add_observer(o)         @observers << o if o end
   def notify_observers(*args) @observers.each {|o| o.update(*args)} end
 
