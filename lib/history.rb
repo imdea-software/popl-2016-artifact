@@ -104,7 +104,11 @@ class History
   end
 
   def to_s
-    str = to_interval_s
+    if interval_order?
+      str = to_interval_s
+    else
+      str = to_partial_order_s
+    end
     extras = @ext_after.map{|a,ids| "#{a} < #{ids * ", "}" unless ids.empty?}.compact
     str << "\n" + extras * "\n" unless extras.empty?
     str
@@ -126,7 +130,7 @@ class History
     [n, each.map{|id| [id,[past[before(id).count], future[after(id).count]]]}.to_h]
   end
 
-  def label(id)
+  def label_s(id)
     str = ""
     str << @method_names[id]
     str << "(#{@arguments[id] * ", "})" unless @arguments[id].empty?
@@ -138,12 +142,28 @@ class History
     str
   end
 
+  def match_s(id)
+    m = match(id)
+    "[#{id}#{m.nil? ? ":_" : m != :none ? ":#{m}" : ""}]"
+  end
+
+  def to_partial_order_s
+    ops = each.map do |id|
+      [id, [match_s(id), label_s(id)]]
+    end.to_h
+    id_j = ops.values.map{|id,_| id.length}.max
+    op_j = ops.values.map{|_,op| op.length}.max
+    each.map do |id|
+      str = "#{ops[id][0].ljust(id_j)} #{ops[id][1].ljust(op_j)}"
+      str << "  --> #{after(id).map{|i| "[#{i}]"} * ", "}" unless after(id).empty?
+      str
+    end * "\n"
+  end
+
   def to_interval_s(scale: 2)
-    # fail "Not an interval order." unless interval_order?
     n, imap = intervals
     ops = each.map do |id|
-      m = match(id)
-      [id,["[#{id}#{m.nil? ? ":_" : m != :none ? ":#{m}" : ""}]",label(id)]]
+      [id,[match_s(id),label_s(id)]]
     end.to_h
     id_j = ops.values.map{|id,_| id.length}.max
     op_j = ops.values.map{|_,op| op.length}.max
