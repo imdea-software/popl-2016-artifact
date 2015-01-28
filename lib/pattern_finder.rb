@@ -181,6 +181,6 @@ rescue SystemExit, Interrupt
 ensure
   puts if log.level > Logger::INFO
   if patterns
-    log.warn('pattern-finder') {"found #{patterns.count} patterns\n#{patterns.map(&:to_logic_s) * "\n--\n"}"}
+    log.warn('pattern-finder') {"found #{patterns.count} patterns\n#{patterns * "\n--\n"}"}
   end
 end
