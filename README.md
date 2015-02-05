@@ -1,37 +1,61 @@
-Monitoring Refinement via Symbolic Reasoning
-============================================
+# Monitoring Refinement via Symbolic Reasoning
 
 This project aims to develop efficient monitoring algorithms for concurrent
 data structures, e.g., locks, semaphores, atomic registers, stacks, queues.
 
-Contents
---------
+## Contents
 
-- `bin/` contains the executables for generating history logs (`loggenerator.rb`), checking history logs (`logchecker.rb`), and for generating reports (`report.rb`).
+* `bin/` contains executables:
+    * `loggenerator.rb` for generating history logs,
+    * `logchecker.rb` for checking history logs, and
+    * `report.rb` for generating reports.
 
-- `examples/generated` contains many history logs generated from actual executions.
+* `data/` contains various data:
+    * `experiments/` contains empirical measurements,
+    * `histories/` contains history logs,
+        * `generated/` contains history logs generated from actual executions,
+        * `simple/` contains hand-crafted history logs,
+    * `plots/` contains visualizations of empirical measurements, and
+    * `reports/` contains reports benchmarking the performance of each algorithm.
 
-- `examples/simple` contains a few hand-crafted histories.
+* `lib/` contains the source code of the checking algorithms.
 
-- `lib/` contains the source code of the checking algorithms.
+* `xxx/` contains prebuilt external shared-libraries for OSX, Windows, and Linux.
 
-- `reports/` contains some previously-generated reports benchmarking the performance of each algorithm.
+## Requirements
 
-Requirements
-------------
+* [Ruby][]: a recent version; we’re using 2.1.2. We recommend installation via [Homebrew] on OSX since the preinstalled version of [Ruby] may be outdated.
 
-- Z3: ensure a recent version of `libz3.{dylib,so,dll}` is in the `LIBRARY_PATH`
+* The `ffi` and `os` Ruby gems. These are used, e.g., for interfacing with Z3.
+  Normally, these are installed by running `gem install ffi os`, and may
+  require root privileges, depending on your configuration. With [Ruby][]
+  installed via [Homebrew][] on OSX root privileges are not necessary. With the
+  [Ruby][] that comes with OSX Yosemite, you may need root privileges. On
+  Linux, you may need to install the `ffi` gem via the `rpm` or `apt` tools
+  rather than the `gem` command.
 
-- Ruby: we're using version 2.1.2
+* [Z3][]: a recent version of `libz3.{dylib,so,dll}`. If such a file exists in
+  your `LIBRARY_PATH`, we will attempt to pick it up. If not, we will fall back
+  on the corresponding file in the `xxx/` directory. Our prepackaged Z3 shared
+  libraries are built for 64bit OSX/Linux, and their dependence on the
+  platforms on which they were built (Yosemite, OpenSUSE) is unclear. If you do
+  encounter problems involving `FFI` or `Z3`, you may try obtaining/building Z3
+  on your system, and adding `libz3.{dylib,so,dll}` to your `LIBRARY_PATH`.
 
-- The `ffi` and `os` Ruby gems: run `gem install ffi os`
+[Homebrew]: http://brew.sh
+[Ruby]: https://www.ruby-lang.org
+[Z3]: http://z3.codeplex.com
 
-Usage
------
+## Installation
+
+No installation required! besides that which is required above, i.e., a recent
+version of [Ruby] and the `ffi` and `os` gems.
+
+## Usage
 
 To try out the history checking algorithms, run, for example
 
-    ./bin/logchecker.rb examples/simple/lifo-violation-dhk-2.log -a symbolic -v
+    ./bin/logchecker.rb data/histories/simple/lifo-violation-dhk-2.log -a symbolic -v
 
 To see the list of options, run
 
@@ -41,4 +65,4 @@ To generate benchmarking reports, run
 
     ./bin/report.rb
 
-And that's about it.
+And that’s about it.
