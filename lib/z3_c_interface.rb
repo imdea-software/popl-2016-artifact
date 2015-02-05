@@ -4,10 +4,10 @@ require 'os'
 module Z3CInterface
   def self.z3_lib
     ext = OS.windows? ? 'dll' : OS.mac? ? 'dylib' : 'so'
-
-    path = (ENV['LIBRARY_PATH'] + ":#{File.dirname(__FILE__)}/../xxx").
-      split(':').
-      find{|p| File.exists?(File.join(p,"libz3.#{ext}"))}
+    path = ""
+    path << ENV['LIBRARY_PATH'] || ""
+    path << ":#{File.dirname(__FILE__)}/../xxx"
+    path = path.split(':').find{|p| File.exists?(File.join(p,"libz3.#{ext}"))}
 
     (log.fatal "Cannot find 'libz3.#{ext}' in \$LIBRARY_PATH."; exit) unless path
     z3 = File.join(path,"libz3.#{ext}")
