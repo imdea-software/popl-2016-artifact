@@ -20,11 +20,17 @@ data structures, e.g., locks, semaphores, atomic registers, stacks, queues.
 
 * `lib/` contains the source code of the checking algorithms.
 
+* `pldi-2015-submission.pdf` is a research paper accepted to [PLDI 2015][].
+
 * `xxx/` contains prebuilt external shared-libraries for OSX, Windows, and Linux.
+
+[PLDI 2015]: http://conf.researchr.org/home/pldi2015
 
 ## Requirements
 
-* [Ruby][]: a recent version; we’re using 2.1.2. We recommend installation via [Homebrew] on OSX since the preinstalled version of [Ruby] may be outdated.
+* [Ruby][]: a recent version; we’re using 2.1.2. On OSX, we recommend
+  installation via [Homebrew] since the version of [Ruby] packaged with OSX may
+  be outdated.
 
 * The `ffi` and `os` Ruby gems. These are used, e.g., for interfacing with Z3.
   Normally, these are installed by running `gem install ffi os`, and may
@@ -38,7 +44,8 @@ data structures, e.g., locks, semaphores, atomic registers, stacks, queues.
   your `LIBRARY_PATH`, we will attempt to pick it up. If not, we will fall back
   on the corresponding file in the `xxx/` directory. Our prepackaged Z3 shared
   libraries are built for 64bit OSX/Linux, and their dependence on the
-  platforms on which they were built (Yosemite, OpenSUSE) is unclear. If you do
+  platforms on which they were built (Yosemite, OpenSUSE) is unclear. The
+  Windows `.dll` should be compatible with any Windows installation. If you do
   encounter problems involving `FFI` or `Z3`, you may try obtaining/building Z3
   on your system, and adding `libz3.{dylib,so,dll}` to your `LIBRARY_PATH`.
 
