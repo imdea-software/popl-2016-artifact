@@ -6,13 +6,20 @@ require 'ostruct'
 FIELDS = [:sources, :algorithms, :timeouts]
 FIELDS.each {|f| self.class.const_set("DEFAULT_#{f.upcase}", [])}
 
-DEFAULT_SOURCES << "examples/simple/*.log"
-DEFAULT_SOURCES << "examples/generated/my-sync-stack.*.log"
-DEFAULT_SOURCES << "examples/generated/my-unsafe-stack/*.log"
-DEFAULT_SOURCES << "examples/generated/bkq-very-concurrent/*.log"
-DEFAULT_SOURCES << "examples/generated/msq-very-concurrent/*.log"
-DEFAULT_SOURCES << "examples/generated/bkq-almost-sequential/*.log"
-DEFAULT_SOURCES << "examples/generated/msq-almost-sequential/*.log"
+DEFAULT_SOURCES << "data/histories/simple/*.log"
+DEFAULT_SOURCES << "data/histories/generated/my-sync-stack.*.log"
+DEFAULT_SOURCES << "data/histories/generated/my-unsafe-stack/*.log"
+DEFAULT_SOURCES << "data/histories/generated/big/ScalObject-msq/*.log"
+DEFAULT_SOURCES << "data/histories/generated/small/ScalObject-bkq/*.log"
+DEFAULT_SOURCES << "data/histories/generated/small/ScalObject-dq/*.log"
+DEFAULT_SOURCES << "data/histories/generated/small/ScalObject-fcq/*.log"
+DEFAULT_SOURCES << "data/histories/generated/small/ScalObject-lbq/*.log"
+DEFAULT_SOURCES << "data/histories/generated/small/ScalObject-msq/*.log"
+DEFAULT_SOURCES << "data/histories/generated/small/ScalObject-rdq/*.log"
+DEFAULT_SOURCES << "data/histories/generated/small/ScalObject-sl/*.log"
+DEFAULT_SOURCES << "data/histories/generated/small/ScalObject-ts/*.log"
+DEFAULT_SOURCES << "data/histories/generated/small/ScalObject-ukq/*.log"
+DEFAULT_SOURCES << "data/histories/generated/small/ScalObject-wfq11/*.log"
 
 DEFAULT_ALGORITHMS << "saturate"
 DEFAULT_ALGORITHMS << "saturate -r"
@@ -30,7 +37,7 @@ DEFAULT_ALGORITHMS << "symbolic"
 DEFAULT_ALGORITHMS << "symbolic -r"
 DEFAULT_ALGORITHMS << "symbolic -c"
 DEFAULT_ALGORITHMS << "symbolic -i"
-DEFAULT_ALGORITHMS << "symbolic -i -r"
+# DEFAULT_ALGORITHMS << "symbolic -i -r" # TODO this one is buggy
 DEFAULT_ALGORITHMS << "enumerate"
 DEFAULT_ALGORITHMS << "enumerate -c"
 DEFAULT_ALGORITHMS << "enumerate -r"
@@ -91,7 +98,7 @@ def parse_options
       exit
     end
 
-    opts.on("-s", "--source S", "Add a source, e.g. 'examples/simple/*.log'") do |s|
+    opts.on("-s", "--source S", "Add a source, e.g. 'data/histories/simple/*.log'") do |s|
       options.sources << s
     end
 
@@ -146,4 +153,9 @@ begin
       end
     end
   end
+
+rescue SystemExit, Interrupt
+
+ensure
+
 end

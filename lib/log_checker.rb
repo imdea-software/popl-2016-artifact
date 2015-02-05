@@ -177,6 +177,10 @@ begin
   puts "MEMORY:       #{(max_rss / 1024.0).round(4)}KB"
   puts "TIME:         #{(end_time - start_time).round(4)}s#{timeout}#{stepout}"
   puts "TIME/CHECK:   #{((end_time - start_time)/checker.num_checks).round(4)}s"
+
+
+rescue SystemExit, Interrupt
+
 ensure
   log.close
 end
