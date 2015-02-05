@@ -28,9 +28,10 @@ data structures, e.g., locks, semaphores, atomic registers, stacks, queues.
 
 ## Requirements
 
-* [Ruby][]: a recent version; we’re using 2.1.2. On OSX, we recommend
-  installation via [Homebrew] since the version of [Ruby] packaged with OSX may
-  be outdated.
+* A reasonably-recent version of [Ruby][]; we’re using 2.2.0. Many Linux
+  distributions and OSX come with Ruby preinstalled. On OSX, we recommend
+  installation via [Homebrew] since the Ruby version packaged with OSX may be
+  outdated.
 
 * The `ffi` and `os` Ruby gems. These are used, e.g., for interfacing with Z3.
   Normally, these are installed by running `gem install ffi os`, and may
