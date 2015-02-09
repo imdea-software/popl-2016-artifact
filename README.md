@@ -9,7 +9,7 @@ This project is written in [Ruby], and works “out of the box” without
 compilation nor installation. Of course, it does depend the availability of a
 [Ruby] interpreter – see below. In the case that the requirements cannot be
 fulfilled, this project can also be run in a preconfigured virtual machine; see
-“Running in a Virtual Machine” below.
+*Running in a Virtual Machine* below.
 
 ## Requirements
 
@@ -59,12 +59,12 @@ First, start [Vagrant] in the root directory of this project:
 This can take a few minutes the first time around, since it includes the
 download of a virtual machine image. When this step finishes, our virtual
 machine should be up and running — verify this with the `vagrant status`
-command. Open a shell to the running virtual machine via ssh,
+command. Open a shell to the running virtual machine via ssh:
 
     vagrant ssh
 
-and follow the “Usage” instructions below. When finished, simply close the SSH
-session, and halt, suspend, or destroy the virtual machine, e.g.,
+and follow the *Usage* instructions below. When finished, simply close the SSH
+session, and halt, suspend, or destroy the virtual machine:
 
     vagrant destroy
 
