@@ -7,7 +7,9 @@ data structures, e.g., locks, semaphores, atomic registers, stacks, queues.
 
 This project is written in [Ruby], and works “out of the box” without
 compilation nor installation. Of course, it does depend the availability of a
-[Ruby] interpreter – see below.
+[Ruby] interpreter – see below. In the case that the requirements cannot be
+fulfilled, this project can also be run in a preconfigured virtual machine; see
+“Running in a Virtual Machine” below.
 
 ## Requirements
 
@@ -43,6 +45,31 @@ encountered, try obtaining [Z3] on your own, and include the appropriate
 [Cygwin]: https://www.cygwin.com
 [libffi]: https://sourceware.org/libffi
 [Z3]: http://z3.codeplex.com
+
+## Running in a Virtual Machine
+
+Alternatively, this project can be run in a preconfigured virtual machine. To
+use this method both [VirtualBox] and [Vagrant] must be installed. Both are
+available for a wide range of systems, with great installation support.
+
+First, start [Vagrant] in the root directory of this project:
+
+    vagrant up
+
+This can take a few minutes the first time around, since it includes the
+download of a virtual machine image. When this step finishes, our virtual
+machine should be up and running — verify this with the `vagrant status`
+command. Open a shell to the running virtual machine via ssh,
+
+    vagrant ssh
+
+and follow the “Usage” instructions below. When finished, simply close the SSH
+session, and halt, suspend, or destroy the virtual machine, e.g.,
+
+    vagrant destroy
+
+[Vagrant]: https://www.vagrantup.com
+[VirtualBox]: https://www.virtualbox.org
 
 ## Contents
 
