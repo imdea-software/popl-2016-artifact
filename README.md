@@ -39,8 +39,7 @@ use on Windows is untested. Technically though, we require the following:
 * [Ruby], version 2.0.0 or greater. Linux distributions and OS X generally come
   with [Ruby] preinstalled. Newer versions are easily installed using your
   system’s package manager. On OS X, we recommend using the [Homebrew] package
-  manager. On Windows, [RubyInstaller](http://rubyinstaller.org) is the
-  recommended installation method.
+  manager. On Windows, Ruby can be installed with [RubyInstaller] or [Cygwin].
 
 * The [libffi] library. Linux distributions and OS X generally come with
   [libffi] preinstalled. Otherwise, [libffi] is easily installed using your
@@ -64,6 +63,8 @@ use on Windows is untested. Technically though, we require the following:
 [Ruby]: https://www.ruby-lang.org  
 [libffi]: https://sourceware.org/libffi
 [Z3]: http://z3.codeplex.com
+[Cygwin]: https://www.cygwin.com
+[RubyInstaller]: http://rubyinstaller.org
 
 ## Installation
 
