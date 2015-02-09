@@ -5,15 +5,16 @@ data structures, e.g., locks, semaphores, atomic registers, stacks, queues.
 
 ## Installation
 
-No installation required! besides that which is required below, i.e., a recent
-version of [Ruby] and the `ffi` and `os` gems.
+This project is written in [Ruby], and works “out of the box” without
+compilation nor installation. Of course, it does depend the availability of a
+[Ruby] interpreter – see below.
 
 ## Requirements
 
 In principle, this project works “out of the box” on any system with a
 relatively-recent installation of Ruby — modulo the simple installation of a
 couple “gems” noted below. That is our experience with OS X and Linux, though
-use on Windows is untested. Technically though, we require the following:
+use on Windows is untested. Technically though, we do require the following:
 
 * [Ruby], version 2.0.0 or greater. Linux distributions and OS X generally come
   with [Ruby] preinstalled. Newer versions are easily installed using your
