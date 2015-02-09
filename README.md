@@ -5,6 +5,9 @@ data structures, e.g., locks, semaphores, atomic registers, stacks, queues.
 
 ## Contents
 
+Files in this project are organized according to the following directory
+structure.
+
 * `bin/` contains executables:
     * `loggenerator.rb` for generating history logs,
     * `logchecker.rb` for checking history logs, and
@@ -27,6 +30,11 @@ data structures, e.g., locks, semaphores, atomic registers, stacks, queues.
 [PLDI 2015]: http://conf.researchr.org/home/pldi2015
 
 ## Requirements
+
+In principle, this project works “out of the box” on any system with a
+relatively-recent installation of Ruby — modulo the simple installation of a
+couple “gems” noted below. That is our experience with OS X and Linux, though
+use on Windows is untested. Technically though, we require the following:
 
 * [Ruby], version 2.0.0 or greater. Linux distributions and OS X generally come
   with [Ruby] preinstalled. Newer versions are easily installed using your
