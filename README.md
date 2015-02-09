@@ -41,23 +41,21 @@ use on Windows is untested. Technically though, we require the following:
   system’s package manager. On OS X, we recommend using the [Homebrew] package
   manager. On Windows, Ruby can be installed with [RubyInstaller] or [Cygwin].
 
-* The [libffi] library. Linux distributions and OS X generally come with
-  [libffi] preinstalled. Otherwise, [libffi] is easily installed using your
-  system’s package manager.
-
 * The `ffi` and `os` Ruby gems. These are used, e.g., for interfacing with Z3.
   Normally, these are installed by running `gem install ffi os`; this command
   may require root privileges, depending on your configuration. On Linux, you
   may need to install `ffi` using your system’s package manager.
 
-* [Z3]: a recent version of `libz3.{dylib,so,dll}`. If such a file exists in
-  your `LIBRARY_PATH`, we attempt to load it. If not, we fall back on the
-  corresponding file provided in the `xxx/` directory. Our prepackaged Z3
-  shared libraries are built for 64bit OSX/Linux, and their dependence on the
-  platforms on which they were built (Yosemite, OpenSUSE) is unclear. The
-  Windows `.dll` should be compatible with any Windows installation. If you do
-  encounter problems involving `FFI` or `Z3`, try obtaining Z3 on your own, and
-  add `libz3.{dylib,so,dll}` to your `LIBRARY_PATH`.
+* The [libffi] library. Linux distributions and OS X generally come with
+  [libffi] preinstalled. Otherwise, [libffi] is easily installed using your
+  system’s package manager.
+  
+This project also uses [Z3] as a shared library. For convenience we provide the
+[Z3] shared library prebuilt for 64bit OS X (Yosemite), Linux (OpenSUSE), and
+Windows in the `xxx/` directory. Dependence on the platforms on which it was
+built is unclear. In the case that problems involving `FFI` or `Z3` are
+encountered, try obtaining [Z3] on your own, and include the appropriate
+`libz3.{dylib,so,dll}` in your `LIBRARY_PATH`.
 
 [Homebrew]: http://brew.sh
 [Ruby]: https://www.ruby-lang.org  
