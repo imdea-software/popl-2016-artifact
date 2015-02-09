@@ -3,31 +3,10 @@
 This project aims to develop efficient monitoring algorithms for concurrent
 data structures, e.g., locks, semaphores, atomic registers, stacks, queues.
 
-## Contents
+## Installation
 
-Files in this project are organized according to the following directory
-structure.
-
-* `bin/` contains executables:
-    * `loggenerator.rb` for generating history logs,
-    * `logchecker.rb` for checking history logs, and
-    * `report.rb` for generating reports.
-
-* `data/` contains various data:
-    * `experiments/` contains empirical measurements,
-    * `histories/` contains history logs,
-        * `generated/` contains history logs generated from actual executions,
-        * `simple/` contains hand-crafted history logs,
-    * `plots/` contains visualizations of empirical measurements, and
-    * `reports/` contains reports benchmarking the performance of each algorithm.
-
-* `lib/` contains the source code of the checking algorithms.
-
-* `pldi-2015-submission.pdf` is a research paper accepted to [PLDI 2015][].
-
-* `xxx/` contains prebuilt external shared-libraries for OSX, Windows, and Linux.
-
-[PLDI 2015]: http://conf.researchr.org/home/pldi2015
+No installation required! besides that which is required below, i.e., a recent
+version of [Ruby] and the `ffi` and `os` gems.
 
 ## Requirements
 
@@ -57,17 +36,38 @@ built is unclear. In the case that problems involving `FFI` or `Z3` are
 encountered, try obtaining [Z3] on your own, and include the appropriate
 `libz3.{dylib,so,dll}` in your `LIBRARY_PATH`.
 
+[Ruby]: https://www.ruby-lang.org
+[RubyInstaller]: http://rubyinstaller.org
 [Homebrew]: http://brew.sh
-[Ruby]: https://www.ruby-lang.org  
+[Cygwin]: https://www.cygwin.com
 [libffi]: https://sourceware.org/libffi
 [Z3]: http://z3.codeplex.com
-[Cygwin]: https://www.cygwin.com
-[RubyInstaller]: http://rubyinstaller.org
 
-## Installation
+## Contents
 
-No installation required! besides that which is required above, i.e., a recent
-version of [Ruby] and the `ffi` and `os` gems.
+Files in this project are organized according to the following directory
+structure.
+
+* `bin/` contains executables:
+    * `loggenerator.rb` for generating history logs,
+    * `logchecker.rb` for checking history logs, and
+    * `report.rb` for generating reports.
+
+* `data/` contains various data:
+    * `experiments/` contains empirical measurements,
+    * `histories/` contains history logs,
+        * `generated/` contains history logs generated from actual executions,
+        * `simple/` contains hand-crafted history logs,
+    * `plots/` contains visualizations of empirical measurements, and
+    * `reports/` contains reports benchmarking the performance of each algorithm.
+
+* `lib/` contains the source code of the checking algorithms.
+
+* `pldi-2015-submission.pdf` is a research paper accepted to [PLDI 2015][].
+
+* `xxx/` contains prebuilt external shared-libraries for OSX, Windows, and Linux.
+
+[PLDI 2015]: http://conf.researchr.org/home/pldi2015
 
 ## Usage
 
