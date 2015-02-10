@@ -24,7 +24,7 @@ violations_covered_plot = function(datafile, width, height, margin) {
     var counts = {};
     data.forEach(function(datum) {
       var object = datum.history.split(".")[0]
-      if (datum.violation) {        
+      if (datum.violation) {
         if (!(object in counts))
           counts[object] = {}
         if (!(datum.algorithm in counts[object]))
@@ -32,12 +32,27 @@ violations_covered_plot = function(datafile, width, height, margin) {
         counts[object][datum.algorithm] += 1;
       }
     });
+
+    var algorithms = d3.keys(counts[d3.keys(counts)[0]]);
+    var algOrder = [
+      /Enum/,
+      /Symbolic$/, /Sym/,
+      /Saturate$/, /Sat/,
+      /Count.*4.$/, /Count.*4/, /Count.*2.$/, /Count.*2/, /Count.*0.$/, /Count.*0/,
+    ];
+    algorithms.sort(function(a,b) {
+      for (var i=0; i<algOrder.length; ++i) {
+        if (a.match(algOrder[i])) return -1;
+        if (b.match(algOrder[i])) return 1;
+      }
+      return 0;
+    });
     var data = [];
     for (obj in counts) {
-      var counts_for_obj = []
-      for (alg in counts[obj]) {
-        counts_for_obj.push({object: obj, algorithm: alg, count: counts[obj][alg]})
-      }
+      var counts_for_obj = [];
+      algorithms.forEach(function(alg,_) {
+        counts_for_obj.push({object: obj, algorithm: alg, count: counts[obj][alg]});
+      });
       data.push({object: obj, counts: counts_for_obj})
     }
     return data;
@@ -53,6 +68,20 @@ violations_covered_plot = function(datafile, width, height, margin) {
     if (shape == "triangle-down")
       console.log("Unexpected algorithm: " + a);
     return shape;
+  }
+
+  function algAbbr(d) {
+    var a = d.algorithm;
+    var m;
+    if (a.match(/Enum/))
+      return "E";
+    if (m = a.match(/Sym.*(\+R)?/))
+      return "SY";
+    if (m = a.match(/Sat.*(\+R)?/))
+      return "SA";
+    if (m = a.match(/Count.*\((\d+)\)/))
+      return "C" + m[1];
+    return "?";
   }
 
   function data_size(h) {
@@ -107,8 +136,12 @@ violations_covered_plot = function(datafile, width, height, margin) {
         .attr("width", xx.rangeBand());
 
     bars.enter().append("text")
-        .attr("transform", function(d) { return "translate(" + (x(d.object) + xx(d.algorithm) + xx.rangeBand()/2 + 2) + "," + (height-10) + ") rotate(-90)"})
-        .text(function(d) { return d.algorithm; })
+        .attr("transform", function(d) {
+          return "translate(" +
+            (x(d.object) + xx(d.algorithm) + xx.rangeBand()/2 - 5) + "," +
+            (y(d.count)-5) + ")"
+        })
+        .text(function(d) { return algAbbr(d); })
 
   });
 }
