@@ -13,7 +13,7 @@ requirements cannot be fulfilled, this project can also be run in a
 preconfigured virtual machine; see *Running in a Virtual Machine*, below.
 
 
-## Requirements
+### Requirements
 
 In principle, this project works “out of the box” on any system with a
 relatively-recent installation of Ruby — modulo the simple installation of a
@@ -42,7 +42,7 @@ encountered, try obtaining [Z3] on your own, and include the appropriate
 `libz3.{dylib,so,dll}` in your `LIBRARY_PATH`.
 
 
-## Running in a Virtual Machine
+### Running in a Virtual Machine
 
 Alternatively, this project can be run in a preconfigured virtual machine. To
 use this method both [VirtualBox] and [Vagrant] must be installed. Both are
@@ -71,18 +71,18 @@ Files in this project are organized according to the following directory
 structure.
 
 * `bin/` contains executable ruby programs:
-    * `loggenerator.rb` for generating history logs,
     * `logchecker.rb` for checking history logs,
+    * `loggenerator.rb` for generating history logs,
     * `report.rb` for generating benchmarking reports, and
     * `experiments.rb` for generating experimental data.
 
 * `data/` contains various data:
-    * `experiments/` contains empirical measurements,
     * `histories/` contains history logs,
         * `generated/` contains history logs generated from actual executions,
         * `simple/` contains hand-crafted history logs,
-    * `plots/` contains visualizations of empirical measurements, and
-    * `reports/` contains reports benchmarking the performance of each algorithm.
+    * `reports/` contains reports benchmarking the performance of each algorithm,
+    * `experiments/` contains empirical measurements, and
+    * `plots/` contains visualizations of empirical measurements.
 
 * `lib/` contains the source code of the checking algorithms.
 
