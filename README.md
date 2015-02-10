@@ -168,8 +168,8 @@ the `data/plots` directory.
 ## History Input Format
 
 The input to the history-checking algorithms is a text file specifying the
-execution history of an object via method call and return actions. Each action
-must appear on a separate line. Call actions have the format
+execution history of an object via ordered method call and return actions. Each
+action must appear on a separate line. Call actions have the format
 
     [ID] call MMM(V1, V2, …)
 
@@ -181,8 +181,8 @@ format
 
 where `ID` is an operation identifier, and `V1`, `V2`, … is a possibly-empty
 sequence of return values. Each operation identifier may appear in at most 2
-actions — one call and one return — and all identifiers appearing in return
-actions must appear in some call action as well. Lines beginning with `#` are
+actions — one call and one return — and each identifiers appearing in a return
+action must appear in some prior call action. Lines beginning with `#` are
 ignored. For example, the following the history
 
     [1] call push(a)
