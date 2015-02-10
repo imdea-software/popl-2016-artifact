@@ -99,16 +99,114 @@ structure.
 
 ## Usage
 
-To try out the history checking algorithms, run, for example
+The `logchecker.rb` program checks whether an input history violates it’s
+corresponding object specification, via one of various algorithms. This program
+is invoked as follows:
 
     ./bin/logchecker.rb data/histories/simple/lifo-violation-dhk-2.log -a symbolic -v
 
-To see the list of options, run
+This command runs the “symbolic” checking algorithm on the
+`lifo-violation-dhk-2.log` history. See *History Input Format* below for a
+description of the input format to `logchecker.rb`.
+
+To see the list of options to `logchecker.rb`, run
 
     ./bin/logchecker.rb --help
-    
-To generate benchmarking reports, run
+
+An input history file is mandatory. The checking algorithm is given by the
+option `-a`/`--algorithm`. Valid choices include `enumerate`, `symbolic`,
+`saturate`, and `counting`.
+
+When the “enumerate” and “symbolic” algorithms are used, the
+`-c`/`--[no-]completion` flag enables/disables the enumeration of history
+completions prior to the enumeration of linearizations. When the “symbolic”
+algorithm is used, the `-i`/`--[no-]incremental` flag enables/disables
+incremental assertions to the underlying theorem prover. For all algorithms,
+the `-r`/`--[no-]remove-obsolete` flag performs the match-removal optimization
+to remove operations deemed obsolete.
+
+When the “counting” algorithm is used, the interval bound is specified via the
+`-b`/`--interval-bound` option — see [Tractable Refinement Checking for
+Concurrent Objects][popl-2015-paper] for background on approximating refinement
+checking via interval bounding.
+
+[popl-2015-paper]: http://michael-emmi.github.io/papers/conf-popl-BouajjaniEEH15.pdf
+
+### Benchmarking Reports
+
+To generate reports benchmarking the performance of various algorithms with
+various parameters on the many history logs included in this project, run
 
     ./bin/report.rb
 
-And that’s about it.
+The rightmost column `v` indicates whether a violation was discovered in the
+given history by the given algorithm: `√` indicates “yes”, and `-` no. In case
+the given algorithm exceeds the given timeout, the value in the `steps` and
+`time` columns will be marked with an asterisk. The default timeout is 5
+seconds, and can be adjusted via the `--timeout` option. To see the list of
+options to `report.rb`, run
+
+    ./bin/report.rb --help
+
+Previous runs of `report.rb` are logged in the `data/reports` directory.
+
+### Experimental Data
+
+Experimental data used in the publication of this work is generated via the
+`experiments.rb` program. Results are stored in tab-separated-values (TSV)
+format in the `data/experiments` directory. Plots of this data are stored in
+the `data/plots` directory.
+
+## History Input Format
+
+The input to the history-checking algorithms is a text file specifying the
+execution history of an object via method call and return actions. Each action
+must appear on a separate line. Call actions have the format
+
+    [ID] call MMM(V1, V2, …)
+
+where `ID` is an operation identifier, `MMM` is a method name, and `V1`, `V2`,
+… is a possibly-empty sequence of argument values. Return actions have the
+format
+
+    [ID] return V1, V2, …
+
+where `ID` is an operation identifier, and `V1`, `V2`, … is a possibly-empty
+sequence of return values. Each operation identifier may appear in at most 2
+actions — one call and one return — and all identifiers appearing in return
+actions must appear in some call action as well. Lines beginning with `#` are
+ignored. For example, the following the history
+
+    [1] call push(a)
+    [2] call push(b)
+    [2] return
+    [3] call pop
+    [3] return a
+    
+is the concurrent history of a stack data structure, where the values `a` and
+`b` are pushed concurrently — operations `1` and `2` overlap — and the value
+`a` is popped while operation `1` is still pending — the return action of
+operation `1` has not occurred. Drawn as intervals spanned by the `#` symbol,
+this corresponds to the history
+
+    [1] push(a)*  ###
+    [2] push(b)   #
+    [3] pop => a    #
+
+where the `*` symbol indicates that operation `1` is pending.
+
+The directory `data/histories` contains many other example histories.
+
+**Note** currently only support for atomic stack-based and queue-based
+collections has been implemented. To support additional classes of objects,
+their logical theories and matching functions must be added to
+`lib/theories.rb` and `lib/matching.rb`.
+
+**Note** currently we assume that each history contains one of the following lines:
+
+    # @object atomic-stack
+    # @object atomic-queue
+
+and uses only one of the following method name pairs: `add`/`rem`, `put`/`get`,
+`push`/`pop`, `enqueue`/`dequeue`. When in doubt, just follow the examples
+contained in `data/histories`.
