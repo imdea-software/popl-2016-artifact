@@ -3,13 +3,15 @@
 This project aims to develop efficient monitoring algorithms for concurrent
 data structures, e.g., locks, semaphores, atomic registers, stacks, queues.
 
+
 ## Installation
 
 This project is written in [Ruby], and works “out of the box” without
 compilation nor installation. Of course, it does depend the availability of a
-[Ruby] interpreter – see below. In the case that the requirements cannot be
-fulfilled, this project can also be run in a preconfigured virtual machine; see
-*Running in a Virtual Machine* below.
+[Ruby] interpreter – see *Requirements*, below. In the case that the
+requirements cannot be fulfilled, this project can also be run in a
+preconfigured virtual machine; see *Running in a Virtual Machine*, below.
+
 
 ## Requirements
 
@@ -39,12 +41,6 @@ built is unclear. In the case that problems involving `FFI` or `Z3` are
 encountered, try obtaining [Z3] on your own, and include the appropriate
 `libz3.{dylib,so,dll}` in your `LIBRARY_PATH`.
 
-[Ruby]: https://www.ruby-lang.org
-[RubyInstaller]: http://rubyinstaller.org
-[Homebrew]: http://brew.sh
-[Cygwin]: https://www.cygwin.com
-[libffi]: https://sourceware.org/libffi
-[Z3]: http://z3.codeplex.com
 
 ## Running in a Virtual Machine
 
@@ -68,18 +64,17 @@ session, and halt, suspend, or destroy the virtual machine:
 
     vagrant destroy
 
-[Vagrant]: https://www.vagrantup.com
-[VirtualBox]: https://www.virtualbox.org
 
 ## Contents
 
 Files in this project are organized according to the following directory
 structure.
 
-* `bin/` contains executables:
+* `bin/` contains executable ruby programs:
     * `loggenerator.rb` for generating history logs,
-    * `logchecker.rb` for checking history logs, and
-    * `report.rb` for generating reports.
+    * `logchecker.rb` for checking history logs,
+    * `report.rb` for generating benchmarking reports, and
+    * `experiments.rb` for generating experimental data.
 
 * `data/` contains various data:
     * `experiments/` contains empirical measurements,
@@ -93,9 +88,9 @@ structure.
 
 * `pldi-2015-submission.pdf` is a research paper accepted to [PLDI 2015][].
 
-* `xxx/` contains prebuilt external shared-libraries for OSX, Windows, and Linux.
+* `xxx/` contains prebuilt external shared-libraries for OS X, Windows, and Linux.
 
-[PLDI 2015]: http://conf.researchr.org/home/pldi2015
+
 
 ## Usage
 
@@ -106,7 +101,7 @@ is invoked as follows:
     ./bin/logchecker.rb data/histories/simple/lifo-violation-dhk-2.log -a symbolic -v
 
 This command runs the “symbolic” checking algorithm on the
-`lifo-violation-dhk-2.log` history. See *History Input Format* below for a
+`lifo-violation-dhk-2.log` history. See *History Input Format*, below, for a
 description of the input format to `logchecker.rb`.
 
 To see the list of options to `logchecker.rb`, run
@@ -130,7 +125,18 @@ When the “counting” algorithm is used, the interval bound is specified via t
 Concurrent Objects][popl-2015-paper] for background on approximating refinement
 checking via interval bounding.
 
-[popl-2015-paper]: http://michael-emmi.github.io/papers/conf-popl-BouajjaniEEH15.pdf
+
+### Generating History Logs
+
+The `loggenerator.rb` program was used to generate the history logs in the
+`histories/generated` directory by pseudo-random execution of various objects
+from the [Scal] High-Performance Multicore-Scalable Computing suite. This
+program depends on an external library which is not currently included in this
+project, and is thus currently unusable. However, any available means of
+generating valid history log files, or simply using the pre-recorded histories
+in the `data/histories` directory, is compatible with the `logchecker.rb`
+program.
+
 
 ### Benchmarking Reports
 
@@ -142,20 +148,22 @@ various parameters on the many history logs included in this project, run
 The rightmost column `v` indicates whether a violation was discovered in the
 given history by the given algorithm: `√` indicates “yes”, and `-` no. In case
 the given algorithm exceeds the given timeout, the value in the `steps` and
-`time` columns will be marked with an asterisk. The default timeout is 5
-seconds, and can be adjusted via the `--timeout` option. To see the list of
-options to `report.rb`, run
+`time` columns are marked with an asterisk. The default timeout is 5 seconds,
+and is adjustable via the `--timeout` option. To see the list of options to
+`report.rb`, run
 
     ./bin/report.rb --help
 
 Previous runs of `report.rb` are logged in the `data/reports` directory.
 
-### Experimental Data
 
-Experimental data used in the publication of this work is generated via the
+### Empirical Data
+
+The empirical data used in the publication of this work is generated via the
 `experiments.rb` program. Results are stored in tab-separated-values (TSV)
 format in the `data/experiments` directory. Plots of this data are stored in
 the `data/plots` directory.
+
 
 ## History Input Format
 
@@ -210,3 +218,20 @@ their logical theories and matching functions must be added to
 and uses only one of the following method name pairs: `add`/`rem`, `put`/`get`,
 `push`/`pop`, `enqueue`/`dequeue`. When in doubt, just follow the examples
 contained in `data/histories`.
+
+
+[Ruby]: https://www.ruby-lang.org
+[RubyInstaller]: http://rubyinstaller.org
+[Homebrew]: http://brew.sh
+[Cygwin]: https://www.cygwin.com
+[libffi]: https://sourceware.org/libffi
+[Z3]: http://z3.codeplex.com
+
+[Vagrant]: https://www.vagrantup.com
+[VirtualBox]: https://www.virtualbox.org
+
+[PLDI 2015]: http://conf.researchr.org/home/pldi2015
+
+[popl-2015-paper]: http://michael-emmi.github.io/papers/conf-popl-BouajjaniEEH15.pdf
+
+[Scal]: http://scal.cs.uni-salzburg.at
