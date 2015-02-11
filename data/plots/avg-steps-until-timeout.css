@@ -1,33 +1,45 @@
 
 .point {
   stroke: #000;
-  stroke-width: 0.5pt;
-  fill: #FFF;
+  stroke-width: 1px;
+/*  shape-rendering: crispEdges;*/
 }
 
+/*["#fff7f3","#fde0dd","#fcc5c0","#fa9fb5","#f768a1","#dd3497","#ae017e","#7a0177","#49006a"]*/
+
 .enumerate {
-  
+  fill: #fff7f3;
 }
 
 .symbolic {
-  
+  fill: #fcc5c0;
+}
+
+.symbolic.removal {
+  fill: #f768a1;
 }
 
 .saturate {
+  fill: #dd3497;
+}
 
+.saturate.removal {
+  fill: #7a0177;
 }
 
 .counting {
   display: none;
 }
 
-.violation {
+/*.violation {
   fill: #F00;
+  stroke-width: 1pt;
 }
 
 .removal {
+  fill: #FCC;
   stroke-width: 1.2pt;
-}
+}*/
 
 .axis {
   font: 10px sans-serif;

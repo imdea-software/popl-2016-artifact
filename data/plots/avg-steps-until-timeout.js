@@ -25,7 +25,10 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
       .attr("transform", "translate(" + width + ", 0)")
       .attr("class", "key")
       .selectAll("g")
-      .data([{algorithm: "Enumerate"}, {algorithm: "Symbolic"}, {algorithm: "Saturate"}])
+      .data([
+        {algorithm: "Enumerate"},
+        {algorithm: "Symbolic"}, {algorithm: "Symbolic+R"},
+        {algorithm: "Saturate"}, {algorithm: "Saturate+R"}])
     .enter().append("g")
       .attr("transform", function(d,i) { return "translate(0," + (i * 20) + ")"})
 
@@ -42,7 +45,7 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
   }
 
   function data_size(h) {
-    return 50;
+    return 150;
   }
 
   function type(d) {
@@ -56,12 +59,17 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
       .attr("x", -80)
       .attr("y", -20)
       .attr("width", 100)
-      .attr("height", 80)
+      .attr("height", 120)
       .attr("fill", "none")
       .attr("stroke", "black")
 
   keys.append("path")
       .attr("class", "point")
+      .classed("enumerate", function(d) { return d.algorithm.match(/Enumerate/); })
+      .classed("symbolic", function(d) { return d.algorithm.match(/Symbolic/); })
+      .classed("saturate", function(d) { return d.algorithm.match(/Saturate/); })
+      .classed("counting", function(d) { return d.algorithm.match(/Counting/); })
+      .classed("removal", function(d) { return d.algorithm.match(/\+R/); })
       .attr("d", d3.svg.symbol().type(function (d) { return data_shape(d) }));
 
   keys.append("text")
@@ -73,7 +81,7 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
   d3.tsv(datafile, type, function(error, data) {
     data = data.filter(function(d) { return d.algorithm != "?" })
 
-    x.domain([3,d3.max(data, function(d) { return d.steps })]);
+    x.domain([10,d3.max(data, function(d) { return d.steps })]);
     y.domain([-0.3,d3.max(data, function(d) { return d.time })]);
 
     svg.append("g")
