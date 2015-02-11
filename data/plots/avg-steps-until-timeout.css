@@ -1,0 +1,49 @@
+
+.point {
+  stroke: #000;
+  stroke-width: 0.5pt;
+  fill: #FFF;
+}
+
+.enumerate {
+  
+}
+
+.symbolic {
+  
+}
+
+.saturate {
+
+}
+
+.counting {
+  display: none;
+}
+
+.violation {
+  fill: #F00;
+}
+
+.removal {
+  stroke-width: 1.2pt;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+text {
+  font: 10px sans-serif;
+}
+
+/*.object text {
+  font: 8px sans-serif;
+}*/

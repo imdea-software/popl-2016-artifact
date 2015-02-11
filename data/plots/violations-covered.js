@@ -1,13 +1,13 @@
 violations_covered_plot = function(datafile, width, height, margin) {
 
-  var x = d3.scale.ordinal()
+  var x1 = d3.scale.ordinal()
       .rangeRoundBands([0, width], .1);
 
   var y = d3.scale.linear()
-      .range([height, 0]);
+      .range([height, margin.top]);
 
   var xAxis = d3.svg.axis()
-      .scale(x)
+      .scale(x1)
       .orient("bottom")
 
   var yAxis = d3.svg.axis()
@@ -20,72 +20,29 @@ violations_covered_plot = function(datafile, width, height, margin) {
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  function data_to_violation_counts(data) {
-    var counts = {};
-    data.forEach(function(datum) {
-      var object = datum.history.split(".")[0]
-      if (datum.violation) {
-        if (!(object in counts))
-          counts[object] = {}
-        if (!(datum.algorithm in counts[object]))
-          counts[object][datum.algorithm] = 0;
-        counts[object][datum.algorithm] += 1;
-      }
-    });
-
-    var algorithms = d3.keys(counts[d3.keys(counts)[0]]);
-    var algOrder = [
-      /Enum/,
-      /Symbolic$/, /Sym/,
-      /Saturate$/, /Sat/,
+  function algOrder(a,b) {
+    var order = [
+      /Enum/, /Symbolic$/, /Sym/, /Saturate$/, /Sat/,
       /Count.*4.$/, /Count.*4/, /Count.*2.$/, /Count.*2/, /Count.*0.$/, /Count.*0/,
     ];
-    algorithms.sort(function(a,b) {
-      for (var i=0; i<algOrder.length; ++i) {
-        if (a.match(algOrder[i])) return -1;
-        if (b.match(algOrder[i])) return 1;
-      }
-      return 0;
-    });
-    var data = [];
-    for (obj in counts) {
-      var counts_for_obj = [];
-      algorithms.forEach(function(alg,_) {
-        counts_for_obj.push({object: obj, algorithm: alg, count: counts[obj][alg]});
-      });
-      data.push({object: obj, counts: counts_for_obj})
+    for (var i=0; i<order.length; ++i) {
+      if (a.match(order[i])) return -1;
+      if (b.match(order[i])) return 1;
     }
-    return data;
+    return 0;
   }
 
-  function data_shape(d) {
-    a = d.algorithm
-    shape =  a.match(/Enumerate/) ? "diamond" :
-      a.match(/Symbolic/) ? "square" :
-      a.match(/Counting/) ? "circle" :
-      a.match(/Saturate/) ? "cross" :
-      "triangle-down";
-    if (shape == "triangle-down")
-      console.log("Unexpected algorithm: " + a);
-    return shape;
-  }
-
-  function algAbbr(d) {
-    var a = d.algorithm;
+  function algAbbr(a) {
     var m;
     if (a.match(/Enum/))
       return "E";
     if (m = a.match(/Sym.*(\+R)?/))
-      return "SY";
+      return "SYM";
     if (m = a.match(/Sat.*(\+R)?/))
-      return "SA";
+      return "SAT";
     if (m = a.match(/Count.*\((\d+)\)/))
-      return "C" + m[1];
+      return "C(" + m[1] + ")";
     return "?";
-  }
-
-  function data_size(h) {
-    return 50;
   }
 
   function type(d) {
@@ -96,14 +53,61 @@ violations_covered_plot = function(datafile, width, height, margin) {
   }
 
   d3.tsv(datafile, type, function(error, data) {
-    data = data_to_violation_counts(data)
 
-    x.domain(data.map(function(d) { return d.object; }));
-    y.domain([1,d3.max(data, function(d) { return d3.max(d.counts, function(d) { return d.count; }); })]);
+    var nested = d3.nest()
+        .key(function(d) { return d.history.split(".")[0]; })
+        .key(function(d) { return d.algorithm.split("+")[0]; })
+        .sortKeys(algOrder)
+        .key(function(d) { return d.algorithm.split("+")[1] || ""; })
+        .rollup(function(ds) { return ds.filter(function(d) { return d.violation; }).length; })
+        .entries(data.filter(function(d) { return d.history.split(".")[0] != "?" && d.violation; }));
 
-    var xx = d3.scale.ordinal()
-        .rangeRoundBands([0, x.rangeBand()], .1)
-        .domain(data[0].counts.map(function(d) { return d.algorithm; }));
+    x1.domain(nested.map(function(d) { return d.key; }));
+    y.domain([0,d3.max(nested, function(d) { return d3.max(d.values, function(d) { return d3.max(d.values, function(d) { return d.values; }); }); })]);
+
+    var x2 = d3.scale.ordinal()
+        .rangeRoundBands([0, x1.rangeBand()], .1)
+        .domain(nested[0].values.map(function(d) { return d.key }));
+
+    var x3 = d3.scale.ordinal()
+        .rangeRoundBands([0, x2.rangeBand()], .1)
+        .domain(["","R"]);
+
+    var objects = svg.selectAll(".object")
+        .data(nested)
+      .enter().append("g")
+        .attr("class", function(d) { return "object"; })
+        .attr("transform", function(d) { return "translate(" + x1(d.key) + ",0)"; });
+
+    var algorithms = objects.selectAll(".algorithm")
+        .data(function(d) { return d.values; })
+      .enter().append("g")
+        .attr("class", "algorithm")
+        .attr("class", function(d) { return "algorithm"; })
+        .attr("transform", function(d) { return "translate(" + x2(d.key) + ",0)"; });
+
+    var variations = algorithms.selectAll(".variation")
+        .data(function(d) { return d.values; })
+      .enter().append("rect")
+        .attr("class", "variation")
+        .attr("class", function(d) { return "variation bar " + d.key; })
+        .attr("x", function(d) { return x3(d.key); })
+        .attr("y", function(d) { return y(d.values); })
+        .attr("height", function(d) { return height - y(d.values); })
+        .attr("width", function(d) { return x3.rangeBand(); });
+
+    var labels = algorithms.append("text")
+        .attr("text-anchor", "middle")
+        .attr("y", function(d) { return y(d.values[0].values) - 13; });
+
+    labels.append("tspan")
+      .attr("x", x2.rangeBand()/2)
+      .text(function(d) { return algAbbr(d.key); });
+
+    labels.append("tspan")
+      .attr("x", x2.rangeBand()/2)
+      .attr("dy", "10")
+      .text(function(d) { return d.values[0].values; });
 
     svg.append("g")
         .attr("class", "x axis")
@@ -115,33 +119,10 @@ violations_covered_plot = function(datafile, width, height, margin) {
         .call(yAxis)
       .append("text")
         .attr("transform", "rotate(-90)")
+        .attr("x", -20)
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .text("Violations discovered");
-
-    var bar_groups = svg.selectAll(".object")
-        .data(data);
-        
-    var bars = bar_groups.enter().append("g")
-        .attr("class", "object")
-        .selectAll(".bar")
-        .data(function(d) { return d.counts; });
-
-    bars.enter().append("rect")
-        .attr("class", "bar")
-        .attr("x", function(d) { return x(d.object) + xx(d.algorithm); })
-        .attr("y", function(d) { return y(d.count); })
-        .attr("height", function(d) { return height - y(d.count); })
-        .attr("width", xx.rangeBand());
-
-    bars.enter().append("text")
-        .attr("transform", function(d) {
-          return "translate(" +
-            (x(d.object) + xx(d.algorithm) + xx.rangeBand()/2 - 5) + "," +
-            (y(d.count)-5) + ")"
-        })
-        .text(function(d) { return algAbbr(d); })
-
   });
 }
