@@ -63,6 +63,11 @@
   stroke-width: 10;
 }
 
+.gridline {
+  stroke: #CCC;
+  stroke-width: 1px;
+}
+
 .counting {
   display: none;
 }

@@ -143,7 +143,7 @@ violations_covered_plot = function(datafile, width, height, margin) {
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Violations discovered in 100 pseudo-random executions w/ 10 operations");
+        .text("Violations discovered");
 
 
     var legend = svg.append("g")

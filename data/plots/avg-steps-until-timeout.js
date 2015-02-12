@@ -1,37 +1,5 @@
 steps_until_timeout_plot = function(datafile, width, height, margin) {
 
-  var x = d3.scale.log()
-      .range([0, width]);
-
-  var y = d3.scale.linear()
-      .range([height, 0]);
-
-  var xAxis = d3.svg.axis()
-      .scale(x)
-      .orient("bottom")
-      .ticks(0,"g");
-
-  var yAxis = d3.svg.axis()
-      .scale(y)
-      .orient("left");
-
-  var svg = d3.select("body").append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-  var keys = svg.append("g")
-      .attr("transform", "translate(" + width + ", 0)")
-      .attr("class", "key")
-      .selectAll("g")
-      .data([
-        {algorithm: "Enumerate"},
-        {algorithm: "Symbolic"}, {algorithm: "Symbolic+R"},
-        {algorithm: "Saturate"}, {algorithm: "Saturate+R"}])
-    .enter().append("g")
-      .attr("transform", function(d,i) { return "translate(0," + (i * 20) + ")"})
-
   var timeouts = [5,25,50,75,100];
 
   function nearestTimeout(t) {
@@ -61,6 +29,39 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
     var name = split[0];
     return split[0] + (split[1] ? "+R" : "");
   }
+
+  var x = d3.scale.log()
+      .range([0, width]);
+
+  var y = d3.scale.linear()
+      .range([height, 0]);
+
+  var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("bottom")
+      .ticks(0,"g");
+
+  var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient("left")
+      .tickValues(timeouts);
+
+  var svg = d3.select("body").append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var keys = svg.append("g")
+      .attr("transform", "translate(" + width + ", 0)")
+      .attr("class", "key")
+      .selectAll("g")
+      .data([
+        {algorithm: "Enumerate"},
+        {algorithm: "Symbolic"}, {algorithm: "Symbolic+R"},
+        {algorithm: "Saturate"}, {algorithm: "Saturate+R"}])
+    .enter().append("g")
+      .attr("transform", function(d,i) { return "translate(0," + (i * 20) + ")"})
 
   function data_shape(d) {
     a = d.algorithm
@@ -125,6 +126,15 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
     x.domain([10,d3.max(data, function(d) { return d.steps })]);
     y.domain([-0.3,d3.max(data, function(d) { return d.time })]);
 
+    timeouts.forEach(function(t) {
+      svg.append("line")
+        .attr("class", "gridline")
+        .attr("x1", x(10))
+        .attr("x2", x(10000))
+        .attr("y1", y(t))
+        .attr("y2", y(t));
+    });
+
     averages.forEach(function(d) {
       svg.append("path")
           .attr("class", "outline " + algClass(d.key))
@@ -154,7 +164,7 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Time");
+        .text("Seconds");
 
     svg.selectAll(".point")
         .data(data)
