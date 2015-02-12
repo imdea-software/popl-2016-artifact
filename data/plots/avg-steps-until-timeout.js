@@ -32,6 +32,36 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
     .enter().append("g")
       .attr("transform", function(d,i) { return "translate(0," + (i * 20) + ")"})
 
+  var timeouts = [5,25,50,75,100];
+
+  function nearestTimeout(t) {
+    for (var i=0; i<timeouts.length-1; ++i) {
+      if (t < timeouts[i+1])
+        return timeouts[i];
+    }
+    return 100;
+  }
+
+  var algorithmClasses = {
+    enumerate: /Enumerate/,
+    symbolic: /Symbolic/,
+    saturate: /Saturate/,
+    counting: /Counting/
+  }
+
+  function algClass(a) {
+    for (key in algorithmClasses)
+      if (a.match(algorithmClasses[key]))
+        return key;
+    return "?";
+  }
+
+  function algName(a) {
+    var split = a.split("+");
+    var name = split[0];
+    return split[0] + (split[1] ? "+R" : "");
+  }
+
   function data_shape(d) {
     a = d.algorithm
     shape =  a.match(/Enumerate/) ? "diamond" :
@@ -70,19 +100,40 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
       .classed("saturate", function(d) { return d.algorithm.match(/Saturate/); })
       .classed("counting", function(d) { return d.algorithm.match(/Counting/); })
       .classed("removal", function(d) { return d.algorithm.match(/\+R/); })
-      .attr("d", d3.svg.symbol().type(function (d) { return data_shape(d) }));
+      .attr("d", d3.svg.symbol().type(function (d) { return data_shape(d) }).size(150));
 
   keys.append("text")
       .style("text-anchor", "end")
-      .attr("x", -10)
+      .attr("x", -15)
       .attr("dy", ".31em")
-      .text(function(d) { return d.algorithm });
+      .text(function(d) { return algName(d.algorithm); });
+
+  var line = d3.svg.line()
+      .x(function(d) { return x(d.values); })
+      .y(function(d) { return y(d.key); })
+      .interpolate("linear");
 
   d3.tsv(datafile, type, function(error, data) {
     data = data.filter(function(d) { return d.algorithm != "?" })
 
+    var averages = d3.nest()
+        .key(function(d) { return d.algorithm; })
+        .key(function(d) { return nearestTimeout(d.time); })
+        .rollup(function(d) { return d3.mean(d, function(g) { return +g.steps; })})
+        .entries(data);
+
     x.domain([10,d3.max(data, function(d) { return d.steps })]);
     y.domain([-0.3,d3.max(data, function(d) { return d.time })]);
+
+    averages.forEach(function(d) {
+      svg.append("path")
+          .attr("class", "outline " + algClass(d.key))
+          .attr("d", line(d.values));
+      svg.append("path")
+          .attr("class", "line " + algClass(d.key))
+          .classed("removal", function(_) { return d.key.match(/\+R/) })
+          .attr("d", line(d.values));
+    });
 
     svg.append("g")
         .attr("class", "x axis")
@@ -93,7 +144,7 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
         .attr("y", -6)
         .attr("dy", "-.31em")
         .attr("text-anchor", "end")
-        .text("Steps");
+        .text("Steps until timeout");
 
     svg.append("g")
         .attr("class", "y axis")
@@ -108,15 +159,11 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
     svg.selectAll(".point")
         .data(data)
       .enter().append("path")
-        .attr("class", "point")
-        .classed("violation", function(d) { return d.violation })
-        .classed("enumerate", function(d) { return d.algorithm.match(/Enumerate/) })
-        .classed("symbolic", function(d) { return d.algorithm.match(/Symbolic/) })
-        .classed("saturate", function(d) { return d.algorithm.match(/Saturate/) })
-        .classed("counting", function(d) { return d.algorithm.match(/Counting/) })
-        .classed("removal", function(d) { return d.algorithm.match(/\+R/) })
-        .attr("transform", function(d) { return "translate(" + x(d.steps) + "," + y(d.time) + ")"})
-        .attr("d", d3.svg.symbol().type(function(d) { return data_shape(d) }).size(function(d) { return data_size(d) }))
+        .attr("class", function(d) { return "point " + algClass(d.algorithm); })
+        .classed("violation", function(d) { return d.violation; })
+        .classed("removal", function(d) { return d.algorithm.match(/\+R/); })
+        .attr("transform", function(d) { return "translate(" + x(d.steps) + "," + y(d.time) + ")"; })
+        .attr("d", d3.svg.symbol().type(function(d) { return data_shape(d) }).size(function(d) { return data_size(d); }))
       
   });
 

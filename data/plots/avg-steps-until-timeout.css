@@ -11,20 +11,56 @@
   fill: #fff7f3;
 }
 
+.enumerate.line {
+  stroke: #fff7f3;
+}
+
 .symbolic {
   fill: #fcc5c0;
+}
+
+.symbolic.line {
+  stroke: #fcc5c0;
 }
 
 .symbolic.removal {
   fill: #f768a1;
 }
 
+.symbolic.removal.line {
+  stroke: #f768a1;
+}
+
 .saturate {
   fill: #dd3497;
 }
 
+.saturate.line {
+  stroke: #dd3497;
+}
+
 .saturate.removal {
   fill: #7a0177;
+}
+
+.saturate.removal.line {
+  stroke: #7a0177;
+}
+
+.removal.line {
+  fill: none;
+  stroke-width: 10;
+}
+
+.outline {
+  fill: none;
+  stroke-width: 12;
+  stroke: black;
+}
+
+.line {
+  fill: none;
+  stroke-width: 10;
 }
 
 .counting {
@@ -40,6 +76,7 @@
   fill: #FCC;
   stroke-width: 1.2pt;
 }*/
+
 
 .axis {
   font: 10px sans-serif;
