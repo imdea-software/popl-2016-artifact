@@ -14,10 +14,15 @@ text {
   shape-rendering: crispEdges;
 }
 
+.legend {
+  fill: #FFF;
+  stroke: #000;
+}
+
 .bar {
-  fill: #F99;
+  fill: #f768a1;
 }
 
 .bar.R {
-  fill: #FCC;
+  fill: #fbb4b9;
 }
