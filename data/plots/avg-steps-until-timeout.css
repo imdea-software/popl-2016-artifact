@@ -67,16 +67,9 @@
   display: none;
 }
 
-/*.violation {
-  fill: #F00;
-  stroke-width: 1pt;
+.counting.line {
+  stroke: #ffffff;
 }
-
-.removal {
-  fill: #FCC;
-  stroke-width: 1.2pt;
-}*/
-
 
 .axis {
   font: 10px sans-serif;
@@ -92,7 +85,3 @@
 text {
   font: 10px sans-serif;
 }
-
-/*.object text {
-  font: 8px sans-serif;
-}*/
