@@ -52,16 +52,36 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  var keys = svg.append("g")
-      .attr("transform", "translate(" + width + ", 0)")
-      .attr("class", "key")
-      .selectAll("g")
+  var legend = svg.append("g")
+      .attr("transform", "translate(" + (width/4) + ", 30)");
+
+  legend.append("rect")
+      .attr("class", "legend")
+      .attr("x", -75)
+      .attr("y", -15)
+      .attr("width", 450)
+      .attr("height", 30)
+      .attr("fill", "white")
+      .attr("stroke", "black");
+
+  var keys = legend.selectAll("g")
       .data([
         {algorithm: "Enumerate"},
         {algorithm: "Symbolic"}, {algorithm: "Symbolic+R"},
         {algorithm: "Saturate"}, {algorithm: "Saturate+R"}])
     .enter().append("g")
-      .attr("transform", function(d,i) { return "translate(0," + (i * 20) + ")"})
+      .attr("transform", function(d,i) { return "translate(" + (i * 90) + "," + (0) + ")"})
+
+  keys.append("path")
+      .attr("class", function(d) { return "point " + algClass(d.algorithm); })
+      .classed("removal", function(d) { return d.algorithm.match(/\+R/); })
+      .attr("d", d3.svg.symbol().type(function (d) { return data_shape(d) }).size(150));
+
+  keys.append("text")
+      .style("text-anchor", "end")
+      .attr("dx", -15)
+      .attr("dy", ".31em")
+      .text(function(d) { return algName(d.algorithm); });
 
   function data_shape(d) {
     a = d.algorithm
@@ -85,29 +105,6 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
     d.violation = d.violation == "true"
     return d;
   }
-
-  svg.select(".key").append("rect")
-      .attr("x", -80)
-      .attr("y", -20)
-      .attr("width", 100)
-      .attr("height", 120)
-      .attr("fill", "none")
-      .attr("stroke", "black")
-
-  keys.append("path")
-      .attr("class", "point")
-      .classed("enumerate", function(d) { return d.algorithm.match(/Enumerate/); })
-      .classed("symbolic", function(d) { return d.algorithm.match(/Symbolic/); })
-      .classed("saturate", function(d) { return d.algorithm.match(/Saturate/); })
-      .classed("counting", function(d) { return d.algorithm.match(/Counting/); })
-      .classed("removal", function(d) { return d.algorithm.match(/\+R/); })
-      .attr("d", d3.svg.symbol().type(function (d) { return data_shape(d) }).size(150));
-
-  keys.append("text")
-      .style("text-anchor", "end")
-      .attr("x", -15)
-      .attr("dy", ".31em")
-      .text(function(d) { return algName(d.algorithm); });
 
   var line = d3.svg.line()
       .x(function(d) { return x(d.values); })
