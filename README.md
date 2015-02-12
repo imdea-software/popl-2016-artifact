@@ -46,9 +46,14 @@ encountered, try obtaining [Z3] on your own, and include the appropriate
 
 Alternatively, this project can be run in a preconfigured virtual machine. To
 use this method both [VirtualBox] and [Vagrant] must be installed. Both are
-available for a wide range of systems, with great installation support.
+available for a wide range of systems, with great installation support. This is
+known to work with the following versions:
 
-First, start [Vagrant] in the root directory of this project:
+* [VirtualBox] 4.3.20
+* [Vagrant] 1.7.2
+
+First, start [Vagrant] in the root directory of this project — the directory
+containing `Vagrantfile` — by running
 
     vagrant up
 
