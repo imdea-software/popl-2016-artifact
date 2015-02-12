@@ -1,351 +1,351 @@
 history	object	algorithm	steps	concurrency	time	violation
-ScalObject-msq.0.log	atomic-queue	Enumerate+C	33*	3.8±0.7	5.046s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)	33*	3.8±0.7	5.2891s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)+R	33*	3.8±0.7	5.2895s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic	38*	3.9±0.7	6.3322s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic+R	38*	3.9±0.7	6.4032s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate	305*	3.2±0.9	5.0048s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate+R	2897*	3.0±0.9	5.0045s*	false
-ScalObject-msq.1.log	atomic-queue	Enumerate+C	17*	3.4±1.6	5.0182s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)	31*	3.5±1.3	5.1432s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)+R	59*	4.0±1.4	5.6174s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic	34*	3.5±1.3	6.3642s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic+R	76*	3.9±1.3	5.3657s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate	300*	3.7±1.1	5.0101s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate+R	1022*	3.6±1.0	5.0009s*	false
-ScalObject-msq.2.log	atomic-queue	Enumerate+C	18*	3.2±1.7	5.0115s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)	31*	3.4±1.7	5.3831s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)+R	84*	3.5±1.5	8.2923s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic	33*	3.3±1.7	5.7902s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic+R	85*	3.5±1.5	5.8454s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate	315*	3.5±1.0	5.0121s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate+R	1258*	3.2±1.2	5.0031s*	false
-ScalObject-msq.3.log	atomic-queue	Enumerate+C	48*	1.0±0.0	5.119s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)	32*	1.0±0.0	6.2481s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)+R	260*	1.0±0.0	5.006s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic	50*	1.0±0.0	5.723s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic+R	774*	1.0±0.0	5.0093s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate	298*	1.0±0.0	5.0043s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate+R	1283*	1.5±1.1	5.0071s*	false
-ScalObject-msq.4.log	atomic-queue	Enumerate+C	48*	1.0±0.0	5.0694s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)	32*	1.0±0.0	5.2082s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)+R	126*	1.0±0.0	5.5069s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic	50*	1.0±0.0	5.7074s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic+R	168*	1.0±0.0	5.1072s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate	306*	1.0±0.0	5.0084s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate+R	1933*	1.6±1.2	5.0106s*	false
-ScalObject-msq.5.log	atomic-queue	Enumerate+C	32*	3.4±1.1	5.0109s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)	34*	3.4±1.1	6.7488s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)+R	70*	3.6±0.9	5.465s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic	38*	3.5±1.1	6.5725s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic+R	82*	3.7±0.9	5.0491s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate	310*	3.6±0.8	5.0024s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate+R	1186*	3.7±1.1	5.0054s*	false
-ScalObject-msq.6.log	atomic-queue	Enumerate+C	17*	3.6±1.4	5.0033s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)	28*	4.5±1.6	5.6365s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)+R	28*	4.5±1.6	5.6205s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic	31*	4.5±1.5	5.5641s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic+R	31*	4.5±1.5	5.5682s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate	293*	4.1±1.0	5.0099s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate+R	1234*	3.6±1.1	5.0112s*	false
-?	?	?	?	?	?	?
-ScalObject-msq.7.log	atomic-queue	Counting(4)	30*	3.1±1.0	5.1873s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)+R	68*	3.0±0.8	5.2691s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic	34*	3.1±1.0	5.3019s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic+R	74*	3.0±0.7	5.3652s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate	316*	3.6±1.1	5.0022s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate+R	1166*	3.8±1.1	5.001s*	false
-ScalObject-msq.8.log	atomic-queue	Enumerate+C	15*	3.2±1.0	5.0112s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)	30*	3.4±0.8	7.6019s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)+R	76*	3.5±1.0	5.4786s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic	33*	3.2±0.9	5.4463s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic+R	97*	3.5±0.9	5.1479s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate	294*	3.5±1.2	5.0061s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate+R	1219*	3.6±1.1	5.0056s*	false
-ScalObject-msq.9.log	atomic-queue	Enumerate+C	18*	3.2±0.8	5.0034s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)	31*	3.2±0.6	5.8918s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)+R	52*	2.9±0.7	5.6085s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic	36*	3.2±0.6	5.8907s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic+R	71*	3.1±0.8	5.0717s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate	299*	3.4±1.0	5.0044s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate+R	2250*	3.5±1.1	5.0035s*	false
-ScalObject-msq.0.log	atomic-queue	Enumerate+C	36*	3.8±0.7	25.0142s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)	33*	3.8±0.7	39.3528s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)+R	41*	3.8±0.8	30.7988s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic	50*	3.8±1.0	45.87s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic+R	137*	3.4±0.9	25.1176s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate	503*	3.2±0.9	25.108s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate+R	4243*	3.0±0.9	25.0033s*	false
-ScalObject-msq.1.log	atomic-queue	Enumerate+C	17*	3.4±1.6	25.0078s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)	43*	3.7±1.4	30.7362s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)+R	246*	3.7±1.2	25.0039s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic	45*	3.8±1.5	26.1666s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic+R	292*	3.7±1.1	25.4832s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate	489*	3.6±0.9	25.0037s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate+R	2242*	3.5±0.9	25.0048s*	false
-ScalObject-msq.2.log	atomic-queue	Enumerate+C	19*	3.3±1.7	25.0042s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)	46*	3.1±1.6	33.3233s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)+R	104*	3.5±1.4	25.448s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic	46*	3.1±1.6	26.2312s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic+R	212*	3.5±1.2	25.337s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate	517*	3.7±1.1	25.0053s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate+R	1480*	3.2 ± 1.1	25.1028s*	false
-ScalObject-msq.3.log	atomic-queue	Enumerate+C	68*	1.0 ± 0.0	26.0923s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)	42*	1.0 ± 0.0	29.2826s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)+R	968*	1.0 ± 0.0	25.1389s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic	68*	1.0 ± 0.0	25.2366s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic+R	1024*	1.1 ± 0.4	29.6121s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate	476*	1.0 ± 0.0	25.0058s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate+R	1833*	1.9 ± 1.2	25.0015s*	false
-ScalObject-msq.4.log	atomic-queue	Enumerate+C	68*	1.0 ± 0.0	25.7488s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)	42*	1.0 ± 0.0	29.3695s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)+R	164*	1.0 ± 0.0	25.0665s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic	68*	1.0 ± 0.0	25.0425s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic+R	1466*	1.0 ± 0.0	25.0468s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate	490*	1.0 ± 0.0	25.0041s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate+R	2423*	2.0 ± 1.4	25.0017s*	false
-ScalObject-msq.5.log	atomic-queue	Enumerate+C	39*	3.5 ± 1.1	25.0033s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)	41*	3.5 ± 1.1	25.1475s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)+R	94*	3.9 ± 0.9	27.0665s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic	46*	3.4 ± 1.1	25.5661s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic+R	130*	3.7 ± 0.9	25.6022s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate	504*	3.5 ± 1.0	25.0022s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate+R	1440*	3.9 ± 1.1	25.1041s*	false
-ScalObject-msq.6.log	atomic-queue	Enumerate+C	17*	3.6 ± 1.4	25.0166s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)	39*	4.0 ± 1.7	28.9247s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)+R	74*	4.2 ± 1.5	26.518s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic	50*	3.8 ± 1.6	27.8312s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic+R	78*	4.2 ± 1.4	26.8484s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate	482*	3.9 ± 1.1	25.0048s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate+R	1805*	3.6 ± 1.1	25.0072s*	false
-ScalObject-msq.7.log	atomic-queue	Enumerate+C	18*	3.5 ± 1.1	25.0084s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)	41*	3.0 ± 0.9	28.761s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)+R	85*	3.0 ± 0.7	29.1953s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic	48*	2.9 ± 0.9	28.8217s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic+R	111*	3.3 ± 0.8	25.068s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate	512*	4.1 ± 1.1	25.004s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate+R	3174*	3.6 ± 1.0	25.0065s*	false
-ScalObject-msq.8.log	atomic-queue	Enumerate+C	17*	3.3 ± 1.0	25.0062s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)	41*	3.4 ± 1.0	30.9286s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)+R	199*	3.6 ± 1.1	25.5223s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic	45*	3.3 ± 1.0	27.4022s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic+R	212*	3.6 ± 1.1	25.8769s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate	493*	3.6 ± 1.1	25.0072s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate+R	3644*	3.6 ± 1.0	25.0042s*	false
-ScalObject-msq.9.log	atomic-queue	Enumerate+C	24*	3.1 ± 0.7	25.0321s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)	38*	3.2 ± 0.6	27.5237s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)+R	107*	3.2 ± 0.9	25.3725s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic	49*	3.0 ± 0.7	26.2781s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic+R	245*	3.4 ± 1.0	25.0729s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate	490*	3.5 ± 0.9	25.003s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate+R	2720*	3.5 ± 1.0	25.004s*	false
-ScalObject-msq.0.log	atomic-queue	Enumerate+C	36*	3.8 ± 0.7	50.024s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)	50*	3.8 ± 1.0	64.462s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)+R	106*	3.5 ± 1.0	50.3635s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic	52*	3.8 ± 1.0	61.8548s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic+R	168*	3.5 ± 0.9	50.1315s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate	603*	3.1 ± 0.9	50.0038s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate+R	5864*	3.0 ± 0.9	50.0049s*	false
-ScalObject-msq.1.log	atomic-queue	Enumerate+C	17*	3.4 ± 1.6	50.0226s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)	45*	3.8 ± 1.5	59.0318s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)+R	285*	3.6 ± 1.1	51.404s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic	51*	4.0 ± 1.5	55.596s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic+R	314*	3.7 ± 1.1	50.3206s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate	604*	3.6 ± 1.0	50.0014s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate+R	2754*	3.5 ± 0.9	50.0004s*	false
-ScalObject-msq.2.log	atomic-queue	Enumerate+C	31*	3.4 ± 1.7	50.0107s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)	49*	3.2 ± 1.6	66.5922s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)+R	206*	3.6 ± 1.2	50.1655s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic	53*	3.1 ± 1.6	53.8243s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic+R	228*	3.5 ± 1.1	52.6334s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate	640*	3.4 ± 1.3	50.0066s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate+R	1586*	3.2 ± 1.0	50.0021s*	false
-ScalObject-msq.3.log	atomic-queue	Enumerate+C	78*	1.0 ± 0.0	52.5614s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)	46*	1.0 ± 0.0	53.6088s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)+R	1018*	1.1 ± 0.4	53.064s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic	80*	1.0 ± 0.0	55.6753s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic+R	1031*	1.1 ± 0.4	52.0732s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate	604*	1.0 ± 0.0	50.0027s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate+R	2833*	2.3 ± 1.3	50.0066s*	false
-ScalObject-msq.4.log	atomic-queue	Enumerate+C	80*	1.0 ± 0.0	56.6083s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)	48*	1.0 ± 0.0	55.8602s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)+R	386*	1.0 ± 0.0	50.0067s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic	80*	1.0 ± 0.0	54.1644s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic+R	1505*	1.1 ± 0.3	58.0891s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate	602*	1.0 ± 0.0	50.0036s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate+R	3457*	2.4 ± 1.5	50.0024s*	false
-ScalObject-msq.5.log	atomic-queue	Enumerate+C	39*	3.5 ± 1.1	50.0012s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)	46*	3.4 ± 1.1	50.6522s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)+R	134*	3.6 ± 0.9	54.675s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic	53*	3.5 ± 1.0	50.4682s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic+R	305*	3.6 ± 0.8	50.1364s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate	622*	3.5 ± 1.1	50.0046s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate+R	1545*	3.9 ± 1.1	50.003s*	false
-ScalObject-msq.6.log	atomic-queue	Enumerate+C	17*	3.6 ± 1.4	50.012s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)	43*	3.8 ± 1.7	53.9494s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)+R	78*	4.2 ± 1.4	52.9376s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic	54*	3.9 ± 1.6	60.1775s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic+R	86*	4.3 ± 1.4	54.1131s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate	601*	3.8 ± 1.1	50.0026s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate+R	1951*	3.6 ± 1.0	50.1059s*	false
-ScalObject-msq.7.log	atomic-queue	Enumerate+C	19*	3.4 ± 1.1	50.0188s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)	46*	2.9 ± 0.9	65.0392s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)+R	195*	3.4 ± 1.0	50.8271s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic	55*	3.0 ± 0.9	60.4627s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic+R	209*	3.4 ± 1.0	53.5167s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate	628*	3.9 ± 1.2	50.0025s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate+R	7266*	3.6 ± 1.1	50.206s*	false
-ScalObject-msq.8.log	atomic-queue	Enumerate+C	19*	3.4 ± 1.0	50.0114s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)	45*	3.3 ± 1.0	55.2849s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)+R	214*	3.5 ± 1.1	60.1464s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic	52*	3.4 ± 1.1	54.4849s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic+R	252*	3.5 ± 1.2	51.5958s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate	622*	3.6 ± 1.1	50.0032s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate+R	5088*	3.5 ± 1.1	50.0026s*	false
-ScalObject-msq.9.log	atomic-queue	Enumerate+C	28*	3.1 ± 0.6	50.0023s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)	43*	3.1 ± 0.6	58.3051s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)+R	219*	3.4 ± 1.0	50.4996s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic	57*	2.9 ± 0.7	60.8863s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic+R	295*	3.4 ± 1.0	52.2391s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate	590*	3.4 ± 0.9	50.0028s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate+R	3365*	3.6 ± 1.0	50.0012s*	false
-ScalObject-msq.0.log	atomic-queue	Enumerate+C	36*	3.8 ± 0.7	75.1554s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)	52*	3.8 ± 1.0	92.2265s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)+R	155*	3.5 ± 0.9	75.5093s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic	56*	3.9 ± 1.0	91.8307s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic+R	260*	3.3 ± 0.9	76.4496s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate	678*	3.1 ± 0.9	75.0058s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate+R	7843*	3.0 ± 1.0	75.0034s*	false
-ScalObject-msq.1.log	atomic-queue	Enumerate+C	31*	3.5 ± 1.3	75.0043s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)	47*	3.9 ± 1.5	97.5531s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)+R	295*	3.7 ± 1.1	75.7667s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic	58*	4.0 ± 1.4	88.0056s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic+R	373*	3.6 ± 1.0	76.9121s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate	705*	3.6 ± 1.1	75.0106s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate+R	4268*	3.6 ± 1.0	75.0082s*	false
-ScalObject-msq.2.log	atomic-queue	Enumerate+C	32*	3.3 ± 1.7	75.0124s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)	50*	3.2 ± 1.6	100.8993s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)+R	212*	3.5 ± 1.2	80.0847s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic	60*	3.2 ± 1.6	89.6206s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic+R	236*	3.5 ± 1.1	79.3082s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate	719*	3.3 ± 1.3	75.0037s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate+R	1650*	3.2 ± 1.0	75.0067s*	false
-ScalObject-msq.3.log	atomic-queue	Enumerate+C	84*	1.0 ± 0.0	75.1315s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)	50*	1.0 ± 0.0	80.0599s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)+R	1022*	1.1 ± 0.4	139.4553s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic	86*	1.0 ± 0.0	75.6091s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic+R	1037*	1.1 ± 0.5	75.0035s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate	714*	1.0 ± 0.0	75.004s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate+R	3318*	2.5 ± 1.4	75.0029s*	false
-ScalObject-msq.4.log	atomic-queue	Enumerate+C	86*	1.0 ± 0.0	78.3066s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)	52*	1.0 ± 0.0	97.2612s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)+R	864*	1.0 ± 0.0	75.2013s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic	88*	1.0 ± 0.0	78.9033s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic+R	1511*	1.1 ± 0.4	78.1888s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate	696*	1.0 ± 0.0	75.0103s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate+R	3899*	2.7 ± 1.6	75.0048s*	false
-ScalObject-msq.5.log	atomic-queue	Enumerate+C	41*	3.5 ± 1.1	75.3042s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)	53*	3.5 ± 1.0	90.7058s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)+R	212*	3.6 ± 0.9	75.0246s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic	59*	3.5 ± 1.0	75.9812s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic+R	410*	3.6 ± 0.8	79.0838s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate	733*	3.5 ± 1.1	75.0035s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate+R	2613*	3.8 ± 1.3	75.0102s*	false
-ScalObject-msq.6.log	atomic-queue	Enumerate+C	17*	3.6 ± 1.4	75.006s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)	50*	3.8 ± 1.6	81.5352s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)+R	84*	4.3 ± 1.4	77.5938s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic	60*	4.0 ± 1.6	81.1158s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic+R	92*	4.3 ± 1.4	83.2442s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate	731*	3.8 ± 1.1	75.0062s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate+R	2439*	3.5 ± 1.1	75.0035s*	false
-ScalObject-msq.7.log	atomic-queue	Enumerate+C	23*	3.2 ± 1.2	75.0062s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)	50*	2.9 ± 0.9	90.8884s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)+R	209*	3.4 ± 1.0	79.8444s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic	58*	3.0 ± 0.8	87.3666s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic+R	302*	3.6 ± 1.1	75.346s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate	752*	3.9 ± 1.2	75.0083s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate+R	8991*	3.5 ± 1.1	75.0036s*	false
-ScalObject-msq.8.log	atomic-queue	Enumerate+C	19*	3.4 ± 1.0	75.0054s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)	52*	3.4 ± 1.1	87.6969s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)+R	217*	3.5 ± 1.1	76.5319s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic	62*	3.4 ± 1.1	95.5328s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic+R	270*	3.5 ± 1.2	75.1789s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate	745*	3.6 ± 1.1	75.0015s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate+R	5969*	3.5 ± 1.0	75.0102s*	false
-ScalObject-msq.9.log	atomic-queue	Enumerate+C	28*	3.1 ± 0.6	75.0054s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)	47*	3.0 ± 0.7	89.7988s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)+R	278*	3.4 ± 1.0	75.6389s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic	61*	3.0 ± 0.8	86.4001s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic+R	324*	3.5 ± 1.0	75.2129s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate	708*	3.5 ± 0.9	75.0043s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate+R	3611*	3.6 ± 1.0	75.0103s*	false
-ScalObject-msq.0.log	atomic-queue	Enumerate+C	41*	3.8 ± 0.8	100.0121s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)	54*	3.9 ± 1.0	100.1464s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)+R	170*	3.5 ± 0.9	103.1474s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic	59*	3.9 ± 1.0	103.9885s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic+R	403*	3.1 ± 1.0	100.254s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate	792*	3.1 ± 0.9	100.0034s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate+R	8770*	3.0 ± 1.0	100.0081s*	false
-ScalObject-msq.1.log	atomic-queue	Enumerate+C	31*	3.5 ± 1.3	100.0037s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)	49*	4.0 ± 1.5	114.1529s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)+R	302*	3.7 ± 1.1	109.9645s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic	61*	4.0 ± 1.4	103.3985s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic+R	397*	3.6 ± 1.0	100.3558s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate	783*	3.6 ± 1.0	100.0029s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate+R	5479*	3.6 ± 1.0	100.0094s*	false
-ScalObject-msq.2.log	atomic-queue	Enumerate+C	33*	3.3 ± 1.7	100.0078s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)	53*	3.1 ± 1.6	133.5273s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)+R	218*	3.5 ± 1.2	120.0553s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic	62*	3.2 ± 1.5	108.0576s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic+R	244*	3.5 ± 1.1	109.2523s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate	815*	3.3 ± 1.3	100.0055s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate+R	2963*	3.4 ± 1.3	100.0058s*	false
-ScalObject-msq.3.log	atomic-queue	Enumerate+C	92*	1.0 ± 0.0	102.1526s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)	54*	1.0 ± 0.0	105.3495s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)+R	1022*	1.1 ± 0.4	121.5551s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic	94*	1.0 ± 0.0	106.0523s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic+R	1039*	1.1 ± 0.5	104.2728s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate	782*	1.0 ± 0.0	100.0101s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate+R	3497*	2.6 ± 1.4	100.0009s*	false
-ScalObject-msq.4.log	atomic-queue	Enumerate+C	92*	1.0 ± 0.0	100.4599s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)	54*	1.0 ± 0.0	117.6979s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)+R	1442*	1.0 ± 0.0	100.0545s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic	94*	1.0 ± 0.0	105.3363s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic+R	1517*	1.1 ± 0.4	114.8842s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate	774*	1.0 ± 0.0	100.0078s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate+R	4033*	2.7 ± 1.6	100.0026s*	false
-ScalObject-msq.5.log	atomic-queue	Enumerate+C	41*	3.5 ± 1.1	100.0997s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)	55*	3.5 ± 1.0	134.9284s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)+R	384*	3.6 ± 0.8	108.2482s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic	63*	3.6 ± 0.9	106.3369s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic+R	416*	3.6 ± 0.8	104.0701s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate	799*	3.5 ± 1.1	100.0096s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate+R	2949*	3.7 ± 1.2	100.0074s*	false
-ScalObject-msq.6.log	atomic-queue	Enumerate+C	17*	3.6 ± 1.4	100.0153s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)	52*	3.8 ± 1.6	102.4s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)+R	88*	4.3 ± 1.4	126.6395s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic	62*	4.0 ± 1.6	108.6804s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic+R	96*	4.4 ± 1.3	114.8526s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate	795*	3.7 ± 1.1	100.0103s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate+R	2813*	3.5 ± 1.0	100.0102s*	false
-ScalObject-msq.7.log	atomic-queue	Enumerate+C	30*	3.1 ± 1.0	100.0174s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)	53*	3.0 ± 0.9	131.441s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)+R	229*	3.5 ± 1.0	100.0188s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic	60*	3.0 ± 0.8	107.5075s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic+R	316*	3.6 ± 1.1	103.542s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate	822*	3.8 ± 1.2	100.0048s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate+R	10252*	3.5 ± 1.1	100.0101s*	false
-ScalObject-msq.8.log	atomic-queue	Enumerate+C	19*	3.4 ± 1.0	100.0042s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)	53*	3.4 ± 1.0	119.8961s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)+R	221*	3.5 ± 1.1	107.0112s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic	64*	3.4 ± 1.1	140.4962s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic+R	303*	3.5 ± 1.2	101.9009s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate	794*	3.6 ± 1.1	100.0017s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate+R	6431*	3.5 ± 1.0	100.0011s*	false
-ScalObject-msq.9.log	atomic-queue	Enumerate+C	28*	3.1 ± 0.6	100.0487s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)	49*	3.0 ± 0.7	113.2217s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)+R	293*	3.4 ± 1.0	111.2081s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic	64*	3.0 ± 0.8	113.7534s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic+R	360*	3.5 ± 1.0	102.5014s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate	790*	3.5 ± 0.9	100.006s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate+R	3713*	3.6 ± 1.0	100.0102s*	false
+ScalObject-msq.0.log	atomic-queue	Enumerate+C	33*	3.8 ± 0.7	5.0419s*	false
+ScalObject-msq.0.log	atomic-queue	Counting(4)	33*	3.8 ± 0.7	5.7164s*	false
+ScalObject-msq.0.log	atomic-queue	Counting(4)+R	33*	3.8 ± 0.7	5.73s*	false
+ScalObject-msq.0.log	atomic-queue	Symbolic	39*	3.9 ± 0.7	5.0651s*	false
+ScalObject-msq.0.log	atomic-queue	Symbolic+R	39*	3.9 ± 0.7	5.078s*	false
+ScalObject-msq.0.log	atomic-queue	Saturate	375*	3.1 ± 1.0	5.005s*	false
+ScalObject-msq.0.log	atomic-queue	Saturate+R	3138*	3.1 ± 0.9	5.0023s*	false
+ScalObject-msq.1.log	atomic-queue	Enumerate+C	17*	3.4 ± 1.6	5.0118s*	false
+ScalObject-msq.1.log	atomic-queue	Counting(4)	31*	3.5 ± 1.3	5.1357s*	false
+ScalObject-msq.1.log	atomic-queue	Counting(4)+R	59*	4.0 ± 1.4	5.3473s*	false
+ScalObject-msq.1.log	atomic-queue	Symbolic	35*	3.5 ± 1.3	5.569s*	false
+ScalObject-msq.1.log	atomic-queue	Symbolic+R	76*	3.9 ± 1.3	5.1158s*	false
+ScalObject-msq.1.log	atomic-queue	Saturate	334*	3.6 ± 1.1	5.0106s*	false
+ScalObject-msq.1.log	atomic-queue	Saturate+R	1012*	3.6 ± 1.0	5.0021s*	false
+ScalObject-msq.2.log	atomic-queue	Enumerate+C	18*	3.2 ± 1.7	5.0103s*	false
+ScalObject-msq.2.log	atomic-queue	Counting(4)	33*	3.3 ± 1.7	5.6648s*	false
+ScalObject-msq.2.log	atomic-queue	Counting(4)+R	84*	3.5 ± 1.5	7.1187s*	false
+ScalObject-msq.2.log	atomic-queue	Symbolic	34*	3.2 ± 1.7	5.215s*	false
+ScalObject-msq.2.log	atomic-queue	Symbolic+R	86*	3.5 ± 1.5	5.2758s*	false
+ScalObject-msq.2.log	atomic-queue	Saturate	393*	3.5 ± 1.0	5.0013s*	false
+ScalObject-msq.2.log	atomic-queue	Saturate+R	1288*	3.2 ± 1.1	5.0095s*	false
+ScalObject-msq.3.log	atomic-queue	Enumerate+C	52*	1.0 ± 0.0	5.6525s*	false
+ScalObject-msq.3.log	atomic-queue	Counting(4)	34*	1.0 ± 0.0	5.7395s*	false
+ScalObject-msq.3.log	atomic-queue	Counting(4)+R	278*	1.0 ± 0.0	5.0157s*	false
+ScalObject-msq.3.log	atomic-queue	Symbolic	52*	1.0 ± 0.0	5.7623s*	false
+ScalObject-msq.3.log	atomic-queue	Symbolic+R	820*	1.0 ± 0.0	5.0105s*	false
+ScalObject-msq.3.log	atomic-queue	Saturate	378*	1.0 ± 0.0	5.0123s*	false
+ScalObject-msq.3.log	atomic-queue	Saturate+R	1289*	1.5 ± 1.1	5.01s*	false
+ScalObject-msq.4.log	atomic-queue	Enumerate+C	50*	1.0 ± 0.0	5.0529s*	false
+ScalObject-msq.4.log	atomic-queue	Counting(4)	34*	1.0 ± 0.0	5.5414s*	false
+ScalObject-msq.4.log	atomic-queue	Counting(4)+R	128*	1.0 ± 0.0	5.0108s*	false
+ScalObject-msq.4.log	atomic-queue	Symbolic	50*	1.0 ± 0.0	5.1489s*	false
+ScalObject-msq.4.log	atomic-queue	Symbolic+R	176*	1.0 ± 0.0	5.0322s*	false
+ScalObject-msq.4.log	atomic-queue	Saturate	358*	1.0 ± 0.0	5.0059s*	false
+ScalObject-msq.4.log	atomic-queue	Saturate+R	2001*	1.6 ± 1.2	5.0033s*	false
+ScalObject-msq.5.log	atomic-queue	Enumerate+C	32*	3.4 ± 1.1	5.0075s*	false
+ScalObject-msq.5.log	atomic-queue	Counting(4)	34*	3.4 ± 1.1	5.7995s*	false
+ScalObject-msq.5.log	atomic-queue	Counting(4)+R	70*	3.6 ± 0.9	5.0856s*	false
+ScalObject-msq.5.log	atomic-queue	Symbolic	38*	3.5 ± 1.1	6.7001s*	false
+ScalObject-msq.5.log	atomic-queue	Symbolic+R	77*	3.6 ± 0.9	5.0943s*	false
+ScalObject-msq.5.log	atomic-queue	Saturate	370*	3.6 ± 0.8	5.0097s*	false
+ScalObject-msq.5.log	atomic-queue	Saturate+R	1270*	3.8 ± 1.1	5.0035s*	false
+ScalObject-msq.6.log	atomic-queue	Enumerate+C	17*	3.6 ± 1.4	5.0046s*	false
+ScalObject-msq.6.log	atomic-queue	Counting(4)	30*	4.5 ± 1.5	5.6392s*	false
+ScalObject-msq.6.log	atomic-queue	Counting(4)+R	30*	4.5 ± 1.5	5.6654s*	false
+ScalObject-msq.6.log	atomic-queue	Symbolic	31*	4.5 ± 1.5	5.2383s*	false
+ScalObject-msq.6.log	atomic-queue	Symbolic+R	31*	4.5 ± 1.5	5.2749s*	false
+ScalObject-msq.6.log	atomic-queue	Saturate	357*	4.0 ± 1.0	5.0044s*	false
+ScalObject-msq.6.log	atomic-queue	Saturate+R	1270*	3.6 ± 1.1	5.0086s*	false
+ScalObject-msq.7.log	atomic-queue	Enumerate+C	17*	3.5 ± 1.1	5.0042s*	false
+ScalObject-msq.7.log	atomic-queue	Counting(4)	34*	3.1 ± 1.0	5.6809s*	false
+ScalObject-msq.7.log	atomic-queue	Counting(4)+R	70*	3.0 ± 0.8	5.0103s*	false
+ScalObject-msq.7.log	atomic-queue	Symbolic	36*	3.1 ± 0.9	5.1261s*	false
+ScalObject-msq.7.log	atomic-queue	Symbolic+R	76*	3.0 ± 0.7	5.0687s*	false
+ScalObject-msq.7.log	atomic-queue	Saturate	394*	3.9 ± 1.1	5.0036s*	false
+ScalObject-msq.7.log	atomic-queue	Saturate+R	1414*	3.8 ± 1.0	5.0017s*	false
+ScalObject-msq.8.log	atomic-queue	Enumerate+C	15*	3.2 ± 1.0	5.0135s*	false
+ScalObject-msq.8.log	atomic-queue	Counting(4)	30*	3.4 ± 0.8	5.8419s*	false
+ScalObject-msq.8.log	atomic-queue	Counting(4)+R	78*	3.5 ± 1.0	5.0784s*	false
+ScalObject-msq.8.log	atomic-queue	Symbolic	38*	3.3 ± 0.9	5.0488s*	false
+ScalObject-msq.8.log	atomic-queue	Symbolic+R	102*	3.5 ± 0.9	5.2845s*	false
+ScalObject-msq.8.log	atomic-queue	Saturate	308*	3.5 ± 1.2	5.0052s*	false
+ScalObject-msq.8.log	atomic-queue	Saturate+R	1585*	3.6 ± 1.1	5.0074s*	false
+ScalObject-msq.9.log	atomic-queue	Enumerate+C	18*	3.2 ± 0.8	5.0095s*	false
+ScalObject-msq.9.log	atomic-queue	Counting(4)	32*	3.2 ± 0.6	6.2365s*	false
+ScalObject-msq.9.log	atomic-queue	Counting(4)+R	60*	3.0 ± 0.8	5.0654s*	false
+ScalObject-msq.9.log	atomic-queue	Symbolic	38*	3.2 ± 0.6	5.9175s*	false
+ScalObject-msq.9.log	atomic-queue	Symbolic+R	79*	3.1 ± 0.8	5.072s*	false
+ScalObject-msq.9.log	atomic-queue	Saturate	333*	3.5 ± 1.0	5.002s*	false
+ScalObject-msq.9.log	atomic-queue	Saturate+R	2439*	3.5 ± 1.0	5.0072s*	false
+ScalObject-msq.0.log	atomic-queue	Enumerate+C	36*	3.8 ± 0.7	25.0045s*	false
+ScalObject-msq.0.log	atomic-queue	Counting(4)	42*	3.8 ± 0.9	25.7157s*	false
+ScalObject-msq.0.log	atomic-queue	Counting(4)+R	78*	3.6 ± 1.1	25.537s*	false
+ScalObject-msq.0.log	atomic-queue	Symbolic	54*	3.9 ± 1.0	26.8369s*	false
+ScalObject-msq.0.log	atomic-queue	Symbolic+R	157*	3.5 ± 0.9	26.3997s*	false
+ScalObject-msq.0.log	atomic-queue	Saturate	627*	3.1 ± 0.9	25.0006s*	false
+ScalObject-msq.0.log	atomic-queue	Saturate+R	4453*	3.0 ± 0.9	25.0019s*	false
+ScalObject-msq.1.log	atomic-queue	Enumerate+C	17*	3.4 ± 1.6	25.0055s*	false
+ScalObject-msq.1.log	atomic-queue	Counting(4)	45*	3.8 ± 1.5	35.3445s*	false
+ScalObject-msq.1.log	atomic-queue	Counting(4)+R	250*	3.7 ± 1.2	25.0215s*	false
+ScalObject-msq.1.log	atomic-queue	Symbolic	51*	4.0 ± 1.5	26.8108s*	false
+ScalObject-msq.1.log	atomic-queue	Symbolic+R	295*	3.7 ± 1.1	25.2069s*	false
+ScalObject-msq.1.log	atomic-queue	Saturate	498*	3.6 ± 0.9	25.0035s*	false
+ScalObject-msq.1.log	atomic-queue	Saturate+R	2122*	3.5 ± 1.0	25.0009s*	false
+ScalObject-msq.2.log	atomic-queue	Enumerate+C	21*	3.2 ± 1.6	25.0038s*	false
+ScalObject-msq.2.log	atomic-queue	Counting(4)	48*	3.2 ± 1.6	28.4588s*	false
+ScalObject-msq.2.log	atomic-queue	Counting(4)+R	175*	3.7 ± 1.3	25.0254s*	false
+ScalObject-msq.2.log	atomic-queue	Symbolic	51*	3.2 ± 1.6	25.1149s*	false
+ScalObject-msq.2.log	atomic-queue	Symbolic+R	216*	3.5 ± 1.2	26.2032s*	false
+ScalObject-msq.2.log	atomic-queue	Saturate	592*	3.6 ± 1.1	25.0045s*	false
+ScalObject-msq.2.log	atomic-queue	Saturate+R	1554*	3.2 ± 1.0	25.0028s*	false
+ScalObject-msq.3.log	atomic-queue	Enumerate+C	72*	1.0 ± 0.0	25.1909s*	false
+ScalObject-msq.3.log	atomic-queue	Counting(4)	44*	1.0 ± 0.0	25.8421s*	false
+ScalObject-msq.3.log	atomic-queue	Counting(4)+R	1006*	1.0 ± 0.3	25.4369s*	false
+ScalObject-msq.3.log	atomic-queue	Symbolic	72*	1.0 ± 0.0	27.3494s*	false
+ScalObject-msq.3.log	atomic-queue	Symbolic+R	1033*	1.1 ± 0.5	28.1895s*	false
+ScalObject-msq.3.log	atomic-queue	Saturate	604*	1.0 ± 0.0	25.0051s*	false
+ScalObject-msq.3.log	atomic-queue	Saturate+R	1943*	1.9 ± 1.2	25.004s*	false
+ScalObject-msq.4.log	atomic-queue	Enumerate+C	72*	1.0 ± 0.0	25.693s*	false
+ScalObject-msq.4.log	atomic-queue	Counting(4)	46*	1.0 ± 0.0	28.8107s*	false
+ScalObject-msq.4.log	atomic-queue	Counting(4)+R	166*	1.0 ± 0.0	27.648s*	false
+ScalObject-msq.4.log	atomic-queue	Symbolic	72*	1.0 ± 0.0	27.9147s*	false
+ScalObject-msq.4.log	atomic-queue	Symbolic+R	1490*	1.0 ± 0.2	25.6127s*	false
+ScalObject-msq.4.log	atomic-queue	Saturate	608*	1.0 ± 0.0	25.0008s*	false
+ScalObject-msq.4.log	atomic-queue	Saturate+R	3044*	2.2 ± 1.4	25.0038s*	false
+ScalObject-msq.5.log	atomic-queue	Enumerate+C	39*	3.5 ± 1.1	25.0066s*	false
+ScalObject-msq.5.log	atomic-queue	Counting(4)	46*	3.4 ± 1.1	28.2428s*	false
+ScalObject-msq.5.log	atomic-queue	Counting(4)+R	126*	3.7 ± 0.9	25.2873s*	false
+ScalObject-msq.5.log	atomic-queue	Symbolic	51*	3.5 ± 1.0	26.6122s*	false
+ScalObject-msq.5.log	atomic-queue	Symbolic+R	184*	3.6 ± 0.9	25.0618s*	false
+ScalObject-msq.5.log	atomic-queue	Saturate	558*	3.5 ± 1.0	25.0061s*	false
+ScalObject-msq.5.log	atomic-queue	Saturate+R	1515*	3.9 ± 1.1	25.0083s*	false
+ScalObject-msq.6.log	atomic-queue	Enumerate+C	17*	3.6 ± 1.4	25.0129s*	false
+ScalObject-msq.6.log	atomic-queue	Counting(4)	41*	3.9 ± 1.7	30.822s*	false
+ScalObject-msq.6.log	atomic-queue	Counting(4)+R	80*	4.2 ± 1.4	30.3376s*	false
+ScalObject-msq.6.log	atomic-queue	Symbolic	54*	3.9 ± 1.6	28.3616s*	false
+ScalObject-msq.6.log	atomic-queue	Symbolic+R	84*	4.3 ± 1.4	25.0079s*	false
+ScalObject-msq.6.log	atomic-queue	Saturate	591*	3.8 ± 1.1	25.0075s*	false
+ScalObject-msq.6.log	atomic-queue	Saturate+R	1724*	3.6 ± 1.1	25.0095s*	false
+ScalObject-msq.7.log	atomic-queue	Enumerate+C	18*	3.5 ± 1.1	25.0117s*	false
+ScalObject-msq.7.log	atomic-queue	Counting(4)	46*	2.9 ± 0.9	28.6973s*	false
+ScalObject-msq.7.log	atomic-queue	Counting(4)+R	103*	3.2 ± 0.7	25.037s*	false
+ScalObject-msq.7.log	atomic-queue	Symbolic	55*	3.0 ± 0.9	28.5412s*	false
+ScalObject-msq.7.log	atomic-queue	Symbolic+R	208*	3.4 ± 1.0	25.5414s*	false
+ScalObject-msq.7.log	atomic-queue	Saturate	609*	3.9 ± 1.2	25.0021s*	false
+ScalObject-msq.7.log	atomic-queue	Saturate+R	6134*	3.6 ± 1.1	25.0049s*	false
+ScalObject-msq.8.log	atomic-queue	Enumerate+C	17*	3.3 ± 1.0	25.0118s*	false
+ScalObject-msq.8.log	atomic-queue	Counting(4)	43*	3.4 ± 1.0	25.7816s*	false
+ScalObject-msq.8.log	atomic-queue	Counting(4)+R	202*	3.6 ± 1.1	25.3877s*	false
+ScalObject-msq.8.log	atomic-queue	Symbolic	53*	3.4 ± 1.0	27.9176s*	false
+ScalObject-msq.8.log	atomic-queue	Symbolic+R	218*	3.5 ± 1.1	25.4215s*	false
+ScalObject-msq.8.log	atomic-queue	Saturate	493*	3.6 ± 1.1	25.0045s*	false
+ScalObject-msq.8.log	atomic-queue	Saturate+R	3770*	3.6 ± 1.1	25.007s*	false
+ScalObject-msq.9.log	atomic-queue	Enumerate+C	26*	3.1 ± 0.7	25.0076s*	false
+ScalObject-msq.9.log	atomic-queue	Counting(4)	45*	3.0 ± 0.7	31.3138s*	false
+ScalObject-msq.9.log	atomic-queue	Counting(4)+R	170*	3.3 ± 1.0	25.0168s*	false
+ScalObject-msq.9.log	atomic-queue	Symbolic	57*	2.9 ± 0.7	30.501s*	false
+ScalObject-msq.9.log	atomic-queue	Symbolic+R	262*	3.4 ± 1.0	25.1273s*	false
+ScalObject-msq.9.log	atomic-queue	Saturate	564*	3.5 ± 0.9	25.0018s*	false
+ScalObject-msq.9.log	atomic-queue	Saturate+R	2764*	3.5 ± 1.0	25.0122s*	false
+ScalObject-msq.0.log	atomic-queue	Enumerate+C	39*	3.9 ± 0.7	50.016s*	false
+ScalObject-msq.0.log	atomic-queue	Counting(4)	54*	3.9 ± 1.0	66.7217s*	false
+ScalObject-msq.0.log	atomic-queue	Counting(4)+R	155*	3.5 ± 0.9	54.0865s*	false
+ScalObject-msq.0.log	atomic-queue	Symbolic	60*	3.9 ± 1.0	50.9814s*	false
+ScalObject-msq.0.log	atomic-queue	Symbolic+R	269*	3.3 ± 0.9	50.7463s*	false
+ScalObject-msq.0.log	atomic-queue	Saturate	779*	3.1 ± 0.9	50.1132s*	false
+ScalObject-msq.0.log	atomic-queue	Saturate+R	6875*	3.0 ± 1.0	50.0036s*	false
+ScalObject-msq.1.log	atomic-queue	Enumerate+C	31*	3.5 ± 1.3	50.001s*	false
+ScalObject-msq.1.log	atomic-queue	Counting(4)	47*	3.9 ± 1.5	66.6544s*	false
+ScalObject-msq.1.log	atomic-queue	Counting(4)+R	297*	3.7 ± 1.1	56.0116s*	false
+ScalObject-msq.1.log	atomic-queue	Symbolic	59*	4.0 ± 1.4	53.7878s*	false
+ScalObject-msq.1.log	atomic-queue	Symbolic+R	358*	3.6 ± 1.0	51.9363s*	false
+ScalObject-msq.1.log	atomic-queue	Saturate	628*	3.6 ± 1.1	50.0092s*	false
+ScalObject-msq.1.log	atomic-queue	Saturate+R	2696*	3.5 ± 0.9	50.0081s*	false
+ScalObject-msq.2.log	atomic-queue	Enumerate+C	31*	3.4 ± 1.7	50.0128s*	false
+ScalObject-msq.2.log	atomic-queue	Counting(4)	50*	3.2 ± 1.6	50.6686s*	false
+ScalObject-msq.2.log	atomic-queue	Counting(4)+R	210*	3.5 ± 1.2	52.897s*	false
+ScalObject-msq.2.log	atomic-queue	Symbolic	61*	3.2 ± 1.5	50.1595s*	false
+ScalObject-msq.2.log	atomic-queue	Symbolic+R	230*	3.5 ± 1.1	52.7877s*	false
+ScalObject-msq.2.log	atomic-queue	Saturate	747*	3.3 ± 1.3	50.0053s*	false
+ScalObject-msq.2.log	atomic-queue	Saturate+R	1692*	3.2 ± 1.0	50.0065s*	false
+ScalObject-msq.3.log	atomic-queue	Enumerate+C	84*	1.0 ± 0.0	53.7441s*	false
+ScalObject-msq.3.log	atomic-queue	Counting(4)	50*	1.0 ± 0.0	51.4629s*	false
+ScalObject-msq.3.log	atomic-queue	Counting(4)+R	1020*	1.1 ± 0.4	66.495s*	false
+ScalObject-msq.3.log	atomic-queue	Symbolic	82*	1.0 ± 0.0	50.6049s*	false
+ScalObject-msq.3.log	atomic-queue	Symbolic+R	1043*	1.1 ± 0.5	53.2434s*	false
+ScalObject-msq.3.log	atomic-queue	Saturate	754*	1.0 ± 0.0	50.0047s*	false
+ScalObject-msq.3.log	atomic-queue	Saturate+R	2961*	2.3 ± 1.3	50.0107s*	false
+ScalObject-msq.4.log	atomic-queue	Enumerate+C	84*	1.0 ± 0.0	54.0016s*	false
+ScalObject-msq.4.log	atomic-queue	Counting(4)	50*	1.0 ± 0.0	52.6463s*	false
+ScalObject-msq.4.log	atomic-queue	Counting(4)+R	426*	1.0 ± 0.0	50.0023s*	false
+ScalObject-msq.4.log	atomic-queue	Symbolic	82*	1.0 ± 0.0	52.4569s*	false
+ScalObject-msq.4.log	atomic-queue	Symbolic+R	1511*	1.1 ± 0.4	51.2501s*	false
+ScalObject-msq.4.log	atomic-queue	Saturate	722*	1.0 ± 0.0	50.0103s*	false
+ScalObject-msq.4.log	atomic-queue	Saturate+R	3551*	2.5 ± 1.6	50.0093s*	false
+ScalObject-msq.5.log	atomic-queue	Enumerate+C	39*	3.5 ± 1.1	50.8711s*	false
+ScalObject-msq.5.log	atomic-queue	Counting(4)	51*	3.5 ± 1.0	58.9112s*	false
+ScalObject-msq.5.log	atomic-queue	Counting(4)+R	177*	3.6 ± 0.9	50.3576s*	false
+ScalObject-msq.5.log	atomic-queue	Symbolic	59*	3.5 ± 1.0	54.1764s*	false
+ScalObject-msq.5.log	atomic-queue	Symbolic+R	387*	3.6 ± 0.8	50.7489s*	false
+ScalObject-msq.5.log	atomic-queue	Saturate	699*	3.5 ± 1.1	50.0082s*	false
+ScalObject-msq.5.log	atomic-queue	Saturate+R	2457*	3.8 ± 1.3	50.0103s*	false
+ScalObject-msq.6.log	atomic-queue	Enumerate+C	17*	3.6 ± 1.4	50.0079s*	false
+ScalObject-msq.6.log	atomic-queue	Counting(4)	50*	3.8 ± 1.6	59.2937s*	false
+ScalObject-msq.6.log	atomic-queue	Counting(4)+R	86*	4.3 ± 1.4	61.3143s*	false
+ScalObject-msq.6.log	atomic-queue	Symbolic	60*	4.0 ± 1.6	51.4836s*	false
+ScalObject-msq.6.log	atomic-queue	Symbolic+R	94*	4.3 ± 1.3	52.657s*	false
+ScalObject-msq.6.log	atomic-queue	Saturate	710*	3.8 ± 1.0	50.0081s*	false
+ScalObject-msq.6.log	atomic-queue	Saturate+R	1881*	3.6 ± 1.0	50.0063s*	false
+ScalObject-msq.7.log	atomic-queue	Enumerate+C	19*	3.4 ± 1.1	50.0162s*	false
+ScalObject-msq.7.log	atomic-queue	Counting(4)	50*	2.9 ± 0.9	51.6557s*	false
+ScalObject-msq.7.log	atomic-queue	Counting(4)+R	208*	3.4 ± 1.0	53.9422s*	false
+ScalObject-msq.7.log	atomic-queue	Symbolic	62*	3.0 ± 0.8	53.3151s*	false
+ScalObject-msq.7.log	atomic-queue	Symbolic+R	304*	3.6 ± 1.1	50.3912s*	false
+ScalObject-msq.7.log	atomic-queue	Saturate	758*	3.9 ± 1.2	50.0005s*	false
+ScalObject-msq.7.log	atomic-queue	Saturate+R	8102*	3.5 ± 1.1	50.0117s*	false
+ScalObject-msq.8.log	atomic-queue	Enumerate+C	19*	3.4 ± 1.0	50.0102s*	false
+ScalObject-msq.8.log	atomic-queue	Counting(4)	52*	3.4 ± 1.1	71.2426s*	false
+ScalObject-msq.8.log	atomic-queue	Counting(4)+R	217*	3.5 ± 1.1	52.234s*	false
+ScalObject-msq.8.log	atomic-queue	Symbolic	62*	3.4 ± 1.1	53.7564s*	false
+ScalObject-msq.8.log	atomic-queue	Symbolic+R	266*	3.5 ± 1.3	50.0993s*	false
+ScalObject-msq.8.log	atomic-queue	Saturate	647*	3.6 ± 1.1	50.0083s*	false
+ScalObject-msq.8.log	atomic-queue	Saturate+R	5175*	3.5 ± 1.1	50.0015s*	false
+ScalObject-msq.9.log	atomic-queue	Enumerate+C	28*	3.1 ± 0.6	50.0025s*	false
+ScalObject-msq.9.log	atomic-queue	Counting(4)	49*	3.0 ± 0.7	50.6752s*	false
+ScalObject-msq.9.log	atomic-queue	Counting(4)+R	262*	3.4 ± 1.0	50.3261s*	false
+ScalObject-msq.9.log	atomic-queue	Symbolic	64*	3.0 ± 0.8	61.9027s*	false
+ScalObject-msq.9.log	atomic-queue	Symbolic+R	299*	3.4 ± 1.0	51.0361s*	false
+ScalObject-msq.9.log	atomic-queue	Saturate	700*	3.5 ± 0.9	50.0086s*	false
+ScalObject-msq.9.log	atomic-queue	Saturate+R	3429*	3.6 ± 1.0	50.0071s*	false
+ScalObject-msq.0.log	atomic-queue	Enumerate+C	41*	3.8 ± 0.8	75.0092s*	false
+ScalObject-msq.0.log	atomic-queue	Counting(4)	56*	3.9 ± 1.0	79.9434s*	false
+ScalObject-msq.0.log	atomic-queue	Counting(4)+R	160*	3.5 ± 0.9	76.4919s*	false
+ScalObject-msq.0.log	atomic-queue	Symbolic	68*	3.7 ± 1.1	82.2769s*	false
+ScalObject-msq.0.log	atomic-queue	Symbolic+R	403*	3.1 ± 1.0	76.2206s*	false
+ScalObject-msq.0.log	atomic-queue	Saturate	875*	3.1 ± 1.0	75.0094s*	false
+ScalObject-msq.0.log	atomic-queue	Saturate+R	7716*	3.0 ± 1.0	75.0077s*	false
+ScalObject-msq.1.log	atomic-queue	Enumerate+C	31*	3.5 ± 1.3	75.0062s*	false
+ScalObject-msq.1.log	atomic-queue	Counting(4)	49*	4.0 ± 1.5	81.9332s*	false
+ScalObject-msq.1.log	atomic-queue	Counting(4)+R	304*	3.7 ± 1.1	76.5029s*	false
+ScalObject-msq.1.log	atomic-queue	Symbolic	61*	4.0 ± 1.4	77.2221s*	false
+ScalObject-msq.1.log	atomic-queue	Symbolic+R	389*	3.6 ± 1.0	76.0876s*	false
+ScalObject-msq.1.log	atomic-queue	Saturate	724*	3.6 ± 1.1	75.0033s*	false
+ScalObject-msq.1.log	atomic-queue	Saturate+R	2895*	3.5 ± 0.9	75.0103s*	false
+ScalObject-msq.2.log	atomic-queue	Enumerate+C	32*	3.3 ± 1.7	75.0103s*	false
+ScalObject-msq.2.log	atomic-queue	Counting(4)	53*	3.1 ± 1.6	79.996s*	false
+ScalObject-msq.2.log	atomic-queue	Counting(4)+R	216*	3.5 ± 1.2	82.2249s*	false
+ScalObject-msq.2.log	atomic-queue	Symbolic	65*	3.2 ± 1.5	77.1603s*	false
+ScalObject-msq.2.log	atomic-queue	Symbolic+R	238*	3.5 ± 1.1	82.7061s*	false
+ScalObject-msq.2.log	atomic-queue	Saturate	850*	3.3 ± 1.3	75.0006s*	false
+ScalObject-msq.2.log	atomic-queue	Saturate+R	3303*	3.4 ± 1.3	75.008s*	false
+ScalObject-msq.3.log	atomic-queue	Enumerate+C	90*	1.0 ± 0.0	76.0095s*	false
+ScalObject-msq.3.log	atomic-queue	Counting(4)	54*	1.0 ± 0.0	88.7061s*	false
+ScalObject-msq.3.log	atomic-queue	Counting(4)+R	1022*	1.1 ± 0.4	94.6624s*	false
+ScalObject-msq.3.log	atomic-queue	Symbolic	90*	1.0 ± 0.0	79.7366s*	false
+ScalObject-msq.3.log	atomic-queue	Symbolic+R	1067*	1.2 ± 0.8	77.8451s*	false
+ScalObject-msq.3.log	atomic-queue	Saturate	838*	1.0 ± 0.0	75.0079s*	false
+ScalObject-msq.3.log	atomic-queue	Saturate+R	3462*	2.6 ± 1.4	75.0117s*	false
+ScalObject-msq.4.log	atomic-queue	Enumerate+C	90*	1.0 ± 0.0	76.7316s*	false
+ScalObject-msq.4.log	atomic-queue	Counting(4)	56*	1.0 ± 0.0	111.1552s*	false
+ScalObject-msq.4.log	atomic-queue	Counting(4)+R	812*	1.0 ± 0.0	75.115s*	false
+ScalObject-msq.4.log	atomic-queue	Symbolic	88*	1.0 ± 0.0	75.233s*	false
+ScalObject-msq.4.log	atomic-queue	Symbolic+R	1521*	1.1 ± 0.5	79.7623s*	false
+ScalObject-msq.4.log	atomic-queue	Saturate	814*	1.0 ± 0.0	75.1079s*	false
+ScalObject-msq.4.log	atomic-queue	Saturate+R	3845*	2.7 ± 1.6	75.1189s*	false
+ScalObject-msq.5.log	atomic-queue	Enumerate+C	41*	3.5 ± 1.1	75.8877s*	false
+ScalObject-msq.5.log	atomic-queue	Counting(4)	55*	3.5 ± 1.0	80.9521s*	false
+ScalObject-msq.5.log	atomic-queue	Counting(4)+R	380*	3.6 ± 0.8	75.384s*	false
+ScalObject-msq.5.log	atomic-queue	Symbolic	65*	3.6 ± 0.9	81.3276s*	false
+ScalObject-msq.5.log	atomic-queue	Symbolic+R	416*	3.6 ± 0.8	77.8794s*	false
+ScalObject-msq.5.log	atomic-queue	Saturate	775*	3.5 ± 1.1	75.0049s*	false
+ScalObject-msq.5.log	atomic-queue	Saturate+R	2622*	3.8 ± 1.3	75.0064s*	false
+ScalObject-msq.6.log	atomic-queue	Enumerate+C	17*	3.6 ± 1.4	75.0065s*	false
+ScalObject-msq.6.log	atomic-queue	Counting(4)	54*	3.9 ± 1.6	111.4819s*	false
+ScalObject-msq.6.log	atomic-queue	Counting(4)+R	88*	4.3 ± 1.4	82.5745s*	false
+ScalObject-msq.6.log	atomic-queue	Symbolic	66*	4.1 ± 1.5	81.1863s*	false
+ScalObject-msq.6.log	atomic-queue	Symbolic+R	100*	4.4 ± 1.3	81.8679s*	false
+ScalObject-msq.6.log	atomic-queue	Saturate	806*	3.7 ± 1.1	75.0082s*	false
+ScalObject-msq.6.log	atomic-queue	Saturate+R	1979*	3.6 ± 1.0	75.0076s*	false
+ScalObject-msq.7.log	atomic-queue	Enumerate+C	23*	3.2 ± 1.2	75.007s*	false
+ScalObject-msq.7.log	atomic-queue	Counting(4)	55*	3.0 ± 0.9	94.4719s*	false
+ScalObject-msq.7.log	atomic-queue	Counting(4)+R	256*	3.5 ± 1.1	75.5003s*	false
+ScalObject-msq.7.log	atomic-queue	Symbolic	68*	3.0 ± 0.8	79.3933s*	false
+ScalObject-msq.7.log	atomic-queue	Symbolic+R	320*	3.6 ± 1.1	79.3187s*	false
+ScalObject-msq.7.log	atomic-queue	Saturate	838*	3.8 ± 1.2	75.0102s*	false
+ScalObject-msq.7.log	atomic-queue	Saturate+R	8789*	3.5 ± 1.1	75.0075s*	false
+ScalObject-msq.8.log	atomic-queue	Enumerate+C	19*	3.4 ± 1.0	75.0025s*	false
+ScalObject-msq.8.log	atomic-queue	Counting(4)	53*	3.4 ± 1.0	82.218s*	false
+ScalObject-msq.8.log	atomic-queue	Counting(4)+R	222*	3.5 ± 1.1	77.8379s*	false
+ScalObject-msq.8.log	atomic-queue	Symbolic	67*	3.5 ± 1.1	80.2046s*	false
+ScalObject-msq.8.log	atomic-queue	Symbolic+R	309*	3.5 ± 1.2	75.8904s*	false
+ScalObject-msq.8.log	atomic-queue	Saturate	780*	3.6 ± 1.1	75.0094s*	false
+ScalObject-msq.8.log	atomic-queue	Saturate+R	5555*	3.5 ± 1.1	75.0068s*	false
+ScalObject-msq.9.log	atomic-queue	Enumerate+C	28*	3.1 ± 0.6	75.0081s*	false
+ScalObject-msq.9.log	atomic-queue	Counting(4)	53*	2.9 ± 0.7	79.0066s*	false
+ScalObject-msq.9.log	atomic-queue	Counting(4)+R	290*	3.4 ± 1.0	75.2398s*	false
+ScalObject-msq.9.log	atomic-queue	Symbolic	69*	3.0 ± 0.8	89.7579s*	false
+ScalObject-msq.9.log	atomic-queue	Symbolic+R	333*	3.5 ± 1.0	75.8219s*	false
+ScalObject-msq.9.log	atomic-queue	Saturate	795*	3.5 ± 0.9	75.0085s*	false
+ScalObject-msq.9.log	atomic-queue	Saturate+R	3567*	3.6 ± 1.0	75.0048s*	false
+ScalObject-msq.0.log	atomic-queue	Enumerate+C	41*	3.8 ± 0.8	100.0634s*	false
+ScalObject-msq.0.log	atomic-queue	Counting(4)	59*	3.9 ± 1.0	112.2722s*	false
+ScalObject-msq.0.log	atomic-queue	Counting(4)+R	253*	3.3 ± 0.9	100.5925s*	false
+ScalObject-msq.0.log	atomic-queue	Symbolic	72*	3.7 ± 1.1	107.7224s*	false
+ScalObject-msq.0.log	atomic-queue	Symbolic+R	435*	3.1 ± 1.0	100.1072s*	false
+ScalObject-msq.0.log	atomic-queue	Saturate	959*	3.1 ± 0.9	100.0098s*	false
+ScalObject-msq.0.log	atomic-queue	Saturate+R	8290*	3.0 ± 1.0	100.0096s*	false
+ScalObject-msq.1.log	atomic-queue	Enumerate+C	31*	3.5 ± 1.3	100.0026s*	false
+ScalObject-msq.1.log	atomic-queue	Counting(4)	50*	4.0 ± 1.5	123.6959s*	false
+ScalObject-msq.1.log	atomic-queue	Counting(4)+R	333*	3.7 ± 1.1	101.3888s*	false
+ScalObject-msq.1.log	atomic-queue	Symbolic	63*	3.9 ± 1.4	100.1731s*	false
+ScalObject-msq.1.log	atomic-queue	Symbolic+R	413*	3.6 ± 1.0	101.4752s*	false
+ScalObject-msq.1.log	atomic-queue	Saturate	787*	3.6 ± 1.0	100.0069s*	false
+ScalObject-msq.1.log	atomic-queue	Saturate+R	5163*	3.6 ± 1.0	100.0093s*	false
+ScalObject-msq.2.log	atomic-queue	Enumerate+C	32*	3.3 ± 1.7	100.0099s*	false
+ScalObject-msq.2.log	atomic-queue	Counting(4)	58*	3.2 ± 1.5	104.4592s*	false
+ScalObject-msq.2.log	atomic-queue	Counting(4)+R	218*	3.5 ± 1.2	104.2619s*	false
+ScalObject-msq.2.log	atomic-queue	Symbolic	72*	3.3 ± 1.5	110.577s*	false
+ScalObject-msq.2.log	atomic-queue	Symbolic+R	242*	3.5 ± 1.1	102.7482s*	false
+ScalObject-msq.2.log	atomic-queue	Saturate	907*	3.2 ± 1.2	100.0041s*	false
+ScalObject-msq.2.log	atomic-queue	Saturate+R	4316*	3.6 ± 1.2	100.0061s*	false
+ScalObject-msq.3.log	atomic-queue	Enumerate+C	96*	1.0 ± 0.0	104.5606s*	false
+ScalObject-msq.3.log	atomic-queue	Counting(4)	56*	1.0 ± 0.0	103.6983s*	false
+ScalObject-msq.3.log	atomic-queue	Counting(4)+R	1024*	1.1 ± 0.4	102.0844s*	false
+ScalObject-msq.3.log	atomic-queue	Symbolic	96*	1.0 ± 0.0	109.7748s*	false
+ScalObject-msq.3.log	atomic-queue	Symbolic+R	1075*	1.2 ± 0.9	109.9688s*	false
+ScalObject-msq.3.log	atomic-queue	Saturate	926*	1.0 ± 0.0	100.115s*	false
+ScalObject-msq.3.log	atomic-queue	Saturate+R	3808*	2.6 ± 1.4	100.1154s*	false
+ScalObject-msq.4.log	atomic-queue	Enumerate+C	96*	1.0 ± 0.0	105.8836s*	false
+ScalObject-msq.4.log	atomic-queue	Counting(4)	56*	1.0 ± 0.0	114.7126s*	false
+ScalObject-msq.4.log	atomic-queue	Counting(4)+R	1386*	1.0 ± 0.0	100.0436s*	false
+ScalObject-msq.4.log	atomic-queue	Symbolic	94*	1.0 ± 0.0	102.7439s*	false
+ScalObject-msq.4.log	atomic-queue	Symbolic+R	1527*	1.1 ± 0.5	107.764s*	false
+ScalObject-msq.4.log	atomic-queue	Saturate	882*	1.0 ± 0.0	100.0079s*	false
+ScalObject-msq.4.log	atomic-queue	Saturate+R	3955*	2.7 ± 1.6	100.0018s*	false
+ScalObject-msq.5.log	atomic-queue	Enumerate+C	41*	3.5 ± 1.1	100.0102s*	false
+ScalObject-msq.5.log	atomic-queue	Counting(4)	59*	3.5 ± 1.0	115.2221s*	false
+ScalObject-msq.5.log	atomic-queue	Counting(4)+R	391*	3.6 ± 0.8	101.9975s*	false
+ScalObject-msq.5.log	atomic-queue	Symbolic	69*	3.6 ± 0.9	107.1193s*	false
+ScalObject-msq.5.log	atomic-queue	Symbolic+R	428*	3.6 ± 0.8	100.0183s*	false
+ScalObject-msq.5.log	atomic-queue	Saturate	864*	3.5 ± 1.0	100.0095s*	false
+ScalObject-msq.5.log	atomic-queue	Saturate+R	2710*	3.8 ± 1.3	100.0101s*	false
+ScalObject-msq.6.log	atomic-queue	Enumerate+C	17*	3.6 ± 1.4	100.0197s*	false
+ScalObject-msq.6.log	atomic-queue	Counting(4)	54*	3.9 ± 1.6	111.9935s*	false
+ScalObject-msq.6.log	atomic-queue	Counting(4)+R	92*	4.3 ± 1.4	119.8222s*	false
+ScalObject-msq.6.log	atomic-queue	Symbolic	68*	4.1 ± 1.5	100.5859s*	false
+ScalObject-msq.6.log	atomic-queue	Symbolic+R	104*	4.4 ± 1.3	105.0513s*	false
+ScalObject-msq.6.log	atomic-queue	Saturate	868*	3.7 ± 1.1	100.0105s*	false
+ScalObject-msq.6.log	atomic-queue	Saturate+R	2052*	3.6 ± 1.1	100.0065s*	false
+ScalObject-msq.7.log	atomic-queue	Enumerate+C	30*	3.1 ± 1.0	100.0137s*	false
+ScalObject-msq.7.log	atomic-queue	Counting(4)	56*	3.0 ± 0.9	116.7112s*	false
+ScalObject-msq.7.log	atomic-queue	Counting(4)+R	302*	3.6 ± 1.1	101.2209s*	false
+ScalObject-msq.7.log	atomic-queue	Symbolic	72*	3.0 ± 0.8	104.3001s*	false
+ScalObject-msq.7.log	atomic-queue	Symbolic+R	326*	3.7 ± 1.1	100.3707s*	false
+ScalObject-msq.7.log	atomic-queue	Saturate	901*	3.9 ± 1.1	100.0056s*	false
+ScalObject-msq.7.log	atomic-queue	Saturate+R	9151*	3.5 ± 1.1	100.0099s*	false
+ScalObject-msq.8.log	atomic-queue	Enumerate+C	19*	3.4 ± 1.0	100.0159s*	false
+ScalObject-msq.8.log	atomic-queue	Counting(4)	54*	3.4 ± 1.0	107.6086s*	false
+ScalObject-msq.8.log	atomic-queue	Counting(4)+R	249*	3.5 ± 1.2	101.9648s*	false
+ScalObject-msq.8.log	atomic-queue	Symbolic	71*	3.5 ± 1.1	106.2482s*	false
+ScalObject-msq.8.log	atomic-queue	Symbolic+R	327*	3.5 ± 1.2	100.5607s*	false
+ScalObject-msq.8.log	atomic-queue	Saturate	833*	3.7 ± 1.1	100.1092s*	false
+ScalObject-msq.8.log	atomic-queue	Saturate+R	5908*	3.5 ± 1.0	100.0074s*	false
+ScalObject-msq.9.log	atomic-queue	Enumerate+C	31*	3.2 ± 0.6	100.0074s*	false
+ScalObject-msq.9.log	atomic-queue	Counting(4)	57*	2.9 ± 0.7	138.1395s*	false
+ScalObject-msq.9.log	atomic-queue	Counting(4)+R	299*	3.4 ± 1.0	114.7593s*	false
+ScalObject-msq.9.log	atomic-queue	Symbolic	71*	3.1 ± 0.8	101.1391s*	false
+ScalObject-msq.9.log	atomic-queue	Symbolic+R	398*	3.5 ± 0.9	100.0997s*	false
+ScalObject-msq.9.log	atomic-queue	Saturate	873*	3.4 ± 0.9	100.0089s*	false
+ScalObject-msq.9.log	atomic-queue	Saturate+R	3655*	3.6 ± 1.0	100.0066s*	false
