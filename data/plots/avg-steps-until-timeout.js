@@ -152,9 +152,9 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
       .append("text")
         .attr("x", width)
         .attr("y", -6)
-        .attr("dy", "-.31em")
+        // .attr("dy", "-.31em")
         .attr("text-anchor", "end")
-        .text("Steps until timeout");
+        .text("Steps");
 
     svg.append("g")
         .attr("class", "y axis")
