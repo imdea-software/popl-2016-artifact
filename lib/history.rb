@@ -130,7 +130,7 @@ class History
     [n, each.map{|id| [id,[past[before(id).count], future[after(id).count]]]}.to_h]
   end
 
-  def label_s(id)
+  def label(id)
     str = ""
     str << @method_names[id]
     str << "(#{@arguments[id] * ", "})" unless @arguments[id].empty?
@@ -149,7 +149,7 @@ class History
 
   def to_partial_order_s
     ops = each.map do |id|
-      [id, [match_s(id), label_s(id)]]
+      [id, [match_s(id), label(id)]]
     end.to_h
     id_j = ops.values.map{|id,_| id.length}.max
     op_j = ops.values.map{|_,op| op.length}.max
@@ -163,7 +163,7 @@ class History
   def to_interval_s(scale: 2)
     n, imap = intervals
     ops = each.map do |id|
-      [id,[match_s(id),label_s(id)]]
+      [id,[match_s(id),label(id)]]
     end.to_h
     id_j = ops.values.map{|id,_| id.length}.max
     op_j = ops.values.map{|_,op| op.length}.max

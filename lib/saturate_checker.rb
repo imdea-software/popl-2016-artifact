@@ -147,7 +147,10 @@ class FifoOrderRule < Rule
     @a2 ||= @history.find{|id| @history.arguments(id).include?(@v2)}
     @r2 ||= @history.find{|id| (@history.returns(id)||[]).include?(@v2)}
 
-    if before?(@a1,@a2) && @r1 && @r2
+    if before?(@a1,@a2) && !@r1 && @r2 && @history.all?{|id| @history.match(id) || before?(@r2,id)}
+      @history.order!(@r2,@r2)
+      true
+    elsif before?(@a1,@a2) && @r1 && @r2
       @history.order!(@r1,@r2)
       true
     elsif before?(@r1,@r2) && @a1 && @a2
@@ -171,6 +174,8 @@ class LifoOrderRule < Rule
     @r1 ||= @history.find{|id| (@history.returns(id)||[]).include?(@v1)}
     @a2 ||= @history.find{|id| @history.arguments(id).include?(@v2)}
     @r2 ||= @history.find{|id| (@history.returns(id)||[]).include?(@v2)}
+
+    # TODO be sure to cover the cases where some operation is missing
 
     if before?(@a1,@a2) && before?(@r1,@r2) && @a2
       @history.order!(@r1,@a2)
