@@ -7,53 +7,47 @@ data structures, e.g., locks, semaphores, atomic registers, stacks, queues.
 ## Installation
 
 This project is written in [Ruby], and works “out of the box” without
-compilation nor installation. Of course, it does depend the availability of a
-[Ruby] interpreter – see *Requirements*, below. In the case that the
-requirements cannot be fulfilled, this project can also be run in a
-preconfigured virtual machine; see *Running in a Virtual Machine*, below.
+compilation nor installation, though does require a Ruby interpreter. Below we
+provide instructions for configuration with your native Ruby installation, as
+well as alternative instructions for using a preconfigured virtual environment.
 
 
-### Requirements
+### Configuration with Native Ruby Installation
 
-In principle, this project works “out of the box” on any system with a
-relatively-recent installation of Ruby — modulo the simple installation of a
-couple “gems” noted below. That is our experience with OS X and Linux, though
-use on Windows is untested. Technically though, we do require the following:
+In principle, this project works “out of the box” with the latest Ruby
+interpreters an a couple of supplementary “gems”. So is our experience with OS
+X and Linux, though we have not tested on Windows.
 
-* [Ruby], version 2.0.0 or greater. Linux distributions and OS X generally come
-  with [Ruby] preinstalled. Newer versions are easily installed using your
-  system’s package manager. On OS X, we recommend using the [Homebrew] package
-  manager. On Windows, Ruby can be installed with [RubyInstaller] or [Cygwin].
+#### Requirements
 
-* The `ffi` and `os` Ruby gems. These are used, e.g., for interfacing with Z3.
-  Normally, these are installed by running `gem install ffi os`; this command
-  may require root privileges, depending on your configuration. On Linux, you
-  may need to install `ffi` using your system’s package manager.
+* [Ruby], version 2.0.0+. Ruby is available for a wide range of systems, with
+  great installation support.
 
-* The [libffi] library. Linux distributions and OS X generally come with
-  [libffi] preinstalled. Otherwise, [libffi] is easily installed using your
-  system’s package manager.
-  
-This project also uses [Z3] as a shared library. For convenience we provide the
-[Z3] shared library prebuilt for 64bit OS X (Yosemite), Linux (OpenSUSE), and
-Windows in the `xxx/` directory. Dependence on the platforms on which it was
-built is unclear. In the case that problems involving `FFI` or `Z3` are
-encountered, try obtaining [Z3] on your own, and include the appropriate
-`libz3.{dylib,so,dll}` in your `LIBRARY_PATH`.
+* The `ffi` and `os` Ruby gems, installed via `gem install ffi os`.
+
+**Note** This project also uses [Z3] as a shared library. For convenience we
+provide the [Z3] shared library prebuilt for 64bit OS X (Yosemite), 64bit Linux
+(OpenSUSE), and Windows in the `xxx/` directory. Dependence on the platforms on
+which it was built is unclear. In the case that you encounter problems
+involving `FFI` or `Z3`, try to obtain [Z3] on your own, and include the
+appropriate `libz3.{dylib,so,dll}` in your `LIBRARY_PATH`.
 
 
-### Running in a Virtual Machine
+### Preconfigured Virtual Environment
 
-Alternatively, this project can be run in a preconfigured virtual machine. To
-use this method both [VirtualBox] and [Vagrant] must be installed. Both are
-available for a wide range of systems, with great installation support. This is
-known to work with the following versions:
+Alternatively, this project can be run in a preconfigured virtual machine using
+[VirtualBox] and [Vagrant]. Both are available for a wide range of systems,
+with great installation support.
 
-* [VirtualBox] 4.3.20
-* [Vagrant] 1.7.2
+#### Requirements
 
-First, start [Vagrant] in the root directory of this project — the directory
-containing `Vagrantfile` — by running
+* [VirtualBox], version 4.3.20+
+* [Vagrant], version 1.7.2+
+
+#### Instructions
+
+First, start [Vagrant] in this project’s root directory (containing
+`Vagrantfile`):
 
     vagrant up
 
@@ -94,7 +88,6 @@ structure.
 * `pldi-2015-submission.pdf` is a research paper accepted to [PLDI 2015][].
 
 * `xxx/` contains prebuilt external shared-libraries for OS X, Windows, and Linux.
-
 
 
 ## Usage
@@ -166,8 +159,9 @@ Previous runs of `report.rb` are logged in the `data/reports` directory.
 
 The empirical data used in the publication of this work is generated via the
 `experiments.rb` program. Results are stored in tab-separated-values (TSV)
-format in the `data/experiments` directory. Plots of this data are stored in
-the `data/plots` directory.
+format in the `data/experiments` directory. Visualizations of this data are
+stored in the `data/plots` directory. The file `data/plots/plot.html` renders
+the data in a web browser, and is known to work with Safari.
 
 
 ## History Input Format
