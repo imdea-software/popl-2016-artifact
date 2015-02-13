@@ -26,8 +26,7 @@ X and Linux, though we have not tested on Windows.
 
 #### Requirements
 
-* [Ruby], version 2.0.0+. Ruby is available for a wide range of systems, with
-  great installation support.
+* [Ruby], version 2.0.0 or greater.
 
 * The `ffi` and `os` Ruby gems, installed via `gem install ffi os`.
 
@@ -47,8 +46,8 @@ with great installation support.
 
 #### Requirements
 
-* [VirtualBox], version 4.3.20+
-* [Vagrant], version 1.7.2+
+* [VirtualBox], version 4.3.20 or greater
+* [Vagrant], version 1.7.2 or greater
 
 #### Instructions
 
