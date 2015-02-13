@@ -11,7 +11,7 @@ compilation nor installation, though does require a Ruby interpreter. Simply
 clone this repository, configure accordingly, and proceed to *Usage*
 instructions.
 
-    git clone https://github.com/imdea-software/refinement-monitor-experiments.git
+    git clone https://github.com/imdea-software/observational-refinement-checking.git
 
 Below we provide instructions for configuration with your native Ruby
 installation, as well as alternative instructions for using a preconfigured
