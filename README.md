@@ -7,9 +7,15 @@ data structures, e.g., locks, semaphores, atomic registers, stacks, queues.
 ## Installation
 
 This project is written in [Ruby], and works “out of the box” without
-compilation nor installation, though does require a Ruby interpreter. Below we
-provide instructions for configuration with your native Ruby installation, as
-well as alternative instructions for using a preconfigured virtual environment.
+compilation nor installation, though does require a Ruby interpreter. Simply
+clone this repository, configure accordingly, and proceed to *Usage*
+instructions.
+
+    git clone https://github.com/imdea-software/refinement-monitor-experiments.git
+
+Below we provide instructions for configuration with your native Ruby
+installation, as well as alternative instructions for using a preconfigured
+virtual environment.
 
 
 ### Configuration with Native Ruby Installation
