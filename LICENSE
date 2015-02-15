@@ -32,6 +32,7 @@ code.
 The following pieces of software have additional or alternate copyrights,
 licenses, and/or restrictions:
 
-Program             Directories
--------             -----------
-Z3                  xxx/libz3.*
+Program         Path                  Website
+-------         ----                  -------
+Z3              xxx/libz3.*           http://z3.codeplex.com
+Scal            xxx/libscal.*         https://github.com/cksystemsgroup/scal
