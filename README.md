@@ -27,7 +27,6 @@ X and Linux, though we have not tested on Windows.
 #### Requirements
 
 * [Ruby], version 2.0.0 or greater.
-
 * The `ffi` and `os` Ruby gems, installed via `gem install ffi os`.
 
 **Note** This project also uses [Z3] as a shared library. For convenience we
