@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-BRANCH_NAME = 'master'
+BRANCH_NAME = 'experiments'
 report_file = Time.now.strftime("data/reports/report-%h-%d-%Y-%Hh%M.txt")
 
 abort "Expected clean working directory." unless `git status` =~ /working directory clean/
