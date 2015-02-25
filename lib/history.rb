@@ -77,6 +77,7 @@ class History
   def ext_after(id)       @after[id] + @ext_after[id] end
 
   def match(id)           @match[id] end
+  def num_matches;        select {|id| [nil, :none, id].include?(match(id))}.length end
 
   def minimals;           select {|id| before(id).empty? } end
   def maximals;           select {|id| after(id).empty? } end

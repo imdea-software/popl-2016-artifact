@@ -32,4 +32,7 @@ module Enumerable
   def standard_deviation
     Math.sqrt(sample_variance)
   end
+  def stats(precision)
+    "#{mean.round(precision)}, #{standard_deviation.round(precision)}, #{min}, #{max}"
+  end
 end

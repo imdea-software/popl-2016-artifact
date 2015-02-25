@@ -44,13 +44,13 @@ DEFAULT_ALGORITHMS << "enumerate -r"
 
 DEFAULT_TIMEOUTS << 5
 
-COLUMNS = [:history, :object, :algorithm, :steps, :concurrency, :time, :violation]
-DISPLAY = { history: 1, algorithm: 13, steps: 5, concurrency: 11, time: 10, violation: 1 }
+COLUMNS = [:history, :object, :algorithm, :steps, :checks, :width, :weight, :time, :violation]
+DISPLAY = { history: 1, algorithm: 13, steps: 3, checks: 2, width: 3, weight: 3, time: 10, violation: 1 }
 
 def extract_record(output)
   rec = {}
   COLUMNS.map do |key|
-    m = output.match(/#{key.upcase}:\s+(.*)/)
+    m = output.match(/#{key.upcase}:\s+([^\s,]*)/)
     rec[key] = m ? m[1].strip : "?"
   end
   rec

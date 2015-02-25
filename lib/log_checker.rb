@@ -117,7 +117,8 @@ begin
   history.add_observer(ObsoleteRemover.new(history)) if options.removal
 
   size = []
-  concurrency = []
+  width = []
+  weight = []
   num_steps = 0
   max_rss = 0
 
@@ -138,7 +139,8 @@ begin
         raise StepLimitReached if options.step_limit && options.step_limit <= num_steps
 
         size << history.count
-        concurrency << history.pending.count + (act == :call ? 1 : 0)
+        width << history.pending.count + (act == :call ? 1 : 0)
+        weight << history.num_matches
         num_steps += 1
 
         case act
@@ -165,15 +167,20 @@ begin
 
   end_time = Time.now
 
+  def display(dist)
+    "#{dist.min}, #{dist.mean.round(1)}, #{dist.max}, #{dist.standard_deviation.round(1)}"
+  end
+
   puts "HISTORY:      #{execution_log}"
   puts "OBJECT:       #{options.object || "?"}"
   puts "ALGORITHM:    #{checker}"
   puts "REMOVAL:      #{options.removal}"
   puts "VIOLATION:    #{checker.violation?}"
   puts "STEPS:        #{num_steps}#{timeout}#{stepout}"
-  puts "CONCURRENCY:  #{concurrency.mean.round(1)} ~ #{concurrency.standard_deviation.round(1)}"
-  puts "SIZE:         #{size.mean.round(1)} (avg), #{size.max} (max)"
   puts "CHECKS:       #{checker.num_checks}"
+  puts "SIZE:         #{size.stats(1)}"
+  puts "WIDTH:        #{width.stats(1)}"
+  puts "WEIGHT:       #{weight.stats(1)}"
   puts "MEMORY:       #{(max_rss / 1024.0).round(4)}KB"
   puts "TIME:         #{(end_time - start_time).round(4)}s#{timeout}#{stepout}"
   puts "TIME/CHECK:   #{((end_time - start_time)/checker.num_checks).round(4)}s"
