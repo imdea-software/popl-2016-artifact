@@ -27,7 +27,7 @@ class EnumerateChecker < HistoryChecker
     log.warn('Enumerate') {"I don't have an incremental mode."} if incremental
   end
 
-  def name; "Enumerate#{"+C" if @completion}" end
+  def name; "Enumerate" end
 
   def kernel_contains?(history, seq)
     if reference_impl

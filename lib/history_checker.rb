@@ -20,7 +20,7 @@ class HistoryChecker
   end
 
   def name; "none" end
-  def to_s; "#{name}#{"+R" if @removal}" end
+  def to_s; "#{name}#{"+I" if @incremental}#{"+C" if @completion}#{"+R" if @removal}" end
 
   def num_checks; @num_checks end
 

@@ -2,6 +2,7 @@
 
 require 'optparse'
 require 'ostruct'
+require 'yaml'
 
 FIELDS = [:sources, :algorithms, :timeouts]
 FIELDS.each {|f| self.class.const_set("DEFAULT_#{f.upcase}", [])}
@@ -25,44 +26,52 @@ DEFAULT_ALGORITHMS << "saturate"
 DEFAULT_ALGORITHMS << "saturate -r"
 DEFAULT_ALGORITHMS << "counting -b 0"
 DEFAULT_ALGORITHMS << "counting -b 0 -r"
-DEFAULT_ALGORITHMS << "counting -b 1"
-DEFAULT_ALGORITHMS << "counting -b 1 -r"
+# DEFAULT_ALGORITHMS << "counting -b 1"
+# DEFAULT_ALGORITHMS << "counting -b 1 -r"
 DEFAULT_ALGORITHMS << "counting -b 2"
 DEFAULT_ALGORITHMS << "counting -b 2 -r"
-DEFAULT_ALGORITHMS << "counting -b 3"
-DEFAULT_ALGORITHMS << "counting -b 3 -r"
+# DEFAULT_ALGORITHMS << "counting -b 3"
+# DEFAULT_ALGORITHMS << "counting -b 3 -r"
 DEFAULT_ALGORITHMS << "counting -b 4"
 DEFAULT_ALGORITHMS << "counting -b 4 -r"
 DEFAULT_ALGORITHMS << "symbolic"
 DEFAULT_ALGORITHMS << "symbolic -r"
-DEFAULT_ALGORITHMS << "symbolic -c"
-DEFAULT_ALGORITHMS << "symbolic -i"
+# DEFAULT_ALGORITHMS << "symbolic -c"
+# DEFAULT_ALGORITHMS << "symbolic -i"
 # DEFAULT_ALGORITHMS << "symbolic -i -r" # TODO this one is buggy
-DEFAULT_ALGORITHMS << "enumerate"
+# DEFAULT_ALGORITHMS << "enumerate"
 DEFAULT_ALGORITHMS << "enumerate -c"
-DEFAULT_ALGORITHMS << "enumerate -r"
+DEFAULT_ALGORITHMS << "enumerate -c -r"
 
 DEFAULT_TIMEOUTS << 5
 
-COLUMNS = [:history, :object, :algorithm, :steps, :checks, :width, :weight, :time, :violation]
-DISPLAY = { history: 1, algorithm: 13, steps: 3, checks: 2, width: 3, weight: 3, time: 10, violation: 1 }
+DISPLAY = { history: 1, algorithm: 9, removal: 1, steps: 3, checks: 3, width: 4, weight: 4, time: 7, violation: 1 }
 
-def extract_record(output)
-  rec = {}
-  COLUMNS.map do |key|
-    m = output.match(/#{key.upcase}:\s+([^\s,]*)/)
-    rec[key] = m ? m[1].strip : "?"
+def flatten_hash(hash, path=[])
+  result = hash.map do |key, value|
+    case value
+    when Hash then flatten_hash(value, path+[key])
+    else [[path+[key], value]]
+    end
+  end.flatten(1)
+  if path.empty? then
+    result.map{|keys, value| [keys * ".", value]}.to_h
+  else
+    result
   end
-  rec
 end
 
-def display_record(rec)
+def display(rec)
   DISPLAY.map do |key,width|
-    case rec[key]
-    when /true/;  "√"
-    when /false/; "-"
+    val = rec[key.to_s]
+    case val
+    when Float; val.round(4).to_s
+    when true;  "√"
+    when false; "-"
     when /\?/;    "?"
-    else          rec[key]
+    when Hash
+      val['mean'].round(1).to_s
+    else          val.to_s
     end.ljust(width)
   end * " | "
 end
@@ -74,11 +83,14 @@ end
 class DataWriter
   def initialize(file)
     @file = file
-    File.open(@file,'w') {|f| f.puts(COLUMNS * "\t")}
+    @hit = false
   end
 
-  def notify(record)
-    File.open(@file,'a') {|f| f.puts(COLUMNS.map{|k| record[k]} * "\t")}
+  def notify(data)
+    data = flatten_hash(data)
+    File.open(@file,'w') {|f| f.puts(data.keys * "\t")} unless @hit
+    File.open(@file,'a') {|f| f.puts(data.values * "\t")}
+    @hit ||= true
   end
 end
 
@@ -127,7 +139,7 @@ begin
   @options = parse_options
 
   puts "Generating reports for #{@options.sources * ", "}"
-  data = DataWriter.new(@options.data_file) if @options.data_file
+  writer = DataWriter.new(@options.data_file) if @options.data_file
 
   @options.sources.each do |source|
     DISPLAY[:history] = Dir.glob(source).map{|f| File.basename(f).length}.max || 1
@@ -144,10 +156,9 @@ begin
           cmd = "#{File.dirname(__FILE__)}/logchecker.rb \"#{history}\" -a #{algorithm}"
           cmd << " -t #{timeout}" if timeout
           output = `#{cmd}`
-          rec = extract_record(output)
-          rec[:history] = File.basename(rec[:history])
-          puts display_record(rec)
-          data.notify(rec) if data
+          data = YAML.load(output.split("---")[1])
+          puts display(data)
+          writer.notify(data) if writer
         end
         puts separator
       end

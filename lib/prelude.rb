@@ -1,6 +1,7 @@
 require 'optparse'
 require 'ostruct'
 require 'logger'
+require 'yaml'
 
 module Kernel
   def log_filter(pattern)
@@ -29,10 +30,10 @@ module Enumerable
     m = mean
     inject(0){|sum,i| sum + (i-m)**2} / (length-1).to_f
   end
-  def standard_deviation
+  def sigma
     Math.sqrt(sample_variance)
   end
-  def stats(precision)
-    "#{mean.round(precision)}, #{standard_deviation.round(precision)}, #{min}, #{max}"
+  def stats
+    ['min', 'max', 'mean', 'sigma'].map{|key| [key, send(key)]}.to_h
   end
 end

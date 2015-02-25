@@ -116,21 +116,32 @@ begin
   history.add_observer(checker)
   history.add_observer(ObsoleteRemover.new(history)) if options.removal
 
-  size = []
-  width = []
-  weight = []
-  num_steps = 0
-  max_rss = 0
+  data = {
+    history: File.basename(execution_log),
+    object: options.object || "?",
+    algorithm: checker.name,
+    removal: options.removal,
+    violation: false,
+    timeout: false,
+    stepout: false,
+    steps: 0,
+    checks: 0,
+    size: [],
+    width: [],
+    weight: [],
+    memory: OS.rss_bytes,
+    time: 0,
+  }
 
   # measure memory usage in a separate thread, since a relatively expensive
   # system call is used
   rss_thread = Thread.new do
     rss = OS.rss_bytes
-    max_rss = rss if rss > max_rss
+    data[:memory] = rss if rss > data[:memory]
     sleep 1
   end
 
-  start_time = Time.now
+  data[:time] = Time.now
 
   begin
     Timeout.timeout(options.time_limit) do
@@ -138,10 +149,10 @@ begin
         raise ViolationFound if checker.violation?
         raise StepLimitReached if options.step_limit && options.step_limit <= num_steps
 
-        size << history.count
-        width << history.pending.count + (act == :call ? 1 : 0)
-        weight << history.num_matches
-        num_steps += 1
+        data[:size] << history.count
+        data[:width] << history.pending.count + (act == :call ? 1 : 0)
+        data[:weight] << history.num_matches
+        data[:steps] += 1
 
         case act
         when :call
@@ -157,34 +168,20 @@ begin
     end
   rescue Timeout::Error
     log.warn('log-parser') {"time limit reached"}
-    timeout = "*"
+    data[:timeout] = true
   rescue StepLimitReached
     log.warn('log-parser') {"step limit reached"}
-    stepout = "†"
+    data[:stepout] = true
   rescue ViolationFound
     log.warn('log-parser') {"violation discovered"}
   end
 
-  end_time = Time.now
+  data[:time] = Time.now - data[:time]
+  data[:checks] = checker.num_checks
+  data[:violation] = checker.violation?
+  [:size, :width, :weight].each {|key| data[key] = data[key].stats}
 
-  def display(dist)
-    "#{dist.min}, #{dist.mean.round(1)}, #{dist.max}, #{dist.standard_deviation.round(1)}"
-  end
-
-  puts "HISTORY:      #{execution_log}"
-  puts "OBJECT:       #{options.object || "?"}"
-  puts "ALGORITHM:    #{checker}"
-  puts "REMOVAL:      #{options.removal}"
-  puts "VIOLATION:    #{checker.violation?}"
-  puts "STEPS:        #{num_steps}#{timeout}#{stepout}"
-  puts "CHECKS:       #{checker.num_checks}"
-  puts "SIZE:         #{size.stats(1)}"
-  puts "WIDTH:        #{width.stats(1)}"
-  puts "WEIGHT:       #{weight.stats(1)}"
-  puts "MEMORY:       #{(max_rss / 1024.0).round(4)}KB"
-  puts "TIME:         #{(end_time - start_time).round(4)}s#{timeout}#{stepout}"
-  puts "TIME/CHECK:   #{((end_time - start_time)/checker.num_checks).round(4)}s"
-
+  puts data.map{|k,v| [k.to_s,v]}.to_h.to_yaml
 
 rescue SystemExit, Interrupt
 

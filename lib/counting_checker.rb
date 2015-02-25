@@ -88,7 +88,7 @@ class CountingChecker < HistoryChecker
     end    
   end
 
-  def name; "Counting(#{@bound})" end
+  def name; "Bound(#{@bound})" end
 
   def started!(id, method_name, *arguments)
     if @removed
