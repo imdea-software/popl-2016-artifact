@@ -9,14 +9,14 @@ violations_covered_plot = function(datafile, width, height, margin) {
 
   var algorithmOrder = [
     /Enum/, /Symbolic$/, /Sym/, /Saturate$/, /Sat/,
-    /Count.*4.$/, /Count.*4/, /Count.*2.$/, /Count.*2/, /Count.*0.$/, /Count.*0/,
+    /Bound.*4.$/, /Bound.*4/, /Bound.*2.$/, /Bound.*2/, /Bound.*0.$/, /Bound.*0/,
   ];
 
   var algorithmAbbrs = [
     {pattern: /Enum.*/, abbr: "E"},
     {pattern: /Sym.*/, abbr: "SYM"},
     {pattern: /Sat.*/, abbr: "SAT"},
-    {pattern: /Count.*\((\d+)\)/, abbr: "C($1)"}
+    {pattern: /Bound*\((\d+)\)/, abbr: "C($1)"}
   ];
 
   function objectName(obj) {
@@ -76,9 +76,9 @@ violations_covered_plot = function(datafile, width, height, margin) {
 
     var nested = d3.nest()
         .key(function(d) { return d.history.split(".")[0]; })
-        .key(function(d) { return d.algorithm.split("+")[0]; })
+        .key(function(d) { return d.algorithm; })
         .sortKeys(algOrder)
-        .key(function(d) { return d.algorithm.split("+")[1] || ""; })
+        .key(function(d) { return d.removal; })
         .rollup(function(ds) { return ds.filter(function(d) { return d.violation; }).length; })
         .entries(data.filter(function(d) { return d.history.split(".")[0] != "?" && d.violation; }));
 
@@ -91,7 +91,7 @@ violations_covered_plot = function(datafile, width, height, margin) {
 
     var x3 = d3.scale.ordinal()
         .rangeRoundBands([0, x2.rangeBand()], .1)
-        .domain(["","R"]);
+        .domain([false, true]);
 
     var objects = svg.selectAll(".object")
         .data(nested)
@@ -110,7 +110,7 @@ violations_covered_plot = function(datafile, width, height, margin) {
         .data(function(d) { return d.values; })
       .enter().append("rect")
         .attr("class", "variation")
-        .attr("class", function(d) { return "variation bar " + d.key; })
+        .attr("class", function(d) { return "variation bar " + (d.key == "true" ? "R" : ""); })
         .attr("x", function(d) { return x3(d.key); })
         .attr("y", function(d) { return y(d.values); })
         .attr("height", function(d) { return height - y(d.values); })

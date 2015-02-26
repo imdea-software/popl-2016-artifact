@@ -10,26 +10,6 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
     return 100;
   }
 
-  var algorithmClasses = {
-    enumerate: /Enumerate/,
-    symbolic: /Symbolic/,
-    saturate: /Saturate/,
-    counting: /Counting/
-  }
-
-  function algClass(a) {
-    for (key in algorithmClasses)
-      if (a.match(algorithmClasses[key]))
-        return key;
-    return "?";
-  }
-
-  function algName(a) {
-    var split = a.split("+");
-    var name = split[0];
-    return split[0] + (split[1] ? "+R" : "");
-  }
-
   var x = d3.scale.log()
       .range([0, width]);
 
@@ -67,27 +47,27 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
   var keys = legend.selectAll("g")
       .data([
         {algorithm: "Enumerate"},
-        {algorithm: "Symbolic"}, {algorithm: "Symbolic+R"},
-        {algorithm: "Saturate"}, {algorithm: "Saturate+R"}])
+        {algorithm: "Symbolic"}, {algorithm: "Symbolic", removal: "true"},
+        {algorithm: "Saturate"}, {algorithm: "Saturate", removal: "true"}])
     .enter().append("g")
       .attr("transform", function(d,i) { return "translate(" + (i * 90) + "," + (0) + ")"})
 
   keys.append("path")
-      .attr("class", function(d) { return "point " + algClass(d.algorithm); })
-      .classed("removal", function(d) { return d.algorithm.match(/\+R/); })
+      .attr("class", function(d) { return "point " + d.algorithm.toLowerCase(); })
+      .classed("removal", function(d) { return d.removal == "true"; })
       .attr("d", d3.svg.symbol().type(function (d) { return data_shape(d) }).size(150));
 
   keys.append("text")
       .style("text-anchor", "end")
       .attr("dx", -15)
       .attr("dy", ".31em")
-      .text(function(d) { return algName(d.algorithm); });
+      .text(function(d) { return d.algorithm + (d.removal == "true" ? "+R" : ""); });
 
   function data_shape(d) {
     a = d.algorithm
     shape =  a.match(/Enumerate/) ? "diamond" :
       a.match(/Symbolic/) ? "square" :
-      a.match(/Counting/) ? "circle" :
+      a.match(/Bound/) ? "circle" :
       a.match(/Saturate/) ? "cross" :
       "triangle-down";
     if (shape == "triangle-down")
@@ -112,16 +92,16 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
       .interpolate("linear");
 
   d3.tsv(datafile, type, function(error, data) {
-    data = data.filter(function(d) { return d.algorithm != "?" })
+    data = data.filter(function(d) { return d.algorithm != "?" && !d.algorithm.match(/Bound/) })
 
     var averages = d3.nest()
-        .key(function(d) { return d.algorithm; })
+        .key(function(d) { return [d.algorithm, d.removal]; })
         .key(function(d) { return nearestTimeout(d.time); })
         .rollup(function(d) { return d3.mean(d, function(g) { return +g.steps; })})
         .entries(data);
 
     x.domain([10,d3.max(data, function(d) { return d.steps })]);
-    y.domain([-0.3,d3.max(data, function(d) { return d.time })]);
+    y.domain([-0.3,d3.max(data, function(d) { return (d.time / Math.pow(d["weight.mean"],0)) })]);
 
     timeouts.forEach(function(t) {
       svg.append("line")
@@ -133,12 +113,14 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
     });
 
     averages.forEach(function(d) {
+      algorithm = d.key.split(",")[0];
+      removal = d.key.split(",")[1];
       svg.append("path")
-          .attr("class", "outline " + algClass(d.key))
+          .attr("class", "outline " + algorithm.toLowerCase())
           .attr("d", line(d.values));
       svg.append("path")
-          .attr("class", "line " + algClass(d.key))
-          .classed("removal", function(_) { return d.key.match(/\+R/) })
+          .attr("class", "line " + algorithm.toLowerCase())
+          .classed("removal", function(_) { return removal == "true"; })
           .attr("d", line(d.values));
     });
 
@@ -166,10 +148,10 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
     svg.selectAll(".point")
         .data(data)
       .enter().append("path")
-        .attr("class", function(d) { return "point " + algClass(d.algorithm); })
+        .attr("class", function(d) { return "point " + d.algorithm.toLowerCase(); })
         .classed("violation", function(d) { return d.violation; })
-        .classed("removal", function(d) { return d.algorithm.match(/\+R/); })
-        .attr("transform", function(d) { return "translate(" + x(d.steps) + "," + y(d.time) + ")"; })
+        .classed("removal", function(d) { return d.removal == "true"; })
+        .attr("transform", function(d) { return "translate(" + x(d.steps) + "," + y(d.time / Math.pow(d["weight.mean"],0)) + ")"; })
         .attr("d", d3.svg.symbol().type(function(d) { return data_shape(d) }).size(function(d) { return data_size(d); }))
       
   });
