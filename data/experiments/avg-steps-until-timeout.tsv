@@ -1,351 +1,351 @@
-history	object	algorithm	steps	concurrency	time	violation
-ScalObject-msq.0.log	atomic-queue	Enumerate+C	33*	3.8 ± 0.7	5.0419s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)	33*	3.8 ± 0.7	5.7164s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)+R	33*	3.8 ± 0.7	5.73s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic	39*	3.9 ± 0.7	5.0651s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic+R	39*	3.9 ± 0.7	5.078s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate	375*	3.1 ± 1.0	5.005s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate+R	3138*	3.1 ± 0.9	5.0023s*	false
-ScalObject-msq.1.log	atomic-queue	Enumerate+C	17*	3.4 ± 1.6	5.0118s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)	31*	3.5 ± 1.3	5.1357s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)+R	59*	4.0 ± 1.4	5.3473s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic	35*	3.5 ± 1.3	5.569s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic+R	76*	3.9 ± 1.3	5.1158s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate	334*	3.6 ± 1.1	5.0106s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate+R	1012*	3.6 ± 1.0	5.0021s*	false
-ScalObject-msq.2.log	atomic-queue	Enumerate+C	18*	3.2 ± 1.7	5.0103s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)	33*	3.3 ± 1.7	5.6648s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)+R	84*	3.5 ± 1.5	7.1187s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic	34*	3.2 ± 1.7	5.215s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic+R	86*	3.5 ± 1.5	5.2758s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate	393*	3.5 ± 1.0	5.0013s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate+R	1288*	3.2 ± 1.1	5.0095s*	false
-ScalObject-msq.3.log	atomic-queue	Enumerate+C	52*	1.0 ± 0.0	5.6525s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)	34*	1.0 ± 0.0	5.7395s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)+R	278*	1.0 ± 0.0	5.0157s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic	52*	1.0 ± 0.0	5.7623s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic+R	820*	1.0 ± 0.0	5.0105s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate	378*	1.0 ± 0.0	5.0123s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate+R	1289*	1.5 ± 1.1	5.01s*	false
-ScalObject-msq.4.log	atomic-queue	Enumerate+C	50*	1.0 ± 0.0	5.0529s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)	34*	1.0 ± 0.0	5.5414s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)+R	128*	1.0 ± 0.0	5.0108s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic	50*	1.0 ± 0.0	5.1489s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic+R	176*	1.0 ± 0.0	5.0322s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate	358*	1.0 ± 0.0	5.0059s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate+R	2001*	1.6 ± 1.2	5.0033s*	false
-ScalObject-msq.5.log	atomic-queue	Enumerate+C	32*	3.4 ± 1.1	5.0075s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)	34*	3.4 ± 1.1	5.7995s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)+R	70*	3.6 ± 0.9	5.0856s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic	38*	3.5 ± 1.1	6.7001s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic+R	77*	3.6 ± 0.9	5.0943s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate	370*	3.6 ± 0.8	5.0097s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate+R	1270*	3.8 ± 1.1	5.0035s*	false
-ScalObject-msq.6.log	atomic-queue	Enumerate+C	17*	3.6 ± 1.4	5.0046s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)	30*	4.5 ± 1.5	5.6392s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)+R	30*	4.5 ± 1.5	5.6654s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic	31*	4.5 ± 1.5	5.2383s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic+R	31*	4.5 ± 1.5	5.2749s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate	357*	4.0 ± 1.0	5.0044s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate+R	1270*	3.6 ± 1.1	5.0086s*	false
-ScalObject-msq.7.log	atomic-queue	Enumerate+C	17*	3.5 ± 1.1	5.0042s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)	34*	3.1 ± 1.0	5.6809s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)+R	70*	3.0 ± 0.8	5.0103s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic	36*	3.1 ± 0.9	5.1261s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic+R	76*	3.0 ± 0.7	5.0687s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate	394*	3.9 ± 1.1	5.0036s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate+R	1414*	3.8 ± 1.0	5.0017s*	false
-ScalObject-msq.8.log	atomic-queue	Enumerate+C	15*	3.2 ± 1.0	5.0135s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)	30*	3.4 ± 0.8	5.8419s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)+R	78*	3.5 ± 1.0	5.0784s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic	38*	3.3 ± 0.9	5.0488s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic+R	102*	3.5 ± 0.9	5.2845s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate	308*	3.5 ± 1.2	5.0052s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate+R	1585*	3.6 ± 1.1	5.0074s*	false
-ScalObject-msq.9.log	atomic-queue	Enumerate+C	18*	3.2 ± 0.8	5.0095s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)	32*	3.2 ± 0.6	6.2365s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)+R	60*	3.0 ± 0.8	5.0654s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic	38*	3.2 ± 0.6	5.9175s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic+R	79*	3.1 ± 0.8	5.072s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate	333*	3.5 ± 1.0	5.002s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate+R	2439*	3.5 ± 1.0	5.0072s*	false
-ScalObject-msq.0.log	atomic-queue	Enumerate+C	36*	3.8 ± 0.7	25.0045s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)	42*	3.8 ± 0.9	25.7157s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)+R	78*	3.6 ± 1.1	25.537s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic	54*	3.9 ± 1.0	26.8369s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic+R	157*	3.5 ± 0.9	26.3997s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate	627*	3.1 ± 0.9	25.0006s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate+R	4453*	3.0 ± 0.9	25.0019s*	false
-ScalObject-msq.1.log	atomic-queue	Enumerate+C	17*	3.4 ± 1.6	25.0055s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)	45*	3.8 ± 1.5	35.3445s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)+R	250*	3.7 ± 1.2	25.0215s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic	51*	4.0 ± 1.5	26.8108s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic+R	295*	3.7 ± 1.1	25.2069s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate	498*	3.6 ± 0.9	25.0035s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate+R	2122*	3.5 ± 1.0	25.0009s*	false
-ScalObject-msq.2.log	atomic-queue	Enumerate+C	21*	3.2 ± 1.6	25.0038s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)	48*	3.2 ± 1.6	28.4588s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)+R	175*	3.7 ± 1.3	25.0254s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic	51*	3.2 ± 1.6	25.1149s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic+R	216*	3.5 ± 1.2	26.2032s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate	592*	3.6 ± 1.1	25.0045s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate+R	1554*	3.2 ± 1.0	25.0028s*	false
-ScalObject-msq.3.log	atomic-queue	Enumerate+C	72*	1.0 ± 0.0	25.1909s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)	44*	1.0 ± 0.0	25.8421s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)+R	1006*	1.0 ± 0.3	25.4369s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic	72*	1.0 ± 0.0	27.3494s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic+R	1033*	1.1 ± 0.5	28.1895s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate	604*	1.0 ± 0.0	25.0051s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate+R	1943*	1.9 ± 1.2	25.004s*	false
-ScalObject-msq.4.log	atomic-queue	Enumerate+C	72*	1.0 ± 0.0	25.693s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)	46*	1.0 ± 0.0	28.8107s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)+R	166*	1.0 ± 0.0	27.648s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic	72*	1.0 ± 0.0	27.9147s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic+R	1490*	1.0 ± 0.2	25.6127s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate	608*	1.0 ± 0.0	25.0008s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate+R	3044*	2.2 ± 1.4	25.0038s*	false
-ScalObject-msq.5.log	atomic-queue	Enumerate+C	39*	3.5 ± 1.1	25.0066s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)	46*	3.4 ± 1.1	28.2428s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)+R	126*	3.7 ± 0.9	25.2873s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic	51*	3.5 ± 1.0	26.6122s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic+R	184*	3.6 ± 0.9	25.0618s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate	558*	3.5 ± 1.0	25.0061s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate+R	1515*	3.9 ± 1.1	25.0083s*	false
-ScalObject-msq.6.log	atomic-queue	Enumerate+C	17*	3.6 ± 1.4	25.0129s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)	41*	3.9 ± 1.7	30.822s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)+R	80*	4.2 ± 1.4	30.3376s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic	54*	3.9 ± 1.6	28.3616s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic+R	84*	4.3 ± 1.4	25.0079s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate	591*	3.8 ± 1.1	25.0075s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate+R	1724*	3.6 ± 1.1	25.0095s*	false
-ScalObject-msq.7.log	atomic-queue	Enumerate+C	18*	3.5 ± 1.1	25.0117s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)	46*	2.9 ± 0.9	28.6973s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)+R	103*	3.2 ± 0.7	25.037s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic	55*	3.0 ± 0.9	28.5412s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic+R	208*	3.4 ± 1.0	25.5414s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate	609*	3.9 ± 1.2	25.0021s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate+R	6134*	3.6 ± 1.1	25.0049s*	false
-ScalObject-msq.8.log	atomic-queue	Enumerate+C	17*	3.3 ± 1.0	25.0118s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)	43*	3.4 ± 1.0	25.7816s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)+R	202*	3.6 ± 1.1	25.3877s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic	53*	3.4 ± 1.0	27.9176s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic+R	218*	3.5 ± 1.1	25.4215s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate	493*	3.6 ± 1.1	25.0045s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate+R	3770*	3.6 ± 1.1	25.007s*	false
-ScalObject-msq.9.log	atomic-queue	Enumerate+C	26*	3.1 ± 0.7	25.0076s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)	45*	3.0 ± 0.7	31.3138s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)+R	170*	3.3 ± 1.0	25.0168s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic	57*	2.9 ± 0.7	30.501s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic+R	262*	3.4 ± 1.0	25.1273s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate	564*	3.5 ± 0.9	25.0018s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate+R	2764*	3.5 ± 1.0	25.0122s*	false
-ScalObject-msq.0.log	atomic-queue	Enumerate+C	39*	3.9 ± 0.7	50.016s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)	54*	3.9 ± 1.0	66.7217s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)+R	155*	3.5 ± 0.9	54.0865s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic	60*	3.9 ± 1.0	50.9814s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic+R	269*	3.3 ± 0.9	50.7463s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate	779*	3.1 ± 0.9	50.1132s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate+R	6875*	3.0 ± 1.0	50.0036s*	false
-ScalObject-msq.1.log	atomic-queue	Enumerate+C	31*	3.5 ± 1.3	50.001s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)	47*	3.9 ± 1.5	66.6544s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)+R	297*	3.7 ± 1.1	56.0116s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic	59*	4.0 ± 1.4	53.7878s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic+R	358*	3.6 ± 1.0	51.9363s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate	628*	3.6 ± 1.1	50.0092s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate+R	2696*	3.5 ± 0.9	50.0081s*	false
-ScalObject-msq.2.log	atomic-queue	Enumerate+C	31*	3.4 ± 1.7	50.0128s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)	50*	3.2 ± 1.6	50.6686s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)+R	210*	3.5 ± 1.2	52.897s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic	61*	3.2 ± 1.5	50.1595s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic+R	230*	3.5 ± 1.1	52.7877s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate	747*	3.3 ± 1.3	50.0053s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate+R	1692*	3.2 ± 1.0	50.0065s*	false
-ScalObject-msq.3.log	atomic-queue	Enumerate+C	84*	1.0 ± 0.0	53.7441s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)	50*	1.0 ± 0.0	51.4629s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)+R	1020*	1.1 ± 0.4	66.495s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic	82*	1.0 ± 0.0	50.6049s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic+R	1043*	1.1 ± 0.5	53.2434s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate	754*	1.0 ± 0.0	50.0047s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate+R	2961*	2.3 ± 1.3	50.0107s*	false
-ScalObject-msq.4.log	atomic-queue	Enumerate+C	84*	1.0 ± 0.0	54.0016s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)	50*	1.0 ± 0.0	52.6463s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)+R	426*	1.0 ± 0.0	50.0023s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic	82*	1.0 ± 0.0	52.4569s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic+R	1511*	1.1 ± 0.4	51.2501s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate	722*	1.0 ± 0.0	50.0103s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate+R	3551*	2.5 ± 1.6	50.0093s*	false
-ScalObject-msq.5.log	atomic-queue	Enumerate+C	39*	3.5 ± 1.1	50.8711s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)	51*	3.5 ± 1.0	58.9112s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)+R	177*	3.6 ± 0.9	50.3576s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic	59*	3.5 ± 1.0	54.1764s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic+R	387*	3.6 ± 0.8	50.7489s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate	699*	3.5 ± 1.1	50.0082s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate+R	2457*	3.8 ± 1.3	50.0103s*	false
-ScalObject-msq.6.log	atomic-queue	Enumerate+C	17*	3.6 ± 1.4	50.0079s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)	50*	3.8 ± 1.6	59.2937s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)+R	86*	4.3 ± 1.4	61.3143s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic	60*	4.0 ± 1.6	51.4836s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic+R	94*	4.3 ± 1.3	52.657s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate	710*	3.8 ± 1.0	50.0081s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate+R	1881*	3.6 ± 1.0	50.0063s*	false
-ScalObject-msq.7.log	atomic-queue	Enumerate+C	19*	3.4 ± 1.1	50.0162s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)	50*	2.9 ± 0.9	51.6557s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)+R	208*	3.4 ± 1.0	53.9422s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic	62*	3.0 ± 0.8	53.3151s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic+R	304*	3.6 ± 1.1	50.3912s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate	758*	3.9 ± 1.2	50.0005s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate+R	8102*	3.5 ± 1.1	50.0117s*	false
-ScalObject-msq.8.log	atomic-queue	Enumerate+C	19*	3.4 ± 1.0	50.0102s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)	52*	3.4 ± 1.1	71.2426s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)+R	217*	3.5 ± 1.1	52.234s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic	62*	3.4 ± 1.1	53.7564s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic+R	266*	3.5 ± 1.3	50.0993s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate	647*	3.6 ± 1.1	50.0083s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate+R	5175*	3.5 ± 1.1	50.0015s*	false
-ScalObject-msq.9.log	atomic-queue	Enumerate+C	28*	3.1 ± 0.6	50.0025s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)	49*	3.0 ± 0.7	50.6752s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)+R	262*	3.4 ± 1.0	50.3261s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic	64*	3.0 ± 0.8	61.9027s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic+R	299*	3.4 ± 1.0	51.0361s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate	700*	3.5 ± 0.9	50.0086s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate+R	3429*	3.6 ± 1.0	50.0071s*	false
-ScalObject-msq.0.log	atomic-queue	Enumerate+C	41*	3.8 ± 0.8	75.0092s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)	56*	3.9 ± 1.0	79.9434s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)+R	160*	3.5 ± 0.9	76.4919s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic	68*	3.7 ± 1.1	82.2769s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic+R	403*	3.1 ± 1.0	76.2206s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate	875*	3.1 ± 1.0	75.0094s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate+R	7716*	3.0 ± 1.0	75.0077s*	false
-ScalObject-msq.1.log	atomic-queue	Enumerate+C	31*	3.5 ± 1.3	75.0062s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)	49*	4.0 ± 1.5	81.9332s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)+R	304*	3.7 ± 1.1	76.5029s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic	61*	4.0 ± 1.4	77.2221s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic+R	389*	3.6 ± 1.0	76.0876s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate	724*	3.6 ± 1.1	75.0033s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate+R	2895*	3.5 ± 0.9	75.0103s*	false
-ScalObject-msq.2.log	atomic-queue	Enumerate+C	32*	3.3 ± 1.7	75.0103s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)	53*	3.1 ± 1.6	79.996s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)+R	216*	3.5 ± 1.2	82.2249s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic	65*	3.2 ± 1.5	77.1603s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic+R	238*	3.5 ± 1.1	82.7061s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate	850*	3.3 ± 1.3	75.0006s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate+R	3303*	3.4 ± 1.3	75.008s*	false
-ScalObject-msq.3.log	atomic-queue	Enumerate+C	90*	1.0 ± 0.0	76.0095s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)	54*	1.0 ± 0.0	88.7061s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)+R	1022*	1.1 ± 0.4	94.6624s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic	90*	1.0 ± 0.0	79.7366s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic+R	1067*	1.2 ± 0.8	77.8451s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate	838*	1.0 ± 0.0	75.0079s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate+R	3462*	2.6 ± 1.4	75.0117s*	false
-ScalObject-msq.4.log	atomic-queue	Enumerate+C	90*	1.0 ± 0.0	76.7316s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)	56*	1.0 ± 0.0	111.1552s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)+R	812*	1.0 ± 0.0	75.115s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic	88*	1.0 ± 0.0	75.233s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic+R	1521*	1.1 ± 0.5	79.7623s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate	814*	1.0 ± 0.0	75.1079s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate+R	3845*	2.7 ± 1.6	75.1189s*	false
-ScalObject-msq.5.log	atomic-queue	Enumerate+C	41*	3.5 ± 1.1	75.8877s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)	55*	3.5 ± 1.0	80.9521s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)+R	380*	3.6 ± 0.8	75.384s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic	65*	3.6 ± 0.9	81.3276s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic+R	416*	3.6 ± 0.8	77.8794s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate	775*	3.5 ± 1.1	75.0049s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate+R	2622*	3.8 ± 1.3	75.0064s*	false
-ScalObject-msq.6.log	atomic-queue	Enumerate+C	17*	3.6 ± 1.4	75.0065s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)	54*	3.9 ± 1.6	111.4819s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)+R	88*	4.3 ± 1.4	82.5745s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic	66*	4.1 ± 1.5	81.1863s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic+R	100*	4.4 ± 1.3	81.8679s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate	806*	3.7 ± 1.1	75.0082s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate+R	1979*	3.6 ± 1.0	75.0076s*	false
-ScalObject-msq.7.log	atomic-queue	Enumerate+C	23*	3.2 ± 1.2	75.007s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)	55*	3.0 ± 0.9	94.4719s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)+R	256*	3.5 ± 1.1	75.5003s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic	68*	3.0 ± 0.8	79.3933s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic+R	320*	3.6 ± 1.1	79.3187s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate	838*	3.8 ± 1.2	75.0102s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate+R	8789*	3.5 ± 1.1	75.0075s*	false
-ScalObject-msq.8.log	atomic-queue	Enumerate+C	19*	3.4 ± 1.0	75.0025s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)	53*	3.4 ± 1.0	82.218s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)+R	222*	3.5 ± 1.1	77.8379s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic	67*	3.5 ± 1.1	80.2046s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic+R	309*	3.5 ± 1.2	75.8904s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate	780*	3.6 ± 1.1	75.0094s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate+R	5555*	3.5 ± 1.1	75.0068s*	false
-ScalObject-msq.9.log	atomic-queue	Enumerate+C	28*	3.1 ± 0.6	75.0081s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)	53*	2.9 ± 0.7	79.0066s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)+R	290*	3.4 ± 1.0	75.2398s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic	69*	3.0 ± 0.8	89.7579s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic+R	333*	3.5 ± 1.0	75.8219s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate	795*	3.5 ± 0.9	75.0085s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate+R	3567*	3.6 ± 1.0	75.0048s*	false
-ScalObject-msq.0.log	atomic-queue	Enumerate+C	41*	3.8 ± 0.8	100.0634s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)	59*	3.9 ± 1.0	112.2722s*	false
-ScalObject-msq.0.log	atomic-queue	Counting(4)+R	253*	3.3 ± 0.9	100.5925s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic	72*	3.7 ± 1.1	107.7224s*	false
-ScalObject-msq.0.log	atomic-queue	Symbolic+R	435*	3.1 ± 1.0	100.1072s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate	959*	3.1 ± 0.9	100.0098s*	false
-ScalObject-msq.0.log	atomic-queue	Saturate+R	8290*	3.0 ± 1.0	100.0096s*	false
-ScalObject-msq.1.log	atomic-queue	Enumerate+C	31*	3.5 ± 1.3	100.0026s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)	50*	4.0 ± 1.5	123.6959s*	false
-ScalObject-msq.1.log	atomic-queue	Counting(4)+R	333*	3.7 ± 1.1	101.3888s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic	63*	3.9 ± 1.4	100.1731s*	false
-ScalObject-msq.1.log	atomic-queue	Symbolic+R	413*	3.6 ± 1.0	101.4752s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate	787*	3.6 ± 1.0	100.0069s*	false
-ScalObject-msq.1.log	atomic-queue	Saturate+R	5163*	3.6 ± 1.0	100.0093s*	false
-ScalObject-msq.2.log	atomic-queue	Enumerate+C	32*	3.3 ± 1.7	100.0099s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)	58*	3.2 ± 1.5	104.4592s*	false
-ScalObject-msq.2.log	atomic-queue	Counting(4)+R	218*	3.5 ± 1.2	104.2619s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic	72*	3.3 ± 1.5	110.577s*	false
-ScalObject-msq.2.log	atomic-queue	Symbolic+R	242*	3.5 ± 1.1	102.7482s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate	907*	3.2 ± 1.2	100.0041s*	false
-ScalObject-msq.2.log	atomic-queue	Saturate+R	4316*	3.6 ± 1.2	100.0061s*	false
-ScalObject-msq.3.log	atomic-queue	Enumerate+C	96*	1.0 ± 0.0	104.5606s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)	56*	1.0 ± 0.0	103.6983s*	false
-ScalObject-msq.3.log	atomic-queue	Counting(4)+R	1024*	1.1 ± 0.4	102.0844s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic	96*	1.0 ± 0.0	109.7748s*	false
-ScalObject-msq.3.log	atomic-queue	Symbolic+R	1075*	1.2 ± 0.9	109.9688s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate	926*	1.0 ± 0.0	100.115s*	false
-ScalObject-msq.3.log	atomic-queue	Saturate+R	3808*	2.6 ± 1.4	100.1154s*	false
-ScalObject-msq.4.log	atomic-queue	Enumerate+C	96*	1.0 ± 0.0	105.8836s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)	56*	1.0 ± 0.0	114.7126s*	false
-ScalObject-msq.4.log	atomic-queue	Counting(4)+R	1386*	1.0 ± 0.0	100.0436s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic	94*	1.0 ± 0.0	102.7439s*	false
-ScalObject-msq.4.log	atomic-queue	Symbolic+R	1527*	1.1 ± 0.5	107.764s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate	882*	1.0 ± 0.0	100.0079s*	false
-ScalObject-msq.4.log	atomic-queue	Saturate+R	3955*	2.7 ± 1.6	100.0018s*	false
-ScalObject-msq.5.log	atomic-queue	Enumerate+C	41*	3.5 ± 1.1	100.0102s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)	59*	3.5 ± 1.0	115.2221s*	false
-ScalObject-msq.5.log	atomic-queue	Counting(4)+R	391*	3.6 ± 0.8	101.9975s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic	69*	3.6 ± 0.9	107.1193s*	false
-ScalObject-msq.5.log	atomic-queue	Symbolic+R	428*	3.6 ± 0.8	100.0183s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate	864*	3.5 ± 1.0	100.0095s*	false
-ScalObject-msq.5.log	atomic-queue	Saturate+R	2710*	3.8 ± 1.3	100.0101s*	false
-ScalObject-msq.6.log	atomic-queue	Enumerate+C	17*	3.6 ± 1.4	100.0197s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)	54*	3.9 ± 1.6	111.9935s*	false
-ScalObject-msq.6.log	atomic-queue	Counting(4)+R	92*	4.3 ± 1.4	119.8222s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic	68*	4.1 ± 1.5	100.5859s*	false
-ScalObject-msq.6.log	atomic-queue	Symbolic+R	104*	4.4 ± 1.3	105.0513s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate	868*	3.7 ± 1.1	100.0105s*	false
-ScalObject-msq.6.log	atomic-queue	Saturate+R	2052*	3.6 ± 1.1	100.0065s*	false
-ScalObject-msq.7.log	atomic-queue	Enumerate+C	30*	3.1 ± 1.0	100.0137s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)	56*	3.0 ± 0.9	116.7112s*	false
-ScalObject-msq.7.log	atomic-queue	Counting(4)+R	302*	3.6 ± 1.1	101.2209s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic	72*	3.0 ± 0.8	104.3001s*	false
-ScalObject-msq.7.log	atomic-queue	Symbolic+R	326*	3.7 ± 1.1	100.3707s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate	901*	3.9 ± 1.1	100.0056s*	false
-ScalObject-msq.7.log	atomic-queue	Saturate+R	9151*	3.5 ± 1.1	100.0099s*	false
-ScalObject-msq.8.log	atomic-queue	Enumerate+C	19*	3.4 ± 1.0	100.0159s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)	54*	3.4 ± 1.0	107.6086s*	false
-ScalObject-msq.8.log	atomic-queue	Counting(4)+R	249*	3.5 ± 1.2	101.9648s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic	71*	3.5 ± 1.1	106.2482s*	false
-ScalObject-msq.8.log	atomic-queue	Symbolic+R	327*	3.5 ± 1.2	100.5607s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate	833*	3.7 ± 1.1	100.1092s*	false
-ScalObject-msq.8.log	atomic-queue	Saturate+R	5908*	3.5 ± 1.0	100.0074s*	false
-ScalObject-msq.9.log	atomic-queue	Enumerate+C	31*	3.2 ± 0.6	100.0074s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)	57*	2.9 ± 0.7	138.1395s*	false
-ScalObject-msq.9.log	atomic-queue	Counting(4)+R	299*	3.4 ± 1.0	114.7593s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic	71*	3.1 ± 0.8	101.1391s*	false
-ScalObject-msq.9.log	atomic-queue	Symbolic+R	398*	3.5 ± 0.9	100.0997s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate	873*	3.4 ± 0.9	100.0089s*	false
-ScalObject-msq.9.log	atomic-queue	Saturate+R	3655*	3.6 ± 1.0	100.0066s*	false
+history	object	algorithm	removal	violation	timeout	stepout	steps	checks	size.min	size.max	size.mean	size.sigma	width.min	width.max	width.mean	width.sigma	weight.min	weight.max	weight.mean	weight.sigma	memory	time
+ScalObject-msq.0.log	atomic-queue	Enumerate	false	false	true	false	33	15	0	18	9.606060606060606	5.08637514554443	1	4	3.757575757575758	0.6628679652796166	0	15	8.696969696969697	4.260904015617229	12828	5.01011
+ScalObject-msq.0.log	atomic-queue	Bound(4)	false	false	true	false	33	15	0	18	9.606060606060606	5.08637514554443	1	4	3.757575757575758	0.6628679652796166	0	15	8.696969696969697	4.260904015617229	13316	6.203117
+ScalObject-msq.0.log	atomic-queue	Bound(4)	true	false	true	false	33	15	0	18	9.606060606060606	5.08637514554443	1	4	3.757575757575758	0.6628679652796166	0	15	8.696969696969697	4.260904015617229	13356	6.33408
+ScalObject-msq.0.log	atomic-queue	Symbolic	false	false	true	false	39	18	0	21	11.179487179487179	5.995049689762885	1	5	3.8974358974358974	0.7179969137476481	0	16	9.717948717948717	4.610906509506152	15796	5.687208
+ScalObject-msq.0.log	atomic-queue	Symbolic	true	false	true	false	39	18	0	21	11.179487179487179	5.995049689762885	1	5	3.8974358974358974	0.7179969137476481	0	16	9.717948717948717	4.610906509506152	15964	5.692735
+ScalObject-msq.0.log	atomic-queue	Saturate	false	false	true	false	371	183	0	187	93.81671159029649	53.47840019611203	1	5	3.137466307277628	0.9753574789273785	0	107	54.63611859838275	28.645733421792208	12196	5.005848
+ScalObject-msq.0.log	atomic-queue	Saturate	true	false	true	false	3130	1564	0	47	16.16517571884984	8.714710678837086	1	5	3.0520766773162937	0.9245266902701536	0	37	13.334185303514378	7.57631762412442	11704	5.006683
+ScalObject-msq.1.log	atomic-queue	Enumerate	false	false	true	false	17	7	0	10	5.411764705882353	3.2607288972216737	1	5	3.411764705882353	1.5834623270468011	0	9	5.117647058823529	2.93433026730923	13236	5.010239
+ScalObject-msq.1.log	atomic-queue	Bound(4)	false	false	true	false	31	14	0	17	8.96774193548387	4.915851034953099	1	5	3.4838709677419355	1.3132902127084087	0	14	7.612903225806452	3.774276260466711	13348	5.671106
+ScalObject-msq.1.log	atomic-queue	Bound(4)	true	false	true	false	59	28	0	16	7.915254237288136	3.8204898385760395	1	6	3.9661016949152543	1.4259431445709192	0	14	7.067796610169491	3.4132824063510405	12508	5.918193
+ScalObject-msq.1.log	atomic-queue	Symbolic	false	false	true	false	34	16	0	18	9.735294117647058	5.3161208432431595	1	5	3.5	1.2613124477737825	0	14	8.117647058823529	3.96014007926681	15924	5.34611
+ScalObject-msq.1.log	atomic-queue	Symbolic	true	false	true	false	74	36	0	16	8.64864864864865	3.76149355512835	1	6	3.8783783783783785	1.34421849478345	0	14	7.702702702702703	3.325821475326962	15992	5.288491
+ScalObject-msq.1.log	atomic-queue	Saturate	false	false	true	false	334	165	0	168	84.82335329341318	48.25802078518178	1	6	3.6497005988023954	1.0738706199016383	0	98	49.73652694610779	27.351939084559582	11708	5.008207
+ScalObject-msq.1.log	atomic-queue	Saturate	true	false	true	false	1012	504	0	48	22.872529644268774	10.539106034575333	1	6	3.5780632411067192	1.0117181886899038	0	47	21.66600790513834	10.540727412925877	11712	5.010219
+ScalObject-msq.2.log	atomic-queue	Enumerate	false	false	true	false	18	7	0	11	5.555555555555555	3.551672716477029	1	6	3.2222222222222223	1.7339365466222858	0	10	4.888888888888889	3.0657287568305054	12928	5.0119
+ScalObject-msq.2.log	atomic-queue	Bound(4)	false	false	true	false	32	15	0	17	9.15625	5.199934087671596	1	6	3.34375	1.6773515029701225	0	13	7.125	3.773848895209103	13088	5.086876
+ScalObject-msq.2.log	atomic-queue	Bound(4)	true	false	true	false	82	39	0	17	7.439024390243903	3.928677599194177	1	6	3.4878048780487805	1.5254540100462013	0	14	6.7439024390243905	3.4598614673250134	13484	5.110106
+ScalObject-msq.2.log	atomic-queue	Symbolic	false	false	true	false	34	17	0	17	9.617647058823529	5.376800365894948	1	6	3.235294117647059	1.6888013236829962	0	13	7.470588235294118	3.917600487911918	15436	5.832995
+ScalObject-msq.2.log	atomic-queue	Symbolic	true	false	true	false	86	42	0	18	7.9186046511627906	4.414455175974041	1	6	3.5232558139534884	1.5086163835159874	0	14	7.069767441860465	3.690339368020615	16484	5.700126
+ScalObject-msq.2.log	atomic-queue	Saturate	false	false	true	false	388	191	0	196	98.23453608247422	56.0705917478793	1	6	3.4742268041237114	0.9761262203421033	0	116	58.45103092783505	31.584842044823603	12824	5.011199
+ScalObject-msq.2.log	atomic-queue	Saturate	true	false	true	false	1284	640	0	132	26.569314641744548	28.133974532414662	1	6	3.2390965732087227	1.1407554319801725	0	73	18.83411214953271	16.25895438612834	12188	5.011952
+ScalObject-msq.3.log	atomic-queue	Enumerate	false	false	true	false	50	25	0	25	12.5	7.301802964378883	1	1	1.0	0.0	0	18	9.98	5.246923296717102	13672	5.584374
+ScalObject-msq.3.log	atomic-queue	Bound(4)	false	false	true	false	32	16	0	16	8.0	4.71100290671708	1	1	1.0	0.0	0	12	6.8125	3.5870510846475225	13244	5.008922
+ScalObject-msq.3.log	atomic-queue	Bound(4)	true	false	true	false	242	121	0	12	3.62396694214876	2.6487145490573605	1	1	1.0	0.0	0	12	3.62396694214876	2.6487145490573605	12612	5.006649
+ScalObject-msq.3.log	atomic-queue	Symbolic	false	false	true	false	50	25	0	25	12.5	7.301802964378883	1	1	1.0	0.0	0	18	9.98	5.246923296717102	15840	5.60183
+ScalObject-msq.3.log	atomic-queue	Symbolic	true	false	true	false	772	386	0	12	4.603626943005182	2.6397907604263096	1	1	1.0	0.0	0	12	4.603626943005182	2.6397907604263096	15440	5.015397
+ScalObject-msq.3.log	atomic-queue	Saturate	false	false	true	false	372	185	0	186	93.0	53.76744373122862	1	1	1.0	0.0	0	101	51.11827956989247	28.676314018914415	12456	5.006959
+ScalObject-msq.3.log	atomic-queue	Saturate	true	false	true	false	1289	643	0	139	19.43366951124903	32.697828136785205	1	6	1.543056633048875	1.1324752876198771	0	87	13.853374709076803	20.246449113946255	12120	5.009237
+ScalObject-msq.4.log	atomic-queue	Enumerate	false	false	true	false	50	25	0	25	12.5	7.301802964378883	1	1	1.0	0.0	0	18	9.66	5.442125935135786	12968	5.008271
+ScalObject-msq.4.log	atomic-queue	Bound(4)	false	false	true	false	34	17	0	17	8.5	4.998484618846844	1	1	1.0	0.0	0	14	6.794117647058823	4.088264147938035	13472	6.006159
+ScalObject-msq.4.log	atomic-queue	Bound(4)	true	false	true	false	126	63	0	14	5.976190476190476	3.208649025903049	1	1	1.0	0.0	0	14	5.976190476190476	3.208649025903049	12752	5.410085
+ScalObject-msq.4.log	atomic-queue	Symbolic	false	false	true	false	50	25	0	25	12.5	7.301802964378883	1	1	1.0	0.0	0	18	9.66	5.442125935135786	15528	5.01197
+ScalObject-msq.4.log	atomic-queue	Symbolic	true	false	true	false	170	85	0	19	8.5	5.236704777154897	1	1	1.0	0.0	0	19	8.5	5.236704777154897	16520	5.181707
+ScalObject-msq.4.log	atomic-queue	Saturate	false	false	true	false	347	173	0	174	87.0	50.30345952661528	1	1	1.0	0.0	0	90	49.305475504322764	25.25280386175322	12540	5.011347
+ScalObject-msq.4.log	atomic-queue	Saturate	true	false	true	false	1997	997	0	125	18.332999499248874	24.56250008625903	1	6	1.5678517776664997	1.1660821313858547	0	71	14.14121181772659	14.546005006771253	12216	5.005957
+ScalObject-msq.5.log	atomic-queue	Enumerate	false	false	true	false	32	15	0	17	9.1875	4.835603841934224	1	5	3.40625	1.1319231422671772	0	13	7.15625	3.5479151079053772	13088	5.012425
+ScalObject-msq.5.log	atomic-queue	Bound(4)	false	false	true	false	34	16	0	18	9.676470588235293	5.0914104031248675	1	5	3.3823529411764706	1.1013684568382927	0	14	7.529411764705882	3.759717059935027	12644	6.318365
+ScalObject-msq.5.log	atomic-queue	Bound(4)	true	false	true	false	69	33	0	15	7.913043478260869	3.2118307516887636	1	5	3.5942028985507246	0.9126374284861584	0	13	6.811594202898551	2.7454527234021873	12988	5.033804
+ScalObject-msq.5.log	atomic-queue	Symbolic	false	false	true	false	38	17	0	21	10.710526315789474	5.708731551905483	1	5	3.473684210526316	1.1086110644298959	0	17	8.368421052631579	4.34598946922008	16052	7.539136
+ScalObject-msq.5.log	atomic-queue	Symbolic	true	false	true	false	73	35	0	17	8.342465753424657	3.6063954691715225	1	5	3.589041095890411	0.8949800810687875	0	14	7.136986301369863	3.0014582959933858	16432	5.160207
+ScalObject-msq.5.log	atomic-queue	Saturate	false	false	true	false	362	179	0	182	91.7707182320442	52.29629970578813	1	5	3.544198895027624	0.7550253021380057	0	108	55.93922651933702	28.757976756039383	11708	5.011573
+ScalObject-msq.5.log	atomic-queue	Saturate	true	false	true	false	1260	627	0	145	32.61825396825397	31.76446503885608	1	6	3.8079365079365077	1.0898916863355337	0	78	22.13968253968254	16.121151131326183	11980	5.007735
+ScalObject-msq.6.log	atomic-queue	Enumerate	false	false	true	false	17	6	0	11	5.470588235294118	3.2038579685049933	1	6	3.588235294117647	1.3719886811400708	0	9	4.411764705882353	2.42535625036333	12472	5.007426
+ScalObject-msq.6.log	atomic-queue	Bound(4)	false	false	true	false	30	13	0	17	9.233333333333333	5.123867971416296	1	6	4.533333333333333	1.5252661346824676	0	13	6.966666666666667	3.633971261091202	13132	6.224086
+ScalObject-msq.6.log	atomic-queue	Bound(4)	true	false	true	false	30	13	0	17	9.233333333333333	5.123867971416296	1	6	4.533333333333333	1.5252661346824676	0	13	6.966666666666667	3.633971261091202	12780	6.267086
+ScalObject-msq.6.log	atomic-queue	Symbolic	false	false	true	false	31	14	0	17	9.483870967741936	5.22730630275247	1	6	4.516129032258065	1.5026857675938214	0	13	7.161290322580645	3.7336021408602926	15804	5.857109
+ScalObject-msq.6.log	atomic-queue	Symbolic	true	false	true	false	31	14	0	17	9.483870967741936	5.22730630275247	1	6	4.516129032258065	1.5026857675938214	0	13	7.161290322580645	3.7336021408602926	15992	5.908537
+ScalObject-msq.6.log	atomic-queue	Saturate	false	false	true	false	352	174	0	177	89.51988636363636	50.83070221004759	1	6	4.042613636363637	0.9433540142315596	0	96	51.51420454545455	25.854288659727068	12468	5.00238
+ScalObject-msq.6.log	atomic-queue	Saturate	true	false	true	false	1259	628	0	77	28.04527402700556	15.700556919543713	1	6	3.5830023828435267	1.102128397224604	0	54	21.860206513105638	11.627067959605602	12552	5.005905
+ScalObject-msq.7.log	atomic-queue	Enumerate	false	false	true	false	17	7	0	10	5.470588235294118	3.023194648439452	1	5	3.5294117647058822	1.124591429076774	0	8	4.882352941176471	2.420804436059852	13368	5.002252
+ScalObject-msq.7.log	atomic-queue	Bound(4)	false	false	true	false	32	15	0	17	9.03125	4.70747089827059	1	5	3.09375	0.9954533737723926	0	11	6.875	2.9265194564588595	12956	5.09946
+ScalObject-msq.7.log	atomic-queue	Bound(4)	true	false	true	false	70	34	0	14	7.7	2.9308454535276622	1	5	3.0142857142857142	0.7707112683834658	0	8	5.257142857142857	1.557457183310922	12696	5.472696
+ScalObject-msq.7.log	atomic-queue	Symbolic	false	false	true	false	36	17	0	19	10.027777777777779	5.2779114435872465	1	5	3.0833333333333335	0.9373214115613855	0	12	7.333333333333333	3.0612789110808856	15816	5.761669
+ScalObject-msq.7.log	atomic-queue	Symbolic	true	false	true	false	76	37	0	17	8.31578947368421	3.529723412453312	1	5	3.013157894736842	0.7392504501656908	0	10	5.5131578947368425	1.7549428940576692	16436	5.57671
+ScalObject-msq.7.log	atomic-queue	Saturate	false	false	true	false	388	191	0	196	98.4381443298969	56.379195941844365	1	6	3.881443298969072	1.1096783431249162	0	114	59.353092783505154	32.44110649972916	12676	5.010319
+ScalObject-msq.7.log	atomic-queue	Saturate	true	false	true	false	1388	692	0	115	30.569884726224785	25.038689905826068	1	6	3.760806916426513	1.0539136033774246	0	64	21.186599423631122	14.314186718770033	11728	5.008265
+ScalObject-msq.8.log	atomic-queue	Enumerate	false	false	true	false	15	6	0	9	4.8	2.7825989906663056	1	4	3.2	1.0141851056742202	0	8	4.666666666666667	2.6095064302514777	12748	5.016711
+ScalObject-msq.8.log	atomic-queue	Bound(4)	false	false	true	false	29	13	0	16	8.413793103448276	4.500136834263332	1	4	3.3793103448275863	0.8200084103858012	0	11	6.517241379310345	2.8109567468234578	13488	5.076631
+ScalObject-msq.8.log	atomic-queue	Bound(4)	true	false	true	false	76	37	0	14	7.802631578947368	2.9258377117997303	1	5	3.486842105263158	1.0262348146193652	0	11	6.447368421052632	2.1441065697525716	13460	5.449506
+ScalObject-msq.8.log	atomic-queue	Symbolic	false	false	true	false	38	17	0	21	10.631578947368421	5.687449685582397	1	5	3.3157894736842106	0.9330352433277149	0	14	7.684210526315789	3.2970524359329816	16264	5.572953
+ScalObject-msq.8.log	atomic-queue	Symbolic	true	false	true	false	98	48	0	14	8.489795918367347	2.9471107569264205	1	5	3.5	0.9333456062030595	0	12	7.244897959183674	2.4665231779609273	15908	5.076604
+ScalObject-msq.8.log	atomic-queue	Saturate	false	false	true	false	306	151	0	154	77.73856209150327	44.24014514573617	1	6	3.480392156862745	1.2124793091912844	0	88	44.91830065359477	24.905786905156173	12976	5.00542
+ScalObject-msq.8.log	atomic-queue	Saturate	true	false	true	false	1317	656	0	60	22.703113135914958	10.15730819429576	1	6	3.558086560364465	1.1435049762897846	0	44	20.68109339407745	9.116939510472992	12520	5.00834
+ScalObject-msq.9.log	atomic-queue	Enumerate	false	false	true	false	18	8	0	10	5.555555555555555	3.0141279535317405	1	4	3.1666666666666665	0.7859052479933758	0	9	4.777777777777778	2.712835624246889	12932	5.022556
+ScalObject-msq.9.log	atomic-queue	Bound(4)	false	false	true	false	32	15	0	17	9.0625	4.838938166648253	1	4	3.15625	0.6278162356983543	0	15	8.03125	4.410283986174776	13208	6.868107
+ScalObject-msq.9.log	atomic-queue	Bound(4)	true	false	true	false	52	25	0	16	8.461538461538462	3.6216210131925157	1	4	2.9423076923076925	0.6977122711211271	0	12	6.980769230769231	2.7829338772793726	12868	5.117708
+ScalObject-msq.9.log	atomic-queue	Symbolic	false	false	true	false	36	17	0	19	10.083333333333334	5.421517974041694	1	4	3.1944444444444446	0.6242455764220837	0	15	8.694444444444445	4.5720857662524494	15884	5.250792
+ScalObject-msq.9.log	atomic-queue	Symbolic	true	false	true	false	73	36	0	16	9.616438356164384	3.7477035078768997	1	5	3.0547945205479454	0.7973987389370811	0	15	8.397260273972602	3.3941932686877854	15424	5.025734
+ScalObject-msq.9.log	atomic-queue	Saturate	false	false	true	false	326	161	0	164	82.7239263803681	47.2320345454791	1	5	3.450920245398773	1.0117991955329735	0	91	47.90184049079755	25.248235819296102	12272	5.012624
+ScalObject-msq.9.log	atomic-queue	Saturate	true	false	true	false	2419	1207	0	58	19.797436957420423	10.275178764333695	1	6	3.49896651508888	1.0489956235134807	0	46	16.245556014882183	7.996435820161083	12152	5.009157
+ScalObject-msq.0.log	atomic-queue	Enumerate	false	false	true	false	36	16	0	20	10.38888888888889	5.535742447445007	1	5	3.8333333333333335	0.69693205243717	0	16	9.222222222222221	4.447221354708778	12388	25.020711
+ScalObject-msq.0.log	atomic-queue	Bound(4)	false	false	true	false	42	21	0	21	11.880952380952381	6.313757263164694	1	5	3.761904761904762	0.878177819915423	0	16	10.166666666666666	4.731403476959942	13164	28.933216
+ScalObject-msq.0.log	atomic-queue	Bound(4)	true	false	true	false	60	29	0	21	11.15	5.44875977180564	1	5	3.9166666666666665	1.0133292447137263	0	16	9.766666666666667	4.093677086727222	12928	25.375213
+ScalObject-msq.0.log	atomic-queue	Symbolic	false	false	true	false	54	25	0	29	14.907407407407407	8.052348815937433	1	5	3.8518518518518516	1.0169767888003982	0	22	12.203703703703704	5.767114414095584	16164	31.414644
+ScalObject-msq.0.log	atomic-queue	Symbolic	true	false	true	false	155	76	0	21	11.606451612903227	4.367079879947044	1	5	3.496774193548387	0.8927863398822533	0	16	9.516129032258064	3.3889714922746625	15488	26.874188
+ScalObject-msq.0.log	atomic-queue	Saturate	false	false	true	false	612	304	0	307	154.0702614379085	88.3602022037247	1	5	3.142156862745098	0.9141838793188761	0	172	87.31372549019608	47.73178892334799	12276	25.01034
+ScalObject-msq.0.log	atomic-queue	Saturate	true	false	true	false	4382	2190	0	160	26.885440438156092	24.13039262488258	1	5	2.987448653582839	0.9313713343326386	0	96	21.697626654495664	16.502124086456302	11984	25.010915
+ScalObject-msq.1.log	atomic-queue	Enumerate	false	false	true	false	17	7	0	10	5.411764705882353	3.2607288972216737	1	5	3.411764705882353	1.5834623270468011	0	9	5.117647058823529	2.93433026730923	12972	25.012649
+ScalObject-msq.1.log	atomic-queue	Bound(4)	false	false	true	false	43	19	0	24	12.069767441860465	6.652587569750619	1	6	3.697674418604651	1.406361122101497	0	18	9.55813953488372	4.604874878510068	13588	27.957453
+ScalObject-msq.1.log	atomic-queue	Bound(4)	true	false	true	false	246	121	0	16	8.825203252032521	3.052923483360612	1	6	3.6666666666666665	1.1687542062203775	0	15	7.544715447154472	2.6147213767212114	13164	25.48995
+ScalObject-msq.1.log	atomic-queue	Symbolic	false	false	true	false	50	23	0	27	13.98	7.80761010234272	1	6	4.0	1.5118578920369088	0	21	10.96	5.532685807534887	16360	26.194188
+ScalObject-msq.1.log	atomic-queue	Symbolic	true	false	true	false	293	145	0	21	9.887372013651877	3.806664701839096	1	6	3.6587030716723548	1.1008563092367785	0	19	8.593856655290102	3.4693713367889343	16000	25.741883
+ScalObject-msq.1.log	atomic-queue	Saturate	false	false	true	false	495	246	0	248	125.05252525252526	71.48651007115048	1	6	3.606060606060606	0.9310020484044238	0	142	72.98787878787878	41.039428243977355	12692	25.006457
+ScalObject-msq.1.log	atomic-queue	Saturate	true	false	true	false	2122	1059	0	63	32.82422243166824	13.627104943475901	1	6	3.5216776625824693	0.9567504593921032	0	60	31.501413760603203	13.471301078168729	12500	25.009447
+ScalObject-msq.2.log	atomic-queue	Enumerate	false	false	true	false	19	8	0	11	5.842105263157895	3.6706517419289884	1	6	3.263157894736842	1.6945043609385506	0	10	5.052631578947368	3.0636522179060575	12508	25.00267
+ScalObject-msq.2.log	atomic-queue	Bound(4)	false	false	true	false	48	22	0	26	13.0625	7.206398604786154	1	6	3.1666666666666665	1.6155274921876708	0	20	10.1875	5.514608259461332	12856	32.571144
+ScalObject-msq.2.log	atomic-queue	Bound(4)	true	false	true	false	135	67	0	18	9.28888888888889	4.30699997169943	1	6	3.577777777777778	1.31277686016212	0	14	8.074074074074074	3.5985685994046768	13080	25.044799
+ScalObject-msq.2.log	atomic-queue	Symbolic	false	false	true	false	51	25	0	26	13.823529411764707	7.633363301593712	1	6	3.156862745098039	1.5795258658168	0	20	10.666666666666666	5.687413002997643	15736	28.690811
+ScalObject-msq.2.log	atomic-queue	Symbolic	true	false	true	false	214	106	0	25	10.02803738317757	5.024742431770826	1	6	3.5373831775700935	1.1732562419578847	0	19	8.378504672897197	3.909985484102666	15828	27.008079
+ScalObject-msq.2.log	atomic-queue	Saturate	false	false	true	false	584	291	0	292	147.29280821917808	84.41700918932678	1	6	3.585616438356164	1.0939716131435808	0	171	87.11986301369863	48.73285615056684	12256	25.009339
+ScalObject-msq.2.log	atomic-queue	Saturate	true	false	true	false	1546	771	0	263	55.53686934023286	70.81540979453115	1	6	3.1985769728331177	1.0434064418093532	0	142	33.42690815006468	36.429923336699076	12868	25.003961
+ScalObject-msq.3.log	atomic-queue	Enumerate	false	false	true	false	70	35	0	35	17.5	10.184885078289838	1	1	1.0	0.0	0	19	12.3	5.774381201554808	13220	25.664921
+ScalObject-msq.3.log	atomic-queue	Bound(4)	false	false	true	false	44	22	0	22	11.0	6.4375352787473155	1	1	1.0	0.0	0	17	8.954545454545455	4.729691201162181	12964	29.960276
+ScalObject-msq.3.log	atomic-queue	Bound(4)	true	false	true	false	972	486	0	12	4.631687242798354	2.6130749497516046	1	1	1.0	0.0	0	12	4.631687242798354	2.6130749497516046	12632	25.007262
+ScalObject-msq.3.log	atomic-queue	Symbolic	false	false	true	false	68	34	0	34	17.0	9.896479096500062	1	1	1.0	0.0	0	19	12.117647058823529	5.75761510475204	16536	25.079311
+ScalObject-msq.3.log	atomic-queue	Symbolic	true	false	true	false	1031	514	0	29	5.192046556741028	3.8759871629238862	1	4	1.0921435499515033	0.4320265664640157	0	20	4.9815712900097	3.1044362017268736	15616	28.432306
+ScalObject-msq.3.log	atomic-queue	Saturate	false	false	true	false	590	294	0	295	147.5	85.23240474336133	1	1	1.0	0.0	0	159	79.80508474576271	45.04856056985123	12572	25.011732
+ScalObject-msq.3.log	atomic-queue	Saturate	true	false	true	false	1897	947	0	170	42.7095413811281	48.41740627753604	1	6	1.8624143384290985	1.18559616257923	0	98	27.547706905640485	28.235764612110366	12164	25.012716
+ScalObject-msq.4.log	atomic-queue	Enumerate	false	false	true	false	70	35	0	35	17.5	10.184885078289838	1	1	1.0	0.0	0	23	12.471428571428572	6.464443279595998	12788	26.357982
+ScalObject-msq.4.log	atomic-queue	Bound(4)	false	false	true	false	44	22	0	22	11.0	6.4375352787473155	1	1	1.0	0.0	0	16	8.636363636363637	4.974777821804845	13388	25.017172
+ScalObject-msq.4.log	atomic-queue	Bound(4)	true	false	true	false	162	81	0	19	8.030864197530864	4.904583785161258	1	1	1.0	0.0	0	19	8.030864197530864	4.904583785161258	13252	26.828454
+ScalObject-msq.4.log	atomic-queue	Symbolic	false	false	true	false	68	34	0	34	17.0	9.896479096500062	1	1	1.0	0.0	0	22	12.176470588235293	6.319694817094541	16540	25.354588
+ScalObject-msq.4.log	atomic-queue	Symbolic	true	false	true	false	1474	736	0	19	6.822930800542741	4.09251340209513	1	3	1.0061058344640434	0.10725561111964609	0	19	6.82157394843962	4.089799370672776	15916	25.09522
+ScalObject-msq.4.log	atomic-queue	Saturate	false	false	true	false	596	297	0	298	149.0	86.09841935323813	1	1	1.0	0.0	0	155	79.99328859060402	42.77048328690671	12268	25.01228
+ScalObject-msq.4.log	atomic-queue	Saturate	true	false	true	false	3018	1507	0	203	36.511928429423456	44.674145479286544	1	6	2.212392312789927	1.4245883433918078	0	110	24.389662027833	24.57158110021467	12608	25.007071
+ScalObject-msq.5.log	atomic-queue	Enumerate	false	false	true	false	39	18	0	21	10.974358974358974	5.869130570810295	1	5	3.4871794871794872	1.0971684818034495	0	17	8.58974358974359	4.505656963125989	12768	25.012418
+ScalObject-msq.5.log	atomic-queue	Bound(4)	false	false	true	false	46	22	0	24	12.695652173913043	6.788452827223565	1	5	3.4130434782608696	1.0661683618666478	0	18	9.804347826086957	5.062364687760459	13220	32.688237
+ScalObject-msq.5.log	atomic-queue	Bound(4)	true	false	true	false	118	58	0	21	10.508474576271187	4.382844883990979	1	5	3.7203389830508473	0.9234420302615948	0	15	8.669491525423728	3.2582704361317676	13568	25.13367
+ScalObject-msq.5.log	atomic-queue	Symbolic	false	false	true	false	49	23	0	26	13.448979591836734	7.219941206160073	1	5	3.4285714285714284	1.0408329997330663	0	20	10.36734693877551	5.387848509806661	15616	25.024723
+ScalObject-msq.5.log	atomic-queue	Symbolic	true	false	true	false	154	76	0	22	11.571428571428571	4.547292727377399	1	5	3.655844155844156	0.8810263632139735	0	16	9.474025974025974	3.29626061050895	15904	25.199785
+ScalObject-msq.5.log	atomic-queue	Saturate	false	false	true	false	549	273	0	275	138.5009107468124	79.265368418723	1	6	3.5027322404371586	1.0065895132808493	0	159	82.79781420765028	44.806122442722945	12360	25.004462
+ScalObject-msq.5.log	atomic-queue	Saturate	true	false	true	false	1492	744	0	260	59.065013404825734	69.45450331440279	1	6	3.898793565683646	1.080191076701364	0	137	35.92828418230563	36.09445584474211	12184	25.009985
+ScalObject-msq.6.log	atomic-queue	Enumerate	false	false	true	false	17	6	0	11	5.470588235294118	3.2038579685049933	1	6	3.588235294117647	1.3719886811400708	0	9	4.411764705882353	2.42535625036333	12772	25.01833
+ScalObject-msq.6.log	atomic-queue	Bound(4)	false	false	true	false	39	19	0	20	11.256410256410257	5.856700834886969	1	6	4.0256410256410255	1.6620719391482977	0	14	8.333333333333334	4.067414368996944	12500	26.904248
+ScalObject-msq.6.log	atomic-queue	Bound(4)	true	false	true	false	78	37	0	23	11.653846153846153	5.4220016505071165	1	6	4.205128205128205	1.4447304548759559	0	17	9.576923076923077	4.394563438179932	13260	26.252844
+ScalObject-msq.6.log	atomic-queue	Symbolic	false	false	true	false	52	24	0	28	14.384615384615385	7.556723655010156	1	6	3.8076923076923075	1.6334549159045098	0	21	10.51923076923077	5.308115815836048	16048	27.071188
+ScalObject-msq.6.log	atomic-queue	Symbolic	true	false	true	false	84	40	0	26	12.571428571428571	6.198106423400644	1	6	4.261904761904762	1.40668839185666	0	18	10.142857142857142	4.706168362271451	15912	28.267211
+ScalObject-msq.6.log	atomic-queue	Saturate	false	false	true	false	585	290	0	294	147.65982905982906	84.37137923213282	1	6	3.8222222222222224	1.0897334655204376	0	166	82.27521367521368	44.80808946118387	12964	25.010736
+ScalObject-msq.6.log	atomic-queue	Saturate	true	false	true	false	1702	849	0	119	40.609870740305524	26.237406532860348	1	6	3.59165687426557	1.0916823921789949	0	100	34.82079905992949	24.77219363978081	12536	25.013335
+ScalObject-msq.7.log	atomic-queue	Enumerate	false	false	true	false	18	8	0	10	5.722222222222222	3.12119048847703	1	5	3.5	1.0981267472114393	0	8	5.055555555555555	2.4608038433722332	12792	25.004259
+ScalObject-msq.7.log	atomic-queue	Bound(4)	false	false	true	false	46	22	0	24	12.456521739130435	6.632266318668088	1	5	2.9347826086956523	0.9043640838375138	0	16	8.608695652173912	3.7266503331160554	12856	33.171542
+ScalObject-msq.7.log	atomic-queue	Bound(4)	true	false	true	false	86	42	0	22	9.627906976744185	4.954015629954461	1	5	3.0348837209302326	0.7103880367733525	0	14	6.232558139534884	2.6242059576841017	13016	26.705043
+ScalObject-msq.7.log	atomic-queue	Symbolic	false	false	true	false	53	25	0	28	14.226415094339623	7.697755690494276	1	5	2.981132075471698	0.8658158899544016	0	20	9.830188679245284	4.713874158173949	15920	26.022242
+ScalObject-msq.7.log	atomic-queue	Symbolic	true	false	true	false	207	101	0	23	9.932367149758454	4.619005241168789	1	6	3.4347826086956523	1.0260433127778155	0	17	7.3478260869565215	3.1676125904228694	15920	26.461589
+ScalObject-msq.7.log	atomic-queue	Saturate	false	false	true	false	595	295	0	299	150.22857142857143	86.08717406908849	1	6	3.9596638655462186	1.1684920300101156	0	173	88.61344537815125	48.82806867261839	12748	25.004001
+ScalObject-msq.7.log	atomic-queue	Saturate	true	false	true	false	5995	2995	0	193	27.180150125104255	28.357751469028376	1	6	3.5666388657214347	1.084680210945762	0	102	19.668723936613844	15.460348314090869	11872	25.008211
+ScalObject-msq.8.log	atomic-queue	Enumerate	false	false	true	false	17	7	0	10	5.352941176470588	3.040172208744684	1	4	3.2941176470588234	0.9851843661437781	0	8	5.0	2.622022120425379	12872	25.012517
+ScalObject-msq.8.log	atomic-queue	Bound(4)	false	false	true	false	42	20	0	22	11.69047619047619	6.334143233257302	1	5	3.4047619047619047	0.9642265650547379	0	14	8.238095238095237	3.580499514201375	13344	25.25922
+ScalObject-msq.8.log	atomic-queue	Bound(4)	true	false	true	false	199	98	0	18	9.597989949748744	3.2782102748236093	1	6	3.557788944723618	1.1305791559895193	0	18	8.417085427135678	3.0254659124860166	13012	25.429436
+ScalObject-msq.8.log	atomic-queue	Symbolic	false	false	true	false	52	24	0	28	14.192307692307692	7.740999736666894	1	5	3.423076923076923	1.054331008896048	0	18	9.634615384615385	4.3970972874218734	15840	26.592806
+ScalObject-msq.8.log	atomic-queue	Symbolic	true	false	true	false	217	107	0	23	10.433179723502304	4.215975517572671	1	6	3.5483870967741935	1.0923596941091405	0	21	9.244239631336406	4.010435057411899	15776	26.364862
+ScalObject-msq.8.log	atomic-queue	Saturate	false	false	true	false	489	242	0	246	123.52965235173824	70.7078644158324	1	6	3.5623721881390593	1.1165187115867243	0	139	71.0961145194274	40.10274924699288	12428	25.011993
+ScalObject-msq.8.log	atomic-queue	Saturate	true	false	true	false	3655	1825	0	184	31.35376196990424	30.78383763420391	1	6	3.5786593707250343	1.0461616227517325	0	105	24.36032831737346	17.288343529815993	12112	25.006627
+ScalObject-msq.9.log	atomic-queue	Enumerate	false	false	true	false	24	11	0	13	7.041666666666667	3.723943289469968	1	4	3.125	0.6796738348201514	0	12	6.208333333333333	3.4763695038842224	12968	25.007501
+ScalObject-msq.9.log	atomic-queue	Bound(4)	false	false	true	false	43	21	0	22	11.790697674418604	6.3228916664348	1	4	3.0930232558139537	0.6478518896127894	0	15	9.534883720930232	4.605115360787095	13404	26.488133
+ScalObject-msq.9.log	atomic-queue	Bound(4)	true	false	true	false	142	70	0	16	10.401408450704226	3.189210220726255	1	5	3.26056338028169	1.0083310940585097	0	15	9.190140845070422	2.868100660447903	13156	25.253392
+ScalObject-msq.9.log	atomic-queue	Symbolic	false	false	true	false	53	26	0	27	14.20754716981132	7.641884812224608	1	4	2.9245283018867925	0.7029896761407826	0	19	10.981132075471699	5.157110722240835	16284	28.750932
+ScalObject-msq.9.log	atomic-queue	Symbolic	true	false	true	false	250	124	0	16	11.044	3.0063627305216967	1	5	3.404	1.0378306073140802	0	15	9.788	2.7578030951550137	15448	25.135101
+ScalObject-msq.9.log	atomic-queue	Saturate	false	false	true	false	548	272	0	275	138.242700729927	79.22857868037794	1	5	3.4872262773722627	0.860371273055048	0	146	76.25912408759125	40.65144128981	12152	25.010083
+ScalObject-msq.9.log	atomic-queue	Saturate	true	false	true	false	2752	1374	0	218	33.96765988372093	42.72821686900442	1	6	3.542514534883721	0.9978212906292004	0	122	24.374273255813954	24.28439653643222	11840	25.010617
+ScalObject-msq.0.log	atomic-queue	Enumerate	false	false	true	false	38	17	0	21	10.921052631578947	5.851225692559052	1	5	3.8947368421052633	0.7274343542114684	0	16	9.552631578947368	4.554162743362371	12928	50.013562
+ScalObject-msq.0.log	atomic-queue	Bound(4)	false	false	true	false	52	24	0	28	14.384615384615385	7.736224559654778	1	5	3.8076923076923075	1.010502913782636	0	22	11.846153846153847	5.570878817511352	13448	56.691447
+ScalObject-msq.0.log	atomic-queue	Bound(4)	true	false	true	false	151	74	0	21	11.3841059602649	4.199779243646533	1	5	3.4834437086092715	0.9007722955757589	0	16	9.370860927152318	3.3098154914128473	13072	52.880204
+ScalObject-msq.0.log	atomic-queue	Symbolic	false	false	true	false	59	28	0	31	16.203389830508474	8.817654041392636	1	5	3.9322033898305087	1.0147941319958143	0	23	13.067796610169491	6.214178467575972	16216	52.286977
+ScalObject-msq.0.log	atomic-queue	Symbolic	true	false	true	false	253	125	0	23	12.015810276679842	4.3029782777862495	1	5	3.2648221343873516	0.9199226093140498	0	17	9.608695652173912	3.115667569404118	15448	50.203327
+ScalObject-msq.0.log	atomic-queue	Saturate	false	false	true	false	753	374	0	378	189.28021248339974	108.6803572259647	1	5	3.0624169986719787	0.9397164586668594	0	210	107.13413014608234	59.84836171586878	12376	50.011228
+ScalObject-msq.0.log	atomic-queue	Saturate	true	false	true	false	6719	3357	0	160	31.235302872451257	21.939010518216456	1	5	3.031105819318351	0.9549621961287009	0	96	26.298109837773477	15.711345132799696	11776	50.003999
+ScalObject-msq.1.log	atomic-queue	Enumerate	false	false	true	false	29	13	0	16	8.448275862068966	4.64132221690999	1	5	3.4482758620689653	1.3518824678560457	0	13	7.206896551724138	3.5494396976829576	13132	50.012949
+ScalObject-msq.1.log	atomic-queue	Bound(4)	false	false	true	false	47	21	0	26	13.170212765957446	7.331644186366773	1	6	3.893617021276596	1.492503623958771	0	20	10.361702127659575	5.147500583503541	13788	78.13146
+ScalObject-msq.1.log	atomic-queue	Bound(4)	true	false	true	false	293	145	0	21	9.887372013651877	3.806664701839096	1	6	3.6587030716723548	1.1008563092367785	0	19	8.593856655290102	3.4693713367889343	13532	50.305302
+ScalObject-msq.1.log	atomic-queue	Symbolic	false	false	true	false	58	27	0	31	15.96551724137931	8.817776139342454	1	6	3.9655172413793105	1.4383899044561523	0	23	12.327586206896552	6.193907394224381	16160	51.596147
+ScalObject-msq.1.log	atomic-queue	Symbolic	true	false	true	false	342	170	0	25	11.11111111111111	4.714667254946155	1	6	3.646198830409357	1.06420024695972	0	21	9.769005847953217	4.351408395047926	16332	50.269959
+ScalObject-msq.1.log	atomic-queue	Saturate	false	false	true	false	619	308	0	310	156.05169628432955	89.39493069435959	1	6	3.604200323101777	1.0474418515113992	0	172	89.84168012924071	49.97271884626458	12408	50.005332
+ScalObject-msq.1.log	atomic-queue	Saturate	true	false	true	false	2690	1343	0	173	43.69925650557621	29.10278331142791	1	6	3.5230483271375466	0.9278691952424688	0	110	39.174721189591075	20.485987201996064	12408	50.011791
+ScalObject-msq.2.log	atomic-queue	Enumerate	false	false	true	false	31	14	0	17	8.903225806451612	5.081698132905821	1	6	3.3548387096774195	1.7038855027411945	0	13	6.935483870967742	3.6781832822827787	13440	50.020971
+ScalObject-msq.2.log	atomic-queue	Bound(4)	false	false	true	false	50	24	0	26	13.58	7.508063692335281	1	6	3.18	1.586807859721355	0	20	10.52	5.646888252726054	12560	59.401729
+ScalObject-msq.2.log	atomic-queue	Bound(4)	true	false	true	false	208	103	0	22	9.639423076923077	4.532201867948075	1	6	3.5528846153846154	1.1865149496540315	0	17	8.115384615384615	3.6363906623771896	12616	50.321133
+ScalObject-msq.2.log	atomic-queue	Symbolic	false	false	true	false	61	29	0	32	16.360655737704917	9.09218123240191	1	6	3.2459016393442623	1.545485228063968	0	23	12.360655737704919	6.509052124759911	16732	50.005634
+ScalObject-msq.2.log	atomic-queue	Symbolic	true	false	true	false	228	113	0	32	11.162280701754385	6.610962599617898	1	6	3.504385964912281	1.143831597142488	0	23	9.149122807017545	4.852416548865795	16084	53.114057
+ScalObject-msq.2.log	atomic-queue	Saturate	false	false	true	false	728	362	0	365	183.125	104.97136325941091	1	6	3.2513736263736264	1.3356803985465158	0	203	106.49725274725274	58.70221864523318	12068	50.007762
+ScalObject-msq.2.log	atomic-queue	Saturate	true	false	true	false	1666	831	0	323	72.64105642256902	91.90403452845268	1	6	3.1842737094837936	1.0064142548500978	0	164	41.9327731092437	46.546940823785555	12156	50.012461
+ScalObject-msq.3.log	atomic-queue	Enumerate	false	false	true	false	82	41	0	41	20.5	11.915598242701938	1	1	1.0	0.0	0	23	13.524390243902438	6.120650352268008	12672	55.156841
+ScalObject-msq.3.log	atomic-queue	Bound(4)	false	false	true	false	50	25	0	25	12.5	7.301802964378883	1	1	1.0	0.0	0	18	9.98	5.246923296717102	13328	60.268049
+ScalObject-msq.3.log	atomic-queue	Bound(4)	true	false	true	false	1018	508	0	22	4.93418467583497	3.14334532561534	1	3	1.0638506876227898	0.35037514002257547	0	15	4.822200392927308	2.778768052394213	13376	51.463437
+ScalObject-msq.3.log	atomic-queue	Symbolic	false	false	true	false	80	40	0	40	20.0	11.627118018568552	1	1	1.0	0.0	0	22	13.3	6.026103554589225	16392	54.271553
+ScalObject-msq.3.log	atomic-queue	Symbolic	true	false	true	false	1041	519	0	34	5.444764649375601	4.63588365646589	1	4	1.1200768491834774	0.5151459780527349	0	22	5.126801152737752	3.424917495895482	15556	55.671024
+ScalObject-msq.3.log	atomic-queue	Saturate	false	false	true	false	738	368	0	369	184.5	106.59414971943708	1	1	1.0	0.0	0	193	98.91192411924119	55.65872062767981	12220	50.011937
+ScalObject-msq.3.log	atomic-queue	Saturate	true	false	true	false	2927	1461	0	208	55.03450632046464	56.92365020912769	1	6	2.312265117868124	1.2944211861679416	0	112	34.3631704817219	31.416332862580322	12148	50.011606
+ScalObject-msq.4.log	atomic-queue	Enumerate	false	false	true	false	80	40	0	40	20.0	11.627118018568552	1	1	1.0	0.0	0	27	14.025	7.3329065852049276	12196	50.450109
+ScalObject-msq.4.log	atomic-queue	Bound(4)	false	false	true	false	50	25	0	25	12.5	7.301802964378883	1	1	1.0	0.0	0	18	9.66	5.442125935135786	12484	61.426451
+ScalObject-msq.4.log	atomic-queue	Bound(4)	true	false	true	false	246	123	0	19	8.963414634146341	4.673272127141274	1	1	1.0	0.0	0	19	8.963414634146341	4.673272127141274	13416	50.003502
+ScalObject-msq.4.log	atomic-queue	Symbolic	false	false	true	false	80	40	0	40	20.0	11.627118018568552	1	1	1.0	0.0	0	27	14.025	7.3329065852049276	16056	50.009621
+ScalObject-msq.4.log	atomic-queue	Symbolic	true	false	true	false	1509	753	0	30	7.168323392975481	4.67223058428714	1	4	1.0603048376408217	0.3745131762888751	0	25	7.106693174287607	4.467523717794696	15428	53.251045
+ScalObject-msq.4.log	atomic-queue	Saturate	false	false	true	false	714	356	0	357	178.5	103.13007690762842	1	1	1.0	0.0	0	187	94.9733893557423	51.73441312375287	12092	50.010452
+ScalObject-msq.4.log	atomic-queue	Saturate	true	false	true	false	3541	1767	0	203	47.34029935046597	51.891550696579486	1	6	2.5148263202485173	1.576170681251545	0	130	31.785653770121435	30.57485170592679	12172	50.012674
+ScalObject-msq.5.log	atomic-queue	Enumerate	false	false	true	false	39	18	0	21	10.974358974358974	5.869130570810295	1	5	3.4871794871794872	1.0971684818034495	0	17	8.58974358974359	4.505656963125989	13092	50.010516
+ScalObject-msq.5.log	atomic-queue	Bound(4)	false	false	true	false	51	24	0	27	13.96078431372549	7.5231928974703965	1	5	3.450980392156863	1.0259381168510324	0	21	10.764705882352942	5.6412347417710516	13180	65.987284
+ScalObject-msq.5.log	atomic-queue	Bound(4)	true	false	true	false	157	77	0	22	11.636942675159236	4.529324490079771	1	5	3.656050955414013	0.8749606276576127	0	16	9.522292993630574	3.284747165193311	13308	50.183661
+ScalObject-msq.5.log	atomic-queue	Symbolic	false	false	true	false	57	27	0	30	15.491228070175438	8.420050065633188	1	5	3.508771929824561	0.984211196440071	0	24	12.0	6.458659745975609	16320	57.05884
+ScalObject-msq.5.log	atomic-queue	Symbolic	true	false	true	false	384	190	0	23	10.638020833333334	4.172108337360991	1	5	3.609375	0.7971985053417122	0	20	8.932291666666666	3.2374439452321737	16204	51.019507
+ScalObject-msq.5.log	atomic-queue	Saturate	false	false	true	false	684	340	0	343	172.25438596491227	98.76884690947539	1	6	3.510233918128655	1.0842465470443508	0	192	100.95029239766082	54.50251931718602	11928	50.013401
+ScalObject-msq.5.log	atomic-queue	Saturate	true	false	true	false	2416	1205	0	283	62.839817880794705	66.12568185692616	1	6	3.7690397350993377	1.3208197737052882	0	150	40.56043046357616	35.00802142421401	12160	50.00658
+ScalObject-msq.6.log	atomic-queue	Enumerate	false	false	true	false	17	6	0	11	5.470588235294118	3.2038579685049933	1	6	3.588235294117647	1.3719886811400708	0	9	4.411764705882353	2.42535625036333	13264	50.011847
+ScalObject-msq.6.log	atomic-queue	Bound(4)	false	false	true	false	45	22	0	23	12.622222222222222	6.492264239038254	1	6	3.7555555555555555	1.694316107078921	0	16	9.244444444444444	4.457657127988543	12612	53.620814
+ScalObject-msq.6.log	atomic-queue	Bound(4)	true	false	true	false	86	41	0	27	12.895348837209303	6.47897789645584	1	6	4.27906976744186	1.3945369274902917	0	18	10.313953488372093	4.7829639540818745	12832	67.247454
+ScalObject-msq.6.log	atomic-queue	Symbolic	false	false	true	false	60	28	0	32	16.466666666666665	8.844162427248156	1	6	3.966666666666667	1.5727194052607132	0	25	12.183333333333334	6.547069901397519	16372	58.613789
+ScalObject-msq.6.log	atomic-queue	Symbolic	true	false	true	false	92	44	0	30	13.91304347826087	7.367365184129984	1	6	4.326086956521739	1.3596112538465706	0	20	10.847826086956522	5.0555915787551635	15436	51.530339
+ScalObject-msq.6.log	atomic-queue	Saturate	false	false	true	false	706	350	0	355	177.89093484419263	101.85041598764008	1	6	3.784702549575071	1.040509141286069	0	196	99.34560906515581	55.53877530385982	12168	50.013036
+ScalObject-msq.6.log	atomic-queue	Saturate	true	false	true	false	1885	940	0	211	52.69920424403183	45.27822956581721	1	6	3.609549071618037	1.0468403873349872	0	141	43.253050397877985	35.05267718437557	12200	50.012706
+ScalObject-msq.7.log	atomic-queue	Enumerate	false	false	true	false	19	9	0	10	5.947368421052632	3.188062529195198	1	5	3.4210526315789473	1.1212983285105116	0	8	5.157894736842105	2.432720422689537	13228	50.009908
+ScalObject-msq.7.log	atomic-queue	Bound(4)	false	false	true	false	50	24	0	26	13.46	7.228656125986013	1	5	2.94	0.8668497975016035	0	18	9.28	4.252442275460355	13320	60.656747
+ScalObject-msq.7.log	atomic-queue	Bound(4)	true	false	true	false	207	101	0	23	9.932367149758454	4.619005241168789	1	6	3.4347826086956523	1.0260433127778155	0	17	7.3478260869565215	3.1676125904228694	13280	52.103967
+ScalObject-msq.7.log	atomic-queue	Symbolic	false	false	true	false	60	29	0	31	16.0	8.748849803337347	1	5	3.0166666666666666	0.8334463200240202	0	20	10.883333333333333	5.307786626274317	16316	53.238389
+ScalObject-msq.7.log	atomic-queue	Symbolic	true	false	true	false	294	146	0	23	10.591836734693878	4.724859969813453	1	6	3.6020408163265305	1.081079563315821	0	17	7.7482993197278915	3.2058894979774095	15920	50.520715
+ScalObject-msq.7.log	atomic-queue	Saturate	false	false	true	false	740	367	0	372	186.4445945945946	106.9265978699458	1	6	3.891891891891892	1.1652102619129896	0	205	108.21891891891892	59.26053728188712	12552	50.00793
+ScalObject-msq.7.log	atomic-queue	Saturate	true	false	true	false	8013	4004	0	193	29.718083114938224	25.076737319430144	1	6	3.550230874828404	1.1016163901756297	0	102	23.751528765755648	15.325590563902558	11784	50.013005
+ScalObject-msq.8.log	atomic-queue	Enumerate	false	false	true	false	19	8	0	11	5.894736842105263	3.2980589719494313	1	4	3.3684210526315788	0.9551338658818385	0	8	5.2631578947368425	2.600044983866366	12740	50.021798
+ScalObject-msq.8.log	atomic-queue	Bound(4)	false	false	true	false	50	23	0	27	13.66	7.405486107595902	1	5	3.36	1.0253919111386494	0	18	9.32	4.181787529128603	12516	57.250515
+ScalObject-msq.8.log	atomic-queue	Bound(4)	true	false	true	false	214	106	0	21	10.271028037383177	4.013054035774486	1	6	3.546728971962617	1.0985109645991142	0	19	9.093457943925234	3.8273360972756714	12508	50.951928
+ScalObject-msq.8.log	atomic-queue	Symbolic	false	false	true	false	57	28	0	29	15.421052631578947	8.400568366020268	1	5	3.3508771929824563	1.0605124783763649	0	18	10.350877192982455	4.801380858186882	15424	51.750462
+ScalObject-msq.8.log	atomic-queue	Symbolic	true	false	true	false	254	127	0	23	11.669291338582678	5.035141516253478	1	6	3.47244094488189	1.2114524105960685	0	22	10.539370078740157	4.952384461508944	15452	51.686955
+ScalObject-msq.8.log	atomic-queue	Saturate	false	false	true	false	634	315	0	318	159.78233438485805	91.6202579245254	1	6	3.5662460567823344	1.0810135563574845	0	165	89.38485804416403	48.86380619138302	12176	50.008189
+ScalObject-msq.8.log	atomic-queue	Saturate	true	false	true	false	5092	2545	0	184	34.829143754909666	27.30481294339226	1	6	3.522780832678712	1.0653704640981903	0	105	28.996465043205028	17.13244612849731	12768	50.013403
+ScalObject-msq.9.log	atomic-queue	Enumerate	false	false	true	false	28	13	0	15	8.035714285714286	4.246847570341357	1	4	3.107142857142857	0.6288900106557943	0	14	7.178571428571429	4.02817458362848	12628	50.00639
+ScalObject-msq.9.log	atomic-queue	Bound(4)	false	false	true	false	47	23	0	24	12.74468085106383	6.822176387106921	1	4	3.0	0.6915640748081247	0	17	10.085106382978724	4.767780393405404	12992	53.755862
+ScalObject-msq.9.log	atomic-queue	Bound(4)	true	false	true	false	257	127	0	17	11.15953307392996	3.051932753375868	1	5	3.424124513618677	1.0360125406749654	0	17	9.937743190661479	2.8716038984191963	13060	50.542698
+ScalObject-msq.9.log	atomic-queue	Symbolic	false	false	true	false	61	29	0	32	16.262295081967213	8.912354046199507	1	5	3.0491803278688523	0.8046993125426151	0	24	12.40983606557377	6.097477754996536	15920	51.561466
+ScalObject-msq.9.log	atomic-queue	Symbolic	true	false	true	false	297	147	0	25	12.25925925925926	4.069097880065993	1	5	3.441077441077441	1.0220852678021997	0	22	11.043771043771043	3.9303183010288043	15452	52.164225
+ScalObject-msq.9.log	atomic-queue	Saturate	false	false	true	false	684	339	0	344	172.24122807017545	98.84715560825455	1	5	3.4853801169590644	0.8849264812748506	0	181	93.54970760233918	50.54095812247533	12492	50.012068
+ScalObject-msq.9.log	atomic-queue	Saturate	true	false	true	false	3403	1699	0	242	42.070232148104616	48.965278867207395	1	6	3.5821334116955628	0.9961409535615217	0	132	30.238319130179253	28.060925795345657	12708	50.012706
+ScalObject-msq.0.log	atomic-queue	Enumerate	false	false	true	false	41	20	0	21	11.658536585365853	6.223382344423172	1	5	3.8292682926829267	0.771441476211587	0	16	10.024390243902438	4.698339094180244	12440	75.013472
+ScalObject-msq.0.log	atomic-queue	Bound(4)	false	false	true	false	54	25	0	29	14.907407407407407	8.052348815937433	1	5	3.8518518518518516	1.0169767888003982	0	22	12.203703703703704	5.767114414095584	12796	79.970841
+ScalObject-msq.0.log	atomic-queue	Bound(4)	true	false	true	false	159	78	0	23	11.867924528301886	4.611643502238256	1	5	3.509433962264151	0.8849510072136068	0	17	9.69182389937107	3.521991822700905	12900	79.421989
+ScalObject-msq.0.log	atomic-queue	Symbolic	false	false	true	false	62	31	0	31	16.919354838709676	9.174623567740005	1	5	3.838709677419355	1.0893455455500474	0	23	13.451612903225806	6.297742034487086	16184	75.540014
+ScalObject-msq.0.log	atomic-queue	Symbolic	true	false	true	false	341	169	0	23	12.19941348973607	4.693061174159757	1	5	3.196480938416422	0.9296358824294024	0	17	9.504398826979472	3.1758479190879325	15956	75.072595
+ScalObject-msq.0.log	atomic-queue	Saturate	false	false	true	false	845	421	0	423	212.31597633136096	122.03145539988313	1	5	3.132544378698225	0.975502683384948	0	241	119.93964497041421	67.4127654833324	11724	75.012761
+ScalObject-msq.0.log	atomic-queue	Saturate	true	false	true	false	7615	3805	0	160	34.227051871306635	22.444545172498596	1	5	3.0424162836506894	0.9706285175023274	0	96	29.477872619829284	17.30085769876006	11692	75.009645
+ScalObject-msq.1.log	atomic-queue	Enumerate	false	false	true	false	31	14	0	17	8.96774193548387	4.915851034953099	1	5	3.4838709677419355	1.3132902127084087	0	14	7.612903225806452	3.774276260466711	12752	75.01337
+ScalObject-msq.1.log	atomic-queue	Bound(4)	false	false	true	false	47	21	0	26	13.170212765957446	7.331644186366773	1	6	3.893617021276596	1.492503623958771	0	20	10.361702127659575	5.147500583503541	12948	78.67013
+ScalObject-msq.1.log	atomic-queue	Bound(4)	true	false	true	false	301	149	0	25	10.225913621262459	4.285105161585556	1	6	3.6744186046511627	1.092539889822202	0	21	8.87375415282392	3.8232632910500746	12632	77.024899
+ScalObject-msq.1.log	atomic-queue	Symbolic	false	false	true	false	61	29	0	32	16.721311475409838	9.225203064686406	1	6	3.9672131147540983	1.4019892191068388	0	23	12.78688524590164	6.372113082534867	16220	91.175657
+ScalObject-msq.1.log	atomic-queue	Symbolic	true	false	true	false	378	188	0	25	12.087301587301587	5.448120170197235	1	6	3.632275132275132	1.0247419852348338	0	24	10.796296296296296	5.254608893928828	16032	75.582208
+ScalObject-msq.1.log	atomic-queue	Saturate	false	false	true	false	712	354	0	357	179.28932584269663	102.8049947540503	1	6	3.580056179775281	1.0590423703839111	0	194	102.08707865168539	56.35629324039061	12508	75.012462
+ScalObject-msq.1.log	atomic-queue	Saturate	true	false	true	false	2795	1396	0	226	49.543828264758496	41.222155006300696	1	6	3.505545617173524	0.9164573498333942	0	140	42.34311270125224	25.762001636473155	11696	75.004758
+ScalObject-msq.2.log	atomic-queue	Enumerate	false	false	true	false	32	15	0	17	9.15625	5.199934087671596	1	6	3.34375	1.6773515029701225	0	13	7.125	3.773848895209103	13028	75.006075
+ScalObject-msq.2.log	atomic-queue	Bound(4)	false	false	true	false	51	25	0	26	13.823529411764707	7.633363301593712	1	6	3.156862745098039	1.5795258658168	0	20	10.666666666666666	5.687413002997643	13016	79.687758
+ScalObject-msq.2.log	atomic-queue	Bound(4)	true	false	true	false	214	106	0	25	10.02803738317757	5.024742431770826	1	6	3.5373831775700935	1.1732562419578847	0	19	8.378504672897197	3.909985484102666	13024	76.772849
+ScalObject-msq.2.log	atomic-queue	Symbolic	false	false	true	false	63	31	0	32	16.857142857142858	9.361653325956466	1	6	3.2222222222222223	1.5286979959180995	0	23	12.698412698412698	6.6735755291344345	15928	80.900842
+ScalObject-msq.2.log	atomic-queue	Symbolic	true	false	true	false	234	116	0	35	11.735042735042734	7.4244615560529	1	6	3.4914529914529915	1.1318314869926978	0	24	9.5	5.258347135010647	15504	77.307269
+ScalObject-msq.2.log	atomic-queue	Saturate	false	false	true	false	834	415	0	418	209.63309352517985	120.32656508372692	1	6	3.2673860911270984	1.281211958907598	0	233	120.71103117505996	66.37269140151979	12216	75.012588
+ScalObject-msq.2.log	atomic-queue	Saturate	true	false	true	false	1745	872	0	362	84.87163323782235	105.95331011992967	1	6	3.179942693409742	0.9859965602868646	0	185	47.985100286532955	53.32200311694367	11708	75.01339
+ScalObject-msq.3.log	atomic-queue	Enumerate	false	false	true	false	88	44	0	44	22.0	12.78109235703586	1	1	1.0	0.0	0	26	14.272727272727273	6.533252297281752	12516	80.560063
+ScalObject-msq.3.log	atomic-queue	Bound(4)	false	false	true	false	52	26	0	26	13.0	7.589983078851685	1	1	1.0	0.0	0	18	10.26923076923077	5.347219855307568	12720	81.96414
+ScalObject-msq.3.log	atomic-queue	Bound(4)	true	false	true	false	1020	509	0	23	4.968627450980392	3.2351413306492667	1	3	1.0676470588235294	0.3603677558706151	0	16	4.8431372549019605	2.8160659856803583	12668	75.169388
+ScalObject-msq.3.log	atomic-queue	Symbolic	false	false	true	false	86	43	0	43	21.5	12.492586036619997	1	1	1.0	0.0	0	25	14.011627906976743	6.375493865154592	15384	76.933251
+ScalObject-msq.3.log	atomic-queue	Symbolic	true	false	true	false	1060	528	0	35	5.789622641509434	5.286689849493453	1	5	1.181132075471698	0.6852159571557863	0	23	5.379245283018868	3.8861930117866907	15444	76.417401
+ScalObject-msq.3.log	atomic-queue	Saturate	false	false	true	false	824	411	0	412	206.0	119.0070910821075	1	1	1.0	0.0	0	216	109.96116504854369	61.86791438405492	12628	75.003592
+ScalObject-msq.3.log	atomic-queue	Saturate	true	false	true	false	3420	1708	0	252	67.75701754385965	66.05895574173037	1	6	2.608479532163743	1.4173902268439504	0	129	40.55818713450292	34.90883719811909	12432	75.010655
+ScalObject-msq.4.log	atomic-queue	Enumerate	false	false	true	false	88	44	0	44	22.0	12.78109235703586	1	1	1.0	0.0	0	28	15.204545454545455	7.933863245475696	12548	81.540563
+ScalObject-msq.4.log	atomic-queue	Bound(4)	false	false	true	false	54	27	0	27	13.5	7.8782001584022385	1	1	1.0	0.0	0	19	10.277777777777779	5.681538014819269	13040	80.63537
+ScalObject-msq.4.log	atomic-queue	Bound(4)	true	false	true	false	766	383	0	19	6.844647519582246	4.003350403194623	1	1	1.0	0.0	0	19	6.844647519582246	4.003350403194623	12688	75.465178
+ScalObject-msq.4.log	atomic-queue	Symbolic	false	false	true	false	86	43	0	43	21.5	12.492586036619997	1	1	1.0	0.0	0	28	14.918604651162791	7.796251159867978	15836	80.521811
+ScalObject-msq.4.log	atomic-queue	Symbolic	true	false	true	false	1517	757	0	34	7.299274884640738	4.99591714585164	1	4	1.075807514831905	0.42997985455841514	0	27	7.2050098879367175	4.656204327207909	16832	76.310327
+ScalObject-msq.4.log	atomic-queue	Saturate	false	false	true	false	792	395	0	396	198.0	114.38831993276987	1	1	1.0	0.0	0	207	104.97222222222223	57.729034743802835	12200	75.010955
+ScalObject-msq.4.log	atomic-queue	Saturate	true	false	true	false	3813	1904	0	204	52.815368476265405	54.71828552772098	1	6	2.639916076580121	1.5919363941397144	0	131	35.99239444007343	33.54472973243844	11944	75.007554
+ScalObject-msq.5.log	atomic-queue	Enumerate	false	false	true	false	39	18	0	21	10.974358974358974	5.869130570810295	1	5	3.4871794871794872	1.0971684818034495	0	17	8.58974358974359	4.505656963125989	12624	75.690062
+ScalObject-msq.5.log	atomic-queue	Bound(4)	false	false	true	false	53	25	0	28	14.471698113207546	7.824035388037659	1	5	3.4716981132075473	1.011544393962969	0	22	11.169811320754716	5.905459824005775	13012	84.128132
+ScalObject-msq.5.log	atomic-queue	Bound(4)	true	false	true	false	344	171	0	22	10.383720930232558	3.8701025054825853	1	5	3.5552325581395348	0.7654160655089526	0	16	8.636627906976743	2.8863701459030886	13064	75.013249
+ScalObject-msq.5.log	atomic-queue	Symbolic	false	false	true	false	63	30	0	33	17.015873015873016	9.303991622558954	1	5	3.5555555555555554	0.946603057078441	0	25	13.126984126984127	7.0699091190309415	16144	82.723218
+ScalObject-msq.5.log	atomic-queue	Symbolic	true	false	true	false	412	204	0	25	11.322815533980583	4.792041642109285	1	5	3.6067961165048543	0.8462037321968665	0	23	9.597087378640778	4.027616498502939	16376	75.842997
+ScalObject-msq.5.log	atomic-queue	Saturate	false	false	true	false	762	378	0	383	191.74146981627297	110.01519468316421	1	6	3.4855643044619424	1.0840749081605912	0	216	111.39763779527559	60.237970001422624	12048	75.008763
+ScalObject-msq.5.log	atomic-queue	Saturate	true	false	true	false	2593	1294	0	283	71.16428846895488	71.105886345365	1	6	3.791747011183957	1.2807247697971471	0	150	45.9737755495565	39.38533431274166	12528	75.006772
+ScalObject-msq.6.log	atomic-queue	Enumerate	false	false	true	false	17	6	0	11	5.470588235294118	3.2038579685049933	1	6	3.588235294117647	1.3719886811400708	0	9	4.411764705882353	2.42535625036333	12432	75.01102
+ScalObject-msq.6.log	atomic-queue	Bound(4)	false	false	true	false	52	24	0	28	14.384615384615385	7.556723655010156	1	6	3.8076923076923075	1.6334549159045098	0	21	10.51923076923077	5.308115815836048	12456	79.338385
+ScalObject-msq.6.log	atomic-queue	Bound(4)	true	false	true	false	88	42	0	28	13.227272727272727	6.76829538078433	1	6	4.295454545454546	1.3826435691418957	0	18	10.477272727272727	4.849403975054113	12600	94.943593
+ScalObject-msq.6.log	atomic-queue	Symbolic	false	false	true	false	64	30	0	34	17.5	9.46337971105226	1	6	4.03125	1.54271200081555	0	26	12.984375	7.0676822888771635	15920	82.053342
+ScalObject-msq.6.log	atomic-queue	Symbolic	true	false	true	false	98	47	0	33	14.989795918367347	8.302893419355632	1	6	4.36734693877551	1.3268655810387033	0	22	11.479591836734693	5.49457012537042	16328	81.623189
+ScalObject-msq.6.log	atomic-queue	Saturate	false	false	true	false	788	392	0	395	198.33756345177665	113.62659933481102	1	6	3.6763959390862944	1.086173332784699	0	217	110.34010152284264	61.718124386223316	12228	75.008999
+ScalObject-msq.6.log	atomic-queue	Saturate	true	false	true	false	1975	985	0	256	60.93822784810126	58.19630365205894	1	6	3.627341772151899	1.025936087322403	0	163	48.14025316455696	40.926269669671555	12516	75.007841
+ScalObject-msq.7.log	atomic-queue	Enumerate	false	false	true	false	23	11	0	12	6.826086956521739	3.4987293006701146	1	5	3.1739130434782608	1.154129893156173	0	9	5.6521739130434785	2.4791621688160173	13564	75.020021
+ScalObject-msq.7.log	atomic-queue	Bound(4)	false	false	true	false	53	25	0	28	14.226415094339623	7.697755690494276	1	5	2.981132075471698	0.8658158899544016	0	20	9.830188679245284	4.713874158173949	13012	76.154854
+ScalObject-msq.7.log	atomic-queue	Bound(4)	true	false	true	false	221	109	0	23	10.493212669683258	5.0032897445783	1	6	3.484162895927602	1.0162197555283599	0	17	7.719457013574661	3.399603141839854	13364	75.09545
+ScalObject-msq.7.log	atomic-queue	Symbolic	false	false	true	false	66	32	0	34	17.5	9.612891984605481	1	5	3.015151515151515	0.7940630519902875	0	21	11.696969696969697	5.686609634705827	16312	82.232672
+ScalObject-msq.7.log	atomic-queue	Symbolic	true	false	true	false	316	156	0	30	11.522151898734178	5.769884853933151	1	6	3.6265822784810124	1.0778236579576466	0	18	8.275316455696203	3.683100603875496	16184	76.905918
+ScalObject-msq.7.log	atomic-queue	Saturate	false	false	true	false	822	409	0	412	206.9221411192214	118.71920533864048	1	6	3.8454987834549876	1.163481244355422	0	230	119.25790754257908	65.33464240115597	12048	75.009969
+ScalObject-msq.7.log	atomic-queue	Saturate	true	false	true	false	8743	4370	0	193	31.760837241221548	25.03041140608819	1	6	3.5480956193526247	1.106103250528951	0	102	26.2003888825346	16.889039000943864	12480	75.00759
+ScalObject-msq.8.log	atomic-queue	Enumerate	false	false	true	false	19	8	0	11	5.894736842105263	3.2980589719494313	1	4	3.3684210526315788	0.9551338658818385	0	8	5.2631578947368425	2.600044983866366	12860	75.011197
+ScalObject-msq.8.log	atomic-queue	Bound(4)	false	false	true	false	52	24	0	28	14.192307692307692	7.740999736666894	1	5	3.423076923076923	1.054331008896048	0	18	9.634615384615385	4.3970972874218734	13484	83.696747
+ScalObject-msq.8.log	atomic-queue	Bound(4)	true	false	true	false	218	108	0	23	10.490825688073395	4.291499287588657	1	6	3.5458715596330275	1.0904725319209352	0	21	9.293577981651376	4.066957449915205	13368	80.152295
+ScalObject-msq.8.log	atomic-queue	Symbolic	false	false	true	false	65	31	0	34	17.46153846153846	9.604811494566349	1	5	3.4461538461538463	1.0901658307163813	0	22	11.523076923076923	5.517324114515604	16308	83.551772
+ScalObject-msq.8.log	atomic-queue	Symbolic	true	false	true	false	292	145	0	25	12.866438356164384	5.688292400414476	1	6	3.482876712328767	1.2253260784352966	0	23	11.76027397260274	5.6426271506980195	15536	75.403137
+ScalObject-msq.8.log	atomic-queue	Saturate	false	false	true	false	764	379	0	384	192.28403141361255	110.37418405056192	1	6	3.5706806282722514	1.0586863729495477	0	197	104.83246073298429	56.19907690568307	12204	75.004639
+ScalObject-msq.8.log	atomic-queue	Saturate	true	false	true	false	5574	2785	0	184	38.759059921062075	29.607503066596454	1	6	3.5222461428058844	1.0512390029327043	0	106	32.9599928238249	21.20925317667186	12480	75.009433
+ScalObject-msq.9.log	atomic-queue	Enumerate	false	false	true	false	28	13	0	15	8.035714285714286	4.246847570341357	1	4	3.107142857142857	0.6288900106557943	0	14	7.178571428571429	4.02817458362848	12812	75.01221
+ScalObject-msq.9.log	atomic-queue	Bound(4)	false	false	true	false	52	25	0	27	13.961538461538462	7.50153327715712	1	4	2.9423076923076925	0.6977122711211271	0	19	10.826923076923077	5.08253894344292	13684	76.44199
+ScalObject-msq.9.log	atomic-queue	Bound(4)	true	false	true	false	279	138	0	20	11.709677419354838	3.503073609804866	1	5	3.4265232974910393	1.0322911020731032	0	19	10.498207885304659	3.3724172659416056	12972	75.702395
+ScalObject-msq.9.log	atomic-queue	Symbolic	false	false	true	false	65	32	0	33	17.26153846153846	9.483994614409788	1	5	3.0307692307692307	0.789961050646462	0	24	13.107692307692307	6.512303444546034	16868	85.048614
+ScalObject-msq.9.log	atomic-queue	Symbolic	true	false	true	false	324	161	0	26	12.86111111111111	4.473779820504461	1	5	3.4537037037037037	1.014302602541195	0	22	11.521604938271604	4.123048845396272	16008	75.244158
+ScalObject-msq.9.log	atomic-queue	Saturate	false	false	true	false	772	385	0	386	194.23834196891193	111.52855046217623	1	5	3.476683937823834	0.9422909349405383	0	202	104.77331606217616	56.98598515113832	11804	75.008292
+ScalObject-msq.9.log	atomic-queue	Saturate	true	false	true	false	3553	1774	0	242	48.88544891640867	58.05324418489497	1	6	3.599774838164931	0.9784962464122224	0	145	34.27469743878412	33.59908658240914	12116	75.012109
+ScalObject-msq.0.log	atomic-queue	Enumerate	false	false	true	false	41	20	0	21	11.658536585365853	6.223382344423172	1	5	3.8292682926829267	0.771441476211587	0	16	10.024390243902438	4.698339094180244	12936	100.024048
+ScalObject-msq.0.log	atomic-queue	Bound(4)	false	false	true	false	58	27	0	31	15.948275862068966	8.672243307976345	1	5	3.9310344827586206	1.0236170639096054	0	23	12.913793103448276	6.153830593539822	12652	107.324446
+ScalObject-msq.0.log	atomic-queue	Bound(4)	true	false	true	false	177	87	0	23	12.310734463276836	4.631849721640626	1	5	3.457627118644068	0.865802975270746	0	17	9.870056497175142	3.4294938165418882	12928	100.574723
+ScalObject-msq.0.log	atomic-queue	Symbolic	false	false	true	false	70	34	0	36	18.84285714285714	10.187568033788255	1	5	3.7	1.1209468047728377	0	26	14.628571428571428	6.799768599156179	16128	109.619811
+ScalObject-msq.0.log	atomic-queue	Symbolic	true	false	true	false	412	205	0	28	12.29126213592233	5.33615691916109	1	5	3.0800970873786406	0.9645250159359225	0	17	9.483009708737864	3.469323706143276	15700	101.511427
+ScalObject-msq.0.log	atomic-queue	Saturate	false	false	true	false	924	460	0	463	232.0681818181818	133.43872971445182	1	5	3.1374458874458875	0.9525835158128865	0	261	131.21320346320346	74.28906820184748	11816	100.011321
+ScalObject-msq.0.log	atomic-queue	Saturate	true	false	true	false	8174	4086	0	160	36.38952777098116	23.20183055484982	1	5	3.0288720332762415	0.9739784717319779	0	96	31.77195987276731	18.823277816057136	12528	100.014402
+ScalObject-msq.1.log	atomic-queue	Enumerate	false	false	true	false	31	14	0	17	8.96774193548387	4.915851034953099	1	5	3.4838709677419355	1.3132902127084087	0	14	7.612903225806452	3.774276260466711	12840	100.02301
+ScalObject-msq.1.log	atomic-queue	Bound(4)	false	false	true	false	50	23	0	27	13.98	7.80761010234272	1	6	4.0	1.5118578920369088	0	21	10.96	5.532685807534887	13040	145.498863
+ScalObject-msq.1.log	atomic-queue	Bound(4)	true	false	true	false	321	159	0	25	10.651090342679128	4.4815322848259935	1	6	3.6510903426791277	1.085302547650975	0	21	9.299065420560748	4.064053441310998	12968	103.299007
+ScalObject-msq.1.log	atomic-queue	Symbolic	false	false	true	false	62	30	0	32	16.967741935483872	9.352772433594547	1	6	3.9516129032258065	1.3958653154395562	0	23	12.919354838709678	6.405167962366306	15956	107.710178
+ScalObject-msq.1.log	atomic-queue	Symbolic	true	false	true	false	402	200	0	25	12.77363184079602	5.95293269947427	1	6	3.6243781094527363	1.001596100953271	0	24	11.492537313432836	5.8027591708482635	16368	100.01549
+ScalObject-msq.1.log	atomic-queue	Saturate	false	false	true	false	773	384	0	388	194.54721862871926	111.62813872673827	1	6	3.596377749029754	1.0394235758699144	0	212	109.97671410090557	60.462183411349216	12460	100.012151
+ScalObject-msq.1.log	atomic-queue	Saturate	true	false	true	false	4743	2369	0	226	44.03731815306768	37.21363992907374	1	6	3.6010963525195026	1.0286156973524552	0	140	37.3516761543327	24.22361471680563	12016	100.008969
+ScalObject-msq.2.log	atomic-queue	Enumerate	false	false	true	false	32	15	0	17	9.15625	5.199934087671596	1	6	3.34375	1.6773515029701225	0	13	7.125	3.773848895209103	12660	100.01418
+ScalObject-msq.2.log	atomic-queue	Bound(4)	false	false	true	false	58	27	0	31	15.568965517241379	8.604592957467679	1	6	3.1724137931034484	1.5462226869701365	0	23	11.827586206896552	6.221462374023117	13284	122.311576
+ScalObject-msq.2.log	atomic-queue	Bound(4)	true	false	true	false	218	108	0	27	10.321100917431192	5.422908794754007	1	6	3.5275229357798166	1.1646380786794792	0	20	8.582568807339449	4.153180870509977	13348	120.447615
+ScalObject-msq.2.log	atomic-queue	Symbolic	false	false	true	false	70	33	0	37	18.6	10.332725554823586	1	6	3.2285714285714286	1.5052702446128305	0	27	13.857142857142858	7.249759045042816	16076	117.065843
+ScalObject-msq.2.log	atomic-queue	Symbolic	true	false	true	false	240	119	0	38	12.354166666666666	8.292986357978185	1	6	3.4791666666666665	1.1201760047998843	0	27	9.9	5.765864053593254	16256	108.039531
+ScalObject-msq.2.log	atomic-queue	Saturate	false	false	true	false	886	441	0	444	222.62528216704288	127.8334527081086	1	6	3.2516930022573365	1.2445916719710426	0	251	127.90857787810384	70.56988037918407	12460	100.014608
+ScalObject-msq.2.log	atomic-queue	Saturate	true	false	true	false	4204	2099	0	362	59.230256898192195	74.78892355292784	1	6	3.5337773549000953	1.2069080659316118	0	185	38.24310180780209	38.28567483953659	12156	100.011293
+ScalObject-msq.3.log	atomic-queue	Enumerate	false	false	true	false	92	46	0	46	23.0	13.358127130685665	1	1	1.0	0.0	0	26	14.76086956521739	6.7910244015435755	13024	102.15882
+ScalObject-msq.3.log	atomic-queue	Bound(4)	false	false	true	false	54	27	0	27	13.5	7.8782001584022385	1	1	1.0	0.0	0	18	10.537037037037036	5.424309235086772	13616	102.880848
+ScalObject-msq.3.log	atomic-queue	Bound(4)	true	false	true	false	1022	510	0	24	5.004892367906066	3.334292709530916	1	3	1.0714285714285714	0.3700143130430541	0	17	4.865949119373777	2.8602163280161474	13268	110.86858
+ScalObject-msq.3.log	atomic-queue	Symbolic	false	false	true	false	92	46	0	46	23.0	13.358127130685665	1	1	1.0	0.0	0	26	14.76086956521739	6.7910244015435755	15784	108.237748
+ScalObject-msq.3.log	atomic-queue	Symbolic	true	false	true	false	1069	532	0	35	5.998129092609916	5.732324751636618	1	6	1.2188961646398504	0.7972202980529282	0	24	5.528531337698784	4.196081170041961	16020	101.098474
+ScalObject-msq.3.log	atomic-queue	Saturate	false	false	true	false	900	449	0	450	225.0	129.97668140310813	1	1	1.0	0.0	0	234	119.60888888888888	67.20185528393371	13072	100.014471
+ScalObject-msq.3.log	atomic-queue	Saturate	true	false	true	false	3579	1787	0	332	77.72394523609947	79.56745007002874	1	6	2.657725621682034	1.4074498231298846	0	176	45.49762503492596	41.21084699388336	11824	100.014371
+ScalObject-msq.4.log	atomic-queue	Enumerate	false	false	true	false	92	46	0	46	23.0	13.358127130685665	1	1	1.0	0.0	0	28	15.73913043478261	8.157608954278924	12512	101.932368
+ScalObject-msq.4.log	atomic-queue	Bound(4)	false	false	true	false	56	28	0	28	14.0	8.16645021358173	1	1	1.0	0.0	0	19	10.571428571428571	5.786684222049297	13032	129.748107
+ScalObject-msq.4.log	atomic-queue	Bound(4)	true	false	true	false	1094	547	0	19	6.944241316270567	4.025944988065302	1	1	1.0	0.0	0	19	6.944241316270567	4.025944988065302	13500	100.242094
+ScalObject-msq.4.log	atomic-queue	Symbolic	false	false	true	false	90	45	0	45	22.5	13.069606219835892	1	1	1.0	0.0	0	28	15.477777777777778	8.053511730047799	16732	101.393075
+ScalObject-msq.4.log	atomic-queue	Symbolic	true	false	true	false	1523	760	0	37	7.4103742613263295	5.290292853904494	1	4	1.087327642810243	0.46661572930472917	0	29	7.286277084701248	4.823642986684406	15972	106.17002
+ScalObject-msq.4.log	atomic-queue	Saturate	false	false	true	false	858	428	0	429	214.5	123.91453796381789	1	1	1.0	0.0	0	222	113.3974358974359	62.69056338776287	12232	100.005095
+ScalObject-msq.4.log	atomic-queue	Saturate	true	false	true	false	3935	1965	0	245	57.828208386277	60.798277702986866	1	6	2.6820838627700128	1.5846947581292965	0	157	39.17712833545108	37.559272057998356	12832	100.012562
+ScalObject-msq.5.log	atomic-queue	Enumerate	false	false	true	false	41	19	0	22	11.487804878048781	6.164908560633775	1	5	3.5121951219512195	1.0752197733373445	0	17	8.975609756097562	4.7195752185872015	12480	100.012278
+ScalObject-msq.5.log	atomic-queue	Bound(4)	false	false	true	false	57	27	0	30	15.491228070175438	8.420050065633188	1	5	3.508771929824561	0.984211196440071	0	24	12.0	6.458659745975609	12956	114.560254
+ScalObject-msq.5.log	atomic-queue	Bound(4)	true	false	true	false	386	192	0	23	10.691709844559586	4.227403941170621	1	5	3.6088082901554404	0.795980244833288	0	20	8.981865284974093	3.3016615482522282	12680	100.312806
+ScalObject-msq.5.log	atomic-queue	Symbolic	false	false	true	false	67	32	0	35	18.029850746268657	9.888729656523635	1	5	3.582089552238806	0.9235841536257444	0	27	13.895522388059701	7.511878126044896	16156	111.715887
+ScalObject-msq.5.log	atomic-queue	Symbolic	true	false	true	false	424	211	0	26	11.695754716981131	5.209954183762504	1	5	3.5966981132075473	0.8393898737687734	0	23	9.910377358490566	4.377190593656822	15876	104.064816
+ScalObject-msq.5.log	atomic-queue	Saturate	false	false	true	false	820	408	0	411	206.25	118.40488344011163	1	6	3.5012195121951217	1.0627439204249696	0	229	119.23048780487805	64.65057235056983	12076	100.013393
+ScalObject-msq.5.log	atomic-queue	Saturate	true	false	true	false	2686	1341	0	283	75.11355174981385	73.18380820073611	1	6	3.7755026061057335	1.264267266531192	0	152	48.704020848845865	41.40626575968837	12056	100.014562
+ScalObject-msq.6.log	atomic-queue	Enumerate	false	false	true	false	17	6	0	11	5.470588235294118	3.2038579685049933	1	6	3.588235294117647	1.3719886811400708	0	9	4.411764705882353	2.42535625036333	12580	100.014118
+ScalObject-msq.6.log	atomic-queue	Bound(4)	false	false	true	false	54	25	0	29	14.907407407407407	7.8866223454383	1	6	3.8518518518518516	1.618378030416914	0	22	10.925925925925926	5.612828472892043	13012	131.401587
+ScalObject-msq.6.log	atomic-queue	Bound(4)	true	false	true	false	90	43	0	29	13.566666666666666	7.064788457912678	1	6	4.311111111111111	1.3710034416272654	0	19	10.655555555555555	4.940456948140471	12852	113.077671
+ScalObject-msq.6.log	atomic-queue	Symbolic	false	false	true	false	68	32	0	36	18.529411764705884	10.072084353841777	1	6	4.088235294117647	1.5134747419618957	0	27	13.75	7.517889113070098	16308	119.540514
+ScalObject-msq.6.log	atomic-queue	Symbolic	true	false	true	false	102	49	0	35	15.735294117647058	8.943083472262026	1	6	4.392156862745098	1.306168630002243	0	23	11.911764705882353	5.7987758031653245	15408	112.662547
+ScalObject-msq.6.log	atomic-queue	Saturate	false	false	true	false	843	419	0	423	212.08540925266905	121.58556535922284	1	6	3.6725978647686834	1.0971984463768518	0	232	117.80308422301304	66.03466044453448	11664	100.00539
+ScalObject-msq.6.log	atomic-queue	Saturate	true	false	true	false	1980	989	0	258	61.405050505050504	58.87021700722268	1	6	3.628787878787879	1.0257323616178295	0	164	48.415151515151514	41.24266511389745	11632	100.011305
+ScalObject-msq.7.log	atomic-queue	Enumerate	false	false	true	false	30	14	0	16	8.533333333333333	4.423552428982165	1	5	3.1	1.028892943728925	0	11	6.633333333333334	2.858542350187608	12920	100.006594
+ScalObject-msq.7.log	atomic-queue	Bound(4)	false	false	true	false	55	26	0	29	14.745454545454546	8.021310001577929	1	5	3.018181818181818	0.871161614697617	0	20	10.181818181818182	4.974344956283967	13044	110.663486
+ScalObject-msq.7.log	atomic-queue	Bound(4)	true	false	true	false	296	147	0	23	10.64527027027027	4.753501253181124	1	6	3.597972972972973	1.0785407338257096	0	17	7.780405405405405	3.2189725444416286	13636	100.580961
+ScalObject-msq.7.log	atomic-queue	Symbolic	false	false	true	false	70	34	0	36	18.5	10.189153084516404	1	5	3.0142857142857142	0.7707112683834658	0	22	12.228571428571428	5.934842900064602	16056	108.553697
+ScalObject-msq.7.log	atomic-queue	Symbolic	true	false	true	false	322	159	0	33	11.894409937888199	6.32514881996205	1	6	3.652173913043478	1.083785160885669	0	19	8.453416149068323	3.872501201050447	15456	101.239402
+ScalObject-msq.7.log	atomic-queue	Saturate	false	false	true	false	876	435	0	440	220.4406392694064	126.54421209653852	1	6	3.8835616438356166	1.1504648936948318	0	248	126.60844748858447	69.5022523580646	12228	100.007175
+ScalObject-msq.7.log	atomic-queue	Saturate	true	false	true	false	9067	4532	0	193	33.21153634057571	25.71841845007616	1	6	3.545715231057682	1.1042005630230256	0	102	27.79077975074446	18.53776116862132	12188	100.014235
+ScalObject-msq.8.log	atomic-queue	Enumerate	false	false	true	false	19	8	0	11	5.894736842105263	3.2980589719494313	1	4	3.3684210526315788	0.9551338658818385	0	8	5.2631578947368425	2.600044983866366	12708	100.009277
+ScalObject-msq.8.log	atomic-queue	Bound(4)	false	false	true	false	54	26	0	28	14.703703703703704	8.036777796139095	1	5	3.425925925925926	1.0389009405236018	0	18	9.944444444444445	4.598673585082808	13400	128.359005
+ScalObject-msq.8.log	atomic-queue	Bound(4)	true	false	true	false	231	114	0	23	11.017316017316018	4.7088864814678875	1	6	3.5757575757575757	1.0962867016794995	0	21	9.813852813852813	4.505550041697685	12392	101.486592
+ScalObject-msq.8.log	atomic-queue	Symbolic	false	false	true	false	69	33	0	36	18.47826086956522	10.19314749007762	1	5	3.4782608695652173	1.0656218241584408	0	22	12.101449275362318	5.846429094997249	15900	113.858152
+ScalObject-msq.8.log	atomic-queue	Symbolic	true	false	true	false	320	159	0	28	13.825	6.284827727243485	1	6	3.484375	1.1902449301427027	0	28	12.778125	6.347128512997162	15880	102.955992
+ScalObject-msq.8.log	atomic-queue	Saturate	false	false	true	false	821	408	0	412	206.57369062119366	118.66074202201993	1	6	3.649208282582217	1.0791663366577018	0	216	111.92448233861145	60.13208345683482	12704	100.005753
+ScalObject-msq.8.log	atomic-queue	Saturate	true	false	true	false	5800	2898	0	184	40.461724137931036	30.255438081420174	1	6	3.5212068965517243	1.0485203816869433	0	106	34.742413793103445	22.61396638059049	12236	100.011161
+ScalObject-msq.9.log	atomic-queue	Enumerate	false	false	true	false	31	14	0	17	8.806451612903226	4.69339503869505	1	4	3.161290322580645	0.6375355777548625	0	15	7.838709677419355	4.3443202321617465	13020	100.021625
+ScalObject-msq.9.log	atomic-queue	Bound(4)	false	false	true	false	57	27	0	30	15.210526315789474	8.239141863484116	1	4	2.9473684210526314	0.7176611972128373	0	22	11.649122807017545	5.550068300963818	13184	164.874252
+ScalObject-msq.9.log	atomic-queue	Bound(4)	true	false	true	false	297	147	0	25	12.25925925925926	4.069097880065993	1	5	3.441077441077441	1.0220852678021997	0	22	11.043771043771043	3.9303183010288043	12608	111.629927
+ScalObject-msq.9.log	atomic-queue	Symbolic	false	false	true	false	69	33	0	36	18.26086956521739	10.05960497106686	1	5	3.0434782608695654	0.7939992333804204	0	26	13.768115942028986	6.86882327351857	15920	106.718611
+ScalObject-msq.9.log	atomic-queue	Symbolic	true	false	true	false	362	180	0	27	13.61049723756906	4.854126984591649	1	5	3.455801104972376	0.9730336627309683	0	22	12.204419889502763	4.409406002727421	15548	100.037089
+ScalObject-msq.9.log	atomic-queue	Saturate	false	false	true	false	850	423	0	426	213.71529411764706	122.74644257618108	1	5	3.431764705882353	0.9212466287221382	0	219	114.43882352941176	62.27197573628716	12572	100.008738
+ScalObject-msq.9.log	atomic-queue	Saturate	true	false	true	false	3643	1819	0	286	54.187482843810045	66.34121884012389	1	6	3.6096623661817184	0.9683259280252335	0	170	37.278891023881414	38.19356840376971	12188	100.013633
