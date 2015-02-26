@@ -1,0 +1,31 @@
+experiments:
+- data_file: violations-covered.tsv
+  sources:
+  - data/histories/generated/small/**/*.log
+  algorithms: &algs
+  - enumerate -c
+  - enumerate -c -r
+  - symbolic
+  - symbolic -r
+  - saturate
+  - saturate -r
+  - counting -b 4
+  - counting -b 4 -r
+  - counting -b 2
+  - counting -b 2 -r
+  - counting -b 0
+  - counting -b 0 -r
+  timeouts:
+  - 10
+
+- data_file: avg-steps-until-timeout.tsv
+  sources:
+  - data/histories/generated/big/**/*.log
+  algorithms: *algs
+  timeouts:
+  - 5
+  - 25
+  - 50
+  - 75
+  - 100
+  

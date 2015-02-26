@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'optparse'
-require 'ostruct'
 require 'yaml'
 
 class DataDisplay
@@ -72,11 +71,7 @@ class DataWriter
 end
 
 def parse_options
-  options = YAML.load_file(
-    "#{File.dirname(__FILE__)}/../config/#{File.basename(__FILE__,'.rb')}.yaml"
-  )
-  overrides = {"sources" => [], "algorithms" => [], "timeouts" => []}
-
+  options = {}
   OptionParser.new do |opts|
 
     opts.banner = "Usage: #{File.basename $0} [options]"
@@ -89,15 +84,18 @@ def parse_options
     end
 
     opts.on("-s", "--source S", "Add a source, e.g. 'data/histories/simple/*.log'") do |s|
-      overrides["sources"] << s
+      options['sources'] ||= []
+      options['sources'] << s
     end
 
     opts.on("-a", "--algorithm A", "Add an algorithm, e.g. 'symbolic -r'") do |a|
-      overrides["algorithms"] << a
+      options['algorithms'] ||= []
+      options['algorithms'] << a
     end
 
     opts.on("-t", "--timeout N", Integer, "Add a timeout.") do |n|
-      overrides["timeouts"] << n
+      options['timeouts'] ||= []
+      options['timeouts'] << n
     end
 
     opts.on("-f", "--data-file FILE", "Write data to file.") do |f|
@@ -105,24 +103,26 @@ def parse_options
     end
   end.parse!
 
-  options.merge(overrides.reject{|_,xs| xs.empty?})
+  options
 end
 
 begin
-  @options = parse_options
+  name = File.basename(__FILE__,'.rb')
+  options = YAML.load_file(File.join('config',"#{name}.yaml")).merge(parse_options)
+  checker = File.join('bin', 'logchecker.rb')
 
-  puts "Generating reports for #{@options['sources'] * ", "}"
-  writer = DataWriter.new(@options['data_file']) if @options['data_file']
+  puts "Generating reports for #{options['sources'] * ", "}"
+  writer = DataWriter.new(options['data_file']) if options['data_file']
 
-  @options['sources'].each do |source|
+  options['sources'].each do |source|
     length = Dir.glob(source).map{|f| File.basename(f).length}.max || 1
 
-    @options['timeouts'].each do |timeout|
-      display = DataDisplay.new("#{source} (timeout #{timeout || "-"}s)", @options['display'].merge({"history" => length}))
+    options['timeouts'].each do |timeout|
+      display = DataDisplay.new("#{source} (timeout #{timeout || "-"}s)", options['display'].merge({"history" => length}))
 
       Dir.glob(source) do |history|
-        @options['algorithms'].each do |algorithm|
-          cmd = "#{File.dirname(__FILE__)}/logchecker.rb \"#{history}\" -a #{algorithm}"
+        options['algorithms'].each do |algorithm|
+          cmd = "#{checker} \"#{history}\" -a #{algorithm}"
           cmd << " -t #{timeout}" if timeout
           output = `#{cmd}`
           data = YAML.load(output.split("---")[1])
