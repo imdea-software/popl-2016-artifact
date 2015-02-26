@@ -88,6 +88,25 @@ class History
   def uncomplete(id)      clone.uncomplete!(id) end
   def unorder(i1,i2)      clone.unorder!(i1,i2) end
 
+  def matches
+    ms = {}
+    each do |id|
+      m = match(id)
+      m = id if m.nil? || m == :none
+      ms[m] ||= []
+      ms[m] << id
+    end
+    ms
+  end
+
+  def identical(i1,i2)
+    match(i1) && match(i2) &&
+    match(i1) == match(i2) &&
+    method_name(i1) == method_name(i2) &&
+    arguments(i1) == arguments(i2) &&
+    returns(i1) == returns(i2)
+  end
+
   def self.from_enum(e)
     h = self.new
     e.each do |meth, args, rets|
@@ -318,15 +337,16 @@ class History
   end
 
   def uncomplete_once
-    completed.each do |id|
-      w = uncomplete(id)
+    completed.each do |c|
+      next if any? {|id| before?(c,id)}
+      w = uncomplete(c)
       return w if yield(w)
     end
     return nil
   end
 
   def unorder_once
-    each do |x|
+    completed.each do |x|
       after(x).each do |y|
         next if any? {|id| before?(x,id) && before?(id,y)}
         w = unorder(x,y)
@@ -336,11 +356,24 @@ class History
     return nil
   end
 
+  def remove_one_match
+    # TODO
+  end
+
+  def prune_once
+    each do |p|
+      next unless any? {|id| id != p && identical(id,p)}
+      w = remove(p)
+      return w if yield(w)
+    end
+    return nil
+  end
+
   def weaken(make_pending: false, &blk)
     h = self
     fail "Expected predicate block." unless block_given?
     fail "History does not satisfy predicate." unless yield(h)
-    while (make_pending && w = h.uncomplete_once(&blk)) || w = h.unorder_once(&blk) do h = w end
+    while (make_pending && w = h.uncomplete_once(&blk)) || w = h.unorder_once(&blk) || w = h.prune_once(&blk) do h = w end
     return h
   end
 

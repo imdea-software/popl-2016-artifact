@@ -129,9 +129,9 @@ def negative_examples(obj_class, *obj_args, op_limit)
   end
 end
 
-def more_matches?(h1,h2)
+def embedded_in?(h1,h2)
   @solver.reset
-  @theories.more_matches(h1,h2).each(&@solver.method(:assert))
+  @theories.embedding(h1,h2).each(&@solver.method(:assert))
   @solver.check
 end
 
@@ -160,21 +160,23 @@ begin
   negative_examples(*options.impl, options.operation_limit).each do |h|
     w = h.weaken {|w| !checker.linearizable?(w)}
 
-    if patterns.any? {|p| more_matches?(w,p) }
+    if patterns.any? {|p| embedded_in?(p,w) }
       log.info('pattern-finder') {"redundant pattern\n#{w}"}
       print "." if log.level > Logger::INFO
+      next
+    end
 
-    elsif idx = patterns.find_index {|p| more_matches?(p,w)}
+    if idx = patterns.find_index {|p| embedded_in?(w,p)}
       log.info('pattern-finder') {"better pattern\n#{w}"}
       print "+" if log.level > Logger::INFO
       patterns[idx] = w
-
-    else
-      log.info('pattern-finder') {"new pattern\n#{w}"}
-      print "#" if log.level > Logger::INFO
-      patterns << w
-
+      next
     end
+
+    log.info('pattern-finder') {"new pattern\n#{w}"}
+    print "#" if log.level > Logger::INFO
+    patterns << w
+
   end
 rescue SystemExit, Interrupt
 
