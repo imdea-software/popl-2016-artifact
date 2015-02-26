@@ -37,3 +37,13 @@ module Enumerable
     ['min', 'max', 'mean', 'sigma'].map{|key| [key, send(key)]}.to_h
   end
 end
+
+class OpenStruct
+  def self.new_recursive(hash)
+    pairs = hash.map do |key, value|
+      new_value = value.is_a?(Hash) ? new_recursive(value) : value
+      [key, new_value]
+    end
+    new(Hash[pairs])
+  end
+end

@@ -1,0 +1,44 @@
+sources:
+- data/histories/simple/*.log
+- data/histories/generated/my-sync-stack.*.log
+- data/histories/generated/my-unsafe-stack/*.log
+- data/histories/generated/big/ScalObject-msq/*.log
+- data/histories/generated/small/ScalObject-bkq/*.log
+- data/histories/generated/small/ScalObject-dq/*.log
+- data/histories/generated/small/ScalObject-fcq/*.log
+- data/histories/generated/small/ScalObject-lbq/*.log
+- data/histories/generated/small/ScalObject-msq/*.log
+- data/histories/generated/small/ScalObject-rdq/*.log
+- data/histories/generated/small/ScalObject-sl/*.log
+- data/histories/generated/small/ScalObject-ts/*.log
+- data/histories/generated/small/ScalObject-ukq/*.log
+- data/histories/generated/small/ScalObject-wfq11/*.log
+
+algorithms:
+- saturate
+- saturate -r
+- counting -b 0
+- counting -b 0 -r
+- counting -b 2
+- counting -b 2 -r
+- counting -b 4
+- counting -b 4 -r
+- symbolic
+- symbolic -r
+- enumerate -c
+- enumerate -c -r
+
+timeouts:
+- 5
+
+display:
+  history: 1
+  algorithm: 9
+  removal: 1
+  steps: 5
+  width: 5
+  weight: 6
+  time: 7
+  violation: 1
+
+data_file:
