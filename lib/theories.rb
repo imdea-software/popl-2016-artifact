@@ -190,7 +190,7 @@ class Theories
     end
   end
 
-  def more_matches(h1, h2)
+  def embedding(h2, h1)
     Enumerator.new do |y|
       n1 = default_naming
       n2 = alternate_naming
