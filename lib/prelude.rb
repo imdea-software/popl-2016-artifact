@@ -34,6 +34,23 @@ module Enumerable
     Math.sqrt(sample_variance)
   end
   def stats
-    ['min', 'max', 'mean', 'sigma'].map{|key| [key, send(key)]}.to_h
+    [:min, :max, :mean, :sigma].map{|key| [key, send(key)]}.to_h
+  end
+end
+
+class Hash
+  def yaml_key_map(m)
+    inject({}) do |h,(k,v)|
+      h[k.send(m)] = case v when Array, Hash then v.yaml_key_map(m) else v end
+      h
+    end
+  end
+  def symbolize; yaml_key_map :to_sym end
+  def stringify; yaml_key_map :to_s end
+end
+
+class Array
+  def yaml_key_map(m)
+    map {|v| case v when Array, Hash then v.yaml_key_map(m) else v end}
   end
 end

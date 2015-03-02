@@ -181,7 +181,7 @@ begin
   data[:violation] = checker.violation?
   [:size, :width, :weight].each {|key| data[key] = data[key].stats}
 
-  puts data.map{|k,v| [k.to_s,v]}.to_h.to_yaml
+  puts data.stringify.to_yaml
 
 rescue SystemExit, Interrupt
 
