@@ -373,7 +373,7 @@ class History
     h = self
     fail "Expected predicate block." unless block_given?
     fail "History does not satisfy predicate." unless yield(h)
-    while (make_pending && w = h.uncomplete_once(&blk)) || w = h.unorder_once(&blk) || w = h.prune_once(&blk) do h = w end
+    while (make_pending && w = h.uncomplete_once(&blk)) || w = h.unorder_once(&blk) || false && w = h.prune_once(&blk) do h = w end
     return h
   end
 

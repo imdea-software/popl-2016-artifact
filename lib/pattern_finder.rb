@@ -79,11 +79,17 @@ def negative_examples(obj_class, *obj_args, op_limit)
       false
     end
 
+    length = 0
     sequences = [[]]
     until sequences.empty? do
       object = obj_class.create(*obj_args)
       unique_val = 0
       seq = sequences.shift
+
+      if seq.length > length
+        puts if length > 0 if log.level > Logger::INFO
+        puts "Length #{length = seq.length} sequences…" if log.level > Logger::INFO
+      end
 
       log.debug('pattern-finder') {"Testing sequence: #{seq * "; "}"}
 
@@ -129,15 +135,9 @@ def negative_examples(obj_class, *obj_args, op_limit)
   end
 end
 
-def embedded_in?(h1,h2)
+def ordered?(h1,h2)
   @solver.reset
-  @theories.embedding(h1,h2).each(&@solver.method(:assert))
-  @solver.check
-end
-
-def weaker_than?(h1,h2)
-  @solver.reset
-  @theories.weaker_than(h1,h2).each(&@solver.method(:assert))
+  @theories.ordered(h1,h2).each(&@solver.method(:assert))
   @solver.check
 end
 
@@ -146,7 +146,7 @@ begin
   options = parse_options
   options.impl = get_object(options,ARGV.first)
 
-  puts "Generating negative patterns..."
+  puts "Generating negative patterns…"
   patterns = []
   
   obj_class, obj_args = options.impl
@@ -158,15 +158,20 @@ begin
   @theories = Theories.new(context)
 
   negative_examples(*options.impl, options.operation_limit).each do |h|
-    w = h.weaken {|w| !checker.linearizable?(w)}
 
-    if patterns.any? {|p| embedded_in?(p,w) }
-      log.info('pattern-finder') {"redundant pattern\n#{w}"}
+    if patterns.any? {|p| ordered?(p,h)}
+      log.info('pattern-finder') {"redundant pattern\n#{h}"}
       print "." if log.level > Logger::INFO
-      next
+      next      
     end
 
-    if idx = patterns.find_index {|p| embedded_in?(w,p)}
+    w = h.weaken {|w| !checker.linearizable?(w)}
+
+    if p = patterns.find {|p| ordered?(p,w)}
+      fail "Original example\n#{h}\nshould have been related to\n#{p}\nsince\n#{w}\nis."
+    end
+
+    if idx = patterns.find_index {|p| ordered?(w,p)}
       log.info('pattern-finder') {"better pattern\n#{w}"}
       print "+" if log.level > Logger::INFO
       patterns[idx] = w

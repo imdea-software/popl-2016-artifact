@@ -19,7 +19,7 @@ module Matching
 
     case history.method_name(id)
     when ADD_PATTERN
-      :none
+      id
     when REM_PATTERN
       if history.returns(id).nil?
         nil
