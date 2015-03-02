@@ -48,24 +48,10 @@ class DataWriter
   end
 
   def notify(data)
-    data = flatten_hash(data)
+    data = data.unnest
     File.open(@file,'w') {|f| f.puts(data.keys * @sep)} unless @hit
     File.open(@file,'a') {|f| f.puts(data.values * @sep)}
     @hit ||= true
-  end
-
-  def flatten_hash(hash, path=[])
-    result = hash.map do |key, value|
-      case value
-      when Hash then flatten_hash(value, path+[key])
-      else [[path+[key], value]]
-      end
-    end.flatten(1)
-    if path.empty? then
-      result.map{|keys, value| [keys * ".", value]}.to_h
-    else
-      result
-    end
   end
 end
 

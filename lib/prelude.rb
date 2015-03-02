@@ -39,6 +39,19 @@ module Enumerable
 end
 
 class Hash
+  def unnest(path=[])
+    a = map {|k,v| v.is_a?(Hash) ? v.unnest(path+[k]) : [[path+[k],v]]}.flatten(1)
+    if path.empty?
+      a.map do |ks,v|
+        k = ks * "."
+        k = k.to_sym if ks.first.is_a?(Symbol)
+        [k,v]
+      end.to_h
+    else
+      a
+    end
+  end
+
   def yaml_key_map(m)
     inject({}) do |h,(k,v)|
       h[k.send(m)] = case v when Array, Hash then v.yaml_key_map(m) else v end
