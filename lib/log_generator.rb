@@ -5,25 +5,11 @@ require_relative 'prelude'
 require_relative 'monitored_object'
 require_relative 'randomized_tester'
 require_relative 'log_reader_writer'
-require_relative 'impls/my_unsafe_stack'
-require_relative 'impls/my_sync_stack'
-require_relative 'impls/scal_object'
-
-def get_object(options, object)
-  (puts "Must specify an object."; exit) unless object
-  case object
-  when /\A(bkq|dq|dtsq|lbq|msq|fcq|ks|rdq|sl|ts|tsd|tsq|tss|ukq|wfq11|wfq12)\z/
-    ScalObject.initialize(options.num_threads)
-    [ScalObject, object]
-  else
-    puts "Unknown object: #{object}"
-    exit
-  end
-end
+require_relative 'implementations'
 
 def parse_options
   options = OpenStruct.new
-  options.destination = "examples/generated/"
+  options.destination = "data/histories/generated/"
   options.objects = []
   options.num_executions = 10
   options.num_threads = 7
@@ -69,23 +55,22 @@ end
 
 
 begin
+  impl = ARGV.first
   options = parse_options
-  options.object = get_object(ARGV.first)
-
-  obj_class, *args = options.object
+  options.impl = Implementations.get(ARGV.first, num_threads: options.num_threads)
   tester = RandomizedTester.new
 
-  puts "Generating random #{options.num_threads}-thread (max) executions for #{obj_class}(#{args * ", "}) "
+  puts "Generating random #{options.num_threads}-thread (max) executions for #{impl}"
   print "[#{"." * options.num_executions}]"
   print "\033[<#{options.num_executions+1}>D"
 
-  dest_dir = File.join(options.destination, "#{options.object * "-"}")
+  dest_dir = File.join(options.destination, "#{impl}")
   Dir.mkdir(dest_dir) unless Dir.exists?(dest_dir)
   idx_width = (options.num_executions - 1).to_s.length
 
   options.num_executions.times do |i|
-    object = obj_class.create(*args)
-    log_file = File.join(dest_dir, "#{options.object * "-"}.#{i.to_s.rjust(idx_width,'0')}.log")
+    object = options.impl.call()
+    log_file = File.join(dest_dir, "#{impl}.#{i.to_s.rjust(idx_width,'0')}.log")
 
     LogReaderWriter.new(log_file, object.class.spec) do |logger|
       tester.run(

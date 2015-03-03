@@ -8,22 +8,7 @@ require_relative 'history'
 require_relative 'theories'
 require_relative 'z3'
 require_relative 'enumerate_checker'
-
-require_relative 'impls/my_unsafe_stack'
-require_relative 'impls/my_sync_stack'
-require_relative 'impls/scal_object'
-
-def get_object(options, object)
-  (puts "Must specify an object."; exit) unless object
-  case object
-  when /\A(bkq|dq|dtsq|lbq|msq|fcq|ks|rdq|sl|ts|tsd|tsq|tss|ukq|wfq11|wfq12)\z/
-    ScalObject.initialize(options.num_threads)
-    [ScalObject, object]
-  else
-    puts "Unknown object: #{object}"
-    exit
-  end
-end
+require_relative 'implementations'
 
 def parse_options
   options = OpenStruct.new
@@ -69,9 +54,9 @@ def parse_options
   options
 end
 
-def negative_examples(obj_class, *obj_args, op_limit)
+def negative_examples(impl, op_limit)
   Enumerator.new do |y|
-    object = obj_class.create(*obj_args)
+    object = impl.call()
     methods = object.methods.reject do |m|
       next true if Object.instance_methods.include? m
       next true if FFI::AutoPointer.instance_methods.include? m
@@ -82,7 +67,7 @@ def negative_examples(obj_class, *obj_args, op_limit)
     length = 0
     sequences = [[]]
     until sequences.empty? do
-      object = obj_class.create(*obj_args)
+      object = impl.call()
       unique_val = 0
       seq = sequences.shift
 
@@ -144,13 +129,12 @@ end
 begin
   log_filter(/pattern/)
   options = parse_options
-  options.impl = get_object(options,ARGV.first)
+  options.impl = Implementations.get(ARGV.first, num_threads: options.num_threads)
 
   puts "Generating negative patterns…"
   patterns = []
   
-  obj_class, obj_args = options.impl
-  object = obj_class.create(*obj_args).class.spec
+  object = options.impl.call().class.spec
 
   checker = EnumerateChecker.new(reference_impl: options.impl, object: object, completion: true)
   context = Z3.context

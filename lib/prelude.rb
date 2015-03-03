@@ -66,6 +66,8 @@ class Array
   def yaml_key_map(m)
     map {|v| case v when Array, Hash then v.yaml_key_map(m) else v end}
   end
+  def symbolize; yaml_key_map :to_sym end
+  def stringify; yaml_key_map :to_s end
 
   def product_of_distinct(k)
     return self if k < 2

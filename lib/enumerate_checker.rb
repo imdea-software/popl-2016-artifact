@@ -31,7 +31,7 @@ class EnumerateChecker < HistoryChecker
 
   def kernel_contains?(history, seq)
     if reference_impl
-      object = reference_impl.first.create(*reference_impl.drop(1))
+      object = reference_impl.call()
       seq.all? do |op|
         rets = object.send(history.method_name(op), *history.arguments(op))
         # TODO make this more consistent
