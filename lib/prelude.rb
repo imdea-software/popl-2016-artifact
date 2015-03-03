@@ -66,4 +66,13 @@ class Array
   def yaml_key_map(m)
     map {|v| case v when Array, Hash then v.yaml_key_map(m) else v end}
   end
+
+  def product_of_distinct(k)
+    return self if k < 2
+    p = product(self).reject{|x,y| x == y}
+    (k-2).times do
+      p = p.product(self).map{|xs,y| xs+[y] unless xs.include?(y)}.compact
+    end
+    return p
+  end
 end

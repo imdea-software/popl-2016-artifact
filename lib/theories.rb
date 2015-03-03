@@ -5,7 +5,9 @@ class Theories
   extend Forwardable
   def_delegators :@context, :decl_const, :decl_sort, :resolve, :expr
   def_delegators :@context, :conj, :disj, :tt, :ff, :const, :distinct
-  def_delegators :@context, :pattern, :forall, :exists
+  def_delegators :@context, :pattern
+  def_delegator :@context, :forall, :_forall_
+  def_delegator :@context, :exists, :_exists_
   alias :e :expr
 
   def initialize(context)
@@ -41,51 +43,30 @@ class Theories
     f
   end
 
-  def with_ids(n, &f)
-    with(n,:id,&f)
+  def forall(sort, guard: nil, &f)
+    with(f.arity, sort) {|xs| _forall_(*xs, (guard ? conj(*xs.map{|id| guard.call(id)}) : tt).implies(f.call(*xs)))}
   end
 
-  def forall_(sort, &f)
-    with(f.arity, sort) {|xs| forall(*xs, f.call(*xs))}
-  end
-
-  def exists_(sort, &f)
-    with(f.arity, sort) {|xs| exists(*xs, f.call(*xs))}
-  end
-
-  def forall_ids(&f)
-    with_ids(f.arity) {|xs| forall(*xs, f.call(*xs))}
-  end
-
-  def exists_ids(&f)
-    with_ids(f.arity) {|xs| exists(*xs, f.call(*xs))}
+  def exists(sort, guard: nil, &f)
+    with(f.arity, sort) {|xs| _exists_(*xs, (guard ? conj(*xs.map{|id| guard.call(id)}) : tt) & f.call(*xs))}
   end
 
   def forall_ids_c(&f)
-    with_ids(f.arity) {|xs| forall(*xs, conj(*xs.map{|id| c(id)}).implies(f.call(*xs)))}
+    forall(:id, guard: method(:c), &f)
     # patterns: [pattern(*xs.map{|o| c(o)})]
   end
 
   def exists_ids_c(&f)
-    with_ids(f.arity) {|xs| exists(*xs, conj(*xs.map{|id| c(id)}) & f.call(*xs))}
+    exists(:id, guard: method(:c), &f)
     # patterns: [pattern(*xs.map{|o| c(o)})]
   end
 
-  def product_of_distinct(a,k)
-    return a if k < 2
-    p = a.product(a).reject{|x,y| x == y}
-    (k-2).times do
-      p = p.product(a).map{|xs,y| xs+[y] unless xs.include?(y)}.compact
-    end
-    return p
-  end
-
   def bounded_forall(ids,&f)
-    conj(*product_of_distinct(ids,f.arity).map{|*ids| f.call(*ids)}.compact)
+    conj(*ids.product_of_distinct(f.arity).map{|*ids| f.call(*ids)}.compact)
   end
 
   def bounded_exists(ids,&f)
-    disj(*product_of_distinct(ids,f.arity).map{|*ids| f.call(*ids)}.compact)
+    disj(*ids.product_of_distinct(f.arity).map{|*ids| f.call(*ids)}.compact)
   end
 
   def theory(object)
@@ -229,35 +210,35 @@ class Theories
       end
 
       # identifiers are bounded
-      y << forall_(:id1) {|i| disj(*h1.map{|id| i == e(:"o#{id}")})}
-      y << forall_(:id2) {|i| disj(*h2.map{|id| i == e(:"p#{id}")})}
+      y << forall(:id1) {|i| disj(*h1.map{|id| i == e(:"o#{id}")})}
+      y << forall(:id2) {|i| disj(*h2.map{|id| i == e(:"p#{id}")})}
 
       # labels are preserved
-      y << forall_(:id1) {|i| e(:dom,i).implies(e(:mth1,i) == e(:mth2,e(:g,i)))}
+      y << forall(:id1) {|i| e(:dom,i).implies(e(:mth1,i) == e(:mth2,e(:g,i)))}
 
       # completion is preserved
-      y << forall_(:id1) {|i| (e(:dom,i) & e(:c1,i)).implies(e(:c2,e(:g,i)))}
+      y << forall(:id1) {|i| (e(:dom,i) & e(:c1,i)).implies(e(:c2,e(:g,i)))}
 
       # order is preserved
-      y << forall_(:id1) {|i,j| (e(:dom,i) & e(:dom,j) & e(:bef1,i,j)).implies(e(:bef2,e(:g,i),e(:g,j)))}
+      y << forall(:id1) {|i,j| (e(:dom,i) & e(:dom,j) & e(:bef1,i,j)).implies(e(:bef2,e(:g,i),e(:g,j)))}
 
       # matching is preserved
-      y << forall_(:id1) {|i,j| (e(:dom,i) & e(:dom,j) & (e(:match1,i) == j)).implies(e(:match2,e(:g,i)) == e(:g,j))}
-      y << forall_(:id1) {|i| e(:um1,i).implies(e(:um2,e(:g,i)))}
+      y << forall(:id1) {|i,j| (e(:dom,i) & e(:dom,j) & (e(:match1,i) == j)).implies(e(:match2,e(:g,i)) == e(:g,j))}
+      y << forall(:id1) {|i| e(:um1,i).implies(e(:um2,e(:g,i)))}
 
       # TODO DO WE REALLY NEED THESE?
       # mapping takes entire match groups
-      y << forall_(:id1) {|i,j| (e(:dom,i) & (e(:match1,i) == j)).implies(e(:dom,j))}
-      y << forall_(:id1) {|i,j| (e(:dom,j) & (e(:match1,i) == j)).implies(e(:dom,i))}
-      y << forall_(:id2) {|i,j| (e(:rng,i) & (e(:match2,i) == j) & !e(:red,j)).implies(e(:rng,j))}
-      y << forall_(:id2) {|i,j| (e(:rng,j) & (e(:match2,i) == j) & !e(:red,i)).implies(e(:rng,i))}
+      y << forall(:id1) {|i,j| (e(:dom,i) & (e(:match1,i) == j)).implies(e(:dom,j))}
+      y << forall(:id1) {|i,j| (e(:dom,j) & (e(:match1,i) == j)).implies(e(:dom,i))}
+      y << forall(:id2) {|i,j| (e(:rng,i) & (e(:match2,i) == j) & !e(:red,j)).implies(e(:rng,j))}
+      y << forall(:id2) {|i,j| (e(:rng,j) & (e(:match2,i) == j) & !e(:red,i)).implies(e(:rng,i))}
 
       # mapping is injective
-      y << forall_(:id1) {|i,j| (e(:dom,i) & e(:dom,j) & (e(:g,i) == e(:g,j))).implies(i == j)}
+      y << forall(:id1) {|i,j| (e(:dom,i) & e(:dom,j) & (e(:g,i) == e(:g,j))).implies(i == j)}
 
       # the mapping has a named range
-      y << forall_(:id1) {|i| e(:dom,i).implies(e(:rng,e(:g,i)))}
-      y << forall_(:id2) {|i| e(:rng,i).implies(disj(*h1.map{|j| e(:dom,e(:"o#{j}")) & (i == e(:g,e(:"o#{j}")))}))}
+      y << forall(:id1) {|i| e(:dom,i).implies(e(:rng,e(:g,i)))}
+      y << forall(:id2) {|i| e(:rng,i).implies(disj(*h1.map{|j| e(:dom,e(:"o#{j}")) & (i == e(:g,e(:"o#{j}")))}))}
 
     end
   end
