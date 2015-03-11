@@ -11,11 +11,12 @@ require_relative 'enumerate_checker'
 require_relative 'implementations'
 
 def parse_options
-  options = OpenStruct.new
-  options.destination = "examples/patterns/"
-  options.num_executions = 10
-  options.num_threads = 1
-  options.operation_limit = 4
+  options = {}
+  options[:destination] = "examples/patterns/"
+  options[:generalize] = false
+  options[:num_executions] = 10
+  options[:num_threads] = 1
+  options[:operation_limit] = 4
 
   OptionParser.new do |opts|
     opts.banner = "Usage: #{File.basename $0} [options] OBJECT"
@@ -39,15 +40,19 @@ def parse_options
       log.level = Logger::DEBUG
     end
 
+    opts.on("-g", "--generalize", "Generalize patterns? (default #{options[:generalize]}).") do |g|
+      options[:generalize] = g
+    end
+
     opts.separator ""
     opts.separator "Some useful limits:"
 
-    opts.on("-e", "--executions N", Integer, "Limit to N executions (default #{options.num_executions}).") do |n|
-      options.num_executions = n
+    opts.on("-e", "--executions N", Integer, "Limit to N executions (default #{options[:num_executions]}).") do |n|
+      options[:num_executions] = n
     end
 
-    opts.on("-o", "--operations N", Integer, "Limit to N operations (default #{options.operation_limit}).") do |n|
-      options.operation_limit = n
+    opts.on("-o", "--operations N", Integer, "Limit to N operations (default #{options[:operation_limit]}).") do |n|
+      options[:operation_limit] = n
     end
 
   end.parse!
@@ -129,42 +134,42 @@ end
 begin
   log_filter(/pattern/)
   options = parse_options
-  options.impl = Implementations.get(ARGV.first, num_threads: options.num_threads)
+  options[:impl] = Implementations.get(ARGV.first, num_threads: options[:num_threads])
 
   puts "Generating negative patterns…"
   patterns = []
   
-  object = options.impl.call().class.spec
+  object = options[:impl].call().class.spec
 
-  checker = EnumerateChecker.new(reference_impl: options.impl, object: object, completion: true)
+  checker = EnumerateChecker.new(reference_impl: options[:impl], object: object, completion: true)
   context = Z3.context
   @solver = context.solver
   @theories = Theories.new(context)
 
-  negative_examples(*options.impl, options.operation_limit).each do |h|
+  negative_examples(*options[:impl], options[:operation_limit]).each do |h|
 
     if patterns.any? {|p| ordered?(p,h)}
       log.info('pattern-finder') {"redundant pattern\n#{h}"}
       print "." if log.level > Logger::INFO
-      next      
-    end
-
-    w = h.weaken {|w| !checker.linearizable?(w)}
-
-    if p = patterns.find {|p| ordered?(p,w)}
-      fail "Original example\n#{h}\nshould have been related to\n#{p}\nsince\n#{w}\nis."
-    end
-
-    if idx = patterns.find_index {|p| ordered?(w,p)}
-      log.info('pattern-finder') {"better pattern\n#{w}"}
-      print "+" if log.level > Logger::INFO
-      patterns[idx] = w
       next
     end
 
-    log.info('pattern-finder') {"new pattern\n#{w}"}
+    h = h.weaken {|w| !checker.linearizable?(w)} if options[:generalize]
+
+    # if p = patterns.find {|p| ordered?(p,w)}
+    #   fail "Original example\n#{h}\nshould have been related to\n#{p}\nsince\n#{w}\nis."
+    # end
+
+    if idx = patterns.find_index {|p| ordered?(h,p)}
+      log.info('pattern-finder') {"better pattern\n#{h}"}
+      print "+" if log.level > Logger::INFO
+      patterns[idx] = h
+      next
+    end
+
+    log.info('pattern-finder') {"new pattern\n#{h}"}
     print "#" if log.level > Logger::INFO
-    patterns << w
+    patterns << h
 
   end
 rescue SystemExit, Interrupt
