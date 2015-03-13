@@ -74,6 +74,7 @@ def negative_examples(impl, op_limit)
     until sequences.empty? do
       object = impl.call()
       unique_val = 0
+      used_values = Set.new
       seq = sequences.shift
 
       if seq.length > length
@@ -85,28 +86,27 @@ def negative_examples(impl, op_limit)
 
       result = []
 
+      log.debug('pattern-finder') {"Actual returns:"}
       seq.each do |method_name|
         m = object.method(method_name)
-        args = m.arity.times.map{unique_val += 1}
-        rets = m.call(*args) || []
-        # TODO make the method interface more uniform
+        possible_args = Matching.good_argument_values(method_name, used_values.to_a)
+        args = possible_args.first
+        used_values.merge(args)
+        # args = m.arity.times.map{unique_val += 1}
+        rets = m.call(*args)
+        rets = [] if rets.nil?
         rets = [rets] unless rets.is_a?(Array)
-
         result << [method_name, args, rets]
-
-        log.debug('pattern-finder') {"#{method_name}(#{args * ", "})#{rets.empty? ? "" : " => #{rets * ", "}"}"}
+        log.debug('pattern-finder') {"  #{method_name}(#{args * ", "})#{rets.empty? ? "" : " => #{rets * ", "}"}"}
       end
-
-      values = Set.new result.map{|_,args,rets| args + rets}.flatten
-      values << :empty
-      values << 0
 
       excluded = [[]]
       result.each do |m,args,rets|
         if rets.empty?
           excluded.each {|e| e << [m,args,rets]}
         else
-          excluded = excluded.map {|e| values.map {|v| e + [[m,args,[v]]]}}.flatten(1)
+          possible_returns = Matching.possible_return_values(m,args,used_values.to_a)
+          excluded = excluded.map {|e| possible_returns.map {|v| e + [[m,args,[v]]]}}.flatten(1)
         end
       end
       excluded.reject! {|seq| seq == result}

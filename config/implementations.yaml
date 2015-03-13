@@ -1,6 +1,9 @@
 requires:
 - impls/my_unsafe_stack
 - impls/my_sync_stack
+- impls/my_register
+- impls/my_set
+- impls/my_semaphore
 - impls/my_lock
 - impls/scal_object
 
@@ -13,6 +16,21 @@ implementations:
 - id: unsafestack
   name: My Unsafe Stack
   class: MyUnsafeStack
+  args: []
+
+- id: myregister
+  name: My Register
+  class: MyRegister
+  args: []
+
+- id: myset
+  name: My Set
+  class: MySet
+  args: []
+
+- id: mysemaphore
+  name: My Semaphore
+  class: MySemaphore
   args: []
 
 - id: mylock

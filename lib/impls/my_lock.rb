@@ -11,10 +11,10 @@ class MyLock
   def lock(tid)
     @mutex.synchronize do
       if @holder
-        :fail
+        @holder
       else
         @holder = tid
-        :ok
+        :empty
       end
     end
   end
@@ -26,7 +26,7 @@ class MyLock
         @holder = nil
         h
       else
-        nil
+        :empty
       end
     end
   end

@@ -55,7 +55,7 @@ class ScalObject
     nil
   end
 
-  def remove
+  def rem
     val = CAPI::scal_object_get(self)
     return val == -1 ? :empty : val
   end
