@@ -297,7 +297,7 @@ class History
     self
   end
 
-  def completions(completer)
+  def completions
     Enumerator.new do |y|
       partials = []
       partials << self
@@ -309,7 +309,7 @@ class History
         else
           p = h.instance_variable_get('@pending').first
           partials << h.remove(p)
-          completer.call(h,p).each do |rets|
+          @scheme.generate_returns(method_name(p)).each do |rets|
             partials << h.complete(p,*rets)
           end
         end

@@ -5,12 +5,9 @@ require 'set'
 require_relative 'prelude'
 
 require_relative 'schemes'
-require_relative 'adt_implementation'
-
 require_relative 'history'
-require_relative 'theories'
-require_relative 'z3'
-require_relative 'enumerate_checker'
+require_relative 'history_checker'
+require_relative 'adt_implementation'
 require_relative 'implementations'
 
 def parse_options

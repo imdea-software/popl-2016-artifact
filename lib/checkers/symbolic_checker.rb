@@ -1,9 +1,3 @@
-require_relative 'history'
-require_relative 'history_checker'
-require_relative 'history_completer'
-require_relative 'theories'
-require_relative 'z3'
-
 class SymbolicChecker < HistoryChecker
   include Z3
 
@@ -71,9 +65,7 @@ class SymbolicChecker < HistoryChecker
     sat = false
     log.info('Symbolic') {"checking history\n#{history}"}
 
-    if completion then history.completions(HistoryCompleter.get(adt))
-    else [history]
-    end.each do |h|
+    if completion then history.completions else [history] end.each do |h|
       log.info('Symbolic') {"checking completion\n#{h}"} if completion
       break if (sat = check_history(h))
     end

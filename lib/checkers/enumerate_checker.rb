@@ -1,9 +1,3 @@
-require_relative 'history'
-require_relative 'history_checker'
-require_relative 'history_completer'
-require_relative 'theories'
-require_relative 'z3'
-
 class EnumerateChecker < HistoryChecker
   include Z3
 
@@ -58,9 +52,7 @@ class EnumerateChecker < HistoryChecker
     num_checked = 0
     log.info('Enumerate') {"checking linearizations of history\n#{history}"}
 
-    if completion then history.completions(HistoryCompleter.get(adt))
-    else [history]
-    end.each do |h|
+    if completion then history.completions else [history] end.each do |h|
       log.info('Enumerate') {"checking completion\n#{h}"} if completion
 
       h.linearizations.each do |seq|

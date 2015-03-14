@@ -1,6 +1,4 @@
 require 'set'
-require_relative 'history'
-require_relative 'history_checker'
 
 class Rule
   def initialize(history, *triggers)

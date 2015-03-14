@@ -44,7 +44,10 @@ class HistoryChecker
   end
 end
 
-require_relative 'enumerate_checker'
-require_relative 'symbolic_checker'
-require_relative 'saturate_checker'
-require_relative 'counting_checker'
+require_relative 'theories'
+require_relative 'z3'
+
+Dir.glob(File.join(File.dirname(__FILE__),"checkers","*")).each do |checker|
+  name = File.basename(checker,'.rb')
+  require_relative checker
+end

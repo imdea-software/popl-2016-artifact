@@ -103,8 +103,8 @@ begin
 
   require_relative 'schemes'
   require_relative 'history'
-  require_relative 'log_reader_writer'
   require_relative 'history_checker'
+  require_relative 'log_reader_writer'
   require_relative 'obsolete_remover'
 
   scheme = Schemes.get(LogReaderWriter.object(execution_log)).new

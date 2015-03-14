@@ -1,9 +1,3 @@
-require_relative 'history'
-require_relative 'history_checker'
-require_relative 'history_completer'
-require_relative 'theories'
-require_relative 'z3'
-
 class CountingChecker < HistoryChecker
   include Z3
 
@@ -127,9 +121,7 @@ class CountingChecker < HistoryChecker
     log.info('Counting') {"checking history\n#{history}"}
     log.info('Counting') {"intervals:\n#{show_intervals}"}
 
-    if completion then history.completions(HistoryCompleter.get(adt))
-    else [history]
-    end.each do |h|
+    if completion then history.completions else [history] end.each do |h|
       log.info('Counting') {"checking completion\n#{h}"} if completion
       break if (sat = check_history(h))
     end
