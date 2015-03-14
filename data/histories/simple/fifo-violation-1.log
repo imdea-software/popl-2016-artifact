@@ -1,4 +1,4 @@
-# @object atomic-queue
+# @object queue
 
 [1] call enqueue(a)
 [1] return

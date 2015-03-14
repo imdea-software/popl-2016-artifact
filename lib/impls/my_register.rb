@@ -1,4 +1,7 @@
 class MyRegister
+  include AdtImplementation
+  adt_scheme :register
+
   attr_accessor :value, :mutex
   def initialize
     @value = nil

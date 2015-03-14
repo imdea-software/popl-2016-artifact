@@ -38,6 +38,19 @@ module Enumerable
   end
 end
 
+class String
+  def classify
+    split('_').collect(&:capitalize).join
+  end
+  def underscore
+    self.gsub(/::/, '/').
+    gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+    gsub(/([a-z\d])([A-Z])/,'\1_\2').
+    tr("-", "_").
+    downcase
+  end
+end
+
 class Hash
   def unnest(path=[])
     a = map {|k,v| v.is_a?(Hash) ? v.unnest(path+[k]) : [[path+[k],v]]}.flatten(1)

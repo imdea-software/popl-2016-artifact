@@ -1,4 +1,7 @@
 class MySet
+  include AdtImplementation
+  adt_scheme :set
+
   attr_accessor :values, :mutex
   def initialize
     @values = Set.new
@@ -10,21 +13,33 @@ class MySet
 
   def insert(value)
     @mutex.synchronize do
-      @values.add(value)
-      nil
+      if @values.include?(value)
+        value
+      else
+        @values.add(value)
+        :empty
+      end
     end
   end
 
   def contains(value)
     @mutex.synchronize do
-      @values.include?(value)
+      if @values.include?(value)
+        value
+      else
+        :empty
+      end
     end
   end
 
   def remove(value)
     @mutex.synchronize do
-      @values.delete(value)
-      nil
+      if @values.include?(value)
+        @values.delete(value)
+        value
+      else
+        :empty
+      end
     end
   end
 end

@@ -1,4 +1,7 @@
 class MySemaphore
+  include AdtImplementation
+  adt_scheme :semaphore
+
   attr_accessor :value, :mutex
   def initialize
     @value = []

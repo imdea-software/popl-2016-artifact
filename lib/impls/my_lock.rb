@@ -1,4 +1,7 @@
 class MyLock
+  include AdtImplementation
+  adt_scheme :lock
+
   attr_accessor :holder, :mutex
   def initialize
     @holder = nil

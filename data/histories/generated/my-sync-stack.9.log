@@ -1,4 +1,4 @@
-# @object atomic-stack
+# @object stack
 [1] call push(1)
 [2] call push(2)
 [3] call pop

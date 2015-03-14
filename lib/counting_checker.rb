@@ -114,7 +114,7 @@ class CountingChecker < HistoryChecker
   end
 
   def check_history(history)
-    @theories.theory(object).each(&@solver.method(:assert))
+    @theories.theory(adt).each(&@solver.method(:assert))
     @theories.history(history, order: happens_before_pairs).each(&@solver.method(:assert))
     sat = @solver.check
     @solver.reset
@@ -127,7 +127,7 @@ class CountingChecker < HistoryChecker
     log.info('Counting') {"checking history\n#{history}"}
     log.info('Counting') {"intervals:\n#{show_intervals}"}
 
-    if completion then history.completions(HistoryCompleter.get(object))
+    if completion then history.completions(HistoryCompleter.get(adt))
     else [history]
     end.each do |h|
       log.info('Counting') {"checking completion\n#{h}"} if completion

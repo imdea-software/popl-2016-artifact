@@ -1,9 +1,7 @@
-require_relative 'matching'
-
 class History
   include Enumerable
 
-  def initialize
+  def initialize(scheme)
     @unique_id = 0
     @completed = []
     @pending = []
@@ -17,6 +15,7 @@ class History
     @dependencies = {}
     @match = {}
     @observers = []
+    @scheme = scheme
   end
 
   def initialize_copy(other)
@@ -107,8 +106,8 @@ class History
     returns(i1) == returns(i2)
   end
 
-  def self.from_enum(e)
-    h = self.new
+  def self.from_enum(e,scheme)
+    h = self.new(scheme)
     e.each do |meth, args, rets|
       h.complete!(h.start!(meth, *args), *rets)
     end
@@ -152,7 +151,7 @@ class History
 
   def label(id)
     str = ""
-    str << @method_names[id]
+    str << @method_names[id].to_s
     str << "(#{@arguments[id] * ", "})" unless @arguments[id].empty?
     if pending?(id)
       str << "*"
@@ -200,7 +199,7 @@ class History
     # fail "Unexpected arguments." unless args.all?{|x| x.is_a?(Symbol)}
     id = (@unique_id += 1)
     @pending << id
-    @method_names[id] = m.to_s
+    @method_names[id] = m.to_sym
     @arguments[id] = args
     @returns[id] = nil
     @before[id] = []
@@ -216,9 +215,9 @@ class History
         @ext_after[b] << id
         @ext_before[id] << b
       end
-      @match[c] = id if @match[c].nil? && Matching.get(self,c) == id
+      @match[c] = id if @match[c].nil? && @scheme.match(self,c) == id
     end
-    @match[id] = Matching.get(self,id)
+    @match[id] = @scheme.match(self,id)
     notify_observers :start, id, m, *args
     id
   end
@@ -232,7 +231,7 @@ class History
     @returns[id] = rets
     @dependencies[id] = @pending.clone
     @dependencies.each {|_,ops| ops.delete id}
-    @match[id] = Matching.get(self,id)
+    @match[id] = @scheme.match(self,id)
     notify_observers :complete, id, *rets
     self
   end

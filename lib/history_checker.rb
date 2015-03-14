@@ -1,5 +1,5 @@
 class HistoryChecker
-  attr_reader :object, :matcher, :history, :completion, :incremental, :removal
+  attr_reader :adt, :matcher, :history, :completion, :incremental, :removal
 
   def self.get(options = {})
     case options[:checker]

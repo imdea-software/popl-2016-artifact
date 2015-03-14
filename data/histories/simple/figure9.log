@@ -1,5 +1,5 @@
 # from Figure 9 of the draft
-# @object atomic-stack
+# @object stack
 
 [1] call push(1)
 [1] return

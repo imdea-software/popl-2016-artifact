@@ -4,6 +4,9 @@ require 'set'
 
 require_relative 'prelude'
 
+require_relative 'schemes'
+require_relative 'adt_implementation'
+
 require_relative 'history'
 require_relative 'theories'
 require_relative 'z3'
@@ -61,20 +64,11 @@ end
 
 def negative_examples(impl, op_limit)
   Enumerator.new do |y|
-    object = impl.call()
-    methods = object.methods.reject do |m|
-      next true if Object.instance_methods.include? m
-      next true if FFI::AutoPointer.instance_methods.include? m
-      next true if object.methods.include?("#{m.to_s.chomp('=')}=".to_sym)
-      false
-    end
-
     length = 0
     sequences = [[]]
+
     until sequences.empty? do
       object = impl.call()
-      unique_val = 0
-      used_values = Set.new
       seq = sequences.shift
 
       if seq.length > length
@@ -85,15 +79,10 @@ def negative_examples(impl, op_limit)
       log.debug('pattern-finder') {"Testing sequence: #{seq * "; "}"}
 
       result = []
-
-      log.debug('pattern-finder') {"Actual returns:"}
       seq.each do |method_name|
-        m = object.method(method_name)
-        possible_args = Matching.good_argument_values(method_name, used_values.to_a)
-        args = possible_args.first
-        used_values.merge(args)
-        # args = m.arity.times.map{unique_val += 1}
-        rets = m.call(*args)
+        possible_args = object.adt_scheme.generate_arguments(method_name)
+        args = possible_args.first # FIXME
+        rets = object.method(method_name).call(*args)
         rets = [] if rets.nil?
         rets = [rets] unless rets.is_a?(Array)
         result << [method_name, args, rets]
@@ -101,23 +90,22 @@ def negative_examples(impl, op_limit)
       end
 
       excluded = [[]]
+
       result.each do |m,args,rets|
         if rets.empty?
           excluded.each {|e| e << [m,args,rets]}
         else
-          possible_returns = Matching.possible_return_values(m,args,used_values.to_a)
-          excluded = excluded.map {|e| possible_returns.map {|v| e + [[m,args,[v]]]}}.flatten(1)
+          possible_returns = object.adt_scheme.generate_returns(m)
+          excluded = excluded.map {|e| possible_returns.map {|rs| e + [[m,args,rs]]}}.flatten(1)
         end
       end
-      excluded.reject! {|seq| seq == result}
 
-      excluded.each do |seq|
-        next if seq == result
-        y << History.from_enum(seq)
+      excluded.reject{|seq| seq == result}.each do |seq|
+        y << History.from_enum(seq, object.adt_scheme)
       end
 
       if seq.length < op_limit then
-        methods.each do |m|
+        object.adt_scheme.adt_methods.each do |m|
           sequences << (seq + [m])
         end
       end
@@ -138,10 +126,7 @@ begin
 
   puts "Generating negative patterns…"
   patterns = []
-  
-  object = options[:impl].call().class.spec
-
-  checker = EnumerateChecker.new(reference_impl: options[:impl], object: object, completion: true)
+  checker = EnumerateChecker.new(reference_impl: options[:impl], completion: true)
   context = Z3.context
   @solver = context.solver
   @theories = Theories.new(context)

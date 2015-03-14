@@ -23,11 +23,11 @@ class SaturateChecker < HistoryChecker
   end
 
   def self.get(options)
-    case options[:object]
+    case options[:adt]
     when /stack|queue/
       CollectionSaturateChecker.new(options)
     else
-      fail "I don't know how to make a saturation checker for #{options[:object]}."
+      fail "I don't know how to make a saturation checker for #{options[:adt]}."
     end
   end
 
@@ -237,10 +237,10 @@ class CollectionSaturateChecker < SaturateChecker
         @rules[{value: v1}] << r
       end
       values.each do |v2|
-        r1 = LifoOrderRule.new(history, v1, v2) if object =~ /stack/
-        r2 = LifoOrderRule.new(history, v2, v1) if object =~ /stack/
-        r1 = FifoOrderRule.new(history, v1, v2) if object =~ /queue/
-        r2 = FifoOrderRule.new(history, v2, v1) if object =~ /queue/
+        r1 = LifoOrderRule.new(history, v1, v2) if adt == :stack
+        r2 = LifoOrderRule.new(history, v2, v1) if adt == :stack
+        r1 = FifoOrderRule.new(history, v1, v2) if adt == :queue
+        r2 = FifoOrderRule.new(history, v2, v1) if adt == :queue
         @rules[{value: v1}] << r1
         @rules[{value: v1}] << r2
         @rules[{value: v2}] << r1

@@ -1,4 +1,4 @@
-# @object atomic-stack
+# @object stack
 [1] call remove
 [1] return empty
 [2] call add(2)

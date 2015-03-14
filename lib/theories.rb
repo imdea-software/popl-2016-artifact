@@ -69,7 +69,7 @@ class Theories
     disj(*ids.product_of_distinct(f.arity).map{|*ids| f.call(*ids)}.compact)
   end
 
-  def theory(object)
+  def theory(adt)
     n = default_naming
 
     decl_sort :id
@@ -89,12 +89,12 @@ class Theories
       # before is antisymmetric
       y << forall_ids_c {|i,j| (before(i,j) & before(j,i)).implies(i == j)}
       
-      if object =~ /atomic/
+      if adt =~ /stack|queue/
         # before is total
         y << forall_ids_c {|i,j| (i == j) | before(i,j) | before(j,i)}
       end
 
-      if object =~ /stack|queue/
+      if adt =~ /stack|queue/
         decl_const :add, :method
         decl_const :remove, :method
         decl_const :rm, :method
@@ -123,7 +123,7 @@ class Theories
         y << forall_ids_c {|a,e| (unmatched(a) & rem(e) & (e == match(e))).implies(before(e,a))}
       end
 
-      if object =~ /queue/
+      if adt =~ /queue/
         decl_const :enqueue, :method
         decl_const :dequeue, :method
 
@@ -135,7 +135,7 @@ class Theories
         y << forall_ids_c {|a1,r1,a2| (add(a1) & rem(r1) & (a1 == match(r1)) & unmatched(a2)).implies(before(a1,a2))}
       end
 
-      if object =~ /stack/
+      if adt =~ /stack/
         decl_const :push, :method
         decl_const :pop, :method
 

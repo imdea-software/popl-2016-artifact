@@ -1,4 +1,4 @@
-# @object atomic-queue
+# @object queue
 [1] call add(1)
 [2] call remove
 [2] return 1

@@ -101,13 +101,15 @@ begin
     exit
   end
 
+  require_relative 'schemes'
   require_relative 'history'
   require_relative 'log_reader_writer'
   require_relative 'history_checker'
   require_relative 'obsolete_remover'
 
-  options.history = history = History.new
-  options.object = LogReaderWriter.object(execution_log)
+  scheme = Schemes.get(LogReaderWriter.object(execution_log)).new
+  options.adt = scheme.name
+  options.history = history = History.new(scheme)
 
   checker = HistoryChecker.get(options.to_h)
 
@@ -118,7 +120,7 @@ begin
 
   data = {
     history: File.basename(execution_log),
-    object: options.object || "?",
+    object: options.adt || "?",
     algorithm: checker.name,
     removal: options.removal,
     violation: false,

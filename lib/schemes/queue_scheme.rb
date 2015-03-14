@@ -1,0 +1,3 @@
+class QueueScheme < CollectionScheme
+
+end

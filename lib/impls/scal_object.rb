@@ -1,10 +1,11 @@
 require 'ffi'
 require 'os'
 
-
 class ScalObject < FFI::AutoPointer; def self.release(p) end end
 
 class ScalObject
+  include AdtImplementation
+  adt_scheme :collection
 
   PASS_BOUND = 3
 
@@ -55,8 +56,9 @@ class ScalObject
     nil
   end
 
-  def rem
+  def remove
     val = CAPI::scal_object_get(self)
     return val == -1 ? :empty : val
   end
+
 end

@@ -1,0 +1,3 @@
+class StackScheme < CollectionScheme
+
+end

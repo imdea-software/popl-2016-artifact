@@ -21,7 +21,7 @@ class SymbolicChecker < HistoryChecker
     end
 
     @theories = Theories.new(context)
-    @theories.theory(object).each(&@solver.method(:assert))
+    @theories.theory(adt).each(&@solver.method(:assert))
 
     log.warn('Symbolic') {"I don't know how to handle incremental AND completion!"} \
       if incremental && completion
@@ -71,7 +71,7 @@ class SymbolicChecker < HistoryChecker
     sat = false
     log.info('Symbolic') {"checking history\n#{history}"}
 
-    if completion then history.completions(HistoryCompleter.get(object))
+    if completion then history.completions(HistoryCompleter.get(adt))
     else [history]
     end.each do |h|
       log.info('Symbolic') {"checking completion\n#{h}"} if completion
