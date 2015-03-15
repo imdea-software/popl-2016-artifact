@@ -123,7 +123,9 @@ class History
   end
 
   def to_s
-    if interval_order?
+    if empty?
+      str = "* empty history *"
+    elsif interval_order?
       str = to_interval_s
     else
       str = to_partial_order_s
@@ -134,7 +136,9 @@ class History
   end
 
   def method_names; @method_names.values.uniq end
-  def values; (@arguments.values + @returns.values).flatten(1).uniq end
+  def values; (@arguments.values + @returns.values).flatten(1).uniq.compact end
+  def argument_values; @arguments.values.flatten(1).uniq.compact end
+  def return_values; @returns.values.flatten(1).uniq.compact end
 
   def interval_order?
     @before.values.sort_by(&:count).each_cons(2).all?{|p,q| (p-q).empty?}
@@ -309,7 +313,7 @@ class History
         else
           p = h.instance_variable_get('@pending').first
           partials << h.remove(p)
-          @scheme.generate_returns(method_name(p)).each do |rets|
+          @scheme.generate_returns(self, method_name(p), smart: true).each do |rets|
             partials << h.complete(p,*rets)
           end
         end

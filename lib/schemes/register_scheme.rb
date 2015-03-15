@@ -1,7 +1,6 @@
 class RegisterScheme < Scheme
 
   def initialize
-    @value_limit = 1
   end
 
   def adt_methods
@@ -15,20 +14,22 @@ class RegisterScheme < Scheme
     history.arguments(x) == history.returns(y)
   end
 
-  def generate_arguments(method_name)
+  def generate_arguments(history, method_name)
     case method_name
     when :write
-      @value_limit += 1
-      [[@value_limit-1]]
+      [[(history.argument_values | [0]).select{|v| v.is_a?(Fixnum)}.max + 1]]
     else
       [[]]
     end
   end
 
-  def generate_returns(method_name)
+  def generate_returns(history, method_name, smart: false)
     case method_name
     when :read
-      (@value_limit.times.to_a + [:empty]).map{|v| [v]}
+      values = history.argument_values
+      values |= [(values|[0]).select{|v| v.is_a?(Fixnum)}.max + 1] unless smart
+      values |= [:empty]
+      values.map{|v| [v]}
     else
       [[]]
     end

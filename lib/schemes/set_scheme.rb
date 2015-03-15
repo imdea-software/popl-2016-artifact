@@ -1,7 +1,6 @@
 class SetScheme < Scheme
 
   def initialize
-    @value_limit = 1
   end
 
   def adt_methods
@@ -13,12 +12,21 @@ class SetScheme < Scheme
     x != y && history.method_name(x) == :insert && history.arguments(x) == history.returns(y)
   end
 
-  def generate_arguments(method_name)
-    @value_limit += 1 if method_name == :insert
-    @value_limit.times.to_a.reject{|v| v == 0 && method_name == :insert}.map{|v| [v]}
+  def generate_arguments(history, method_name)
+    values = (history.argument_values).select{|v| v.is_a?(Fixnum)}
+    case method_name
+    when :insert
+      [[(values|[0]).max + 1]]
+    else
+      values |= [(values|[0]).max + 1]
+      values.map{|v| [v]}
+    end
   end
 
-  def generate_returns(method_name)
-    (@value_limit.times.to_a + [:empty]).map{|v| [v]}
+  def generate_returns(history, method_name, smart: false)
+    values = history.argument_values
+    values |= [(values|[0]).select{|v| v.is_a?(Fixnum)}.max + 1] unless smart
+    values |= [:empty]
+    values.map{|v| [v]}
   end
 end

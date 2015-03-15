@@ -59,53 +59,49 @@ def parse_options
   options
 end
 
-def negative_examples(impl, op_limit)
+def negative_examples(impl, op_limit, only_prefixes: false)
   Enumerator.new do |y|
-    length = 0
-    sequences = [[]]
 
-    until sequences.empty? do
+    size = 0
+    histories = []
+    histories << History.new(impl.call().adt_scheme)
+
+    while !histories.empty? do
+      h = histories.shift
+
+      if h.count > size
+        puts if log.level > Logger::INFO
+        puts "Length #{size = h.count} histories…" if log.level > Logger::INFO
+      end
+
+      # test it
       object = impl.call()
-      seq = sequences.shift
-
-      if seq.length > length
-        puts if length > 0 if log.level > Logger::INFO
-        puts "Length #{length = seq.length} sequences…" if log.level > Logger::INFO
+      sequence = h.sort {|x,y| if h.before?(x,y) then -1 elsif h.before?(y,x) then 1 else 0 end}
+      bad = sequence.any? do |id|
+        returns = object.method(h.method_name(id)).call(*h.arguments(id))
+        returns = [] if returns.nil?
+        returns = [returns] unless returns.is_a?(Array)
+        returns != h.returns(id)
       end
 
-      log.debug('pattern-finder') {"Testing sequence: #{seq * "; "}"}
+      log.info('pattern-finder') {"#{if bad then "bad" else "good" end} example\n#{h}"}
+      print "." if log.level > Logger::INFO
 
-      result = []
-      seq.each do |method_name|
-        possible_args = object.adt_scheme.generate_arguments(method_name)
-        args = possible_args.first # FIXME
-        rets = object.method(method_name).call(*args)
-        rets = [] if rets.nil?
-        rets = [rets] unless rets.is_a?(Array)
-        result << [method_name, args, rets]
-        log.debug('pattern-finder') {"  #{method_name}(#{args * ", "})#{rets.empty? ? "" : " => #{rets * ", "}"}"}
-      end
+      y << h if bad
+      next if bad && only_prefixes
 
-      excluded = [[]]
-
-      result.each do |m,args,rets|
-        if rets.empty?
-          excluded.each {|e| e << [m,args,rets]}
-        else
-          possible_returns = object.adt_scheme.generate_returns(m)
-          excluded = excluded.map {|e| possible_returns.map {|rs| e + [[m,args,rs]]}}.flatten(1)
-        end
-      end
-
-      excluded.reject{|seq| seq == result}.each do |seq|
-        y << History.from_enum(seq, object.adt_scheme)
-      end
-
-      if seq.length < op_limit then
+      # generate the next histories
+      if h.count < op_limit
         object.adt_scheme.adt_methods.each do |m|
-          sequences << (seq + [m])
+          object.adt_scheme.generate_arguments(h,m).each do |args|
+            object.adt_scheme.generate_returns(h,m).each do |rets|
+              hh, id = h.start(m,*args)
+              histories << hh.complete(id,*rets)
+            end
+          end
         end
       end
+
     end
   end
 end
