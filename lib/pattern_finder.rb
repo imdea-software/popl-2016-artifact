@@ -62,19 +62,18 @@ end
 def negative_examples(impl, op_limit, only_prefixes: false)
   Enumerator.new do |y|
 
-    size = 0
     histories = []
     histories << History.new(impl.call().adt_scheme)
 
     while !histories.empty? do
       h = histories.shift
 
-      if h.count > size
-        puts if log.level > Logger::INFO
-        puts "Length #{size = h.count} histories…" if log.level > Logger::INFO
+      if log.level > Logger::INFO && h.count > size ||= 0
+        puts
+        puts "Length #{size = h.count} histories:"
       end
 
-      # test it
+      # test whether this history is accepted
       object = impl.call()
       sequence = h.sort {|x,y| if h.before?(x,y) then -1 elsif h.before?(y,x) then 1 else 0 end}
       bad = sequence.any? do |id|
@@ -90,7 +89,7 @@ def negative_examples(impl, op_limit, only_prefixes: false)
       y << h if bad
       next if bad && only_prefixes
 
-      # generate the next histories
+      # generate all possible extensions of this history
       if h.count < op_limit
         object.adt_scheme.adt_methods.each do |m|
           object.adt_scheme.generate_arguments(h,m).each do |args|
@@ -115,16 +114,16 @@ end
 begin
   log_filter(/pattern/)
   options = parse_options
-  options[:impl] = Implementations.get(ARGV.first, num_threads: options[:num_threads])
+  impl = Implementations.get(ARGV.first, num_threads: options[:num_threads])
 
   puts "Generating negative patterns…"
   patterns = []
-  checker = EnumerateChecker.new(reference_impl: options[:impl], completion: true)
+  checker = EnumerateChecker.new(reference_impl: impl, completion: true)
   context = Z3.context
   @solver = context.solver
   @theories = Theories.new(context)
 
-  negative_examples(*options[:impl], options[:operation_limit]).each do |h|
+  negative_examples(impl, options[:operation_limit]).each do |h|
 
     if patterns.any? {|p| ordered?(p,h)}
       log.info('pattern-finder') {"redundant pattern\n#{h}"}
