@@ -9,8 +9,7 @@ class MySemaphore
     @mutex = Mutex.new
   end
 
-  def self.spec; "lock" end
-  def to_s; "my-lock" end
+  def to_s; "My Semaphore" end
 
   def signal(tid)
     @mutex.synchronize do

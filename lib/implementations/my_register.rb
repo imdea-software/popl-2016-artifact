@@ -9,8 +9,7 @@ class MyRegister
     @mutex = Mutex.new
   end
 
-  def self.spec; "atomic-register" end
-  def to_s; "my-register" end
+  def to_s; "My Register" end
 
   def write(value)
     @mutex.synchronize do

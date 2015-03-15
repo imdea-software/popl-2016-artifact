@@ -9,8 +9,7 @@ class MyLock
     @mutex = Mutex.new
   end
 
-  def self.spec; "lock" end
-  def to_s; "my-lock" end
+  def to_s; "My Lock" end
 
   def lock(tid)
     @mutex.synchronize do

@@ -1,0 +1,11 @@
+implementations:
+- my_register
+- scal_object -x id=msq
+- scal_object -x id=ts
+- my_lock
+- my_semaphore
+- my_work_stealing_queue -x take_from=head -x steal_from=head
+- my_work_stealing_queue -x take_from=head -x steal_from=tail
+- my_work_stealing_queue -x take_from=tail -x steal_from=head
+- my_work_stealing_queue -x take_from=tail -x steal_from=tail
+- my_set
