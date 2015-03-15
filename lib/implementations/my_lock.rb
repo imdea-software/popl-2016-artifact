@@ -3,7 +3,8 @@ class MyLock
   adt_scheme :lock
 
   attr_accessor :holder, :mutex
-  def initialize
+
+  def initialize(**options)
     @holder = nil
     @mutex = Mutex.new
   end

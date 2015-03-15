@@ -19,10 +19,10 @@ module Schemes
   Dir.glob(File.join(File.dirname(__FILE__),"schemes","*")).each do |scheme|
     name = File.basename(scheme,'.rb')
     require_relative scheme
-    @schemes[name.split('_')[0..-2].join.to_sym] = Object.const_get(name.classify)
+    @schemes[name.split('_')[0..-2].join('_').to_sym] = Object.const_get(name.classify)
   end
 
   def self.get(name)
-    @schemes[name.to_sym] || fail("Cannot find scheme '#{name}'")
+    @schemes[name.to_sym] || fail("Unknown scheme '#{name}'")
   end
 end

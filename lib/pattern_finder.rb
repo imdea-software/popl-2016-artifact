@@ -17,6 +17,7 @@ def parse_options
   options[:num_executions] = 10
   options[:num_threads] = 1
   options[:operation_limit] = 4
+  options[:args] = {}
 
   OptionParser.new do |opts|
     opts.banner = "Usage: #{File.basename $0} [options] OBJECT"
@@ -44,6 +45,10 @@ def parse_options
       options[:generalize] = g
     end
 
+    opts.on("-x", "--args ARGS", "????.") do |x|
+      options[:args][x.split('=')[0].to_sym] = x.split('=')[1]
+    end
+
     opts.separator ""
     opts.separator "Some useful limits:"
 
@@ -63,7 +68,7 @@ def negative_examples(impl, op_limit, only_prefixes: false)
   Enumerator.new do |y|
 
     histories = []
-    histories << History.new(impl.call().adt_scheme)
+    histories << History.new(impl.call.adt_scheme)
 
     while !histories.empty? do
       h = histories.shift
@@ -74,7 +79,7 @@ def negative_examples(impl, op_limit, only_prefixes: false)
       end
 
       # test whether this history is accepted
-      object = impl.call()
+      object = impl.call
       sequence = h.sort {|x,y| if h.before?(x,y) then -1 elsif h.before?(y,x) then 1 else 0 end}
       bad = sequence.any? do |id|
         returns = object.method(h.method_name(id)).call(*h.arguments(id))
@@ -114,9 +119,10 @@ end
 begin
   log_filter(/pattern/)
   options = parse_options
-  impl = Implementations.get(ARGV.first, num_threads: options[:num_threads])
+  impl = Implementations.get(ARGV.first).prepare(options[:args])
+  # impl.prepare(num_threads: options[:num_threads])
 
-  puts "Generating negative patterns…"
+  puts "Generating negative patterns for #{impl.call.to_s}"
   patterns = []
   checker = EnumerateChecker.new(reference_impl: impl, completion: true)
   context = Z3.context

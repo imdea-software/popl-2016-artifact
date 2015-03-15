@@ -18,6 +18,12 @@ module AdtImplementation
         @adt_scheme
       end
     end
+
+    def prepare(**options)
+      Proc.new do
+        self.new(options)
+      end
+    end
   end
 
   module InstanceMethods

@@ -3,7 +3,8 @@ class MySemaphore
   adt_scheme :semaphore
 
   attr_accessor :value, :mutex
-  def initialize
+
+  def initialize(**options)
     @value = []
     @mutex = Mutex.new
   end

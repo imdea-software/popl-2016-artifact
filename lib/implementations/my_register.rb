@@ -3,7 +3,8 @@ class MyRegister
   adt_scheme :register
 
   attr_accessor :value, :mutex
-  def initialize
+
+  def initialize(**options)
     @value = nil
     @mutex = Mutex.new
   end

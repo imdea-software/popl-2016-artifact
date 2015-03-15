@@ -3,7 +3,8 @@ class MySet
   adt_scheme :set
 
   attr_accessor :values, :mutex
-  def initialize
+
+  def initialize(**options)
     @values = Set.new
     @mutex = Mutex.new
   end
