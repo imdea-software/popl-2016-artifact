@@ -7,6 +7,10 @@ class RegisterScheme < Scheme
     [:write, :read]
   end
 
+  def read_only?(history, id)
+    history.method_name(id) == :read
+  end
+
   def match?(history, x, y)
     history.method_name(x) == :write && x == y ||
     history.method_name(x) == :write &&

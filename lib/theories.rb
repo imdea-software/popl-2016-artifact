@@ -162,6 +162,7 @@ class Theories
       decl_sort :method
 
       decl_const :red, :id2, :bool
+      decl_const :ro, :id2, :bool
 
       decl_const :g, :id1, :id2
       decl_const :dom, :id1, :bool
@@ -205,8 +206,9 @@ class Theories
       h1.completed.each {|id| y << e(:dom,e(:"o#{id}"))}
       h2.each do |id|
         i = e(:"p#{id}")
-        ids = h2.select {|jd| id != jd && h2.identical(id,jd)}
+        ids = h2.select {|jd| id != jd && h2.identical?(id,jd)}
         y << e(:red,i).implies(disj(*ids.map{|jd| !e(:red,e(:"p#{jd}"))}))
+        y << if h2.read_only?(id) then e(:ro,i) else !e(:ro,i) end
       end
 
       # identifiers are bounded
@@ -230,8 +232,8 @@ class Theories
       # mapping takes entire match groups
       y << forall(:id1) {|i,j| (e(:dom,i) & (e(:match1,i) == j)).implies(e(:dom,j))}
       y << forall(:id1) {|i,j| (e(:dom,j) & (e(:match1,i) == j)).implies(e(:dom,i))}
-      y << forall(:id2) {|i,j| (e(:rng,i) & (e(:match2,i) == j) & !e(:red,j)).implies(e(:rng,j))}
-      y << forall(:id2) {|i,j| (e(:rng,j) & (e(:match2,i) == j) & !e(:red,i)).implies(e(:rng,i))}
+      y << forall(:id2) {|i,j| (e(:rng,i) & (e(:match2,i) == j) & !e(:red,j) & !e(:ro,j)).implies(e(:rng,j))}
+      y << forall(:id2) {|i,j| (e(:rng,j) & (e(:match2,i) == j) & !e(:red,i) & !e(:ro,i)).implies(e(:rng,i))}
 
       # mapping is injective
       y << forall(:id1) {|i,j| (e(:dom,i) & e(:dom,j) & (e(:g,i) == e(:g,j))).implies(i == j)}

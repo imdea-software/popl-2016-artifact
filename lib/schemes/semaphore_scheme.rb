@@ -7,6 +7,15 @@ class SemaphoreScheme < Scheme
     [:signal, :wait]
   end
 
+  def read_only?(history, id)
+    case history.method_name(id)
+    when :wait
+      history.returns(id) == [:empty]
+    else
+      false
+    end
+  end
+
   def match?(history, x, y)
     history.method_name(x) == :signal && x == y ||
     history.method_name(x) == :wait && x == y && history.returns(x) == [:empty] ||

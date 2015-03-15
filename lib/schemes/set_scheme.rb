@@ -7,9 +7,24 @@ class SetScheme < Scheme
     [:insert, :remove, :contains]
   end
 
+  def read_only?(history, id)
+    case history.method_name(id)
+    when :insert
+      history.returns(id) != [:empty]
+    when :remove
+      history.returns(id) == [:empty]
+    else
+      true
+    end
+  end
+
   def match?(history, x, y)
     x == y && history.returns(x) == [:empty] ||
-    x != y && history.method_name(x) == :insert && history.arguments(x) == history.returns(y)
+    x != y &&
+    history.method_name(x) == :insert &&
+    history.returns(x) == [:empty] &&
+    history.arguments(x) == history.arguments(y) &&
+    history.arguments(x) == history.returns(y)
   end
 
   def generate_arguments(history, method_name)

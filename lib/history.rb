@@ -87,6 +87,8 @@ class History
   def uncomplete(id)      clone.uncomplete!(id) end
   def unorder(i1,i2)      clone.unorder!(i1,i2) end
 
+  def read_only?(id)      @scheme.read_only?(self,id) end
+
   def matches
     ms = {}
     each do |id|
@@ -98,7 +100,7 @@ class History
     ms
   end
 
-  def identical(i1,i2)
+  def identical?(i1,i2)
     match(i1) && match(i2) &&
     match(i1) == match(i2) &&
     method_name(i1) == method_name(i2) &&
@@ -162,12 +164,13 @@ class History
     elsif !@returns[id].empty?
       str << " => #{@returns[id] * ", "}"
     end
+    str << " (RO)" if read_only?(id)
     str
   end
 
   def match_s(id)
     m = match(id)
-    "[#{id}#{m.nil? ? ":_" : m != :none ? ":#{m}" : ""}]"
+    "[#{id}:#{m.nil? ? "_" : m != :none ? "#{m}" : ""}]"
   end
 
   def to_partial_order_s
@@ -365,7 +368,7 @@ class History
 
   def prune_once
     each do |p|
-      next unless any? {|id| id != p && identical(id,p)}
+      next unless any? {|id| id != p && identical?(id,p)}
       w = remove(p)
       return w if yield(w)
     end

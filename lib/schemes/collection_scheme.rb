@@ -16,6 +16,15 @@ class CollectionScheme < Scheme
     end
   end
 
+  def read_only?(history,id)
+    case normalize(history.method_name(id))
+    when :remove
+      history.returns(id) == [:empty]
+    else
+      false
+    end
+  end
+
   def match?(history, x, y)
     normalize(history.method_name(x)) == :add && x == y ||
     normalize(history.method_name(x)) == :remove && x == y && history.returns(y) == [:empty] ||

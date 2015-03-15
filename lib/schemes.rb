@@ -6,7 +6,7 @@ class Scheme
     history.find {|m| match?(history,m,id)}
   end
   def method_missing(m, *args, &block)
-    if [:adt_methods, :match?, :generate_arguments, :generate_returns].include?(m)
+    if [:adt_methods, :read_only?, :match?, :generate_arguments, :generate_returns].include?(m)
       fail "#{self.class} does not implement '#{m}'."
     else
       super
