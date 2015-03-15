@@ -100,6 +100,28 @@ class History
     ms
   end
 
+  def to_formula
+    conjuncts = []
+    each do |id|
+      c = []
+      c << if completed?(id) then "c(o#{id})" else "!c(o#{id})" end
+      c << "f(o#{id}) = #{method_name(id)}"
+      if match(id)
+        c << "m(o#{id}) = o#{match(id)}" 
+      else
+        c << "(forall o :: m(o#{id}) != o)" 
+      end
+      after(id).each do |j|
+        c << "o#{id} < o#{j}"
+      end
+      conjuncts << "#{c * " && "}"
+    end
+    matches.each do |id, elems|
+      conjuncts << "(forall o :: m(o) = o#{id} ==> #{elems.map{|j| "o = o#{j}"} * " || "})"
+    end
+    "(exists #{map{|id| "o#{id}"} * ", "} :: \n  #{conjuncts * " &&\n  "}\n)"
+  end
+
   def identical?(i1,i2)
     match(i1) && match(i2) &&
     match(i1) == match(i2) &&
