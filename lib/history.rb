@@ -105,7 +105,12 @@ class History
       c = []
       c << if completed?(id) then "c(x#{id})" else "!c(x#{id})" end
       c << "f(x#{id}) == #{method_name(id)}"
-      c << "m(x#{id}) == #{match(id) ? "x#{match(id)}" : "NONE"}"
+      if match(id) == :none
+        c << "um(x#{id})"
+      elsif match(id)
+        c << "!um(x#{id})"
+        c << "m(x#{id}) == x#{match(id)}"
+      end
       after(id).each do |j|
         next if any?{|k| after(id).include?(k) && after(k).include?(j)}
         c << "x#{id} < x#{j}"
@@ -189,7 +194,7 @@ class History
 
   def match_s(id)
     m = match(id)
-    "[#{id}:#{m.nil? ? "_" : m != :none ? "#{m}" : ""}]"
+    "[#{id}:#{m.nil? ? "_" : m == :none ? "X" : "#{m}"}]"
   end
 
   def to_partial_order_s
@@ -241,7 +246,9 @@ class History
         @ext_after[b] << id
         @ext_before[id] << b
       end
-      @match[c] = id if @match[c].nil? && @scheme.match(self,c) == id
+      if [nil,:none].include?(@match[c]) && @scheme.match(self,c) == id
+        @match[c] = id
+      end
     end
     @match[id] = @scheme.match(self,id)
     notify_observers :start, id, m, *args
@@ -257,7 +264,7 @@ class History
     @returns[id] = rets
     @dependencies[id] = @pending.clone
     @dependencies.each {|_,ops| ops.delete id}
-    @match[id] = @scheme.match(self,id)
+    @match[id] = @scheme.match(self,id) || :none
     notify_observers :complete, id, *rets
     self
   end

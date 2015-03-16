@@ -30,6 +30,7 @@ class Theories
 
   def match(o)        e(:match, o) end
   def unmatched(o)    add(o) & !exists_ids_c {|p| rem(p) & (o == match(p))} end
+  def um(o)           e(:um, o) end
 
   def add(a)        meth(a) == e(:add) end
   def rem(a)        meth(a) == e(:remove) end
@@ -80,6 +81,7 @@ class Theories
     decl_const :p, :id, :bool
     decl_const :bef, :id, :id, :bool
     decl_const :match, :id, :id
+    decl_const :um, :id, :bool
 
     Enumerator.new do |y|
 
@@ -89,6 +91,9 @@ class Theories
       # before is antisymmetric
       y << forall_ids_c {|i,j| (before(i,j) & before(j,i)).implies(i == j)}
       
+      # TODO repair the definitions of um, match, etc.
+      y << forall_ids_c {|i| um(i).iff(!exists_ids_c{|j| j == match(i)}) }
+
       if adt =~ /stack|queue/
         # before is total
         y << forall_ids_c {|i,j| (i == j) | before(i,j) | before(j,i)}
@@ -187,11 +192,11 @@ class Theories
           i = e(:"#{o}#{id}")
           y << (e(:"mth#{idx}",i) == e(:"#{e(h.method_name(id))}"))
           y << if h.completed?(id) then e(:"c#{idx}",i) else !e(:"c#{idx}",i) end
-          if h.match(id)
+          if h.match(id) == :none
+            y << e(:"um#{idx}",i)
+          elsif h.match(id)
             y << (e(:"match#{idx}",i) == e(:"#{o}#{h.match(id)}"))
             y << !e(:"um#{idx}",i)
-          elsif h.completed?(id)
-            y << e(:"um#{idx}",i)
           end
 
           h.each do |jd|
@@ -275,7 +280,11 @@ class Theories
       history.each {|j| y << (e(n.id(id)) != e(n.id(j))) unless j == id}
       y << (meth(e(n.id(id))) == e(n.method(history.method_name(id))))
       history.before(id).each {|j| y << before(e(n.id(j)), e(n.id(id)))} unless order
-      y << (match(e(n.id(id))) == e(n.id(m))) if m
+      if m == :none
+        y << um(e(n.id(id)))
+      elsif m
+        y << (match(e(n.id(id))) == e(n.id(m)))
+      end
       y << p(e(n.id(id)))
     end
   end
@@ -284,7 +293,11 @@ class Theories
     n = default_naming
     m = history.match(id)
     Enumerator.new do |y|
-      y << (match(e(n.id(id))) == e(n.id(m))) if m
+      if m == :none
+        y << um(e(n.id(id)))
+      elsif m
+        y << (match(e(n.id(id))) == e(n.id(m)))
+      end
       y << c(e(n.id(id)))
     end
   end
@@ -293,12 +306,19 @@ class Theories
     n = default_naming
     Enumerator.new do |y|
       y << forall_ids_c {|o| disj(*history.map{|j| o == e(n.id(j))})}
-      history.completed.each do |id|
-        next if history.match(id)
-        history.each do |jd|
-          y << (match(e(n.id(id))) != e(n.id(jd)))
-        end
+      history.matches.each do |id,elems|
+        next unless id
+        next if id == :none
+        y << (forall_ids_c {|o| (match(o) == e(n.id(id))).implies(disj(*history.map{|j| o == e(n.id(j))}))})
       end
+
+      # history.completed.each do |id|
+      #   next if history.match(id)
+      #   history.each do |jd|
+      #     y << (match(e(n.id(id))) != e(n.id(jd)))
+      #   end
+      # end
+
     end
   end
 
