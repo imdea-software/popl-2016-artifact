@@ -93,7 +93,6 @@ class History
     ms = {}
     each do |id|
       m = match(id)
-      m = id if m.nil? || m == :none
       ms[m] ||= []
       ms[m] << id
     end
@@ -104,22 +103,20 @@ class History
     conjuncts = []
     each do |id|
       c = []
-      c << if completed?(id) then "c(o#{id})" else "!c(o#{id})" end
-      c << "f(o#{id}) = #{method_name(id)}"
-      if match(id)
-        c << "m(o#{id}) = o#{match(id)}" 
-      else
-        c << "(forall o :: m(o#{id}) != o)" 
-      end
+      c << if completed?(id) then "c(x#{id})" else "!c(x#{id})" end
+      c << "f(x#{id}) == #{method_name(id)}"
+      c << "m(x#{id}) == #{match(id) ? "x#{match(id)}" : "NONE"}"
       after(id).each do |j|
-        c << "o#{id} < o#{j}"
+        next if any?{|k| after(id).include?(k) && after(k).include?(j)}
+        c << "x#{id} < x#{j}"
       end
       conjuncts << "#{c * " && "}"
     end
     matches.each do |id, elems|
-      conjuncts << "(forall o :: m(o) = o#{id} ==> #{elems.map{|j| "o = o#{j}"} * " || "})"
+      next if id == :none || id.nil?
+      conjuncts << "(forall x :: m(x) == x#{id} ==> #{elems.map{|j| "x == x#{j}"} * " || "})"
     end
-    "(exists #{map{|id| "o#{id}"} * ", "} :: \n  #{conjuncts * " &&\n  "}\n)"
+    "(exists #{map{|id| "x#{id}"} * ", "} :: \n  #{conjuncts * " &&\n  "}\n)"
   end
 
   def identical?(i1,i2)
