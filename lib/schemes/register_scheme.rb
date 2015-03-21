@@ -13,6 +13,7 @@ class RegisterScheme < Scheme
 
   def match?(history, x, y)
     history.method_name(x) == :write && x == y ||
+    history.method_name(x) == :read && x == y && history.returns(x) == [:empty] ||
     history.method_name(x) == :write &&
     history.method_name(y) == :read &&
     history.arguments(x) == history.returns(y)

@@ -20,7 +20,7 @@ class MyRegister
 
   def read
     @mutex.synchronize do
-      @value
+      @value || :empty
     end
   end
 end
