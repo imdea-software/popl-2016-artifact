@@ -2,6 +2,10 @@ text {
   font: 10px sans-serif;
 }
 
+.x.axis .tick text {
+  font: 8px sans-serif;
+}
+
 .axis path,
 .axis line {
   fill: none;

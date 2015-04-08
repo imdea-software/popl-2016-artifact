@@ -32,37 +32,6 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  var legend = svg.append("g")
-      .attr("transform", "translate(" + (width/4) + ", 30)");
-
-  legend.append("rect")
-      .attr("class", "legend")
-      .attr("x", -75)
-      .attr("y", -15)
-      .attr("width", 450)
-      .attr("height", 30)
-      .attr("fill", "white")
-      .attr("stroke", "black");
-
-  var keys = legend.selectAll("g")
-      .data([
-        {algorithm: "Enumerate"},
-        {algorithm: "Symbolic"}, {algorithm: "Symbolic", removal: "true"},
-        {algorithm: "Saturate"}, {algorithm: "Saturate", removal: "true"}])
-    .enter().append("g")
-      .attr("transform", function(d,i) { return "translate(" + (i * 90) + "," + (0) + ")"})
-
-  keys.append("path")
-      .attr("class", function(d) { return "point " + d.algorithm.toLowerCase(); })
-      .classed("removal", function(d) { return d.removal == "true"; })
-      .attr("d", d3.svg.symbol().type(function (d) { return data_shape(d) }).size(150));
-
-  keys.append("text")
-      .style("text-anchor", "end")
-      .attr("dx", -15)
-      .attr("dy", ".31em")
-      .text(function(d) { return d.algorithm + (d.removal == "true" ? "+R" : ""); });
-
   function data_shape(d) {
     a = d.algorithm
     shape =  a.match(/Enumerate/) ? "diamond" :
@@ -95,10 +64,35 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
     data = data.filter(function(d) { return d.algorithm != "?" && !d.algorithm.match(/Bound/) })
 
     var averages = d3.nest()
-        .key(function(d) { return [d.algorithm, d.removal]; })
+        .key(function(d) { return d.algorithm; })
+        .key(function(d) { return d.removal; })
         .key(function(d) { return nearestTimeout(d.time); })
-        .rollup(function(d) { return d3.mean(d, function(g) { return +g.steps; })})
-        .entries(data);
+        .rollup(function(d) {
+          var step_counts = d.map(function(g) { return +g.steps; }).sort(function(a,b) { return a-b; });
+          return {
+            counts: step_counts,
+            min: d3.min(step_counts),
+            max: d3.max(step_counts),
+            mean: d3.mean(step_counts),
+            q1: d3.quantile(step_counts, 0.25),
+            q2: d3.quantile(step_counts, 0.50),
+            q3: d3.quantile(step_counts, 0.75),
+            median: d3.median(step_counts),
+            deviation: d3.deviation(step_counts),
+          }})
+        .entries(data)
+        .map(function(d) {
+          return d.values.map(function(e) {
+            return e.values.map(function(f) {
+              return {
+                algorithm: d.key,
+                removal: e.key == "true",
+                timeout: f.key,
+                stats: f.values
+              };
+            });
+          });
+        }).reduce(function(d,e) { return d.concat(e); }).reduce(function(d,e) { return d.concat(e); });
 
     x.domain([10,d3.max(data, function(d) { return d.steps })]);
     y.domain([-0.3,d3.max(data, function(d) { return (d.time / Math.pow(d["weight.mean"],0)) })]);
@@ -112,17 +106,53 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
         .attr("y2", y(t));
     });
 
-    averages.forEach(function(d) {
-      algorithm = d.key.split(",")[0];
-      removal = d.key.split(",")[1];
-      svg.append("path")
-          .attr("class", "outline " + algorithm.toLowerCase())
-          .attr("d", line(d.values));
-      svg.append("path")
-          .attr("class", "line " + algorithm.toLowerCase())
-          .classed("removal", function(_) { return removal == "true"; })
-          .attr("d", line(d.values));
-    });
+    var datapoints = svg.selectAll(".datapoint")
+        .data(averages)
+      .enter().append("g")
+        .attr("class", "datapoint")
+        .attr("transform", function(d,i) { return "translate(" + x(d.stats.q2) + "," + (y(d.timeout) - (Math.floor(i/5)%2)*10) + ")"; })
+
+    datapoints.append("line")
+      .attr("x1", function(d) { return x(d.stats.min) - x(d.stats.q2); })
+      .attr("x2", function(d) { return x(d.stats.max) - x(d.stats.q2); })
+      .attr("y1", function(d) { return 0; })
+      .attr("y2", function(d) { return 0; });
+
+    datapoints.append("rect")
+      .attr("class", function(d) { return d.algorithm.toLowerCase(); })
+      .classed("removal", function(d) { return d.removal; })
+      .attr("x", function(d) { return x(d.stats.q1) - x(d.stats.q2); })
+      .attr("y", -5)
+      .attr("width", function(d) { return x(d.stats.q3) - x(d.stats.q1); })
+      .attr("height", 10);
+
+    datapoints.append("line")
+      .attr("x1", function(d) { return x(d.stats.min) - x(d.stats.q2); })
+      .attr("x2", function(d) { return x(d.stats.min) - x(d.stats.q2); })
+      .attr("y1", function(d) { return -3; })
+      .attr("y2", function(d) { return +3; });
+
+    datapoints.append("line")
+      .attr("x1", function(d) { return x(d.stats.q2) - x(d.stats.q2); })
+      .attr("x2", function(d) { return x(d.stats.q2) - x(d.stats.q2); })
+      .attr("y1", function(d) { return -3; })
+      .attr("y2", function(d) { return +3; });
+
+    datapoints.append("line")
+      .attr("x1", function(d) { return x(d.stats.max) - x(d.stats.q2); })
+      .attr("x2", function(d) { return x(d.stats.max) - x(d.stats.q2); })
+      .attr("y1", function(d) { return -3; })
+      .attr("y2", function(d) { return +3; });
+
+    datapoints.append("text")
+        .attr("dy", "-1em")
+        .attr("text-anchor", "middle")
+        .text(function(d) { return Math.round(d.stats.q2); });
+
+    datapoints.filter(function(d,i) { return (i % 5) == 4; }).append("text")
+        .attr("dy", "-2em")
+        .attr("text-anchor", "middle")
+        .text(function(d) { return d.algorithm + (d.removal ? "+R" : ""); });
 
     svg.append("g")
         .attr("class", "x axis")
@@ -145,15 +175,6 @@ steps_until_timeout_plot = function(datafile, width, height, margin) {
         .style("text-anchor", "end")
         .text("Seconds");
 
-    svg.selectAll(".point")
-        .data(data)
-      .enter().append("path")
-        .attr("class", function(d) { return "point " + d.algorithm.toLowerCase(); })
-        .classed("violation", function(d) { return d.violation; })
-        .classed("removal", function(d) { return d.removal == "true"; })
-        .attr("transform", function(d) { return "translate(" + x(d.steps) + "," + y(d.time / Math.pow(d["weight.mean"],0)) + ")"; })
-        .attr("d", d3.svg.symbol().type(function(d) { return data_shape(d) }).size(function(d) { return data_size(d); }))
-      
   });
 
 }

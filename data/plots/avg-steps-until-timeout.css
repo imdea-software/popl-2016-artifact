@@ -1,5 +1,21 @@
+
+
 .legend text {
   font: 10px sans-serif;
+}
+
+.datapoint {
+  stroke: #000;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+
+.datapoint line {
+  stroke-wdith: 1px;
+}
+
+.datapoint text {
+  stroke-width: 0px;
 }
 
 .point {

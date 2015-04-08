@@ -14,9 +14,9 @@ violations_covered_plot = function(datafile, width, height, margin) {
 
   var algorithmAbbrs = [
     {pattern: /Enum.*/, abbr: "E"},
-    {pattern: /Sym.*/, abbr: "SYM"},
-    {pattern: /Sat.*/, abbr: "SAT"},
-    {pattern: /Bound*\((\d+)\)/, abbr: "C($1)"}
+    {pattern: /Sym.*/, abbr: "SY"},
+    {pattern: /Sat.*/, abbr: "SA"},
+    {pattern: /Bound*\((\d+)\)/, abbr: "C$1"}
   ];
 
   function objectName(obj) {
@@ -147,14 +147,14 @@ violations_covered_plot = function(datafile, width, height, margin) {
 
 
     var legend = svg.append("g")
-        .attr("transform", "translate(" + (width/2) + "," + 30 + ")");
+        .attr("transform", "translate(" + (width/2) + "," + 10 + ")");
 
     legend.append("rect")
         .attr("class", "legend")
-        .attr("x", -69)
-        .attr("y", -10)
-        .attr("height", "60")
-        .attr("width", "150");
+        .attr("x", -63)
+        .attr("y", -5)
+        .attr("height", "50")
+        .attr("width", "130");
 
     var keys = legend.append("g")
         .selectAll("g")
@@ -173,7 +173,7 @@ violations_covered_plot = function(datafile, width, height, margin) {
     keys.append("text")
         .style("text-anchor", function(d) { return d ? "start" : "end";})
         .attr("x", function(d) { return d ? (2*x3.rangeBand()) : 0 })
-        .attr("dx", "-5")
+        .attr("dx", "-3")
         .attr("y", "40")
         .attr("dy", "-.31em")
         .text(function(d) { return (d ? "w/" : "w/o") + " removal" });
