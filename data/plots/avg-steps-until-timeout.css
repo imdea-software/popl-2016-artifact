@@ -95,8 +95,14 @@
   stroke: #ffffff;
 }
 
-.axis path,
-.axis line {
+.y.axis path,
+.y.axis line {
+  fill: none;
+  stroke-width: 0;
+}
+
+.x.axis path,
+.x.axis line {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;

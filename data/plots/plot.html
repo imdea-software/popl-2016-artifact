@@ -15,6 +15,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
     height = 250 - margin.top - margin.bottom;
 
 steps_until_timeout_plot("../experiments/avg-steps-until-timeout.tsv", width, height, margin)
+steps_until_timeout_normalized_plot("../experiments/avg-steps-until-timeout.tsv", width, height, margin)
 violations_covered_plot("../experiments/violations-covered.tsv", width, height, margin)
 
 </script>
