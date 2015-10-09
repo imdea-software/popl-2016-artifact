@@ -9,6 +9,7 @@ class ScalImpl < FFI::AutoPointer
     extend FFI::Library
     def self.scal_lib
       ext = OS.windows? ? 'dll' : OS.mac? ? 'dylib' : 'so'
+      fail "$LIBRARY_PATH is not set." unless ENV['LIBRARY_PATH']
       path = ENV['LIBRARY_PATH'].split(':').find{|p| File.exists?(File.join(p,"libscal.#{ext}"))}
       fail "Cannot find 'libscal.#{ext}' in \$LIBRARY_PATH." unless path
       File.join(path,"libscal.#{ext}")
